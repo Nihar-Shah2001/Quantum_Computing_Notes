@@ -6238,6 +6238,39 @@ Note that
 \|B\|\leq \|I+B^{\dagger}B\|\leq 1+(1+\Delta t\|A\|)^2\leq 5
 \]
 
+
+% Manually add references
+\begin{thebibliography}{9}
+    \bibitem{harrow2009quantum}
+    Aram W. Harrow, Avinatan Hassidim, Seth Lloyd,
+    \textit{Quantum algorithm for linear systems of equations},
+    Physical Review Letters 103, 150502 (2009),
+    \url{https://arxiv.org/abs/0811.3171}
+    \bibitem{qiskitextbook2023}
+    various authors. (2023). Qiskit Textbook. Github. https://github.com/Qiskit/textbook
+    \url{https://github.com/Qiskit/textbook}
+    \bibitem{de2019quantum}De Wolf, R. (2019). Quantum computing: Lecture notes. ArXiv Preprint ArXiv:1907.09415.
+    \url{https://doi.org/10.48550/arXiv.1907.09415}
+    \bibitem{lin2022lecture}Lin, L. (2022). Lecture notes on quantum algorithms for scientific computation. ArXiv Preprint ArXiv:2201.08309.
+    \url{https://doi.org/10.48550/arXiv.2201.08309}
+    \bibitem{shewchuk1994introduction}
+    Shewchuk, J. R.,  others. (1994). An introduction to the conjugate gradient method without the agonizing pain.
+    \url{https://www.cs.cmu.edu/~quake-papers/painless-conjugate-gradient.pdf}
+    \bibitem{dewes2012characterization}
+    Dewes, A., Ong, F. R., Schmitt, V., Lauro, R., Boulant, N., Bertet, P., Vion, D.,  Esteve, D. (2012). Characterization of a two-transmon processor with individual single-shot qubit readout. Physical Review Letters, 108(5), 057002.
+    \url{https://doi.org/10.1103/PhysRevLett.108.057002}
+\bibitem{stamatopoulos2020option}
+    Stamatopoulos, N., Egger, D. J., Sun, Y., Zoufal, C., Iten, R., Shen, N.,  Woerner, S. (2020). Option pricing using quantum computers. Quantum, 4, 291.
+    \url{https://doi.org/10.22331/q-2020-07-06-291}
+    \bibitem{iten2019introduction}
+    Iten, R., Reardon-Smith, O., Malvetti, E., Mondada, L., Pauvert, G., Redmond, E., Kohli, R. S., Colbeck, R. (2019). Introduction to universalqcompiler. ArXiv Preprint ArXiv:1904.01072.
+    \url{https://doi.org/10.48550/arXiv.1904.01072}
+    \bibitem{}
+    \url{https://quantum.ibm.com/}
+    \bibitem{dervovic2018quantumlinearsystemsalgorithms}
+    Dervovic, D., Herbster, M., Mountney, P., Severini, S., Usher, N., Wossnig, L. (2018). Quantum linear systems algorithms: a primer. \url{https://arxiv.org/abs/1802.08227}
+\end{thebibliography}
+
 \chapter{Block Encoding}
 In order to perform matrix computations, we must first address the problem of the input model: how to get access to information in matrix $A\in \mathbb{C}^{N \times N} (N=2^n)$ which is generally a non-unitary matrix, into the quantum computer? One possible input model is given via the unitary $e^{\iota \tau A}$ (if A is not Hermitian, in some scenarios we an consider its Hermitian version via the dilation method).
 
@@ -6292,7 +6325,7 @@ Here the unnormalized state $\ket{\perp}$ can be written as $\ket{1}\ket{\psi}$ 
 (\bra{0}\otimes I_n)\ket{\perp}=0
 \]
 in order to obtain $A\ket{b}$, we need to ensure measure the qubit 0 and only keep the state if it returns 0. This can be summarised into the following quantum circuit as shown in the figure \ref{fig:blockencodingcircuit}.
-\begin{figure}
+\begin{figure}[H]
     \centering
     \includegraphics[width=1\linewidth]{../images/blockencodingcircuit.png}
     \caption{Circuit for Block Encoding A using one Ancilla qubit}
@@ -6359,45 +6392,218 @@ Therefore we may first evaluate the state $U_A\ket{0^m,j}$, and perform inner pr
 \[
 \braket{0^m,i|U_A\ket{0^m,j}}=\braket{0^m,i|U_BU_C\ket{0^m,j}}=(U^{\dagger}_B\ket{0^m,i})^{\dagger}(U_C\ket{0^m,j})
 \]
-So we can evaluate the states $U^{\dagger}_B\ket{0^m,i},U_C\ket{0^mj}$ independently, and then verify the inner product is $A_{ij}$. Such a calculation amounts to running the circuit shown in fig \ref{fig:generalblockencoding}, and if the ancilla qubits are measured to be $0^m$, the system qubits return the normalized state $\sum_iA_{ij}\ket{i}/\|\sum_iA_{ij}\ket{i}\|$.
+So we can evaluate the states $U^{\dagger}_B\ket{0^m,i},U_C\ket{0^mj}$ independently, and then verify the inner product is $A_{ij}$. Such a calculation amounts to running the circuit shown in fig \ref{generalblockencoding}, and if the ancilla qubits are measured to be $0^m$, the system qubits return the normalized state $\sum_iA_{ij}\ket{i}/\|\sum_iA_{ij}\ket{i}\|$.
 \begin{figure}
     \centering
     \includegraphics[width=1\linewidth]{../images/generalblockencoding.png}
-    \caption{General Block Encoding Circuit}
+    \caption{Circuit for general block encoding of A}
     \label{fig:generalblockencoding}
 \end{figure}
+\begin{example}
+    ((1,1)-block-encoding in general). For any n-qubit matrix A with $\|A\|_2\leq 1$, the singular value decomposition (SVD) of A is denoted by $W\Sigma V^{\dagger}$, where all singular values in the diagonal matrix $\Sigma$ belong to $[0,1]$. Then we may construct an (n+1)-qubit unitary matrix
+    \begin{align*}
+    U_A&=\begin{bmatrix} W & 0 \\ 0 & I_n\end{bmatrix} \begin{bmatrix}\Sigma & \sqrt{I_n-\Sigma^2} \\ \sqrt{I_n-\Sigma^2} & -\Sigma \end{bmatrix} \begin{bmatrix} V^{\dagger} & 0 \\ 0 & I_n\end{bmatrix}\\
+    &=\begin{bmatrix} A & W\sqrt{I_n-\Sigma^2} \\ \sqrt{I_n-\Sigma^2}V^{\dagger} & -\Sigma \end{bmatrix}
+    \end{align*}
+    which is a $(1,1)$-block-encoding of $A$.
+\end{example}
 
-% Manually add references
-\begin{thebibliography}{9}
-    \bibitem{harrow2009quantum}
-    Aram W. Harrow, Avinatan Hassidim, Seth Lloyd,
-    \textit{Quantum algorithm for linear systems of equations},
-    Physical Review Letters 103, 150502 (2009),
-    \url{https://arxiv.org/abs/0811.3171}
-    \bibitem{qiskitextbook2023}
-    various authors. (2023). Qiskit Textbook. Github. https://github.com/Qiskit/textbook
-    \url{https://github.com/Qiskit/textbook}
-    \bibitem{de2019quantum}De Wolf, R. (2019). Quantum computing: Lecture notes. ArXiv Preprint ArXiv:1907.09415.
-    \url{https://doi.org/10.48550/arXiv.1907.09415}
-    \bibitem{lin2022lecture}Lin, L. (2022). Lecture notes on quantum algorithms for scientific computation. ArXiv Preprint ArXiv:2201.08309.
-    \url{https://doi.org/10.48550/arXiv.2201.08309}
-    \bibitem{shewchuk1994introduction}
-    Shewchuk, J. R.,  others. (1994). An introduction to the conjugate gradient method without the agonizing pain.
-    \url{https://www.cs.cmu.edu/~quake-papers/painless-conjugate-gradient.pdf}
-    \bibitem{dewes2012characterization}
-    Dewes, A., Ong, F. R., Schmitt, V., Lauro, R., Boulant, N., Bertet, P., Vion, D.,  Esteve, D. (2012). Characterization of a two-transmon processor with individual single-shot qubit readout. Physical Review Letters, 108(5), 057002.
-    \url{https://doi.org/10.1103/PhysRevLett.108.057002}
-\bibitem{stamatopoulos2020option}
-    Stamatopoulos, N., Egger, D. J., Sun, Y., Zoufal, C., Iten, R., Shen, N.,  Woerner, S. (2020). Option pricing using quantum computers. Quantum, 4, 291.
-    \url{https://doi.org/10.22331/q-2020-07-06-291}
-    \bibitem{iten2019introduction}
-    Iten, R., Reardon-Smith, O., Malvetti, E., Mondada, L., Pauvert, G., Redmond, E., Kohli, R. S., Colbeck, R. (2019). Introduction to universalqcompiler. ArXiv Preprint ArXiv:1904.01072.
-    \url{https://doi.org/10.48550/arXiv.1904.01072}
-    \bibitem{}
-    \url{https://quantum.ibm.com/}
-    \bibitem{dervovic2018quantumlinearsystemsalgorithms}
-    Dervovic, D., Herbster, M., Mountney, P., Severini, S., Usher, N., Wossnig, L. (2018). Quantum linear systems algorithms: a primer. \url{https://arxiv.org/abs/1802.08227}
-\end{thebibliography}
+\begin{example}
+    (Random circuit block encoded matrix). In some scenarios, we may want to construct a psuedo-random non-unitary matrix on quantum computers. Note that it would be highly inefficient if we first generate a dense psuedo-random matrix A classically and then feed it into the quantum computer using e.g. quantum-random-access memory (QRAM). Instead we would like to work with matrices that are inherently easy to generate on quantum computers. This inspires the random circuit based block encoding matrix (RACBEM) model. Instead of first identifying $A$ and then finding its block encoding $U_A$, we reverse this thought process: we first identify a unitary $U_A$ that is easy to implement on a quantum computer, and then ask which matrix can be block encoded by $U_A$.
+\end{example}
+This example shows that in principle, any matrix $A$ with $\|A\|_2\leq 1$ can be accessed via a $(1,1,0)-block-encoding.$ In other words, $A$ can be block encoded by an $(n+1)$-qubit random unitary $U_A$, and $U_A$ can be constructed using only one-qubit unitaries and CNOT gates. The layout of the two-qubit operations can be designed to be compatible with the coupling map of the hardware.
+
+\begin{example}
+    (Block encoding of a diagonal matrix). As a special case, let us consider the block encoding of a diagonal matrix. Since the row and column indices are the same, we may simplify the oracle into
+    \[
+    O_A\ket{0}\ket{i}=\left(A_{ii}\ket{0}+\sqrt{1-|A_{ii}|^2} \ket{1}\right)\ket{i}
+    \]
+    In the case when the oracle $\tilde{O}_A$ is used, we may assume accordingly
+    \[
+    \tilde{O}_A\ket{0^{d'}}\ket{i}=\ket{\tilde{A}_{ii}}\ket{i}
+    \]
+    Let $U_A=O_A$. Direct calculation shows that for any $i,j\in[N]$,
+    \[
+    \bra{0}\braket{i|U_A|0}\ket{j}=A_{ii}\delta_{ij}
+    \]
+    This proves that $U_A\in BE_{1,1}(A)$i.e., $U_A$ is a $(1,1)$-block-encoding of the diagonal matrix $A$.
+\end{example}
+
+\section{Block Encoding of s-sparse matrix}
+We now give a few examples of block encodings of more general sparse matrices. We start from a 1-sparse matrix, i.e., there is only one nonzero entry in each row or column of the matrix. This means that for each $j\in[N]$, there is a unique $c(j)\in[N]$ such that $A_{c(j),j}\neq 0$, and the mapping c is a permutation. Then there exists a unitary $O_c$ such that
+\[
+O_c\ket{j}=\ket{c(j)}
+\]
+The implementation of $O_c$ may require the usage of some work registers that are omitted here. We also have
+\[
+O^{\dagger}_c\ket{c(j)}=\ket{j}
+\]
+We assume the matrix entry $A_{c(j),j}$ can be queried via
+\[
+O_A\ket{0}\ket{j}=\left(A_{c(j),j}\ket{0}+\sqrt{1-|A_{c(j),j}|^2}\ket{1}\right)\ket{j}
+\]
+Now we construct $U_A=(I\otimes O_c)O_A$, (tensor product of two unitary matrices is unitary) and compute
+\[
+\bra{i}\bra{0}U_A\ket{0}\ket{j}=\bra{0}\bra{i}\left(A_{c(j),j}\ket{0}+\sqrt{1-|A_{c(j),j}|^2}\ket{1}\right)\ket{c(j)}=A_{c(j),j}\delta_{i,c(j)}
+\]
+This proves that $U_A\in BE_{1,1}(A)$.
+
+For a more general s-sparse matrix, WLOG we assume each row and column ha exactly s nonzero entries (otherwise we can always treat some zero entries as nonzeros). For each column j, the row index for the lth nonzero entry is denoted by $c(j,l)=c_{j,l}$. For simplicity, we assume hat there exists a unitary $O_c$ such that
+\[
+O_c\ket{l}\ket{j}=\ket{l}\ket{c(j,l)}
+\]
+Here we assume $s=2^{p}$ and the first register is an $p$-qubit register. A necessary condition for this model is that $O_C$ is reversible, i.e., we can have $O_c^{\dagger}\ket{l}\ket{c(j,l)}=\ket{l}\ket{j}$. This means that for each row index $i=c(j,l)$, we can recover the column index $j$ given the value of $l$. This can be satisfied e.g.
+\[
+c(j,l)=j+l-l_0 \quad (mod N)
+\]
+where $l_0$ is a fixed number. This corresponds to a banded matrix. This assumption is ofcourse somewhat restrictive. We shall discuss more general query models.
+
+Corresponding to the equation, the matrix entries can be queried via
+\[
+O_A\ket{0}\ket{l}\ket{j}=\left(A_{c(j,l),j}\ket{0}+\sqrt{1-|A_{c(j,l),j}|^2}\ket{1}\right) \ket{l}\ket{j}
+\]
+
+In order to construct a unitary that encodes all row indices at the same time ,we define $D=H^{\otimes p}$ (sometimes called a diffusion operator, which is a term originated from Grover's search) satisfying
+\[
+D\ket{0^p}=\frac{1}{\sqrt{p}}\sum_{l\in[p]}\ket{l}
+\]
+Consider $U_A$ given by the circuit in figure \ref{fig:sparseblockencoding}. The measurement means that to obtain $A\ket{b}$, the ancilla register should return the value 0.
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\linewidth]{../images/sparseblockencoding.png}
+    \caption{Quantum circuit for block encoding an s-sparse matrix}
+    \label{fig:sparseblockencoding}
+\end{figure}
+\begin{proposition}
+    The circuit given in figure \ref{fig:sparseblockencoding} defines $U_A \in BE_{s,s+1}(A)$.
+\end{proposition}
+\begin{proof}
+    We call $\ket{0}\ket{0^p}\ket{j}$ the source state, and $\ket{0}\ket{0^p}\ket{i}$ the target state. In order to compute the inner product $\bra{0}\bra{0^s}\bra{i}U_A\ket{0}\ket{0^p}\ket{i}$, we apply $D,O_A,O_C$ to the source state accordingly as
+    \begin{align*}
+    \ket{0}\ket{0^p}\ket{j}&\xrightarrow{D}\frac{1}{\sqrt{s}}\sum_{l\in[s]}\ket{0}\ket{l}\ket{j}\\
+    &\xrightarrow{O_A}\frac{1}{\sqrt{s}}\sum_{l\in[s]}\left(A_{c(j,l),j}\ket{0}+\sqrt{1-|A_{c(j,l),j}|^2}\ket{1}\right)\ket{l}\ket{j}\\
+    &\xrightarrow{O_C}\frac{1}{\sqrt{s}\sum_{l\in[s]}}\left(A_{c(j,l),j}\ket{0}+\sqrt{1-|A_{c(j,l),j}|^2}\ket{1}\right)\ket{l}\ket{c(j,l)}
+    \end{align*}
+    Since we are only interested in the final state when all ancilla qubits are the 0 state, we may apply $D$ to the target state $\ket{0}\ket{0^p}\ket{i}$ as (note that D is Hermitian)
+    \[
+    \ket{0}\ket{0^p}\ket{i}\xrightarrow{D}\frac{1}{\sqrt{s}}\sum_{l'\in[s]}\ket{0}\ket{l'}\ket{i}
+    \]
+    Hence the inner product
+    \[
+    \bra{0}\bra{0^p}\bra{i}U_A\ket{0}\ket{0^p}\ket{j}=\frac{1}{s}\sum_l A_{c(j,l),j}\delta_{i,c(j,l)}=\frac{1}{s}A_{ij}
+    \]
+\end{proof}
+
+\section{Hermitian Block Encoding}
+So far we have considered general s-sparse matrices. Note that if A is Hermitian matrix, its $(\alpha,m,\epsilon)$-block-encoding $U_A$ does not need to be Hermitian. Even if $\epsilon=0$, we only have that the upper-left n-qubit block of $U_A$ is Hermitian. For instance, even the block encoding of a Hermitian diagonal matrix may not be Hermitian. On the other hand,there are cases when $U^{\dagger}_A=U_A$ is indeed a Hermitian matrix, and hence the definition:
+\begin{definition}
+    (Hermitian Block Encoding). Let $U_A$ be an $(\alpha,m,\epsilon)$-block-encoding of A. If $U_A$ is also Hermitian, then it is called an $(\alpha,m,\epsilon)$-Hermitian-block-encoding of A. When $\epsilon=0$, it is called an $(\alpha,m)$-Hermitian-block-encoding. The set of all $(\alpha,m,\epsilon)$-Hermitian-block-encoding of A is denoted by $HBE_{\alpha,m}(A,\epsilon)$, and we define $HBE_{\alpha,m}(A)=HBE(A,0)$.
+\end{definition}
+The Hermitian block encoding provides the simplest scenario of the qubitization process.
+
+\section{Query models for general sparse matrices}
+If we query the oracle, the assumption that for each $l$ the value of $c(j,l)$ is unique for all $j$ seems unnatural for constructing general sparse matrices. So we consider an alternative method for construct the block encoding of a general sparse matrix as below.
+
+Again without loss of generality we assume that each row/column has at most $p=2^s$ non zero entires, and that we have access to the following two (2n)-qubit oracles.
+\[
+O_r\ket{l}\ket{i}=\ket{r(i,l)}\ket{i}
+\]
+\[
+O_c\ket{l}\ket{j}=\ket{c(j,l)}\ket{j}
+\]
+Here $r(i,l)$,$c(j,l)$ gives the l-th nonzero entry in the i-th row and j-th column, respectively. It should be noted that although the index $l\in[p]$, we should expand it into an n-qubit state (e.g. let $l$ take the last $s$ qubits of the n-qubit register following the binary representation of integers). The reason for such an expansion, and that we need two oracles$O_c,O_r$ will be seen shortly.
+
+Similar to the discussion before, we need a diffusion operator satisfying
+\[
+D\ket{0^n}=\frac{1}{\sqrt{s}}\sum_{l\in[p]}\ket{l}
+\]
+This can be implemented using Hadamard gates as
+\[
+D=I_{n-s}\otimes H^{\otimes s}
+\]
+We assume that the matrix entries are queried using the following oracle using controlled rotations
+\[
+O_A\ket{i}\ket{j}=\left(A_{ij}\ket{0}+\sqrt{1-|A_{ij}|^2}\ket{1}\right)\ket{i}\ket{j}
+\]
+where the rotation is controlled by both row and column indices. However, if $A_{ij}=0$ for some $i,j$, the rotation can be arbitrary, as there will be no contribution due to the usage of $O_r,O_c$.
+\begin{proposition}
+    The circuit shown in figure \ref{fig:generalsparseencoding} defines $U_A\in BE_{s,n+1}(A)$.
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.7\linewidth]{../images/generalsparseencoding.png}
+        \caption{Quantum circuit for block encoding of general sparse matrices}
+        \label{fig:generalsparseencoding}
+    \end{figure}
+\end{proposition}
+\begin{proof}
+    We apply the first four gate sets to the source state
+    \begin{align*}
+    \ket{0}\ket{0^n}\ket{j}&\xrightarrow{D}\xrightarrow{O_c}\xrightarrow{O_A}\frac{1}{\sqrt{p}}\sum_{l\in[p]}\left(A_{c(j,l),j}\ket{0}+\sqrt{1-|A_{c(j,l),j}|^2}\ket{1}\right)\ket{c(j,l)}\ket{j}\\
+    &\xrightarrow{SWAP}\frac{1}{\sqrt{p}}\sum_{l\in[p]}\left(A_{c(j,l),j}\ket{0}+\sqrt{1-|A_{c(j,l),j}|^2}\ket{1}\right)\ket{j}\ket{c(j,l)}
+    \end{align*}
+    we then apply $D$ and $O_r$ to the target state
+    \[
+    \ket{0}\ket{0^n}\ket{i}\xrightarrow{D}\xrightarrow{O_r}\frac{1}{\sqrt{p}}\sum_{l'\in[p]}\ket{0}\ket{r(i,l')}\ket{i}
+    \]
+    Then the inner product gives
+    \begin{align*}
+    \bra{0}\bra{0^n}\braket{i|U_A|0}\ket{0^n}\ket{j}&=\frac{1}{p}\sum_{l,l'}A_{c(j,l),j}\delta_{i,c(j,l)}\delta_r(j,l'),j\\
+    &=\frac{1}{p}\sum_lA_{c(j,l),j}\delta_{i,c(j,l)}=\frac{1}{s}A_{ij}
+    \end{align*}
+    Here we have used that there exists a unique $l$ such that $i=c(j,l)$, and a unique $l'$ such that $j=r(i,l')$.
+\end{proof}
+
+We remark that the quantum circuit in figure \ref{fig:generalsparseencoding} is essentially the construct, which gives a $(s,n+3)$-block-encoding. The construct above slightly simplifies the procedure and saves two extra qubits (used to marke whether $l\geq s$).
+
+Next we consider the Hermitian block encoding of a s-sparse Hermitian matrix. Since $A$ is Hermitian, we only need one oracle to query the location of th nonzero entries.
+\[
+O_c\ket{l}\ket{j}=\ket{c(j,l)}\ket{j}
+\]
+Here $c(j,l)$ gives the $l$-th nonzero entry in the $j$-th column. It can also be interpreted as the $l$-th nonzero entry in the ith column. Again the first register needs to be interpreted as an n-qubit register. The diffusion operator is the same as in the equation.
+
+Unlike all discussions before, we introduce two signal qubits and a quantum state in the computational basis take the form $\ket{a}\ket{i}\ket{b}\ket{j}$, where $a,b\in\{0,1\,i,j\in[N]$. In other words, we may view $\ket{a}\ket{i}$ as the first register, and $\ket{b}\ket{j}$ as the second register. The $(n+1)$-qubit SWAP gate is defined as
+\[
+SWAP\ket{a}\ket{i}\ket{b}\ket{j}=\ket{b}\ket{j}\ket{a}\ket{i}
+\]
+To query matrix entries, we need access to the square root of $A_{ij}$ as (note that act on the second single-qubit register)
+\[
+O_A\ket{i}\ket{0}\ket{j}=\ket{i}\left(A_{ij}\ket{0}+\sqrt{1-|A_{ij}|}\ket{1}\right)\ket{j}
+\]
+The square root operation is well defined if $A_{ij}\geq0$ for all entries. If $A$ has negative (or complex) entries, we first write $A_{ij}=|A_{ij}e^{\iota \theta_{ij}},\theta_{ij}\in[0,2\pi)$, and the square root is uniquely defined as $\sqrt{A_{ij}}=\sqrt{|A_{ij}|}e^{\iota\theta_{ij}/2}$.
+
+\begin{proposition}
+    Figure \ref{fig:hermitianblockencoding} defines $U_A\in HBE_{s,n+2}(A)$.
+\end{proposition}
+\begin{proof}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.75\linewidth]{../images/hermitianblockencoding.png}
+        \caption{Quantum circuit for Hermitian Block encoding of a general Hermitian matrix}
+        \label{fig:hermitianblockencoding}
+    \end{figure}
+    Apply the first four gate sets to the source state gives
+    \begin{align*}
+    \ket{0}\ket{0^n}\ket{0}\ket{j}&\xrightarrow{D}\xrightarrow{O_c}\xrightarrow{O_A}\frac{1}{\sqrt{s}}\sum_{l\in[s]}\ket{0}\ket{c(j,l)}\left(\sqrt{A_{c(j,l),j}}\ket{0}sqrt{1-|A_{c(j,l),j}}\ket{1}\right)\ket{j}\\
+    &\xrightarrow{SWAP}\frac{1}{\sqrt{s}}\sum_{l\in[s]}\left(\sqrt{A_{c(i,l'),i}}\ket{0}+\sqrt{1-|A_{c(i,l'),i}|}\ket{1}\right)\ket{i}
+    \end{align*}
+    Apply the last three gate sets to the target state
+    \[
+    \ket{0}\ket{0^n}\ket{0}\ket{i}\xrightarrow{D}\xrightarrow{O_c}\xrightarrow{O_A}\frac{1}{\sqrt{s}}\sum_{l\in[s]}\ket{0}\ket{c(i,l')}\left(\sqrt{A_{c(i,l'),i}}\ket{0}+\sqrt{1-|A_{c(i,l
+    '}|}\ket{1}\right)\ket{i}
+    \]
+    Finally, take the inner product as
+    \begin{align*}
+    \bra{0}\bra{0^n}\bra{0}\bra{i}U_A\ket{0}\ket{0^n}\ket{0}\ket{j}& \\
+    &=\frac{1}{s}\sum_{l,l'}\sqrt{A_{c(j,l'),j}}\sqrt{A^*_{c(i,l'),i}}\delta_{i,c(j,l)}\delta_{c(i,l'),j}\\
+    &=\frac{1}{s}\sqrt{A_{ij}A^*_{ji}}\sum_{l,l'}\delta_{i,c(j,l)}\delta_{c(i,l'),j}=\frac{1}{s}A_{ij}
+    \end{align*}
+    In this equality, we have used that $A$ is Hermitian: $A_{ij}=A^*_{ji}$, and there exists a unique $l$ such that $i=c(j,l)$, as well as a unique $l'$ such that $j=c(i,l')$.
+
+    The quantum circuit in figure \ref{fig:hermitianblockencoding} is essentially construction in. The relation will quantum walks will be discussed further.
+    
+\end{proof}
+
+
 
 
 

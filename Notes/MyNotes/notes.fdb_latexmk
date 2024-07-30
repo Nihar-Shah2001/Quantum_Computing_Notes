@@ -1,13 +1,13 @@
 # Fdb version 4
-["bibtex notes"] 1721800749 "notes.aux" "notes.bbl" "notes" 1721800775 0
+["bibtex notes"] 1722315168 "notes.aux" "notes.bbl" "notes" 1722315182 0
   "./Bibliography.bib" 1720350693 3191 f6a66fd29bc0671e20a54a18769efa20 ""
   "C:/Users/nihar/AppData/Local/Programs/MiKTeX/bibtex/bst/bibtex/plain.bst" 1291864736 20613 bd3fbfa9f64872b81ac57a0dd2ed855f ""
-  "notes.aux" 1721800772 60227 2907cdf9ba9c70672ca2f9d26125c06b "pdflatex"
+  "notes.aux" 1722315180 61853 4424258a766f6d1cb65597ae2bd19cee "pdflatex"
   (generated)
   "notes.bbl"
   "notes.blg"
   (rewritten before read)
-["pdflatex"] 1721800750 "c:/Users/nihar/OneDrive - Indian Institute of Science/Indian Institute of Science/MTechThesis/Notes/MyNotes/notes.tex" "notes.pdf" "notes" 1721800775 0
+["pdflatex"] 1722315169 "c:/Users/nihar/OneDrive - Indian Institute of Science/Indian Institute of Science/MTech_Thesis/Notes/MyNotes/notes.tex" "notes.pdf" "notes" 1722315182 0
   "../images/CZ-gate.png" 1720350727 3004 0297fc2b169425777055244f448371eb ""
   "../images/Controlledrotation.png" 1720350721 24750 38f6c4e240e47e6744b0ae89010cc824 ""
   "../images/Cr.png" 1720350721 77678 4ac6510bdd77da73a794f6f9d70b80f1 ""
@@ -40,7 +40,8 @@
   "../images/elitzur-vaidman.png" 1720350728 6030 6efcf017b9f0ece6eab7477ecd382812 ""
   "../images/elitzur-vaidmanfinal.png" 1720350728 8660 c8fb3133705ba9c449f6f472c8f192d0 ""
   "../images/f(x).png" 1720350729 6763 219315590439a64ea80ac4f48abe7ef9 ""
-  "../images/generalblockencoding.png" 1721800647 7846 39af55b220b88c87cf7779d91f180048 ""
+  "../images/generalblockencoding.png" 1722314860 7846 39af55b220b88c87cf7779d91f180048 ""
+  "../images/generalsparseencoding.png" 1722314847 21924 6f0764e7450c8fbd923b192297361d49 ""
   "../images/grover.png" 1720350729 36046 25b80e1a2b02bab31481827d8c4cfb53 ""
   "../images/grover_circuit.png" 1720800212 14462 d021fdba22ead4b7bcd423f7d8688010 ""
   "../images/grover_op.png" 1720599215 16521 e58370a2c124b489252553bac4dbaafe ""
@@ -52,6 +53,7 @@
   "../images/hadamard.png" 1720350729 1340 caf372808e454305ff2071820b9a8395 ""
   "../images/hadamardtest.png" 1720350729 7843 8aab3a8d3ae26d5d05c337093daf08e9 ""
   "../images/hadamardtest1.png" 1720350729 9207 d53b9242f7766b63df970803c2d93630 ""
+  "../images/hermitianblockencoding.png" 1722315158 33222 5b2be78494d7024569898280d3334cc8 ""
   "../images/hhl_circuit.png" 1720350722 42683 4fa31f64876950dcff4ff6cabc02f1bb ""
   "../images/not_imp.png" 1720350729 8451 74f49386132a17d2208f9a11031a9c0b ""
   "../images/oracle.png" 1720350729 45778 e2308b1f3df252f48982c5674e7dd89d ""
@@ -80,6 +82,7 @@
   "../images/rz-gate.png" 1720350733 2134 469c2b16690af15b3c4d94cbad05a13a ""
   "../images/s-gate.png" 1720350733 1649 3e0a0ae4af34f48a494993443b9020db ""
   "../images/sdag-gate.png" 1720350733 1724 1165efbe5342f940bb0bc4ea432c40f6 ""
+  "../images/sparseblockencoding.png" 1722314941 15747 6c3def7f99733fbe88ae8edda3e5a979 ""
   "../images/superdense-coding1.png" 1720350733 4036 e27ad2fda02c55e23f31656bcd6935c1 ""
   "../images/superdense-coding2.png" 1720350733 29377 d3e8ef81412a6330431679953ecc8fad ""
   "../images/superdense-coding3.png" 1720350734 4005 728dc3126b2655705da8673cf1ab314d ""
@@ -416,14 +419,14 @@
   "C:/Users/nihar/AppData/Local/Programs/MiKTeX/tex/latex/url/url.sty" 1388490452 12796 8edb7d69a20b857904dd0ea757c14ec9 ""
   "C:/Users/nihar/AppData/Local/Programs/MiKTeX/tex/latex/wrapfig/wrapfig.sty" 1044403200 26220 3701aebf80ccdef248c0c20dd062fea9 ""
   "C:/Users/nihar/AppData/Local/Programs/MiKTeX/tex/latex/xcolor/xcolor.sty" 1656236890 56148 51a9a8571c07b9921892ae11063ae853 ""
-  "c:/Users/nihar/OneDrive - Indian Institute of Science/Indian Institute of Science/MTechThesis/Notes/MyNotes/notes.tex" 1721800704 534263 445256695a07ef9c92c5a0a1582d2345 ""
-  "notes.aux" 1721800772 60227 2907cdf9ba9c70672ca2f9d26125c06b "pdflatex"
-  "notes.bbl" 1721800750 1048 26748de7a0d9f8f938257902c1136bb5 "bibtex notes"
-  "notes.lof" 1721800772 9137 c772115aacd381118b6c59b556dc11e8 "pdflatex"
-  "notes.lot" 1721800772 3100 623314d5c29d262a2a48ded37c8d0ec1 "pdflatex"
-  "notes.out" 1721800772 21851 a1e96ecc6cd23eeffb8049bf47ad1a0e "pdflatex"
-  "notes.tex" 1721800704 534263 445256695a07ef9c92c5a0a1582d2345 ""
-  "notes.toc" 1721800772 15094 9cd144951b7d5b8d539ade91c219af0e "pdflatex"
+  "c:/Users/nihar/OneDrive - Indian Institute of Science/Indian Institute of Science/MTech_Thesis/Notes/MyNotes/notes.tex" 1722315162 548549 ebf637aad0a2e0907fccf9af9549ea36 ""
+  "notes.aux" 1722315180 61853 4424258a766f6d1cb65597ae2bd19cee "pdflatex"
+  "notes.bbl" 1722315169 1048 26748de7a0d9f8f938257902c1136bb5 "bibtex notes"
+  "notes.lof" 1722315180 9586 a980fa3d2d1f05c3878acd9e2efab23e "pdflatex"
+  "notes.lot" 1722315180 3100 623314d5c29d262a2a48ded37c8d0ec1 "pdflatex"
+  "notes.out" 1722315180 22537 3292332212032c6768046dc621c5da7a "pdflatex"
+  "notes.tex" 1722315162 548549 ebf637aad0a2e0907fccf9af9549ea36 ""
+  "notes.toc" 1722315180 15377 38c2374ed42ce85ee4f04c253cfe7ac2 "pdflatex"
   (generated)
   "notes.aux"
   "notes.lof"

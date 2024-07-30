@@ -105,75 +105,78 @@
 \contentsline {subsection}{\numberline {7.7.2}Solve Linear Differential Equations}{185}{subsection.7.7.2}%
 \contentsline {subsubsection}{Scalar case}{187}{subsection.7.7.2}%
 \contentsline {subsubsection}{Vector Case}{189}{theorem.7.7.3}%
-\contentsline {chapter}{\numberline {8}Block Encoding}{191}{chapter.8}%
-\contentsline {section}{\numberline {8.1}Query model for matrix entries}{191}{section.8.1}%
-\contentsline {section}{\numberline {8.2}Block Encoding}{193}{section.8.2}%
-\contentsline {chapter}{Bibliography}{197}{chapter*.108}%
-\contentsline {chapter}{\numberline {9}Advanced Quantum Computing}{199}{chapter.9}%
-\contentsline {section}{\numberline {9.1}Linear Growth and Duhamel's Principle}{199}{section.9.1}%
-\contentsline {section}{\numberline {9.2}Universal gate sets and Reversible Computation}{201}{section.9.2}%
-\contentsline {section}{\numberline {9.3}Fixed Point Number Representation and Classical Arithmetic operations}{204}{section.9.3}%
-\contentsline {section}{\numberline {9.4}Fault tolerant Computation}{205}{section.9.4}%
-\contentsline {section}{\numberline {9.5}Complexity of Quantum Algorithms}{205}{section.9.5}%
-\contentsline {chapter}{\numberline {A}Linear Algebra and Calculus Prerequisites}{208}{appendix.A}%
-\contentsline {section}{\numberline {A.1}Linear Algebra}{209}{section.A.1}%
-\contentsline {subsection}{\numberline {A.1.1}Basics of Linear Algebra}{209}{subsection.A.1.1}%
-\contentsline {subsection}{\numberline {A.1.2}Inner Product}{215}{subsection.A.1.2}%
-\contentsline {subsection}{\numberline {A.1.3}Gram-Schmidt Orthogonalization}{218}{subsection.A.1.3}%
-\contentsline {subsection}{\numberline {A.1.4}Cauchy-Schwarz and Traingle Inequalities}{219}{subsection.A.1.4}%
-\contentsline {subsection}{\numberline {A.1.5}Linear Operators and Matrix Representation}{221}{subsection.A.1.5}%
-\contentsline {subsubsection}{Matrix Representation for Product of Operators}{225}{Item.116}%
-\contentsline {subsubsection}{Outer Product Representation of Operators}{226}{Item.116}%
-\contentsline {subsubsection}{Properties of Adjoint of an Operator}{226}{Item.116}%
-\contentsline {subsection}{\numberline {A.1.6}Hermitian and Unitary Operators}{227}{subsection.A.1.6}%
-\contentsline {subsubsection}{Hermitian Operators}{227}{subsection.A.1.6}%
-\contentsline {subsubsection}{Unitary Operators}{228}{definition.A.1.19}%
-\contentsline {subsubsection}{Unitarily Diagonziable}{229}{definition.A.1.20}%
-\contentsline {subsubsection}{Normal Operators}{230}{definition.A.1.21}%
-\contentsline {subsubsection}{Positive Operators}{231}{theorem.A.1.6}%
-\contentsline {subsection}{\numberline {A.1.7}Eigen Value Problems}{232}{subsection.A.1.7}%
-\contentsline {subsubsection}{Spectral Decomposition}{240}{theorem.A.1.7}%
-\contentsline {subsubsection}{Commutator and Anti-Commutator}{240}{theorem.A.1.8}%
-\contentsline {subsubsection}{Simultaneous Diagonalization of two Hermitian Operators}{241}{definition.A.1.26}%
-\contentsline {subsubsection}{Operator Functions}{241}{definition.A.1.27}%
-\contentsline {subsubsection}{Trace of a Matrix}{242}{example.A.1.19}%
-\contentsline {subsection}{\numberline {A.1.8}Norms}{243}{subsection.A.1.8}%
-\contentsline {subsection}{\numberline {A.1.9}Induce Matrix Norm}{244}{subsection.A.1.9}%
-\contentsline {subsection}{\numberline {A.1.10}Conditioning and Condition Number}{245}{subsection.A.1.10}%
-\contentsline {subsection}{\numberline {A.1.11}Conclusions}{246}{subsection.A.1.11}%
-\contentsline {section}{\numberline {A.2}Tensor Products}{247}{section.A.2}%
-\contentsline {subsubsection}{Factorizing Tensor Products}{251}{example.A.2.6}%
-\contentsline {section}{\numberline {A.3}Complex Numbers}{252}{section.A.3}%
-\contentsline {subsection}{\numberline {A.3.1}Complex Plane}{252}{subsection.A.3.1}%
-\contentsline {subsection}{\numberline {A.3.2}Addition of Complex Numbers}{252}{subsection.A.3.2}%
-\contentsline {subsection}{\numberline {A.3.3}Multiplication of Complex Numbers}{253}{subsection.A.3.3}%
-\contentsline {subsection}{\numberline {A.3.4}Complex Conjugate}{253}{subsection.A.3.4}%
-\contentsline {subsection}{\numberline {A.3.5}Modulus of a Complex Number}{254}{subsection.A.3.5}%
-\contentsline {subsection}{\numberline {A.3.6}Polar form}{255}{subsection.A.3.6}%
-\contentsline {subsection}{\numberline {A.3.7}Euler's Formula}{255}{subsection.A.3.7}%
-\contentsline {subsection}{\numberline {A.3.8}Roots of Unity}{256}{subsection.A.3.8}%
-\contentsline {subsection}{\numberline {A.3.9}Discrete Fourier Transform Matrix}{256}{subsection.A.3.9}%
-\contentsline {subsection}{\numberline {A.3.10}Classical Fast Fourier Transform}{265}{subsection.A.3.10}%
-\contentsline {section}{\numberline {A.4}Probability Theory}{268}{section.A.4}%
-\contentsline {section}{\numberline {A.5}Calculus}{268}{section.A.5}%
-\contentsline {chapter}{\numberline {B}Classical Computations}{269}{appendix.B}%
-\contentsline {section}{\numberline {B.1}Logic Gates}{270}{section.B.1}%
-\contentsline {subsection}{\numberline {B.1.1}NOT Gate}{270}{subsection.B.1.1}%
-\contentsline {subsection}{\numberline {B.1.2}AND Gate}{270}{subsection.B.1.2}%
-\contentsline {subsection}{\numberline {B.1.3}OR Gate}{271}{subsection.B.1.3}%
-\contentsline {subsection}{\numberline {B.1.4}NAND Gate}{271}{subsection.B.1.4}%
-\contentsline {subsection}{\numberline {B.1.5}NOR Gate}{272}{subsection.B.1.5}%
-\contentsline {subsection}{\numberline {B.1.6}XOR Gate}{272}{subsection.B.1.6}%
-\contentsline {subsection}{\numberline {B.1.7}FANOUT Gate}{273}{subsection.B.1.7}%
-\contentsline {subsection}{\numberline {B.1.8}CROSSOVER Gate}{273}{subsection.B.1.8}%
-\contentsline {section}{\numberline {B.2}Classical Circuits}{274}{section.B.2}%
-\contentsline {chapter}{\numberline {C}Qiskit}{278}{appendix.C}%
-\contentsline {section}{\numberline {C.1}Introduction to Qiskit}{278}{section.C.1}%
-\contentsline {subsection}{\numberline {C.1.1}The Qiskit SDK}{278}{subsection.C.1.1}%
-\contentsline {subsection}{\numberline {C.1.2}Qiskit Runtime}{279}{subsection.C.1.2}%
-\contentsline {subsubsection}{Is Qiskit Runtime open-source?}{280}{subsection.C.1.2}%
-\contentsline {subsection}{\numberline {C.1.3}Qiskit Serverless}{280}{subsection.C.1.3}%
-\contentsline {subsection}{\numberline {C.1.4}Qiskti Transpiler as a Service}{281}{subsection.C.1.4}%
-\contentsline {subsection}{\numberline {C.1.5}The Qiskit ecosystem}{281}{subsection.C.1.5}%
-\contentsline {section}{\numberline {C.2}Install Qiskit}{283}{section.C.2}%
-\contentsline {chapter}{Bibliography}{284}{appendix*.121}%
+\contentsline {chapter}{Bibliography}{191}{chapter*.106}%
+\contentsline {chapter}{\numberline {8}Block Encoding}{193}{chapter.8}%
+\contentsline {section}{\numberline {8.1}Query model for matrix entries}{193}{section.8.1}%
+\contentsline {section}{\numberline {8.2}Block Encoding}{195}{section.8.2}%
+\contentsline {section}{\numberline {8.3}Block Encoding of s-sparse matrix}{200}{section.8.3}%
+\contentsline {section}{\numberline {8.4}Hermitian Block Encoding}{202}{section.8.4}%
+\contentsline {section}{\numberline {8.5}Query models for general sparse matrices}{202}{section.8.5}%
+\contentsline {chapter}{\numberline {9}Advanced Quantum Computing}{206}{chapter.9}%
+\contentsline {section}{\numberline {9.1}Linear Growth and Duhamel's Principle}{206}{section.9.1}%
+\contentsline {section}{\numberline {9.2}Universal gate sets and Reversible Computation}{208}{section.9.2}%
+\contentsline {section}{\numberline {9.3}Fixed Point Number Representation and Classical Arithmetic operations}{211}{section.9.3}%
+\contentsline {section}{\numberline {9.4}Fault tolerant Computation}{212}{section.9.4}%
+\contentsline {section}{\numberline {9.5}Complexity of Quantum Algorithms}{212}{section.9.5}%
+\contentsline {chapter}{\numberline {A}Linear Algebra and Calculus Prerequisites}{215}{appendix.A}%
+\contentsline {section}{\numberline {A.1}Linear Algebra}{216}{section.A.1}%
+\contentsline {subsection}{\numberline {A.1.1}Basics of Linear Algebra}{216}{subsection.A.1.1}%
+\contentsline {subsection}{\numberline {A.1.2}Inner Product}{222}{subsection.A.1.2}%
+\contentsline {subsection}{\numberline {A.1.3}Gram-Schmidt Orthogonalization}{225}{subsection.A.1.3}%
+\contentsline {subsection}{\numberline {A.1.4}Cauchy-Schwarz and Traingle Inequalities}{226}{subsection.A.1.4}%
+\contentsline {subsection}{\numberline {A.1.5}Linear Operators and Matrix Representation}{228}{subsection.A.1.5}%
+\contentsline {subsubsection}{Matrix Representation for Product of Operators}{232}{Item.116}%
+\contentsline {subsubsection}{Outer Product Representation of Operators}{233}{Item.116}%
+\contentsline {subsubsection}{Properties of Adjoint of an Operator}{233}{Item.116}%
+\contentsline {subsection}{\numberline {A.1.6}Hermitian and Unitary Operators}{234}{subsection.A.1.6}%
+\contentsline {subsubsection}{Hermitian Operators}{234}{subsection.A.1.6}%
+\contentsline {subsubsection}{Unitary Operators}{235}{definition.A.1.19}%
+\contentsline {subsubsection}{Unitarily Diagonziable}{236}{definition.A.1.20}%
+\contentsline {subsubsection}{Normal Operators}{237}{definition.A.1.21}%
+\contentsline {subsubsection}{Positive Operators}{238}{theorem.A.1.6}%
+\contentsline {subsection}{\numberline {A.1.7}Eigen Value Problems}{239}{subsection.A.1.7}%
+\contentsline {subsubsection}{Spectral Decomposition}{247}{theorem.A.1.7}%
+\contentsline {subsubsection}{Commutator and Anti-Commutator}{247}{theorem.A.1.8}%
+\contentsline {subsubsection}{Simultaneous Diagonalization of two Hermitian Operators}{248}{definition.A.1.26}%
+\contentsline {subsubsection}{Operator Functions}{248}{definition.A.1.27}%
+\contentsline {subsubsection}{Trace of a Matrix}{249}{example.A.1.19}%
+\contentsline {subsection}{\numberline {A.1.8}Norms}{250}{subsection.A.1.8}%
+\contentsline {subsection}{\numberline {A.1.9}Induce Matrix Norm}{251}{subsection.A.1.9}%
+\contentsline {subsection}{\numberline {A.1.10}Conditioning and Condition Number}{252}{subsection.A.1.10}%
+\contentsline {subsection}{\numberline {A.1.11}Conclusions}{253}{subsection.A.1.11}%
+\contentsline {section}{\numberline {A.2}Tensor Products}{254}{section.A.2}%
+\contentsline {subsubsection}{Factorizing Tensor Products}{258}{example.A.2.6}%
+\contentsline {section}{\numberline {A.3}Complex Numbers}{259}{section.A.3}%
+\contentsline {subsection}{\numberline {A.3.1}Complex Plane}{259}{subsection.A.3.1}%
+\contentsline {subsection}{\numberline {A.3.2}Addition of Complex Numbers}{259}{subsection.A.3.2}%
+\contentsline {subsection}{\numberline {A.3.3}Multiplication of Complex Numbers}{260}{subsection.A.3.3}%
+\contentsline {subsection}{\numberline {A.3.4}Complex Conjugate}{260}{subsection.A.3.4}%
+\contentsline {subsection}{\numberline {A.3.5}Modulus of a Complex Number}{261}{subsection.A.3.5}%
+\contentsline {subsection}{\numberline {A.3.6}Polar form}{262}{subsection.A.3.6}%
+\contentsline {subsection}{\numberline {A.3.7}Euler's Formula}{262}{subsection.A.3.7}%
+\contentsline {subsection}{\numberline {A.3.8}Roots of Unity}{263}{subsection.A.3.8}%
+\contentsline {subsection}{\numberline {A.3.9}Discrete Fourier Transform Matrix}{263}{subsection.A.3.9}%
+\contentsline {subsection}{\numberline {A.3.10}Classical Fast Fourier Transform}{272}{subsection.A.3.10}%
+\contentsline {section}{\numberline {A.4}Probability Theory}{275}{section.A.4}%
+\contentsline {section}{\numberline {A.5}Calculus}{275}{section.A.5}%
+\contentsline {chapter}{\numberline {B}Classical Computations}{276}{appendix.B}%
+\contentsline {section}{\numberline {B.1}Logic Gates}{277}{section.B.1}%
+\contentsline {subsection}{\numberline {B.1.1}NOT Gate}{277}{subsection.B.1.1}%
+\contentsline {subsection}{\numberline {B.1.2}AND Gate}{277}{subsection.B.1.2}%
+\contentsline {subsection}{\numberline {B.1.3}OR Gate}{278}{subsection.B.1.3}%
+\contentsline {subsection}{\numberline {B.1.4}NAND Gate}{278}{subsection.B.1.4}%
+\contentsline {subsection}{\numberline {B.1.5}NOR Gate}{279}{subsection.B.1.5}%
+\contentsline {subsection}{\numberline {B.1.6}XOR Gate}{279}{subsection.B.1.6}%
+\contentsline {subsection}{\numberline {B.1.7}FANOUT Gate}{280}{subsection.B.1.7}%
+\contentsline {subsection}{\numberline {B.1.8}CROSSOVER Gate}{280}{subsection.B.1.8}%
+\contentsline {section}{\numberline {B.2}Classical Circuits}{281}{section.B.2}%
+\contentsline {chapter}{\numberline {C}Qiskit}{285}{appendix.C}%
+\contentsline {section}{\numberline {C.1}Introduction to Qiskit}{285}{section.C.1}%
+\contentsline {subsection}{\numberline {C.1.1}The Qiskit SDK}{285}{subsection.C.1.1}%
+\contentsline {subsection}{\numberline {C.1.2}Qiskit Runtime}{286}{subsection.C.1.2}%
+\contentsline {subsubsection}{Is Qiskit Runtime open-source?}{287}{subsection.C.1.2}%
+\contentsline {subsection}{\numberline {C.1.3}Qiskit Serverless}{287}{subsection.C.1.3}%
+\contentsline {subsection}{\numberline {C.1.4}Qiskti Transpiler as a Service}{288}{subsection.C.1.4}%
+\contentsline {subsection}{\numberline {C.1.5}The Qiskit ecosystem}{288}{subsection.C.1.5}%
+\contentsline {section}{\numberline {C.2}Install Qiskit}{290}{section.C.2}%
+\contentsline {chapter}{Bibliography}{291}{appendix*.124}%

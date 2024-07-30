@@ -81,21 +81,24 @@
 \contentsline {figure}{\numberline {7.4}{\ignorespaces Entire Controlled Rotation}}{172}{figure.caption.104}%
 \contentsline {figure}{\numberline {7.5}{\ignorespaces HHL Circuit}}{174}{figure.caption.105}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {8.1}{\ignorespaces Circuit for Block Encoding A using one Ancilla qubit}}{193}{figure.caption.106}%
-\contentsline {figure}{\numberline {8.2}{\ignorespaces General Block Encoding Circuit}}{196}{figure.caption.107}%
+\contentsline {figure}{\numberline {8.1}{\ignorespaces Circuit for Block Encoding A using one Ancilla qubit}}{195}{figure.caption.107}%
+\contentsline {figure}{\numberline {8.2}{\ignorespaces Circuit for general block encoding of A}}{198}{figure.caption.108}%
+\contentsline {figure}{\numberline {8.3}{\ignorespaces Quantum circuit for block encoding an s-sparse matrix}}{201}{figure.caption.109}%
+\contentsline {figure}{\numberline {8.4}{\ignorespaces Quantum circuit for block encoding of general sparse matrices}}{203}{figure.caption.110}%
+\contentsline {figure}{\numberline {8.5}{\ignorespaces Quantum circuit for Hermitian Block encoding of a general Hermitian matrix}}{205}{figure.caption.111}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {9.1}{\ignorespaces Uncomputation of a classical gate}}{202}{figure.caption.109}%
+\contentsline {figure}{\numberline {9.1}{\ignorespaces Uncomputation of a classical gate}}{209}{figure.caption.112}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {A.1}{\ignorespaces Period and Wavelength Relationship}}{263}{figure.caption.110}%
-\contentsline {figure}{\numberline {A.2}{\ignorespaces f(x)}}{264}{figure.caption.111}%
-\contentsline {figure}{\numberline {A.3}{\ignorespaces QFT of f(x)}}{264}{figure.caption.112}%
-\contentsline {figure}{\numberline {A.4}{\ignorespaces FFT of size 8}}{266}{figure.caption.113}%
+\contentsline {figure}{\numberline {A.1}{\ignorespaces Period and Wavelength Relationship}}{270}{figure.caption.113}%
+\contentsline {figure}{\numberline {A.2}{\ignorespaces f(x)}}{271}{figure.caption.114}%
+\contentsline {figure}{\numberline {A.3}{\ignorespaces QFT of f(x)}}{271}{figure.caption.115}%
+\contentsline {figure}{\numberline {A.4}{\ignorespaces FFT of size 8}}{273}{figure.caption.116}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {B.1}{\ignorespaces Half Adder}}{274}{figure.caption.114}%
-\contentsline {figure}{\numberline {B.2}{\ignorespaces Full Adder}}{274}{figure.caption.115}%
-\contentsline {figure}{\numberline {B.3}{\ignorespaces Circuit to compute $f$}}{275}{figure.caption.116}%
-\contentsline {figure}{\numberline {B.4}{\ignorespaces NAND gate used to simulate AND, XOR and NOT gates}}{276}{figure.caption.117}%
-\contentsline {figure}{\numberline {B.5}{\ignorespaces NAND gate used to simulate XOR gate}}{276}{figure.caption.118}%
-\contentsline {figure}{\numberline {B.6}{\ignorespaces NAND gate used to simulate NOT gate}}{277}{figure.caption.119}%
+\contentsline {figure}{\numberline {B.1}{\ignorespaces Half Adder}}{281}{figure.caption.117}%
+\contentsline {figure}{\numberline {B.2}{\ignorespaces Full Adder}}{281}{figure.caption.118}%
+\contentsline {figure}{\numberline {B.3}{\ignorespaces Circuit to compute $f$}}{282}{figure.caption.119}%
+\contentsline {figure}{\numberline {B.4}{\ignorespaces NAND gate used to simulate AND, XOR and NOT gates}}{283}{figure.caption.120}%
+\contentsline {figure}{\numberline {B.5}{\ignorespaces NAND gate used to simulate XOR gate}}{283}{figure.caption.121}%
+\contentsline {figure}{\numberline {B.6}{\ignorespaces NAND gate used to simulate NOT gate}}{284}{figure.caption.122}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {C.1}{\ignorespaces Qiskit Steps}}{279}{figure.caption.120}%
+\contentsline {figure}{\numberline {C.1}{\ignorespaces Qiskit Steps}}{286}{figure.caption.123}%
