@@ -1,2 +1,0 @@
-# Quantum Computing
-This are my notes made during my Thesis work at IISc. I have used a lot of references during this notes and all of them have been listed along with a folder containing the notes. I will be updating these notes from time to time. These lectures notes are specifcally designed for anyone with basic Linear Algebra knowledge to get started in Quantum Computing for Applications in Scientific Computing.
