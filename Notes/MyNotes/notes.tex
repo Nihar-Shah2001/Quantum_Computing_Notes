@@ -6272,7 +6272,7 @@ Note that
 \end{thebibliography}
 
 \chapter{Block Encoding}
-In order to perform matrix computations, we must first address the problem of the input model: how to get access to information in matrix $A\in \mathbb{C}^{N \times N} (N=2^n)$ which is generally a non-unitary matrix, into the quantum computer? One possible input model is given via the unitary $e^{\iota \tau A}$ (if A is not Hermitian, in some scenarios we an consider its Hermitian version via the dilation method).
+In order to perform matrix computations, we must first address the problem of the input model: how to get access to information in matrix $A\in \mathbb{C}^{N \times N} (N=2^n)$ which is generally a non-unitary matrix, into the quantum computer? One possible input model is given via the unitary $e^{\iota \tau A}$ (if A is not Hermitian, in some scenarios we an consider its Hermitian version via the dilation method). This is particularly useful when $e^{\iota \tau A}$ can be constructed using simple circuits, e.g. Trotter Splitting,
 
 A more general input model, as will be discussed in this chapter is called "block encoding". Of course, if A is a dense matrix without obvious structures, any input model will be very expensive (e.g. exponential in n) to implement. Therefore a commonly assumed input model is s-sparse there are at most s nonzero entries in each row/column of the matrix. Furthermore, we have an efficient procedure to get access to the location, as well as the value of the nonzero entries. This in general can again be a difficult task given that the number of nonzero entries can still be exponential in n for a sparse matrix. Some dense matrices may also be efficiently block encoded on quantum computers. This chapter will illustrate the block encoding procedure via a number of detailed examples.
 
@@ -6303,8 +6303,15 @@ Now using the controlled rotation, the information of $\tilde{A}_{ij}$, $\tilde{
 \begin{align*}
 \ket{0}\ket{0^d}\ket{i}\ket{j}&\xrightarrow{O'_A}\ket{0}\ket{\tilde{\theta}_{ij}}\ket{i}\ket{j}\\
 &\xrightarrow{CR}\left(A_{ij}\ket{0}+\sqrt{1-|A_{ij}|^2}\ket{1}\right)\ket{\tilde{\theta}_{ij}}\ket{i}\ket{j}\\
-&\xrightarrow{(O'_A)^{-1}}\left(A_{ij}\ket{0}+\sqrt{1-|A_{ij}|^2x}\ket{1}\right)ket{0^d}\ket{i}\ket{j}
+&\xrightarrow{(O'_A)^{-1}}\left(A_{ij}\ket{0}+\sqrt{1-|A_{ij}|^2x}\ket{1}\right)\ket{0^d}\ket{i}\ket{j}
 \end{align*}
+This can be implemented as shown in the circuit \ref{fig:controlledrotationoracle}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{../images/matrixquery.png}
+    \caption{Query model for matrix entries}
+    \label{fig:controlledrotationoracle}
+\end{figure}
 From now on, we will always assume that the matrix entries of A can be queried using the phase oracle $O_A$ or its variants.
 
 \section{Block Encoding}
@@ -6320,6 +6327,7 @@ and
 \[
 U_A\ket{0,b}=\begin{bmatrix}Ab\\ * \end{bmatrix}=\ket{0}A\ket{b}+\ket{\perp}
 \]
+\[U_A\ket{0,b}=\|A\ket{b}\|\left(\ket{0}\otimes \frac{A\ket{b}}{\|A\ket{b}\|}\right)+\|\ket{\psi}\|\left(\ket{1}\otimes \frac{\ket{\psi}}{\|\ket{\psi}\|}\right)\]
 Here the unnormalized state $\ket{\perp}$ can be written as $\ket{1}\ket{\psi}$ for some unnormalized state $\ket{\psi}$, that is irrelevant to the computation of $A\ket{b}$. In particular, it satisfies the orthogonality relation.
 \[
 (\bra{0}\otimes I_n)\ket{\perp}=0
@@ -6372,7 +6380,7 @@ p(0^m)=\frac{1}{\alpha^2}\|A\ket{b}\|^2=\frac{1}{\alpha^2}\braket{b|A^{\dagger}A
 \]
 So if $\alpha$ is chosen to be too large, the probability of obtaining all $0$s from the measurement can be vanishingly small.
 
-Finally, it can be difficult to fins $U_A$ to encode $A$ exactly. This is not a problem, since it is sufficient if we can find $U_A$ to block encode $A$ upto some error $\epsilon$. We are now ready to give the definition of block encoding.
+Finally, it can be difficult to find $U_A$ to encode $A$ exactly. This is not a problem, since it is sufficient if we can find $U_A$ to block encode $A$ upto some error $\epsilon$. We are now ready to give the definition of block encoding.
 
 \begin{definition}
     (Block encoding) Given an n-qubit matrix $A$, if we can find $\alpha,\epsilon \in \mathbb{R}_+$, and an $(m+n)$-qubit unitary matrix $U_A$ so that
@@ -6392,7 +6400,7 @@ Therefore we may first evaluate the state $U_A\ket{0^m,j}$, and perform inner pr
 \[
 \braket{0^m,i|U_A\ket{0^m,j}}=\braket{0^m,i|U_BU_C\ket{0^m,j}}=(U^{\dagger}_B\ket{0^m,i})^{\dagger}(U_C\ket{0^m,j})
 \]
-So we can evaluate the states $U^{\dagger}_B\ket{0^m,i},U_C\ket{0^mj}$ independently, and then verify the inner product is $A_{ij}$. Such a calculation amounts to running the circuit shown in fig \ref{generalblockencoding}, and if the ancilla qubits are measured to be $0^m$, the system qubits return the normalized state $\sum_iA_{ij}\ket{i}/\|\sum_iA_{ij}\ket{i}\|$.
+So we can evaluate the states $U^{\dagger}_B\ket{0^m,i},U_C\ket{0^mj}$ independently, and then verify the inner product is $A_{ij}$. Such a calculation amounts to running the circuit shown in fig \ref{fig:generalblockencoding}, and if the ancilla qubits are measured to be $0^m$, the system qubits return the normalized state $\sum_iA_{ij}\ket{i}/\|\sum_iA_{ij}\ket{i}\|$.
 \begin{figure}
     \centering
     \includegraphics[width=1\linewidth]{../images/generalblockencoding.png}
@@ -8074,7 +8082,7 @@ where by definition,
 \[ \left( \sum_i c_i A_i \otimes B_i\right) \ket{v} \otimes \ket{w} = \sum_i c_i A_i \ket{v} \otimes B_i \ket{w} \]
 
 The inner product on the spaces V and W can be used to define a natural inner product on $V \otimes W$. Define
-\[ \left( \sum_i a_i\ket{v_i}\otimes \ket{w_i}, \sum_j b_j \ket{v'_j} \otimes \ket{w'_j}\right) \equiv \sum_{ij} a_i*b_j\braket{v_i|v'_j}\braket{w_i|w'_j} \]
+\[ \left( \sum_i a_i\ket{v_i}\otimes \ket{w_i}, \sum_j b_j \ket{v'_j} \otimes \ket{w'_j}\right) \equiv \sum_{ij} a_i^* b_j\braket{v_i|v'_j}\braket{w_i|w'_j} \]
 It can be shown that the function so defined is a well-defined inner product. The inner product space $V \otimes W$ inherits the other structure we are familiar with such as notions of an adjoint , unitary, normality and Hermiticity.\\
 \\
 \textbf{Kronecker Product}\\
