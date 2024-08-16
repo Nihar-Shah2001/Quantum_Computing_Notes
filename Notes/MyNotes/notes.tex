@@ -239,7 +239,1160 @@ for supporting me spiritually throughout writing this thesis and my life in gene
 \mainmatter  % Arabic page numbering style (1, 2, 3, 4...) for the content
 
 \chapter{Introduction}
-\section{Axioms of Quantum Mechanics}
+\section{Why Quantum Computation?}
+Quantum computers are the only model of computation that escape the limitations on computation imposed by the extended Church-Turing Thesis. These theoretical limitations will soon have practical consequences as Moore's Law (the doubling every eighteen months in transistor density on chips and the resulting increase in computer speed) is expected in a decade or so to run into inherent (classical) physical limits such as transistors scaling down to the size of elementary particles. 
+
+Quantum computers would have a profound effect on complexity based cryptography, via the polynomial time quantum algorithms for factoring and discrete logs. Understanding how to meet these threats by designing quantum resistant crypto systems or by restoring to quantum cryptography is a major challenge.
+
+Quantum computation has brought a renaissance in the examination of the foundations of quantum mechanics: highlighting phenomena such as entanglement and the resulting exponential power inherent in quantum physics, and showing that quantum error-correcting codes may be used to bring stability into the seemingly inherent unstable quantum world.
+
+Lastly, the study of quantum computation has helped broaden and deepen our insights into complexity theory (and tools such as Fourier Analysis and information theory), and in a few cases helped resolve open questions in classical complexity theory.
+
+Nature at the sub-atomic scale behaves totally differently from anything that our experience with the physical world prepares us for. Quantum mechanics is the name of the branch of physics that governs the world of elementary particles such as electrons and photons, and it is paradoxical, unintuitive, and radically strange. below is a sampling of a few such odd features.
+\begin{itemize}
+    \item Complete knowledge of as system's state is forbidden - A measurement reveals only a small amount of information about the quantum state of the system.
+    \item The act of measuring a particle fundamentally disturbs its state.
+    \item Quantum entities do not have trajectories. All that we can say for an elementary particle is that is started at A and was measured later at B. We cannot say anything about the trajectory or path it took from A to B.
+    \item Quantum mechanics is inherently probabilistic. If we prepare two elementary particles in identical states and measure them, the result may be different for each particle.
+    \item Quantum entities behave in some ways like particles and in others like waves. but they really behave in their own unique way, neither particles nor waves.
+\end{itemize}
+These features are truly strange, and difficult to accept. To quote the great physicist Niels Bohr, "Anyone who is not shocked by quantum theory has not understood it". We start by describing a simple experiment that highlights many differences between quantum mechanics and our classical intuition. It is the famous double slit experiment. The intuition gained in the process will help us define qubits, and more generally in the study of quantum computing.
+
+\section{The Double Slit Experiment}
+What is the nature of light? You may have learned light is electromagnetic waves propagating through space. Also, you may have learned that light is made of a rain of individual particles called photon. but these two notions seem contradictory, how can it be both?
+
+The debate over the nature of light goes deep into the history of science. The eminent physicist Isaac Newton believed that light was a rain of particles, called corpuscles. At the beginning of the nineteenth century, Thomas Young demonstrated with his famour double-slit interference experiment that light propagates as electromagnetic waves, and the debate seemed to be over. However, in 1905, Einstein was able to explain the photoelectric effect by using the idea of light quanta, or particles which we now call photons.
+
+Similar confusion reigned over the nature of electrons, which behaved like particles, but then it was discovered in electron diffraction experiments, performed in 1927, that they exhibit wave behavior. So do the electrons behave like particles or waves? And what about photons? This great challenge was resolved with the discovery of the equations of quantum mechanics. but the theory is not intuitive, and its description of matter is very different from our common experience.
+
+To understand what seems to be a paradox, we look to Young's double slit experiment. Here's the setup: a source of light is shone at a screen with two very thin, identical slits cut into it. Some light passes through the two slits and lands upon a subsequent screen. Take a look at the figure for a diagram of the experiment setup.
+
+First, think what would happen to a stream of bullets going through this double slit experiment. The source, which we think of as a machine gun, is unsteady and sprays the bullets in the general direction of the two slits. Some bullets pass through one slit, some pass through the other slit, and others don't make it through one slits. The bullets that do go through the slits then land on the observing screen behind them. Now suppose we closed slit 2. Then the bullets can only go through slit 1 and land in a small spread behind slit 1. If we graphed the number of times a bullet that went through slit 1 and landed at the position y on the observation screen, we would see a normal distribution centered directly behind slit 1. That is, most land directly behind the slit, but some stray off a little due to the small amount randomness inherent in the gun, and because of they ricochet off the edges of the slit. If we now close slit 1 and open slit 2, we could see a normal distribution centered at slit 2.
+
+Now let's repeat the experiment with bolt slits open. If we graph the number of times a bullet that went through either slit landed at the position y, we should see the sum of the graph we made for slit 1 and the graph for slit 2.
+
+Another way we can thinks of the graphs we made is as graphs of the probability that a bullet will land at a particular spot on y on the screen. Let $P_1(y)$ denote the probability that the bullet lands at point y when only slit 1 is open, and similarly for $P_2(y)$. And let $P_{12}(y)$ denote the probability that the bullet lands at point y when both slits are open. Then $P_{12}(y)=P_1(y)+P_2(y)$.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=1\linewidth]{../images/Doubleslit.png}
+    \caption{Double slit and single-slit diffraction}
+    \label{fig:slitexperiment}
+\end{figure}
+
+Next, we consider the situation for waves, for example water waves. A water wave doesn't go through either slit 1 or slit 2, it goes through both. you should imagine the rest of 1 water wave as it approaches the slit. As it hits the slit, the wave is blocked at all places but the two slits, and waves on the other side are generated at each slit as depicted in the figure \ref{fig:slitexperiment}.
+
+When the new waves generated at each slit run into each other, interference occurs. We can see this by plotting the intensity (that is, the amount of energy carried by the waves) at each point y along the viewing screen. What we see is the familiar interference pattern seen in figure \ref{fig:slitexperiment}. The dark patches of the interference pattern seen in figure \ref{fig:slitexperiment} occur where the wave from the first slit arrives perfectly out of sync with wave from the second slit, while the bright points are where the two arrive in sync. For example, the bright spot right in the middle is bright because each wave travels the exact same distance from their respective slits to the screen, so they arrive in sync. The first dark spots are where the wave from one slit traveled exactly half of a wavelength longer than the other wave, thus they arrive at opposite points in their cycle and cancel. Here, it is not the intensities coming from each slit that add, but the height of the wave. This differs in the case of bullets: $I_{12}(y)\neq I_1(y)+I_2(y)$, but $h_{12}(y)=h_1(y)+h_2(y)$, and $I_{12}(y)=h(y)^2$, where $h9y)$ is the height of the wave and $I(y)$ is the intensity, or energy, of the wave.
+
+Before we can say what light does, we need one more crucial piece of information. What happens when we turn down the intensity in both of these examples?
+
+In the case of bullets, turning down the intensity means turning down the rate at which the bullets are fired. When we turn down the intensity, each time a bullet hits the screen it transfers the same amount of energy, but the frequency at which bullets hit the screen becomes less.
+
+With water waves, turning down the intensity means making the wave amplitudes smaller. Each time a wave hits the screen it transfer less energy, but the frequency of the waves hitting the screen is unchanged.
+
+Now what happens when we do this experiment with light. As Young observed in 1802, light makes an interference pattern on the screen. From this observation he concluded that the nature of light is wavelike, and reasonably so!.  However, Young was unable at the time to turn down the intensity of light to see the problem with the wave explanation.
+
+Picture now that the observation screen is made of thousands of tiny little photo-detectors that can detect the energy they absorb. For high intensities the photo-detectors individually are picking up a lot of energy, and when we plot the intensity against the position y along the screen we see the same interference pattern as described earlier. Now, turn the intensity of the light very very low. At first, the intensity scales down lower and lower everywhere, just like a wave. But as soon as we get low enough, the energy that the photo-detectors report reaches a minimum energy, and all of the detectors are reporting the same energy, call it $E_0$, just at different rates. This energy corresponds to the energy carried by an individual photon, and at this stage we see what is called quantization of light. Photo-detectors that are in the bright spots of the interference pattern report the energy $E_0$ very frequently, while the darker areas report the energy $E_0$ at lower rates. Totally dark points still report nothing. This behavior is the behavior of bullets not waves! We now see that photons behave unlike either bullets or waves, but like something entirely different.
+
+Turn down, the intensity so low that only one photo-detector reports something each second. in other words, the source only sends one photon at at time. Each time a detector receives a photon, we record where on the array it landed and plot it on a graph. The distribution we draw will reflect the probability that a single photon will land at a particular point.
+
+Logically we think that the photon will either go through one slit or the other. Then, like the bullets, the probability that the photon lands at a point y should be $P_{12}(y)=P_1(y)+P_2(y)$ and the distribution we expect to see is the two peaked distribution of the bullets. But this is not what we see at all.
+
+What we actually see is the same interference pattern as before! But how can this be? For there to be an interference pattern, light coming from one slit must interfere with light from the other slit; but there is only one photon going through at a time! The modern explanation is that the photon actually goes through both the slits at the same time, and interferes with itself. The mathematics is analogous to that in the case of water waves. We say that the probability $P(y)$ that a photon is detected at $y$ is proportional to the square of some quantity $a(y)$, which we call a probability amplitude. Now probability amplitudes for different alternatives add up. So $a_{12}(y)=a_{1}(y)+a_2(y)$. But $P_{12}(y)=|a_{12}(y)|^2\neq |a_1(y)|^2+|a_2(y)|^2=P_1(y)+P_2(y)$.
+
+Logically, we can ask which slit the photon went through, and try to measure it. Thus, we might construct a double slit experiment where we put a photo-detector at each slit, so that each time a photon comes through the experiment we see which slit it went through and where it hits on the screen. but when such an experiment is performed, the interference pattern gets completely washed out! The very fact that we know which slit the photon goes through makes the interference pattern go away. This is the first example we see of how measuring a quantum system alters the system.
+
+Here the photon looks both like a particle, a discreet package , and a wave that can have interference. It seems that the photon acts like both a wave and a particle, but at the same time it doesn't exactly behave like either. This is what is commonly known as the wave-particle duality, usually though of as a paradox. The resolutions is that the quantum mechanical behavior of matter is unique, something entirely new.
+
+What may be more mind blowing still is that if we conduct the exact same experiment with electrons instead of light, we get the exact same results! Although it is common to imagine electrons as tiny little charged spheres, they are actually quantum entities, neither wave nor particle but understood by their wave function.
+
+The truth is that there is no paradox, just an absence of intuition for quantum entities. Why should they be intuitive? Things on our scale do not behave like wave functions, and unless we conduct wild experiments like this we do not see the effects of quantum mechanics.
+
+\section{Computation}
+A computation corresponds to some input to a processor which then performs instructions may be using look-up tables(oracles)/libraries on input and produces an output. Similar is seen in the physical process in nature where for Physical processes in some initial state through some interactions goes to the final state. Note that not every physical process is a computation but for every computation there must be an underlying physical process. 
+
+
+Mathematical description of what goes on in a computer needs physical hardware to implement the task. Whether certain abstract mathematical operations are possible or not ultimately depends on whether there exists some suitable physical hardware to implement it. Thus, potentialities and limitation of a computer depends on the available hardware.
+
+At the fundamental level there are only four types of interactions: Strong and weak interactions do not play any role in our day to day devices. Gravity acts as a fixed background but does not impact much of our devices. Electromagnetism is the mostly used force in its various forms to control and manipulate the dynamics of our devices.
+Tasks which can be performed on a computer are limited by the manner in which we can use various aspects of electromagnetic interactions.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.75\linewidth]{../images/computation.png}
+    \caption{Computation}
+    \label{fig:computation}
+\end{figure}
+
+Computer is a device that purposefully processes meaningful information. From a philosophical point of view in order to understand a definition we need to keep on understanding the words in its definition till its intuition is rooted in our past experience of the physical world. Here, information means an abstract quantity by represented by some mathematical variables. Processes refers to the manipulation of physical states by a device. Meaningful relates to the mapping between the mathematical variables and physical state. Purposefully means contained in algorithmic design of instructions. For example, Boolean logic based computers have mathematical variables as $\{0,1\}$. Physical states are $\{off,on\}$ of transistors. Here 0 is mapped to off and 1 is mapped to on state. Algorithmic instructions manipulate the values 0 and 1.
+
+It is a wonderful property of nature that physical properties and observations can be represented by abstract mathematical variables by designing a suitable map, and working on the variables without any reference to their physical origin and afterwards carrying out transformations insert physical meaning back. For example, a phone can be copied and then sent and then interpreted back as phone number. Thus, Physical data is converted into abstract mathematical information removing all its features of physical realisation which is then processed by rules of mathematics acting in terms of language and its grammar. Then its physical interpretation is practically useful knowledge. Note that data without is physical realisation is information and knowledge is processed information along with its physical interpretation. Thus, learnign mathematical concepts needs a support of their physical realisations in some or the other form.
+
+Now we can define what we want a computer to do. We want a general information Processing system (which is limited by Physics). Note that there are some special purpose devices that do exist (like GPUs). They should have an efficient design meaning that they should be able to tackle as many different problems that are in same class i.e. all problems which can be expressed using the same mathematical language. Thus, there is a need for optimization. By optimization we mean using minimum physical resources in terms of time (to run as quickly as possible), space (to keep processor size/memory small), energy (to use less power) etc. required reducing some physical quantity. In terms of software: it is regarding the number of variables and instructions and memory used for running an algorithm. In terms of hardware, it is the physical implementation of how variables are mapped to physical components (component size, energy consumed, components neighbour).
+
+Whenever we use ready made look-up tables called oracles we consider the number of times oracle is called for calculating the complexity.
+
+There exists a hierarchy of operations connecting software and hardware. In a computer data is fed to pre-processors that converts the data to some mathematical representation (high level language) which then goes to compiler (converts instructions into low level assembly code). There is much smaller vocabulary at this level. Then, it gets converted to assembly code and then to machine code which then is seen as implementation and programmer level. All these are low level (Hardware) fixed whereas the data and pre-processing, compiler are high level (software) level and hence flexible. A living organism also shows a similar hierarchy where environment signal are picked up by sense and then brain interprets and takes actions. Here, in this case brain uses experience, takes initiative, figures out new ways. which are then send as electro-chemical signals to the nervous systems then to cells where cells take actions in the form of proteins, enzymes which is all encoded in our DNA. In computers at low level, it requires low level mapping where physical components (physical devices) must carry out both information and interpretation. 
+
+We desire to minimise resources which in turn leads to increase in noise and fluctuations/errors as limited by the Second Law of Thermodynamics and thus increase in errors. Thus, there exists a tradeoff in between the resources and errors. Hence clarity is essential. Thus, the approach for solving this problem is fixing the level of allowed errors and then to minimise resources as much as possible. 
+
+
+
+\section{The coin Experiment: Analogy for intuition}
+Consider an unbiased coin, a preliminary high school knowledge will tell you that if you toss a coin the probability of getting heads or tails either is $1/2$. Given a coin we can either toss it or look at the coin. Note that we don't know the side of the coin facing up unless and until we look at the coin. This action of looking at the coin let us call it as measurement. Thus, given a coin we can perform two operations, either measurement or toss a coin i.e. we can either see the side facing up or toss the coin. Let us now move on to the mathematical framework. Consider that we don't know the state of the coin initially, so it can be either heads or tails with equal probability of $1/2$ and hence can be written as
+\[
+\begin{pmatrix} 1/2 \\ 1/2 \end{pmatrix}
+\]
+where the entry in the first row corresponds to the probability of seeing heads ($=1/2$) and the entry in the second row corresponds to seeing tails ($=1/2$) upon measurement. Note that the sum of the entries in the column must be equal to 1. Now we can either look at the coin i.e. do a measurement or toss a coin. Let us toss the coin. Now since it's an unbiased coin the state of the vector will not change even after tossing the coin. Mathematically, this can be represented by a linear operation i.e. matrix-vector multiplication operation where the matrix corresponds to the operation of tossing the coin. This is shown as follows:
+\[
+\begin{pmatrix} 1/2 & 1/2 \\ 1/2 & 1/2 \end{pmatrix} \begin{pmatrix} 1/2 \\ 1/2 \end{pmatrix} = \begin{pmatrix} 1/2 \\ 1/2 \end{pmatrix}
+\]
+where the matrix corresponds to the operation of tossing a coin and the vector is the state vector of the coin before tossing the coin. The state vector indicates that the probability of measuring heads is $1/2$ and probability measuring tails is $1/2$ upon measurement. Now if we perform a measurement i.e. look at the coin the probabilistic state of the coin it will either collapse to the following
+\[
+\begin{pmatrix} 1 \\ 0 \end{pmatrix} or \begin{pmatrix} 0 \\ 1 \end{pmatrix} 
+\]
+ for heads and tails respectively. Let us call this as basis states. Thus, if we perform another measurement the next time we will get Heads with certainty or tails with certainty depending upon the results of the previous measurement as indicated by the state vector which is also consistent with the real world results. Thus, we have a working mathematical framework of tossing a coin. Suppose, upon measurement we had found that the result of the state was head and hence the state vector was $\begin{pmatrix} 1 \\ 0 \end{pmatrix}$. Now when we toss the coin, we get
+ \[
+ \begin{pmatrix} 1/2 & 1/2 \\ 1/2 & 1/2 \end{pmatrix} \begin{pmatrix} 1 \\ 0 \end{pmatrix} = \begin{pmatrix} 1/2 \\ 1/2 \end{pmatrix}
+ \]
+ which is as we expected that now upon measurement the probability of getting heads is equal to the probability of getting tails $(=1/2)$. All the mathematical framework is consistent with the real world experiences. Now, no matter how many times we toss the coin the state of the vector will remain the same i.e. probability of getting heads is equal to the probability of getting tails $=1/2$ unless and until we perform a measurement by looking at the coin whereupon it collapses to one of the basis states.
+Note that the state vector is also the eigen vector corresponding to the eigen value of 1 of the matrix (operation matrix of tossing the coin).
+
+Let us make it more interesting by taking a biased coin. Let the probability of getting heads be 1/4 and of getting tails be 3/4. Thus the state vector corresponding to it will be
+\[
+\begin{pmatrix} 1/4 \\ 3/4 \end{pmatrix}
+\]
+We can now perform a measurement or toss the coin. Consider we don't know the state initially and we toss the coin, then the matrix-vector linear operation corresponding to the operation of tossing the coin and the state vector will be
+\[
+\begin{pmatrix} 1/4 & 1/4 \\ 3/4 & 3/4 \end{pmatrix}\begin{pmatrix} 1/4 \\ 3/4 \end{pmatrix} = \begin{pmatrix} 1/4 \\ 3/4 \end{pmatrix}
+\]
+Thus indicates that upon measurement we will get heads with a probability of $1/4$ and tails with a probability of $3/4$. No matter how many times we toss the coin the state of the vector will remain the same. Upon measurement the state will collapse to one of the basis states
+\[
+\begin{pmatrix} 1 \\ 0 \end{pmatrix} or \begin{pmatrix} 0 \\1 \end{pmatrix}
+\]
+Say upon measurement we found that it was Tails i.e. the state vector collapsed to $\begin{pmatrix} 0 \\1\end{pmatrix}$. Then again upon tossing the coin the state vector again be in a probabilistic state as follows:
+\[
+\begin{pmatrix} 1/4 & 1/4 \\3/4 & 3/4 \end{pmatrix} \begin{pmatrix} 0 \\ 1 \end{pmatrix} = \begin{pmatrix} 1/4 \\ 3/4\end{pmatrix}
+\]
+as expected. The state of the coin after tossing will again be a probabilistic state will the probability of getting heads being $1/4$ and the probability of tails being $3/4$ upon measurement.
+
+Now, let us take this a step further. Note that we can write $\begin{pmatrix} 1/4 \\ 3/4 \end{pmatrix} = 1/4 \begin{pmatrix} 1 \\ 0 \end{pmatrix} + 3/4 \begin{pmatrix} 0 \\1\end{pmatrix}$. Note that we can write the state vector of the coin at any intermediate state as a linear combination of the basis state (since the basis states are tow linearly independent orthogonal vectors, they span the entire 2D Vector space and hence any vector in the 2D space can be written as a linear combination of these two vectors). Thus, we can write the state vector of coin at any time as the linear combination of the basis states as shown below:
+\[
+\begin{pmatrix} \alpha \\ \beta \end{pmatrix} = \alpha \begin{pmatrix} 1 \\ 0 \end{pmatrix} + \beta \begin{pmatrix} 0 \\ 1 \end{pmatrix}
+\]
+for $\alpha, \beta \in \mathbb{R}$. Thus, the state vector of the coin always exists as a linear combination of the basis states. The operation of tossing the coin is simply a matrix-vector multiplication with the state as follows.
+\begin{align*}
+\begin{pmatrix} 1/4 & 1/4 \\3/4 & 3/4 \end{pmatrix} \begin{pmatrix} \alpha \\ \beta \end{pmatrix} &= \alpha \begin{pmatrix} 1/4 & 1/4 \\3/4 & 3/4 \end{pmatrix} \begin{pmatrix} 1 \\ 0 \end{pmatrix} + \beta \begin{pmatrix} 1/4 & 1/4 \\3/4 & 3/4 \end{pmatrix} \begin{pmatrix} 0 \\ 1 \end{pmatrix}\\
+&= \alpha \begin{pmatrix} 1/4 \\ 3/4 \end{pmatrix} + \beta \begin{pmatrix} 1/4 \\ 3/4 \end{pmatrix}\\
+&=(\alpha + \beta) \begin{pmatrix} 1/4 \\ 3/4 \end{pmatrix}
+\end{align*}
+Note that if we perform a measurement just after another measurement then the state of the vector remains unchanged i.e. say upon measurement we saw that the state vector was Heads then if we perform another measurement operation just after the first one then the state vector will not change and will remain as Heads. No matter the amount of time you perform consecutive measurements the state vector once collapsed to either of the basis state in the first measurement remains the same throughout. But if we perform a matrix operation (coin toss) it will then again be in a probabilistic (or linear combination sometimes called a superposition) state.
+
+In conclusion, we saw that the state vector is a linear combination of the basis vector (with real coefficients) and there are two categories of operations we can perform on the coin either measurement or toss a coin. Similar is the case with qubits. This linear combination of basis states is what sometimes referred to as the superposition principle.
+
+For a qubit, the state vector is a linear combination (also called superposition) of the basis states (or vectors) (with complex coefficients) and there are two types of operations we can perform on qubits either measurement (in which case it collapses to one of the basis states) or a matrix multiplication (here the matrix is unitary as a result of Axiom of Quantum mechanics we will later see). Thus, we can define the basis vectors/states for the purpose of quantum computing as follows:
+\[
+\ket{0}=\begin{pmatrix} 1 \\ 0 \end{pmatrix}, \ket{1}=\begin{pmatrix} 0 \\ 1 \end{pmatrix}
+\]
+and thus the state vector of a qubit is given as
+\[
+\ket{v}=\begin{pmatrix} \alpha \\ \beta \end{pmatrix} = \alpha \begin{pmatrix} 1 \\ 0 \end{pmatrix} + \beta \begin{pmatrix} 0 \\ 1 \end{pmatrix}
+\]
+where $\alpha,\beta \in \mathbb{C}$. Thus, we can perform either of the two operations measurement or a matrix operation (manipulation of qubits). Upon measurement it will either collapse to either one of the basis states. The condition for manipulation of a matrix by a qubit is that it must be unitary. Thus, matrix multiplication will be as follows:
+\[
+Uv=\begin{pmatrix} a & b \\ c & d \end{pmatrix}\begin{pmatrix} \alpha \\ \beta \end{pmatrix} =\begin{pmatrix} a \alpha + b\beta \\ c\alpha + d\beta \end{pmatrix}
+\]
+where U is a unitary matrix ($U^{\dagger}U=UU^{\dagger}=I$).
+There is another restriction that the norm of the state vector must be unit norm ($\|\ket{v}\|=1$). All these restrictions will be further explained in depth as part of axioms of Quantum Mechanics.
+
+\section{Quantum Information}
+We will look at Quantum information, a concept on which quantum computation is based.
+
+\subsection{A probabilistic model}
+Let us start classically, with a model that will probably seem completely simple to every one. Imagine that we have some physical device, called X, that has some finite, non-empty set $\Sigma$ of possible state (classical states). For example, we might have $\Sigma = \{0,1\}$, in which case we would think of X as representing a bit. For the following discussion let us restrict ourselves to this example (but keep in mind that everything can be generalized to sets other than $\{0,1\}$).
+
+Suppose that we do not necessarily have complete information about the state of X, but instead represent our knowledge of its state by assigning probabilities to different states. For example, we might have
+\[
+Pr[\text{state of X is 0}]=1/4
+\]
+\[
+Pr[\text{state of X is 1}]=3/4
+\]
+Mathematically we can represent this type of knowledge about the state X with a probability vector, which is a column vector whose entries are all non-negative real numbers that sum to 1. In the case at hand, the associated probability vector is
+\[
+v=\begin{pmatrix} 1/4 \\ 3/4 \end{pmatrix}
+\]
+The understanding is that the entries of $v$ are indexed by $\Sigma$, and when we write such a vector in the above form we are using the most natural way of ordering the elements of $\Sigma$.$1/4$ entry indexed by 0, $3/4$ entry indexed by 1.
+
+We may write $v[0]$ and $v[1]$ to refer to the entries of $v$ when necessary.
+
+What happens when you look at X? Of course you will not see a probability vector $v$. instead you will see some element of $\Sigma$. If our representation of the state of X by a probability vector $v$ is in some way meaningful, you may as well imagine that the state you saw was determined randomly according to the probabilities associated with various states. Notice that by looking at the sate of X you effectively change the description of your knowledge of its state. Continuing with the above example, if you look and see that the state is 0, the description of your knowledge changes from $v$ to a new probability vector $w$:
+\[
+v=\begin{pmatrix} 1/4 \\ 3/4 \end{pmatrix} \rightarrow w=\begin{pmatrix} 1 \\ 0 \end{pmatrix}
+\]
+You know that the state is 0, and the vector w represents this knowledge. If you saw the state was 1 instead of 0, the vector would become
+\[
+\begin{pmatrix} 0 \\ 1 \end{pmatrix}
+\]
+instead.
+
+What sorts of operation can you imagine performing on X? There are not very many deterministic operations: you could initialize X to either 0 or 1, you could not perform a NOT operation to X, or you could do nothing to X (which can still be considered an operation even though it has no effect). You could also perform an operation involving randomness - for instance perform a NOT operation with probability $1/100$, and other wise do nothing. I claim that any physically meaningful operation can be represented by a matrix, with the effect of the operation being determined by the matrix-vector multiplication. For instance, these four matrices
+\[
+INIT_0 = \begin{pmatrix} 1 & 1 \\ 0 & 0\end{pmatrix}, INIT_1= \begin{pmatrix} 0 & 0 \\ 1 & 1 \end{pmatrix}, 
+NOT = \begin{pmatrix} 0 & 1 \\ 1 & 0\end{pmatrix}, and \quad I = \begin{pmatrix} 1 & 0 \\ 0 & 1\end{pmatrix}
+\]
+represent the deterministic operators mentioned above. For example, if our knowledge of the state of X is represented by
+\[
+v=\begin{pmatrix}1/4 \\ 3/4 \end{pmatrix}
+\]
+and we perform a NOT operation on X, the new probability vector that results is
+\[
+w=\begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix}\begin{pmatrix} 1/4 \\3/4 \end{pmatrix} =\begin{pmatrix}3/4 \ 1/4 \end{pmatrix}
+\]
+The probabilistic operation mentioned above is represented by the matrix
+\[
+\begin{pmatrix} \frac{99}{100} & \frac{1}{100} \\ \frac{1}{100} & \frac{99}{100} \end{pmatrix}
+\]
+All of these matrices have the property that (i) all entries are non-negative real numbers, and (ii) the entries of each column sum to 1. In other words, every column is a probability vector. Such matrices have a name: they are called stochastic matrices. in the simple model we are discussing, physically meaningful operations are described by stochastic matrices. it works the other way as well; any stochastic matrix describes some physically meaningful operation.
+
+As mentioned before, this entire pictures is easily generalized to the case where $\Sigma$ is not necessarily $\{0,1\}$. In general the dimension of the vectors and matrices will be equal to the size of $\Sigma$.
+
+\subsection{Quantum bits (qubits)}
+The framework of quantum information works in a similar way to the simple probabilistic model we just saw, but with some key differences. Let us again imagine that we have a physical device called X. As before we imagine there is some set of $\Sigma$ of possible states of X, and we will again consider for now just the simple case $\Sigma=\{0,1\}$. At this point, to avoid confusion let us not refer to elements of $\Sigma$ as \textit{classical states}. Intuitively one can think of a classical state that you as a human can look at, touch and recognize without ambiguity. The device X will represent the quantum analogue of a bit, which we call a qubit.
+
+We will represent out knowledge of X with column with column vectors indexed by $\Sigma$, but this time they will not be probability vectors. Instead of representing probability distributions, the vectors represent what we call a superposition or just a state (by which we mean a quantum state). For example, here are a few vectors representing superpositions:
+\[
+\begin{pmatrix} \frac{1}{\sqrt{2}} \\ -\frac{1}{\sqrt{2}} \end{pmatrix}, \begin{pmatrix} 1 \\ 0 \end{pmatrix}, \begin{pmatrix} \frac{3}{5} \\ \frac{4\iota}{5} \end{pmatrix}
+\]
+
+Notice that the entries in these vectors are not probabilities: they are not necessarily non-negative (in fact they are not even necessarily real numbers), and they do not necessarily sum to 1. We call these numbers amplitudes instead of probabilities. The condition that replaces probabilities summing to 1 in a probability vector is this: vectors representing superpositions have Eucledian length equal to 1. In the simple case at hand where $\Sigma = \{0,1\}$, this means that any vector representing a superposition has the form
+\[
+\begin{pmatrix} \alpha \\ \beta \end{pmatrix} 
+\]
+for $\alpha, \beta \in \mathbb{C}$ satisfying $|\alpha|^2+|\beta|^2=1$.
+
+Similar to the probabilistic case, if you look at the qubit X you will not see a superposition. Instead you will see either 0 or 1 just like before. The probability associated with the two possible outcomes is given by the absolute value squared of the associated amplitude-so i the superposition of X is represented by the vector
+\[
+\begin{pmatrix} \alpha \\ \beta \end{pmatrix}
+\]
+any you look at X, you will see 0 with probability $|\alpha|^2$ and 1 with probability $|\beta|^2$. This is why we have the condition $|\alpha|^2+|\beta|^2$, because the probabilities have to sum to 1 for the model to make sense. The same rules apply as for the probabilities case for determining the superposition of X after you look at it: the superposition becomes
+\[
+\begin{pmatrix} 1 \\ 0 \end{pmatrix} or \begin{pmatrix} 0 \\1 \end{pmatrix}
+\]
+depending on whether you see 0 or 1, respectively.
+
+So far the model does not seem qualitatively different from the probabilistic model, but that changes a lot when the possible operations that can be performed are considered. Again the possible operations are represented by matrices; but now instead of being stochastic matrices, the matrices that represent valid physical operations correspond to unitary matrices. A matrix is unitary if and only if it preserves the Eucledian norm. Fortunately there is a very simple condition to check this: a matrix U is unitary if and only if
+\[
+U^{\dagger}U=UU^{\dagger}=I
+\]
+where $U^{\dagger}$ is the conjugate transpose of U (meaning that you take the transpose of U and then take the complex conjugate of each of the entries). For example, these are unitary matrices:
+\[
+H=\begin{pmatrix} \frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}} \\ \frac{1}{\sqrt{2}} & -\frac{1}{\sqrt{2}} \end{pmatrix}, I=\begin{pmatrix} 1 & 0 \\0 & 1 \end{pmatrix}, NOT=\begin{pmatrix} 0 & 1 \\ 1 & 0\end{pmatrix}, R_{\theta} = \begin{pmatrix} \cos (\theta) & -\sin (\theta) \\ \sin(\theta) & \cos (\theta) \end{pmatrix}
+\]
+(for any real number $\theta$ in the case of $R_{\theta}$). For example, if X is a superposition described by
+\[
+v=\begin{pmatrix} 1 \\ 0 \end{pmatrix}
+\]
+and the operation corresponding to the matrix H (called the hadamard transform) is performed, the superposition becomes
+\[
+Hv=\begin{pmatrix} \frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}}\\\frac{1}{\sqrt{2}} & -\frac{1}{\sqrt{2}} \end{pmatrix}
+\]
+If you measured X at this point you would see outcome 0 or 1 with probability $1/2$. If you didn't measure and instead applied the Hadamard transform again, the superposition would become
+\[
+\begin{pmatrix} \frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}} \\ \frac{1}{\sqrt{2}} & -\frac{1}{\sqrt{2}} \end{pmatrix} = \begin{pmatrix} 1 \\ 0 \end{pmatrix}
+\]
+To recapitulate, these are the two things you can do to a qubit:
+\begin{enumerate}
+    \item \textbf{Perform a measurement.} If the superposition of the qubit is
+    \[
+    \begin{pmatrix} \alpha \\ \beta \end{pmatrix}
+    \]
+    and a measurement is performed, the outcomes is 0 or 1, with probabilities $|\alpha|^2$ and $|\beta|^2$, respectively. The superposition of the qubit becomes
+    \[
+    \begin{pmatrix} 1 \\ 0 \end{pmatrix}, \begin{pmatrix} 0 \\1 \end{pmatrix}
+    \]
+    depending on whether the measurement outcome was 0 or 1.
+    \item \textbf{Perform a Unitary operation} For any unitary matrix U, the operation described by $U$ transforms any superposition $v$ into the superposition $Uv$.
+\end{enumerate}
+
+\begin{example}
+    Suppose your friend has a qubit that he knows is in one of the two superpositions
+    \[
+    v_0=\begin{pmatrix} \frac{1}{\sqrt{2}} \\ \frac{1}{\sqrt{2}} \end{pmatrix} or v_1\begin{pmatrix} \frac{1}{\sqrt{2}} \\ -\frac{1}{\sqrt{2}} \end{pmatrix}
+    \]
+    but he isn't sure which. How can you help him determine which one it is?
+    Measuring right away will not help - you would see a random bit 0 or 1 with equal probability in either case. instead,you should perform a Hadamard transform and them measure. Performing the hadamard transform changes the superposition as follows:
+    \[
+    Hv_0=\begin{pmatrix} 1 \\ 0\end{pmatrix} \quad and \quad Hv_1 =\begin{pmatrix} 0 \\1 \end{pmatrix}
+    \]
+    Now if you measure, you will see 0 (with certainty, meaning probability 1) if the original superposition was $v_0$ and you will see 1 (with certainty) if the original superposition was $v_1$.
+\end{example}
+
+Thus instead of being just 0 and 1, quantum bits can be in a superposition between 0 and 1. Since "quantum bit" is somewhat long, researchers simply use the term "qubit" to refer to a quantum bit. Thinking of bit as vectors, a qubit can be described by a vector $\ket{v} \in \mathbb{C}^2$. the vector space $\mathbb{C}^2$. The vector space $\mathbb{C}^2$ is also known as the state space of the qubit. An example of qubit state is
+\[
+\ket{+}=\frac{1}{\sqrt{2}}(\ket{0}+\ket{1})
+\]
+It turns out that in order to be a valid qubit, $\ket{v}$ must be normalized, just as the vectors $\ket{0}$ and $\ket{1}$ corresponding to classical bits were indeed normalized. For the moment, let us just take this as a rule leading to the following definition.
+
+\begin{definition}
+    \textbf{Qubit} A (pure) state of a qubit can be represented as a 2-dimensional ket vector $\ket{\psi} \in \mathbb{C}^2$.
+    \[
+    \ket{\psi}=\alpha\ket{0}+\beta\ket{1}, \quad \text{where $\alpha,\beta \in \mathbb{C}$ and $|\alpha|^2+|\beta|^2=1$}
+    \]
+    The condition on $\alpha$ and $\beta$ means that $\ket{\psi}$ is normalized. These complex numbers $\alpha$ and $\beta$ are also called amplitudes of $\ket{\psi}$.
+\end{definition}
+
+Throughout these lectures we will be mostly focusing on encoding information in qubits. However in general, quantum information can also be encoded in higher dimensional quantum systems. Therefore, one can similarly define a qudit as below:
+\begin{definition}
+    A qudit, or a d-dimensional quantum system can be represented as a d-dimensional ket vector $\ket{\psi} \in \mathbb{C}^d$
+    \[
+    \ket{\psi}=\sum_{i=0}^{d-1} \alpha_i\ket{i}, \quad \text{where $\forall i, \alpha_i \in \mathbb{C}$ and $\sum_{i=0}^{d-1} |\alpha_i|^2=1$ }
+    \]
+    The condition on the coefficients $\alpha_i$ means that $\ket{\psi}$ is a vector of length of 1.
+\end{definition}
+\begin{example}
+    An example of a qubit is given by the vector $\ket{-}=\frac{1}{\sqrt{2}}(\ket{0}-\ket{1})$. The length of $\ket{-}$ is
+    \[
+    \braket{-|-}=\sqrt{\frac{1}{2}\begin{pmatrix} 1 & -1 \end{pmatrix} \begin{pmatrix} 1 \\ -1 \end{pmatrix}}=\sqrt{\frac{1}{2}2}=1
+    \]
+    So $\ket{-}$ is normalized.
+\end{example}
+\begin{example}
+    Verify that for all values of $\theta$, $\ket{\psi}=\cos (\theta) \ket{0} + \sin (\theta) \ket{1}$ is a valid qubit state.
+    \[
+    |\cos (\theta)|^2+|\sin (\theta)|^2=\cos^2 (\theta) + \sin^2 (\theta)=1
+    \]
+    Thus, clearly it is normalized for all values of $\theta$.
+\end{example}
+In our definition of qubits, we started from a way to write classical bits as vectors $\ket{0}$ and $\ket{1}$. Note that these two vectors are orthonormal, which in the quantum notation can be expressed as $\braket{1|0}=0$ and $\braket{1|1}=\braket{0|0}=1$. These two vectors thus form a basis for $\mathbb{C}^2$, in that any vector $\ket{v}\in \mathbb{C}^2$ can be written as $\ket{v}=\alpha \ket{0} +\beta \ket{1}$ for some coefficients $\alpha,\beta \in \mathbb{C}$. This basis corresponding to "classical" bits is used so often that it carries a special name:
+
+\begin{enumerate}
+    \item \begin{definition}
+        \textbf{Computational Basis/Standard Basis:} Consider the 2-dimensional complex vector space $\mathbb{C}^2$. The standard basis, or sometimes known as the computational basis, $\mathcal{S}=\{\ket{0},\ket{1}\}$ is an orthonormal basis for this vector space, where the basis vectors are
+        \[
+        \ket{0}=\begin{pmatrix} 1 \\ 0 \end{pmatrix}, \ket{1}=\begin{pmatrix} 0 \\ 1 \end{pmatrix}
+        \]
+        In general, for a d-dimensional complex vector space $\mathbb{C}^d$. The standard basis or computational basis states are represented as $\ket{0},\ket{1},\ldots,\ket{d-1}$ where
+        \[
+        \ket{i}=\begin{pmatrix} \vdots \\ 0 \\ 1 \\ 0 \\ \vdots \\ \end{pmatrix}
+        \]
+        where it is a column vector of size $2^d \times 1$ with 1 at the ith location and 0 elsewhere.
+    \end{definition}
+Of course, there might be many other bases for $\mathbb{C}^2$. But here,we will discuss only those basis which are most frequently used.
+    \item \begin{definition}\textbf{Hadamard Basis:} The Hadamard basis is an orthonormal basis in which the states are represented as $\mathcal{H}=\ket{+},\ket{-}$ where 
+    \[\ket{+}=\dfrac{\ket{0}+\ket{1}}{\sqrt{2}}=\frac{1}{\sqrt{2}}\begin{pmatrix} 1 \\ 1 \end{pmatrix} \quad \text{and} \quad \ket{-}=\dfrac{\ket{0}-\ket{1}}{\sqrt{2}}=\frac{1}{\sqrt{2}}\begin{pmatrix} 1 \\-1\end{pmatrix}.
+    \]
+    \end{definition}
+    \item \textbf{Y Basis:} The basis in which the states are represented as $\ket{+i},\ket{-i}$ where 
+    \[\ket{+i}=\dfrac{\ket{0}+\iota\ket{1}}{\sqrt{2}}=\frac{1}{\sqrt{2}}\begin{pmatrix} 1 \\ \iota \end{pmatrix} \quad \text{and} \quad \ket{-i}=\dfrac{\ket{0}-\iota\ket{1}}{\sqrt{2}}=\frac{1}{\sqrt{2}}\begin{pmatrix} 1 \\ -\iota \end{pmatrix}
+    \]
+\end{enumerate}
+
+\begin{example}
+    We now verify that the hadamard basis is indeed orthonormal using the bra-ket notation as shown below:
+    \[
+    \braket{+|+}=\frac{1}{2} \begin{pmatrix} 1 & 1 \end{pmatrix} \begin{pmatrix} 1 \\ 1 \end{pmatrix} =\frac{1}{2}2=1\implies \sqrt{\braket{+|+}}=1
+    \]
+    So $\ket{+}$ is normalized. Furthermore, the inner product
+    \[
+    braket{+|-}=\frac{1}{2}\begin{pmatrix} 1 & 1 \end{pmatrix} \begin{pmatrix} 1 \\ -1 \end{pmatrix} = 0
+    \]
+    So $\ket{+}$ and $\ket{-}$ are orthogonal to each other.
+\end{example}
+
+\begin{example}
+    Express $\ket{1}$ in the Hadamard basis. That is, find coefficients $\alpha$ and $\beta$ such that $\ket{1}=\alpha\ket{+}+\beta\ket{-}$.
+    Clearly, putting $alpha=\frac{1}{\sqrt{2}}$ and $\beta=\frac{1}{\sqrt{2}}$ satisfies the system of linear equations.
+\end{example}
+
+The linear superposition $\ket{\psi}=\alpha\ket{0}+\beta \ket{1}$ is part of the private world of electron. For us to know the electron's state, we must make a measurement. making a measurement gives us a single classical bit of information 0 or 1. The simplest measurement is in the standard basis, and measuring $\ket{\psi}$ in this $\{\ket{0},\ket{1}\}$ basis yields 0 with probability $|\alpha|^2$, and 1 with probability $|\beta|^2$,.
+
+One important aspect of the measurement process is that it alters the state of the qubit: the effect of the measurement is that the new state is exactly the outcome of the measurement. i.e., if the outcome of the measurement of $\ket{\psi}=\alpha \ket{0}+\beta\ket{1}$ yields 0, then following the measurement, the qubit is in the state $\ket{0}$. This implies that you cannot collect any additional information about $\alpha,\beta$ by repeating the measurement.
+
+More generally, we may choose any orthogonal basis $\{\ket{v},\ket{w}\}$ and measure the qubit in that basis. To do this, we rewrite our state in that basis: $\ket{\psi}=\alpha'\ket{v}+\beta'\ket{w}$. The outcome is $v$ with probability $|\alpha'|^2$, and $\ket{w}$ with probability $|\beta'|^2$. If the outcome of the measurement on $\ket{\psi}$ yields $\ket{v}$, then as before, the qubit is then in state $\ket{v}$.
+
+\subsection{Example of Qubits}
+\subsubsection{Atomic Orbitals}
+The electrons within an atom exist in quantized energy levels. Qualitatively these electronic orbits (or "orbitals" as we like to call them) can be thought of as resonating standing waves, in close analogy to the vibrating waves one observes on a tightly held piece of string. Two such levels can be isolated to configure the basis states for a qubit.
+
+\subsubsection{Photon Polarization}
+Classically, a photon may be described as a travelling electromagnetic wave. This description can be fleshed out using Maxwell's equation, but for out purposes we will focus simply on the fact that an electromagnetic wave has a polarization which describes the orientation of the electric field oscillations (see figure). So, for a given direction of photon motion, the photon's polarization axis might lie anywhere in a 2-d plane perpendicular to that motion. It is thus natural to pick an orthonormal 2-d basis (such as $\vec{x}$ and $\vec{y}$, or "vertical" and "horizontal") to describe the polarization state (i.e. polarization direction) of a photon. In a quantum mechanical description, this 2-d nature of the photon polarization is represented by a qubit, where the amplitude of the overall polarization state in each basis vector is just the projection of the polarization in that direction.
+
+The polarization of a photon can be measured by using a polaroid film or a calcite crystal. A suitably oriented sheet transmits x-polarized photons and absorbs y-polarized photons. Thus a photon that is in a superposition $\ket{\phi}=\alpha\ket{x}+\beta \ket{y}$ is transmitted with probability $|\alpha|^2$. If the photon now encounters another polaroid sheet with the same orientation, then it is transmitted with probability 1. On the other hand, if the second polaroid sheet has its axes crossed at right angles to the first one, then if the photon is transmitted by the first polaroid, then it is definitely absorbed by the second sheet. This pair of polarized sheets at right angles thus blocks all the light. A somewhat counter-intuitive result is not obtained by interposing a third polaroid sheet at a 45 degree angle between the first two. Now a photon that is transmitted by the first sheet makes it through the next two with some non zero probability.
+
+To see this first observe that any photon transmitted through the first filter is in the state, $\ket{0}$. The probability this photon is transmitted through the second filter is $1/2$ since it is exactly the probability that a qubit in the state $\ket{0}$ ends up in the state $\ket{+}$ when measured in the $\ket{+},\ket{-}$ basis. We can repeat this reasoning for the third filer, except now we have a qubit in state $\ket{+}$ being measured in the $\ket{0},\ket{1}$ basis - the change that the outcome is $\ket{0}$ is once again $1/2$.
+
+\subsubsection{Spins}
+Like photon polarization, the spin of a (spin-1/2) particle is a two-state system, and can be described by a qubit.Very roughly speaking, the spin is a quantum description of the magnetic moemnt of an electron which behaves like a spinning charge. The two allowed states can roughly be thought of as clockwise rotations ("spin-up") and counter clockwise rotations ("spin-down").
+
+\subsection{Multiple Qubits}
+In order to talk about what happens when we have multiple qubits, it will be helpful to briefly return to the probabilistic model from before. Suppose that X and Y are devices that implement bits. Then there are 4 possible states of the pair (X,Y), namely 00, 01, 10 and 11. Thus, our set of states $\Sigma$ corresponding to this pair is now $\{00,01,10,11\}$. In the probabilistic model we represent our knowledge of the state of the pair (X,Y) with a 4 dimensional probability vector. For example we could have the following probability vector
+\[
+\begin{pmatrix} \frac{1}{8} \\ \frac{1}{2} \\ 0 \\ \frac{3}{8} \end{pmatrix}
+\]
+with the first entry indicating the probability associated with state 00, second entry denoting the probability associated with state 01, third entry denoting the probability associated with state 10, fourth entry denoting the probability associated with state 11. (The vector indices are labelled by the states in the order given by binary notation.) Operations again correspond to stochastic matrices, but this time the matrices are $4 \times 4$ matrices. For example, the matrix
+\[
+\begin{pmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & \frac{1}{2} & \frac{1}{2} \\ 0 & 0 & \frac{1}{2} & \frac{1}{2} \end{pmatrix}
+\]
+is stochastic. It happens to correspond to the operation where you do nothing if the first bit is 0 but if the first bit is 1 then replace the second bit with a random bit.
+
+The quantum variant works in an analogous way. If we have two qubits (X,Y), then a superposition of these two qubits is a 4-dimensional vector with Eucledian length equal to 1. For example:
+\[
+\begin{pmatrix} \frac{1}{\sqrt{2}} \\ 0 \\ \frac{\iota}{2} \\ -\frac{1}{2} \end{pmatrix}
+\]
+Measurement works the same way as before, except that the outcome will be two bits. For example, measuring the previous superposition gives results as follows:
+\[
+\text{00 with probability} |\frac{1}{\sqrt{2}}|^2=\frac{1}{2}
+\]
+\[
+\text{01 with probability} |0|^2=0
+\]
+\[
+\text{10 with probability} |\frac{\iota}{\sqrt{2}}|^2=\frac{1}{4}
+\]
+\[
+\text{11 with probability} |=\frac{1}{2}|^2=\frac{1}{4}
+\]
+We can also measure only one qubit out of the two bits leaving the other alone, which is called partial measurement. We will later on see what happens in case of partial measurement. Unitary operations also work the same way as before, but this time are $4 \times 4$ matrices. For example, there is a 2 qubit unitary operation called controlled-NOT:
+\[
+\begin{pmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 0 & 1\\ 0 & 0 & 1 & 0 \end{pmatrix}
+\]
+The same pattern is used for 3 qubits, 4 qubits etc. The dimension of the vectors and matrices grows exponentially: 8 dimensional vectors for 3 qubits, 16 dimensional vectors for 4 qubits, etc.
+
+By the way there is no reason you cannot consider the model for any other choice of $\Sigma$, instead of $\Sigma$ corresponding to all possible strings of a given length. Typically, however, we will focus on the case where $\Sigma=\{0,1\}^n$ for positive integer n.
+
+Classically, if we have two bits, we write them as '00','01',10','11'. But how can we write two qubits? One strategy is to again associate each of them two classical bits $x_1,x_2 \in \{0,1\}^2$ with a vector. labelling the first qubit A and the second one B, we could perform the mapping from strings to orthonormal vectors as
+\[
+0_A0_B\rightarrow \ket{00}_{AB}=\begin{pmatrix} 1 \\0 \\0 \\ 0 \end{pmatrix} \quad 0_A1_B\rightarrow \ket{01}_{AB}=\begin{pmatrix} 0 \\ 1 \\ 0 \\ 0 \end{pmatrix}
+\]
+\[
+1_A0_B\rightarrow \ket{10}_{AB}=\begin{pmatrix} 0 \\ 0 \\ 1 \\0 \end{pmatrix} \quad 1_A1_B\rightarrow \ket{11}_{AB}=\begin{pmatrix} 0 \\ 0 \\ 0 \\ 1 \end{pmatrix}
+\]
+Note that the resulting vectors are in $\mathbb{C}^4$ with dimension $d=2^2=4$, where the dimension corresponds to the number of possible strings. It turns out that one can write a two-qubit state $\ket{\psi}_{AB}\in\mathbb{C}^4$ as a superposition of these vectors, where we again demand that $\ket{\psi}_{AB}$ is normalized. As an example, let us consider a state $\ket{\psi}_{AB}$ that is an equal superposition fo all above standard basis vectors:
+\begin{align*}
+\ket{\psi}_{AB}&=\frac{1}{2}\ket{00}_{AB}+\frac{1}{2}\ket{01}_{AB}+\frac{1}{2}\ket{10}_{AB}+\frac{1}{2}\ket{11}_{AB}\\
+&=\frac{1}{2}\begin{pmatrix} 1 \\ 0 \\ 0 \\ 0 \end{pmatrix}+\frac{1}{2}\begin{pmatrix} 0 \\ 1 \\ 0 \\ 0 \end{pmatrix} + \frac{1}{2}\begin{pmatrix} 0 \\ 0 \\ 1 \\ 0 \end{pmatrix} + \frac{1}{2}\begin{pmatrix} 0 \\ 0 \\ 0 \\ 1 \end{pmatrix}\\
+&=\frac{1}{2}\begin{pmatrix} 1 \\ 1 \\ 1 \\ 1 \end{pmatrix}
+\end{align*}
+The sum of amplitudes $\frac{1}{2}$ squared is $4\frac{1}{2^2}=1$, therefore $\ket{\psi}$ is a valid two qubit quantum state. As you might have guessed, we now proceed analogously when considering n qubits. To address
+multiple qubits, we first look at the vector representation for multiple classical bits. For binary
+strings of length $n$, consider the vector space $\mathbb{C}^n$, where each coordinate is labelled by a string
+$x = x_1,..., x_n$. There are a total of $d = 2^n$ such strings, so we can label each string $x$ with a different
+integer $i \in [1,d]$. We can then express the string $x$ as a vector $\ket{x_i}$ that is $0$ everywhere, except at the position labelled by $i$. A quantum state of $n$ qubits can then be written as
+\[
+\ket{\psi}=\sum_{x\in\{0,1\}^n} \alpha_x\ket{x}
+\]
+with $\alpha_x\in\mathbb{C}$ and $\sum_x |\alpha_x|^2=1$. The numbers $\alpha_x$ are again called amplitudes. We emphasize that the dimension of the vector space $\mathbb{C}^{2^n}$ increases exponentially with the number $n$ of bits. The space $\mathbb{C}^d$ with $d=2^n$ is thereby called the state space of n qubits. This means that we need an exponential number of parameters $\alpha_x$ to keep track of only n qubits, in sharp contrast to the $n$ parameters $x_1,\ldots , x_n$ to describe $n$ classical bits. You might wonder whether this was the only way to write down qubits. After all, we had simply chosen some mapping from strings of length $n$ to vectors in $\mathbb{C}^d$. Could we have chosen any other mapping from strings to vectors? It turns out that the answer to this is yes - as long as each string gets mapped to a vector that is orthonormal to the others. The mapping above, however, is very convenient and generally adopted within the realm of quantum computing. Analogous
+to the case of a single qubit, the basis given by the set of vectors ${\ket{x} | x \in \{0,1\}^n}$ is called the
+\textit{standard/computational basis}.
+
+\begin{definition}
+    \textbf{Standard basis for n qubits}. Consider the state space of n qubits $\mathbb{C}^d$. where $d=2^n$. For each distinct string $x \in \{0,1\}^n$. associate $x$ with a distinct integer $i \in \{1,2,\ldots ,d\}$. The standard basis for $\mathbb{C}^d$ is an orthonormal basis given by $\mathcal{S}_n=\{\ket{x} | x \in \{0,1\}^n$
+    where $\ket{x}$ are d-dimensional vectors.
+    \[
+    \ket{x}=\begin{pmatrix} 0 \\ \vdots \\  1 \\ \vdots \\ 0 \end{pmatrix}
+    \]
+    where 1 is at the ith position.
+\end{definition}
+Let us summarize our discussion in the following definition of an n qubit quantum state.
+\begin{definition}
+    An n-qubit state $\ket{\psi} \in \mathbb{C}^d$ with $d=2^n$ can be written as a superposition of standard basis elements.
+    \[
+    \ket{\psi} = \sum_{x\in\{0,1\}^n}\alpha_x\ket{x}, \quad \text{where $\forall x, \alpha_x \in \mathbb{C}$ and $\sum_{x \in \{0,1\}^n} |\alpha_x|^2=1$}
+    \]
+\end{definition}
+Let us now consider two examples of two qubit states. The first is so famous it carries a special
+name and we will see it very frequently in the course of these notes.
+\begin{example}
+    Example 0.2.2 Consider two qubits A and B, in the two qubit state known as the EPR (Einstein, Podolsky and Rosen) pair, one can label the join state as AB
+    \[
+    \ket{EPR}_{AB}=\frac{1}{\sqrt{2}}(\ket{00}_{AB}+\ket{11}_{AB})=\frac{1}{\sqrt{2}}\begin{pmatrix} 1 \\ 0 \\ 0 \\ 0 \end{pmatrix} + \frac{1}{2}\begin{pmatrix} 0 \\ 0 \\ 0 \\ 1 \end{pmatrix}=\frac{1}{\sqrt{2}}\begin{pmatrix} 1 \\ 0 \\ 0 \\ 1 \end{pmatrix}
+    \]
+    which is an equal superposition between the vectors $\ket{00}_{AB}$ and $\ket{11}$. The length of this vector is given by the (square root o) inner product
+    \begin{align*}
+    \braket{EPR|EPR}_{AB}&=\frac{1}{\sqrt{2}}(\bra{00}_{AB}+\bra{11}_{AB})\cdot \frac{1}{\sqrt{2}}(\ket{00}_{AB}+\ket{11}_{AB})\\
+    &=\frac{1}{2}(\braket{00|00}_{AB}+\braket{00|11}_{AB}+\braket{11|00}_{AB}+\braket{11|11}_{AB})\\
+    &=\frac{1}{2}\cdot 2=1 \implies \sqrt{\braket{EPR|EPR}}=1
+    \end{align*}
+\end{example}
+\begin{example}
+    Consider the two qubit state
+    \[
+    \ket{\psi}_{AB}=\frac{1}{\sqrt{2}}(\ket{01}_{AB}+\ket{11}_{AB}\frac{1}{\sqrt{2}}\begin{pmatrix} 1\\ 0 \\ 0 \\ 1 \end{pmatrix}
+    \]
+    For this state, the second qubit always corresponds to bit 1. We will later see that this is significantly different state compared to $\ket{EPR}_{AB}$. It is not entangled!!.
+\end{example}
+
+\subsubsection{Tensor Products: How to combine qubits}
+
+Returning again briefly to the probabilistic model, let us suppose that as before X and Y are devices
+implementing bits, and the two devices are completely uncorrelated with one another—let us say
+that the probability vector corresponding to X is
+\[
+v=\begin{pmatrix} \frac{2}{3} \\ \frac{1}{3} \end{pmatrix}
+\]
+and the probability vector corresponding to Y is
+\[
+w=\begin{pmatrix} \frac{1}{4} \\ \frac{3}{4} \end{pmatrix}
+\]
+Then the 4 dimensional probability vector corresponding to the pair (X, Y) is easily determined by
+multiplying the corresponding probabilities. In particular, the resulting vector is
+\[
+v\otimes w= \begin{pmatrix} \frac{1}{6} \\ \frac{1}{2} \\ \frac{1}{12} \\ \frac{1}{4} \end{pmatrix}
+\]
+The operation $\otimes$ is called the Kronecker product or the tensor product. (It is most common in
+quantum computing to use the term tensor product to refer to this operation.) In general, for any
+two matrices
+\[
+A=\begin{pmatrix} a_{11} & a_{12} &\ldots & a_{1m} \\ a_{21} & a_{22} &\ldots &a_{2m} \\ \vdots & \vdots &\ddots & \vdots \\ a_{n1} & a_{n2} &\ldots & a_{nm} \end{pmatrix} \quad \text{and} \quad B=\begin{pmatrix} b_{11} & b_{12} &\ldots & b_{1l} \\ b_{21}& b_{22} & \ldots & b_{2l} \\ \vdots & \vdots & \ddots & \vdots \\ b_{k1} & b_{k2} & \ldots & b_{kl} \end{pmatrix}
+\]
+we define $A\otimes B$ to be the $nk \times ml$ matrix
+\[
+A\otimes B=\begin{pmatrix} a_{11}B & a_{12}B &\ldots & a_{1m}B \\ a_{21}B & a_{22}B &\ldots &a_{2m}B \\ \vdots & \vdots &\ddots & \vdots \\ a_{n1} B& a_{n2}B &\ldots & a_{nm}B \end{pmatrix}
+\]
+The definition works for vectors by thinking of them as matrices with only one column.
+The tensor product satisfies many nice properties. For example, it is an associative operation;
+$$(A \otimes B) \otimes  C = A \otimes (B \otimes C)$$ for any choice of matrices A, B and C. Thus, it makes sense to talk about products such as $A \otimes B \otimes C \otimes \ldots \otimes Z$ without including parentheses, because it doesn’t matter in which order the products are evaluated. Next, we have
+\[
+(A\otimes B)(C\otimes D)=(AC)\otimes (BD)
+\]
+for any choice of matrices A, B, C and D (assuming the sizes of the matrices are such that the
+products AC and BD make sense). The distributive law holds for tensor products;
+\[
+A\otimes (B+C)=A\otimes B+A\otimes C \quad \text{and} \quad (A+B)\otimes C=A\otimes C+B\otimes C
+\]
+Also, for matrices A and B and any scalar $\alpha$, we have
+\[
+(\alpha A)\otimes B=A \otimes (\alpha B)=\alpha(A\otimes B)
+\]
+In other words, scalars “float freely” through the tensor product. A word of warning, however, is
+that the tensor product is not commutative; in general it may be the case that $A\otimes B\neq B\otimes A$.
+
+Not every probability vector v representing a distribution of (X, Y) can be written as a tensor
+product. For example,
+\[
+v=\begin{pmatrix}1/2\\0\\0 \\ 1/2 \end{pmatrix}
+\]
+cannot be written as a tensor product. In this distribution we have
+\[
+Pr[\text{state of $(X,Y)$ is $00$}]=Pr[\text{state of $(X,Y)$ is }11]=\frac{1}{2}
+\]
+We say that X and Y are correlated in this case. The only way a probability vector can be written
+as a tensor product is when the associated systems are uncorrelated (or independent).
+As you might have guessed, we do exactly the same thing in the quantum case as in the classical, probabilistic case. If X and Y are qubits having associated superpositions
+\[
+v=\begin{pmatrix} \alpha \\ \beta \end{pmatrix} \quad \text{and} \quad w=\begin{pmatrix} \gamma \\ \delta \end{pmatrix}
+\]
+then the superposition of the pair (X, Y) is
+\[
+v\otimes w=\begin{pmatrix} \alpha\gamma \\ \alpha\delta \\ \beta\gamma\\\beta\delta \end{pmatrix}
+\]
+The superposition
+\[
+\begin{pmatrix} \frac{1}{\sqrt{2}} \\ 0 \\ 0 \\ \frac{1}{\sqrt{2}} \end{pmatrix}
+\]
+is an example of a superposition that cannot be written as a tensor product. In the quantum case,
+this type of correlation between X and Y is special and we call it entanglement. We will talk about
+entanglement a lot during the course.
+
+For example, $\ket{1010}$ is a 16 dimensional vector with a 1 in the position indexed by $1010$ in binary (which is the eleventh entry because we start with 0000). The vector
+\[
+\frac{1}{\sqrt{2}} \ket{000000} +\frac{1}{\sqrt{2}}\ket{111111}
+\]
+would be written
+\[
+\begin{pmatrix} \frac{1}{\sqrt{2}} \\ 0 \\ \vdots \\ 0 \\\frac{1}{\sqrt{2}} \end{pmatrix}
+\]
+in the usual vector notation. An arbitrary vector with entries indexed by $\{0,1\}^n$, which perhaps refers to a superposition of n qubits, can again be written as a linear combination of the elements in the basis
+\[
+\{\ket{x}:x \in \{0,1\}^n\}
+\]
+for instance as
+\[
+\ket{\phi}=\sum_{x\in\{0,1\}^n} \alpha_x \ket{x}
+\]
+
+\begin{example}
+    Let us suppose that we have two qubits X and Y in the superposition
+    \[
+    \begin{pmatrix} \frac{1}{\sqrt{2}} \\ 0 \\ 0 \\ \frac{1}{\sqrt{2}} \end{pmatrix}
+    \]
+    Using the Dirac notation we write this superposition as
+    \[
+    \frac{1}{\sqrt{2}}\ket{00}+\frac{1}{\sqrt{2}}\ket{11}
+    \]
+\end{example}
+
+For every ket $\ket{\psi}$ there is a corresponding object $\bra{\psi}$, called a “bra”. You may think that this is
+a strange name for a mathematical object, but the names “bra” and “ket” are derived from the the fact that when you put a bra and a ket together, you get a “bracket”. For this to make sense you
+need to know what a bra is—for any vector $\ket{\psi}$ we define
+\[
+\bra{\psi}=(\ket{\psi})^{\dagger}
+\]
+which is the conjugate transpose of $\ket{\psi}$. In other words, $\bra{\psi}$ is the row vector you get by transposing
+$\ket{\psi}$ and taking the conjugate of each of its entries. For instance:
+\[
+\ket{\psi}=\begin{pmatrix} \frac{1 + \iota }{2} \\ \frac{1}{\sqrt{2}} \end{pmatrix} \implies \bra{\psi}=\begin{pmatrix} \frac{1-\iota}{2} & \frac{1}{\sqrt{2}} \end{pmatrix}
+\]
+Now, when you juxtapose a bra and a ket, the implicit operation is matrix multiplication (thinking
+of the vectors as matrices with only one row or one column). A row vector times a column vector
+results in a scalar, and this scalar will be the inner product (or bracket) of the vectors involved. For
+instance, if
+\[
+\ket{\psi}=\begin{pmatrix} \alpha \\ \beta \end{pmatrix} \quad \text{and}\quad \ket{\phi}=\begin{pmatrix} \gamma \\ \delta \end{pmatrix}
+\]
+then
+\[
+\braket{\psi|\phi} = \bra{\psi} \ket{\phi}=\begin{pmatrix} \overline{\alpha} & \overline{\beta} \end{pmatrix} \begin{pmatrix} \gamma \\ \delta \end{pmatrix} =\overline{\alpha}\gamma + \overline{\beta}\delta 
+\]
+When you have an expression such as
+\[
+\ket{\psi}=\sum_{x\in\{0,1\}^n} \alpha_x \ket{x}
+\]
+It is easy to express $\bra{\psi}$ using similar notation; it is
+\[
+\bra{\psi}=\sum_{x\in\{0,1\}^n} \overline{\alpha_x} \ket{x}
+\]
+When you juxtapose a ket and a bra in the opposite order, such as
+\[
+\ket{\psi}\bra{\phi}
+\]
+you do not get a scalar—a column vector times a row vector gives you a matrix. It is easy to
+determine the action of this matrix on another vector. For instance,
+\[
+\ket{\psi}\bra{\phi}\ket{\gamma}=\ket{\psi}\braket{\phi|\gamma}=\braket{\phi|\gamma}\ket{\psi}
+\]
+Later on when we wish to speak at a higher level of abstraction about computational problems,
+algorithms, etc., we may refer to |xi where x is some arbitrary mathematical object (such as a
+matrix, a graph, or a list of numbers). In this case the interpretation is that we are implicitly
+referring to the encoding of x with respect to some agreed upon encoding scheme.
+
+
+Let’s imagine that we have two qubits, A and B. We know that we can describe the state of A
+as $\ket{\psi}_A$and the one of B as $\ket{\phi}_B$. How can we write down the combined state $\ket{\psi}_{AB}$ of A and B together? The rule for computing the joint state is given by the so-called tensor product (sometimes also called Kronecker product). For two qubits
+\[
+\ket{\psi}_A=\alpha_A\ket{0}_A+\beta_A\ket{1}_A=\begin{pmatrix} \alpha_A \\ \beta_A \end{pmatrix}
+\]
+\[
+\ket{\phi}_B=\alpha_B\ket{0}_B+\beta_B\ket{1}_B = \begin{pmatrix} \alpha_B \\ \beta_B\end{pmatrix}
+\]
+the joint state $\ket{\psi}_{AB} \in \mathbb{C}^2 \otimes \mathbb{C}^2$ can be expressed as the tensor product of individual vectors $\ket{\psi}_A$ and $\ket{\phi}_B$
+\[
+\ket{\psi}_{AB}=\ket{\psi}_A \otimes \ket{\phi}_B = \begin{pmatrix} \alpha_A \\ \beta_A \end{pmatrix} \otimes \ket{\psi}_B = \begin{pmatrix} \alpha_A \ket{\psi}_B \\ \beta_A\ket{\psi}_B \end{pmatrix} = \begin{pmatrix} \alpha_A \alpha_B \\ \alpha_A\beta_B \\ \beta_A\alpha_B\\ \beta_A\beta_B \end{pmatrix}
+\]
+As you may have guessed, we can of course also combine the state of two quantum systems A and
+B if they are larger than just one qubit. The general definition of the tensor product of two vectors is given by
+\begin{definition}
+    Given two vectors $\ket{\psi_1} \in \mathbb{C}^{d_1}$ and $\ket{\psi_2}\in\mathbb{C}^{d_2}$ respectively, the tensor product is given by
+    \[
+    \ket{\psi_1}\otimes \ket{\psi_2}  = \begin{pmatrix} \alpha_1 \\ \vdots \\ \alpha_d \end{pmatrix} \otimes \ket{\psi_2} = \begin{pmatrix} \alpha_1\ket{\psi_2} \\ \vdots \\ \alpha_d\ket{\psi_2} \end{pmatrix}
+    \]
+    and $\ket{\psi_1}\otimes \ket{\psi_2}$ lies in the state space $\mathbb{C^{d_1}} \otimes \mathbb{C}^{d_2}$.
+\end{definition}
+The following is simplified (or rather, lazy) notation are commonly used in Quantum Information:
+Omitting the tensor product symbol: $\ket{\psi}_A \otimes \ket{\psi}_B  =\ket{\psi}_A\ket{\psi}_B$. Writing classical bit as a string: $\ket{0}_A\otimes \ket{0}_B=\ket{0}_A\ket{0}_B=\ket{))}_{AB}$. Combing several identical states: $\ket{\psi}_1\otimes \ket{\psi}_2\ldots\otimes \ket{\psi}_n=\ket{\psi}^{\otimes n}$.
+
+\begin{proposition}
+    The tensor product satisfies several useful properties:
+    \begin{enumerate}
+        \item \textbf{Distributive: }$\ket{\psi_1}\otimes (\ket{\psi_2}+\ket{\psi_3})=\ket{\psi_1}\otimes \ket{\psi_2}+\ket{\psi_1}\otimes \ket{\psi_3}$. Similarly, $(\ket{\psi_1}+\ket{\psi_2})\otimes \ket{\psi_3}=\ket{\psi_1}\otimes \ket{\psi_3}+\ket{\psi_2}\otimes \ket{\psi_3}$.
+        \item \textbf{Associative: }$\ket{\psi_1}\otimes (\ket{\psi_2}\otimes \ket{\psi_3})=(\ket{\psi_1}\otimes \ket{\psi_2})\otimes \ket{\psi_3}$.
+        \item \textbf{NOT Commutative: }In general, $\ket{\psi_1}\otimes \ket{\psi_2} \neq \ket{\psi_2} \otimes \ket{\psi_1}$ unless of course $\ket{\psi_1}=\ket{\psi_2}$.
+    \end{enumerate}
+    These relations not only hold for kets, but also for bras.
+\end{proposition}
+To understand the definition of the tensor product, let us have a look at a few examples. The
+first relates to the definition of the standard basis for multiple qubits. Indeed, you may have been
+wondering, if we could have proceeded in a somewhat less ad hoc manner than starting from
+classical strings $x \in \{0,1\}^n$ and assigning to them vectors $\ket{x}$ in a space of dimension $d = 2^n$.
+Indeed, you may have started to wonder why $n$ qubits resulted in a state space of a dimension that
+is exponential in $n$ in the first place. The reason for this, is that the law of quantum mechanics tells
+us that the state space of two quantum systems is indeed combined by the tensor product.
+
+\begin{example}
+    Let’s recover the standard basis of two qubits, from the standard basis of the
+individual qubits using the tensor product rule. Recall that the standard basis for two qubits AB is given by
+\[
+\ket{00}_{AB}=\begin{pmatrix} 1\\ 0 \\ 0\\ 0 \end{pmatrix}, \ket{01}_{AB}=\begin{pmatrix} 0 \\ 1 \\ 0 \\ 0 \end{pmatrix}, \ket{10}_{AB}=\begin{pmatrix} 0 \\ 0 \\1 \\ 0 \end{pmatrix}, \ket{11}_{AB}=\begin{pmatrix} 0 \\ 0 \\ 0 \\1\end{pmatrix}.
+\]
+This basis can be constructed, by taking the tensor product of standard basis elements for individual qubits: $\ket{0}_A \otimes \ket{0}_B, \ket{0}_A \otimes \ket{1}_B, \ket{1}_A\otimes \ket{0}_B, \ket{1}_A\otimes \ket{1}_B$. For example, consider
+\[
+\ket{1}_A\otimes \ket{0}_B = \begin{pmatrix} 0 \\ 1 \end{pmatrix} \otimes \ket{0}_B = \begin{pmatrix} 0 \ket{0}_B\\ 1 \ket{0}_B \end{pmatrix} = \ket{10}_{AB}
+\]
+We have already seen a few other examples of two qubit states. Let’s see whether we can
+recover them from two individual qubit states using the tensor product.
+\end{example}
+
+\begin{example}
+    Consider the states $\ket{+}_A = \frac{1}{\sqrt{2}}(\ket{0}_A+\ket{1}_A)$ and $\ket{1}_B$. The join state $\ket{\psi}_{AB}$ is given by
+    \[
+    \ket{\psi}_{AB}=\ket{+}_A\otimes \ket{1}_B  = \frac{1}{\sqrt{2}}\begin{pmatrix}1 \\ 1 \end{pmatrix} \otimes \ket{1}_B = \frac{1}{\sqrt{2}} \begin{pmatrix} 1 \ket{1}_B\\1\ket{1}_B \end{pmatrix} = \frac{1}{\sqrt{2}}\begin{pmatrix} 0 \\ 1 \\ 0 \\ 1 \end{pmatrix}
+    \]
+    One can also express the joint state in the standard basis by:
+    \begin{align*}
+    \ket{\psi}_{AB}&=\frac{1}{\sqrt{2}}(\ket{0}_A + \ket{1}_A )\otimes \ket{1}_B\\
+    &=\frac{1}{\sqrt{2}}(\ket{0}_A \otimes \ket{1}_B+ \ket{1}_A \otimes \ket{1}_B )\\
+    &=\frac{1}{\sqrt{2}}(\ket{01}_{AB}+\ket{11}_{AB})
+    \end{align*}
+\end{example}
+
+\begin{example}
+    Consider the states $\ket{+}_A=\frac{1}{\sqrt{2}}(\ket{0}_A+\ket{1}_A)$and $\ket{+}_B=\frac{1}{\sqrt{2}}(\ket{0}_B + \ket{1}_B)$. The joint state $\ket{\psi}_{AB}$ is
+    \begin{align*}
+    \ket{\psi}_{AB}&=\frac{1}{\sqrt{2}}(\ket{0}_A+\ket{1}_A)\otimes \frac{1}{\sqrt{2}} (\ket{0}_B+\ket{1}_B)\\
+    &=\frac{1}{2}(\ket{00}_{AB}+\ket{01}_{AB}+\ket{10}_{AB}+\ket{11}_{AB})\\
+    &=\frac{1}{2}\begin{pmatrix} 1 \\ 1 \\ 1 \\ 1 \end{pmatrix}
+    \end{align*}
+    This is the state which is in an equal superposition of all the standard basis vectors for the two qubits.
+\end{example}
+
+The following is an example of a state that can actually not be expressed as the tensor product
+of two qubit states. Such states are rather special, and play an important role later in our course.
+Nevertheless, let’s have a look at it to see how we might also express a two qubit state in different
+bases.
+\begin{example}
+    Consider the state
+    \[
+    \ket{\psi}_{AB}=\frac{1}{\sqrt{2}}(\ket{+}_A\ket{+}_B+\ket{-}_A\ket{-}_B)
+    \]
+    Let us express this state in terms of the standard basis, by expanding the terms
+    \[
+    \ket{\psi}_A\ket{\psi}_B=\frac{1}{2}(\ket{0}_A+\ket{1}_A)(\ket{0}_B+\ket{1}_B)=\frac{1}{2}(\ket{00}_{AB}+\ket{10}_{AB}+\ket{01}_{AB}+\ket{11}_{AB})
+    \]
+    \[
+    \ket{-}_A\ket{-}_B=\frac{1}{2}(\ket{0}_A-\ket{1}_A)(\ket{0}_B-\ket{1}_B)=\frac{1}{2}(\ket{00}_{AB}-\ket{10}_{AB}-\ket{01}_{AB}+\ket{11}_{AB})
+    \]
+    Substituting this into equation gives
+    \begin{align*}
+    \ket{\psi}_{AB}&=\frac{1}{\sqrt{2}}(ket{+}_A\ket{+}_B+\ket{-}_A\ket{-}_B)\\
+    &=\frac{1}{2\sqrt{2}}(\ket{00}_{AB}+\ket{10}_{AB}+\ket{01}_{AB}+\ket{11}_{AB}+\ket{00}_{AB}+\ket{00}_{AB}-\ket{01}_{AB}-\ket{10}_{AB}+\ket{11}_{AB})\\
+    &=\frac{1}{\sqrt{2}}(\ket{00}_{AB}+\ket{11}_{AB})=\ket{EPR}_{AB}
+    \end{align*}
+    where $\ket{EPR}_{AB}$ is the state we have seen previously. We see that the coefficients of $\ket{EPS}_{AB}$ are the same whether we write it in the Hadamard basis or the standard basis.
+\end{example}
+
+
+
+\section{Measurements}
+Let us consider what happens if we measure a qubit. Classically, you can think of the measurement
+of a bit as simply a readout: we have a system that encodes the state ‘0’ and ‘1’ and we make a
+measurement to find out which one it is.
+\subsection{Simple Measurements}
+This linear superposition $\ket{\psi}=\sum-{j=0}^{k-1}\alpha_j\ket{j}$ is part of the private world of the
+electron. Access to the information describing this state is severely limited —
+in particular, we cannot actually measure the complex amplitudes $\alpha_j$ . This is
+not just a practical limitation; it is enshrined in the measurement postulate
+of quantum physics.
+
+A measurement on this k state system yields one of at most k possible
+outcomes: i.e. an integer between $0$ and $k-1$. Measuring $\ket{\psi}$ in the standard
+basis yields $j$ with probability $|\alpha_j|^2$. 
+
+One important aspect of the measurement process is that it alters the
+state of the quantum system: the effect of the measurement is that the new
+state is exactly the outcome of the measurement. I.e., if the outcome of the
+measurement is $j$, then following the measurement, the qubit is in state $\ket{j}$.
+This implies that you cannot collect any additional information about the
+amplitudes $\alpha_j$ by repeating the measurement.
+
+Intuitively, a measurement provides the only way of reaching into the
+Hilbert space to probe the quantum state vector. In general this is done by
+selecting an orthonormal basis $\ket{e_0},\ldots,\ket{e_{k-1}}$. The outcome of the measurement is $\ket{e_j}$ with probability equal to the square of the length of the projection
+of the state vector $\psi$ on $\ket{e_j}$. A consequence of performing the measurement
+is that the new state vector is $\ket{e_j}$. Thus measurement may be regarded as a
+probabilistic rule for projecting the state vector onto one of the vectors of the
+orthonormal measurement basis.
+
+\subsubsection{Measurement in Standard Basis}
+Let’s first consider a single qubit. Quantum measurements can result in probabilistic outcomes,
+highlighting that quantum information and classical information really are fundamentally different.
+For example, if the state $\ket{\psi} \in \mathbb{C}^2$ is a superposition between $\ket{0}$ and $\ket{1}$, then upon measuring $\ket{\psi}$, we obtain different measurement outcomes corresponding to some probability distribution. How are such probabilities generated? The probability of different outcomes, for instance for outcome ‘0’, can be computed by, roughly speaking, “looking at how much ‘0’ is actually in our qubit vector”. This is quantified by the inner product between $\ket{\psi}$ and $\ket{0}$. More concretely, consider a single
+qubit state $\ket{\psi}=\alpha\ket{0}+\beta\ket{1}$, where $\alpha,\beta$ are complex numbers. Upon measuring the qubit, one obtains the outcome “0” with probability $p_0$ and “1” with probability $p_1$. These probabilities can
+be determined by computing the inner products
+\[
+p_0=|\braket{\psi|0}|^2=\begin{vmatrix} \begin{pmatrix}\alpha^* & \beta^* \end{pmatrix} \begin{pmatrix} 1 \\ 0 \end{pmatrix} \end{vmatrix}^2=|\alpha|^2
+\]
+\[
+p_0=|\braket{\psi|0}|^2=\begin{vmatrix} \begin{pmatrix}\alpha^* & \beta^* \end{pmatrix} \begin{pmatrix} 0 \\ 1 \end{pmatrix} \end{vmatrix}^2=|\alpha|^2
+\]
+We now see a good reason for the condition $|\alpha|^2+|\beta|^2=1:$ it means that $p_0 + p_1 = 1$, that is, the
+probabilities of observing ‘0’ and ‘1’ add up to one. In quantum computer science, it is customary
+to label the outcomes ‘0’ for “$\ket{0}$” and ‘1’ for “$\ket{1}$” and more generally x for outcomes $\ket{x}$, while in physics people often use +1 for “$\ket{0}$” and -1 for “$\ket{1}$”.
+
+\subsubsection{Application: Randomness from a deterministic process}
+Can we do anything interesting with what we have learned so far? It turns out the answer is yes:
+by preparing just single qubits and measuring in the standard basis, we can in principle achieve
+a task that it is impossible classically. Namely, we can produce true random numbers. Consider
+the following process illustrated in Figure 1: first, prepare a qubit in the state $\ket{+}=\frac{1}{\sqrt{2}}(\ket{0}+\ket{1})$ Next, measure this state in the standard basis. The probability of obtaining each outcome can then
+be calculated by evaluating the inner products:
+\[
+p_0=|\braket{+|0}|^2=|\frac{1}{\sqrt{2}}(\bra{0}+\bra{1})\ket{0}|^2=|\frac{1}{\sqrt{2}}(\braket{0|0}+\braket{1|0})|^2=\frac{1}{\sqrt{2}}^2=\frac{1}{2}
+\]
+\[
+p_1=|\braket{+|1}|^2=|\frac{1}{\sqrt{2}}(\bra{0}+\bra{1})\ket{1}|^2=|\frac{1}{\sqrt{2}}(\braket{0|1}+\braket{1|1})|^2=\frac{1}{\sqrt{2}}^2=\frac{1}{2}
+\]
+\begin{figure}
+    \centering
+    \includegraphics[width=1\linewidth]{../images/randomness.png}
+    \caption{Genuine randomness from the preparation of a qubit in superposition}
+    \label{fig:randomness}
+\end{figure}
+This simple example already tells us something about the power of quantum information: We could
+build a machine that deterministically prepares the qubit $\ket{+}$, followed by a measurement in the
+standard basis. Since $p_0=p_1=1/2$, this machine allows us to produce a perfect random number -
+even though no randomness has been used inside our machine! In contrast, one can prove that no
+classical deterministic machine can produce random numbers from scratch.
+
+We saw how to measure a single qubit in the standard basis. The rule for computing probabilities
+of measurement outcomes generalizes in a direct way to measuring n-qubit states. Indeed, consider
+an n-qubit quantum state
+\[
+\ket{\Psi}=\sum_{x\in\{0,1\}^n} \alpha_x\ket{x}
+\]
+What happens when $\ket{\Psi}$ is measured in the standard basis $\ket{x}_x$? It turns out that the probability
+of outcome x is given by $p_x = |\braket{x|\Psi}|^2=|\alpha_x|^2$, explaining again the need for normalization of
+the vector $\ket{\Psi}$.
+
+\subsubsection{Measuring a qubit in other bases}
+Can we measure our qubit in any other basis? The answer to this is yes! Indeed this is another
+feature that distinguishes quantum from classical, where the only basis around is the standard basis.
+To find out how to analyze such a more general setting, let us first take a step back and consider
+how we found the probabilities above. When measuring in the standard basis, the probabilities are given by the squared amplitudes when writing out the state in terms of the standard basis. When
+measuring a qubit in a different orthonormal basis, given by vectors $\mathcal{G}=\{\ket{v},\ket{v^\perp}\}$, it is intuitive that we would have to express the qubit in the new basis. That is, we need to find amplitudes $\hat{\alpha}$ and $\hat{\beta}$ such that
+\[
+\ket{\psi}=\alpha\ket{0}+\beta\ket{1}=\hat{\alpha} \ket{v}+\hat{\beta}\ket{v^{\perp}}
+\]
+\begin{example}
+    As an example, let consider again the qubit $\ket{+}=(1/\sqrt{2})(\ket{0}+\ket{1})$. Instead
+of measuring it in the standard basis, let us now measure in the basis $H = \{\ket{+},\ket{-}\}$ given by
+the two orthonormal vectors $\ket{+}$ and $\ket{-} = (1/\sqrt{2})(\ket{0}-\ket{1})$. Clearly, we can write the qubit as $1\ket{+}+0\ket{-}$. Thus the probability of obtaining measurement outcome “$\ket{+}$” is 1. We thus see
+that the probabilities of measurement outcomes depends dramatically on the basis in which we
+measure. 
+\end{example}
+
+\begin{example}
+    Consider measuring an arbitrary qubit $\alpha\ket{0}+\beta\ket{1}$ in the basis $\{\ket{+},\ket{-}\}$. To
+find out how to express the qubit in this other basis, it is convenient to determine how the basis
+elements $\ket{0}$ and $\ket{1}$ look like in this basis. We find that
+\[
+\ket{0}=\frac{1}{2}[(\ket{0}+\ket{1})+(\ket{0}-\ket{1})]=\frac{1}{\sqrt{2}}(\ket{+}+\ket{-})
+\]
+\[
+\ket{1}=\frac{1}{2}[(\ket{0}+\ket{1})-(\ket{0}-\ket{1})]=\frac{1}{\sqrt{2}}(\ket{+}-\ket{-})
+\]
+We thus have
+\begin{align*}
+\alpha\ket{0}+\beta\ket{1}&=\frac{1}{\sqrt{2}}[\alpha(\ket{+}+\ket{-})+\beta(\ket{+}-\ket{-})]\\
+&=\frac{\alpha+\beta}{\sqrt{2}}\ket{+}+\frac{\alpha-\beta}{\sqrt{2}}\ket{-}
+\end{align*}
+This means that we obtain outcome "$\ket{+}$" with probability $|\alpha+\beta|^2/2$ and outcome "$\ket{-}$" with probability $|\alpha-\beta|^2/2$/
+\end{example}
+
+\begin{example}
+    Consider the state $\ket{\Psi}=\ket{0}$. What are the probabilities  $p_0,p_1$ for measuring $\ket{\Psi}$ in the standard basis? What are the probability $p_{+},p_{-}$ for measuring $\ket{\Psi}$ in the Hadamard basis?
+    For measuring in the standard basis the probabilities $p_0=1, p_1=0$. The probabilities in the Hadamard basis are $p_+=\frac{1}{2},p_-=\frac{1}{2}$.
+\end{example}
+
+Quite often we do not care about the entire probability distribution, but just the probability of one
+specific outcome. Is there a more efficient way to find this probability than to rewrite the entire
+state $\ket{\psi}$ in another basis? To investigate this, let us consider a single qubit
+\[
+\ket{\psi}=\alpha\ket{0}+\beta\ket{1}
+\]
+Remember that the elements of the standard basis are orthonormal. This means that
+\[
+(\ket{0})^{\dagger}\ket{0}=\begin{pmatrix} 1 & 0 \end{pmatrix}\begin{pmatrix} 1 \\ 0 \end{pmatrix} = 1,
+\]
+\[
+(\ket{0})^{\dagger}\ket{1}=\begin{pmatrix} 1 & 0 \end{pmatrix}\begin{pmatrix} 0 \\ 1 \end{pmatrix} = 0
+\]
+Because the vectors are orthonormal, we could thus have found the desired probabilities by simply
+computing the inner product between two vectors, as claimed above. Specifically, when given the qubit $\ket{\psi}=\alpha\ket{0}+\beta\ket{1}$ we obtain outcomes "$\ket{0}$" and "$\ket{1}$" with probabilities
+\[
+p_0=|\braket{0|\psi}|^2=\begin{vmatrix}\begin{pmatrix} 1 & 0 \end{pmatrix} \begin{pmatrix}\alpha \\ \beta \end{pmatrix}  \end{vmatrix}^2=|\alpha|^2
+\]
+\[
+p_1=|\braket{1|\psi}|^2=\begin{vmatrix} \begin{pmatrix} 0 & 1 \end{pmatrix}\begin{pmatrix}\alpha \\ \beta \end{pmatrix}  \end{vmatrix}^2=|\beta|^2
+\]
+
+\begin{example}
+    Suppose we measure $\ket{0}$ in the hadamard basis $\mathcal{H}$ (see above). The probabilities of observing outcomes "$\ket{+}$" and "$\ket{-}$" are given by
+    \[
+    p_+=|\braket{0|\psi}|^2=\begin{vmatrix}\begin{pmatrix} 1/\sqrt{2} & 1/\sqrt{2} \end{pmatrix} \begin{pmatrix}\alpha \\ \beta \end{pmatrix}  \end{vmatrix}^2=\frac{1}{2}
+\]
+\[
+p_-=|\braket{1|\psi}|^2=\begin{vmatrix} \begin{pmatrix} 1/\sqrt{2} & 1/\sqrt{2} \end{pmatrix}\begin{pmatrix}\alpha \\ \beta \end{pmatrix}  \end{vmatrix}^2=\frac{1}{2}
+\]
+For multiple qubits, the rules for finding probabilities is analogous.
+\end{example}
+
+\begin{definition}
+    Suppose that we measure a quantum state $\ket{\psi}$ in the orthonormal basis $\{\ket{b_j}\}_{j=1}^d$. The probability of observing outcome "$b_j$" can be found by computing
+    \[
+    p_j=|\braket{b_j|\psi}|^2
+    \]
+    The post-measurement state when obtaining outcome"$b_j$" is given by $\ket{b_j}$.
+\end{definition}
+
+Let us now consider some examples to gain intuition on measuring quantum systems in different
+bases. First, let us have a look at a single qubit example.
+
+\begin{example}
+    Consider the qubit $\ket{\Psi}=\frac{1}{\sqrt{2}}(\ket{0}+\iota\ket{1})$, and measure the qubit in the $\{\ket{+},\ket{-}\}$ basis. the probabilities of obtaining "+" and "-" can be evaluated as follows:
+    \begin{align*}
+    p_+&=|\braket{\Psi|+}|^2=\begin{vmatrix} \dfrac{1}{2}(\bra{0}-\iota \bra{1})(\ket{0}+\ket{1})\end{vmatrix}^2\\
+    &=\frac{1}{4}\begin{vmatrix} \braket{0|0}+\braket{0|1} - \iota\braket{1|0} - \iota \braket{1|1} \end{vmatrix}^2\\
+    &=\frac{1}{4}|1-\iota|^2\\
+    &=\frac{1}{4}(1-\iota)(1+\iota)=\frac{1}{2}
+    \end{align*}
+    \begin{align*}
+    p_-&=|\braket{\Psi|-}|^2=\begin{vmatrix} \frac{1}{2}(\bra{0}-\iota \bra{1})(\ket{0}-\ket{1})\end{vmatrix}^2\\
+    &=\frac{1}{4}\begin{vmatrix} \braket{0|0}+\braket{0|1} - \iota\braket{1|0} + \iota \braket{1|1} \end{vmatrix}^2\\
+    &=\frac{1}{4}|1+\iota|^2\\
+    &=\frac{1}{4}(1-\iota)(1+\iota)=\frac{1}{2}
+    \end{align*}
+\end{example}
+This example shows that when the states involved have complex-valued amplitudes, one has to
+take extra caution when evaluating the inner product: namely when taking the bra $\bra{\Psi}$, one should remember to alter the +/- sign whenever a complex number is involved (since the bra $\bra{\Psi}$ is the
+conjugate transpose of the ket $\ket{\Psi}$). 
+
+While we will generally talk about n-qubits, we can of course also consider a quantum system
+comprised of three levels $\ket{0}$, $\ket{1}$, and $\ket{2}$, i.e. a qutrit. The rule for obtaining the probabilities of
+measurement outcomes remains unchanged.
+
+\begin{example}
+    Consider a qutrit, which is a 3-dimensional quantum system represented by the vector
+    \[
+    \ket{v}=\frac{1}{\sqrt{2}}\begin{pmatrix} 1 \\ 0 \\ 0\end{pmatrix} + \frac{1}{\sqrt{2}}\begin{pmatrix} 0 \\ 1 \\ 0\end{pmatrix}\frac{1}{\sqrt{2}}\begin{pmatrix} 0 \\ 0 \\ 1\end{pmatrix}
+    \]
+    and measure in the basis $\mathcal{B}=\{\ket{b_1},\ket{b_2},\ket{b_3}\}$ where
+    \[
+    \ket{b_1}=\begin{pmatrix} 1 \\ 0 \\ 0 \end{pmatrix}, \quad \ket{b_2} = \frac{1}{\sqrt{2}}\begin{pmatrix} 0 \\ 1 \\ 1 \end{pmatrix}, \quad \frac{1}{\sqrt{2}}\begin{pmatrix} 0 \\ 1 \\ -1 \end{pmatrix} 
+    \]
+    The probabilities of obtaining each outcome can be calculated as follows:
+    \[
+    p_{b_1}=|\braket{b_1|v}|^2=\frac{1}{2}
+    \]
+    \[
+    p_{b_2}=|\braket{b_2|v}|^2=\braket{b_2|v}\braket{v|b_2}=\frac{1}{2\sqrt{2}}(1+1)\frac{1}{2\sqrt{2}}(1+1)=\frac{1}{2}
+    \]
+    \[
+    p_{b_3}=|\braket{b_3|v}|^2=\braket{b_3|v}\braket{v|b_3}|=\frac{1}{2\sqrt{2}}(1-1)\frac{1}{2\sqrt{2}}(1-1)=0
+    \]
+\end{example}
+
+\subsubsection{Measurement Example I: Phase Estimation}
+Now that we have discussed qubits in some detail, we can are prepared to
+look more closesly at the measurement principle. Consider the quantum
+state,
+|\[
+\ket{\psi}=\frac{1}{\sqrt{2}}\ket{0}+\frac{e^{\iota\theta}}{\sqrt{2}}\ket{1}
+\]
+If we were to measure this qubit in the standard basis, the outcome would
+be $0$ with probability $1/2$ and $1$ with probability$ 1/2$. This measurement
+tells us only about the norms of the state amplitudes. Is there any measurement that yields information about the phase, $\theta$?
+To see if we can gather any phase information, let us consider a measurement in a basis other than the standard basis, namely
+\[
+\ket{+}=\frac{1}{\sqrt{2}}(\ket{0}+\ket{1}) \quad \text{and}\quad \ket{-}=\frac{1}{\sqrt{2}}(\ket{0}-\ket{1})
+\]
+What does $\ket{\phi}$ look like in this new basis? This can be expressed by first
+writing,
+\[
+\ket{0}=\frac{1}{\sqrt{2}}(\ket{+}+\ket{-}) \quad \text{and} \quad \ket{-}=\frac{1}{\sqrt{2}}(\ket{0}-\ket{1})
+\]
+Now we are equipped to rewrite $\ket{\psi}$ in the $\{\ket{+}$, $\ket{-}\}$-basis,
+\begin{align*}
+\ket{\psi}&=\frac{1}{\sqrt{2}}\ket{0}+\frac{e^{\iota\theta}}{\sqrt{2}}\ket{1}\\
+&=\frac{1}{2}(\ket{+}+\ket{-})+\frac{e^{\iota\theta}}{\sqrt{2}}(\ket{+}-\ket{-})\\
+&=\frac{1+e^{\iota\theta}}{2}\ket{+}+\frac{1-e^{\iota\theta}}{2}\ket{-}
+\end{align*}
+Recalling the Euler relation, $e^{\iota theta}=\cos \theta+\iota\sin \theta$, we see that the probability
+of measuring $\ket{+}$ is $\frac{1}{4}((1+\cos \theta)^2+\sin^2 \theta)=\cos^2 (\theta/2)$. A similar calculation reveals that the probability of measuring $\ket{-}$ is $\sin^2 (\theta/2)$ Measuring
+in the ($ket{+},\ket{-}$)-basis therefore reveals some information about the phase $\theta$.
+Later we shall show how to analyze the measurement of a qubit in a
+general basis.
+
+\subsubsection{Measurement example II: general Qubit Bases}
+What is the result of measuring a general qubit state $\ket{\psi}=\alpha\ket{0}+\beta\ket{1}$, in
+a general orthonormal basis $\ket{v}$, $\ket{v^{\perp}}$, where $\ket{v}=a\ket{0}+b\ket{1}$ and $\ket{v^{\perp}}=b^*\ket{0}-a^*\ket{1}$? You should also check that $\ket{v}$ and $\ket{v^{\perp}}$ are orthogonal by
+showing that $\braket{v|v^{\perp}}=0$.
+
+To answer this question, let us make use of our recently acquired braket notation. We first show that the states $\ket{v}$ and $\ket{v^{\perp}}$ are orthogonal, that is, that their inner product is zero:
+\begin{align*}
+\braket{v|v^{\perp}}&=(b^*\ket{0}-a^*\ket{1})^{\dagger}(a\ket{0}+b\ket{1})\\
+&=(b\bra{0}-a\bra{1})^{\dagger}(a\ket{0}+b\ket{1})\\
+&=ba\braket{0|0}-a^2\braket{1|0}+b^2\braket{0|1}-ab\braket{1|1}\\
+&=ba-0+0-ab\\
+&=0
+\end{align*}
+
+Here we have used the fact that $\braket{i|j}=\delta_{ij}$ .
+
+Now, the probability of measuring the state $\ket{\psi}$ and getting $\ket{v}$ as a
+result is,
+\begin{align*}
+p_{\psi}(v)&=|\braket{v|\psi}|^2\\
+&=|(a^*\bra{0}+b^*\bra{1})(\alpha\ket{0}+\beta\ket{1})|^2\\
+&=|a^*\alpha+b^*\beta|^2
+\end{align*}
+Similarly,
+\begin{align*}
+P_{\psi}(v^{\perp})&=|\braket{v^{\perp}|\psi}|^2\\
+&=|(b\bra{0}-a\bra{1})(\alpha\ket{0}+\beta\ket{1})|^2\\
+&=|b\alpha-\alpha\beta|^2
+\end{align*}
+
+\subsubsection{Expectation Values}
+Physicists (but also computer scientists!) like to compute expectation values of measurement outcomes, as they provide an indication of the average behavior, if one was to perform a measurement many times (however we shall see later, that the measurement will perturb the state!). let us suppose that we measure a qubit $\ket{\Psi}$ in the standard basis $\{\ket{0},\ket{1}\}$. We will adopt the physics convention of labelling outcomes $\pm1$. This means that we associate the outcome "$\ket{0}$" with outcome $+1$, and outcome "$\ket{1}$" with outcome $-1$. The expectation value the outcome obtained when measuring $\ket{\psi}$ is then
+\[
+E=1|\braket{0|\psi}|^2-1\braket{1|\psi}|^2
+\]
+Note that since $|\braket{0|\psi}|^2=\braket{\psi|0}\braket{0|\psi}$, we have
+\[
+E=\bra{\psi}(\ket{0}\bra{0}-\ket{1}\bra{1})\ket{\psi}=\braket{\psi|Z|\psi}
+\]
+where $Z=\ket{0}\bra{0}-\ket{1}\bra{1}$.  As we shall see later, $Z$ is called the Pauli-Z matrix.
+
+\subsection{Measuring Multiple Systems}
+We saw how to measure some quantum state $\ket{\psi}$. let us now consider what happens if we measure the state of multiple qubits, where we think of measuring each qubit in a separate basis. To understand this, it is useful to realize that a basis for the join state space $\mathbb{C}_A^{d_A} \otimes \mathbb{C}_B^{d_B}$ can be obtained from bases for the individual state spaces $\mathbb{C}_A^{d_A}$ and $\mathbb{C}_B^{d_B}$. Specifically, if $\{\ket{b_j^A}\}_j$ is basis for $\mathbb{C}_A^{d_A}$ and $\{\ket{b_j^B}\}_j$ is a basis for the state space $\mathbb{C}_B^{d_B}$, then the set of vectors $\{\{\ket{b_j^A}\otimes \ket{b_k^B}\}_{j=1}^{d_A}\}_{k=1}^{d_B}$ gives a basis for $\mathbb{C}_A^{d_A}\otimes \mathbb{C}_B^{d_B}$.
+
+\begin{example}
+    Consider the basis $\{\ket{0}_A,\ket{1}_A\}$ for qubit A, and the basis $\{\ket{+}_B,\ket{-}_B\}$ for qubit B. A basis for the joint state AB is then given by $\{\ket{0}_A\ket{+}_B,\ket{0}_A\ket{-}_B,\ket{1}_A\ket{+}_B,\ket{1}_A\ket{-}_B\}$.
+\end{example}
+
+Let us not think how we might construct how we might construct some measurement for two quantum states from measurements of the individual ones. Suppose we measure particle A in the basis $\{\ket{b_j^A}\}_j$ and particle B in the basis $\{b_k^B\}_k$ when the joint state of both particles is given by $\ket{\psi}_{AB}$. What is the probability that we obtain outcome "$\ket{b_j^A}$" on A, and outcome "$\ket{b_k^B}$" on B? To find such joint probabilities, we first write down the joint basis fo quantum states A and B as above: $\{\{\ket{b_j^A}\ket{b_k^B}\}_j\}_k$. We can apply the usual rule to compute the probability as 
+\[
+p_{jk}=|\braket{b_j^A|\braket{b_k^B|\ket{\psi}_{AB}}}|^2
+\]
+\begin{example}
+    Consider the two qubits in an EPR pair
+    \[
+    \ket{EPR}=\frac{1}{\sqrt{2}}(\ket{00}+\ket{11}
+    \]
+    and measure them both in the standard basis. The probabilities of obtaining outcomes 00, 01 ,10 and 11 are given by
+    \[
+    p_{00}=p_{11}=\frac{1}{2}
+    \]
+    \[
+    p_{01}=p_{10}=0
+    \]
+\end{example}
+
+\subsubsection{Partial Measurements}
+Suppose we have a system consisting of two or more qubits and we only measure one of them. For
+example, suppose the qubits are X and Y, and these qubits are in the state
+\[
+\ket{\psi}=\frac{1}{2}\ket{00}-\frac{\iota}{2}\ket{10}+\frac{1}{\sqrt{2}}\ket{11}
+\]
+We know what the distribution of measurement outcomes would be if we measured both qubits:
+\[
+Pr\text{[outcome is 00]} = \frac{1}{4} \quad Pr\text{[outcome is 01]}=0
+\]
+\[
+Pr\text{[outcome is 10]}=\frac{1}{4} \quad pr\text{[outcome is 11]}=\frac{1}{2}
+\]
+The probability that a measurement of the first qubit, for instance, results in outcome $0$ should
+therefore be $1/4+0 = 1/4$ and the probability of outcome $1$ should be $1/4+1/2 = 3/4$. Intuitively,
+this should be the case regardless of whether or not the second qubit was actually measured. Indeed
+this is the case.
+
+However, what is different between the case where the second qubit is measured and the case
+where it is not is the superposition of the system after the measurement (or measurements). If both
+qubits are measured, the superposition will be one of $\ket{00},\ket{01},\ket{10}$, or $\ket{11}$, depending on the
+measurement outcome. If only the first qubit is measured, however, this may not be the case.
+I’ll explain how you determine the state of the system after the measurement of the first qubit
+for the example above, and the method for a general case should be clear. We begin by considering
+the possible outcome 0 for the measurement. We consider the state
+\[
+\ket{\psi}=\frac{1}{2}\ket{00}-\frac{\iota}{2}\ket{10}+\frac{1}{\sqrt{2}}\ket{11}
+\]
+and cross off all of the terms in the sum that are inconsistent with measuring a $0$ for the first qubit:
+\[
+\ket{\psi}=\frac{1}{2}\ket{00}
+\]
+which leaves
+\[
+\frac{1}{\ket{00}}
+\]
+The probability of measuring 0 is the norm-squared of this vector.
+\[
+Pr\text{[measurement outcomes is 0]}=|\\frac{1}{2}\ket{00}\|=\frac{1}{4}
+\]
+and the state of the two qubits after the measurement conditioned on the measurement outcome being 0 is the vector itself renormalized:
+\[
+frac{\frac{1}{2}\ket{00}}{\|\frac{1}{2}\ket{00}\|}=\ket{00}
+\]
+The possible measurement outcome 1 is handled similarly. we cross off the terms is inconsistent with measuring a 1 which leaves
+\[
+-\frac{\iota}{2}\ket{10}+\frac{1}{\sqrt{2}}\ket{11}
+\]
+The probability of measuring a 1 is then the norm-squared of this vector,
+\[
+Pr\text{measurement outcome is 1]}=\|-\frac{\iota}{2}\ket{10}+\frac{1}{\sqrt{2}}\ket{11}\|^2=|-\frac{\iota}{2}|^2+|\frac{1}{\sqrt{2}}|^2=\frac{3}{4}
+\]
+and conditioned on measuring a 1 is then the norm-squared of this vector
+\[
+\frac{-\frac{\iota}{2}\ket{10}+\frac{1}{\sqrt{2}}\ket{11}}{\|-\frac{\iota}{2}\ket{10}+\frac{1}{\sqrt{2}}\ket{11}\|}=-\frac{\iota}{\sqrt{3}}\ket{10}+\sqrt{\frac{2}{3}}\ket{11}
+\]
+A completely equivalent way of performing this calculation is to begin by writing
+\[
+\ket{\psi}=\ket{0}\ket{\phi_0}+\ket{1}\ket{\phi_1}
+\]
+for some choice of $\ket{\phi_0}$ and $\ket{\phi_1}$. (There will always be a unique choice for each that works.) in this case we have
+\[
+\ket{\psi}=\ket{0}\left(\frac{1}{2}\ket{0}\right)+\ket{1}\left(-\frac{\iota}{2}\ket{0}+\frac{1}{\sqrt{2}}\ket{1}\right)
+\]
+so $\ket{\phi_0}=\frac{1}{2}\ket{0}$ and $\ket{\phi_1}=-\frac{\iota}{2}\ket{0}+\frac{1}{\sqrt{2}}\ket{1}$. The probabilities for the two measurement outcomes are as follows:
+\[
+Pr\text{[outcome is 0]}=\|\ket{\phi_0}\|^2=|\frac{1}{2}|^2=\frac{1}{4}
+\]
+\[
+Pr\text{[outcome is 1]}=\|\ket{\phi_1}\|^2=|-\frac{\iota}{2}|^2+|\frac{1}{\sqrt{2}}|^2=\frac{3}{4}
+\]
+Conditioned on the measurement outcome, the state of the two qubits is as follows:
+\[
+\text{measurement outcome is 0}\implies \text{state becomes} \frac{1}{\|\ket{\phi_0}\|}\ket{0}\ket{\phi_0}=\ket{00}
+\]
+\[
+\text{measurement outcome is 1} \implies \text{state becomes}\frac{1}{\|\ket{\phi_1}}\ket{1}\ket{\phi_1}=\frac{-\iota}{\sqrt{3}}\ket{10}+\sqrt{\frac{2}{3}}\ket{11}
+\]
+The same method works for more than 2 qubits as well.
+
+\begin{example}
+    Suppose 3 qubits are in the superposition
+    \[\ket{\psi}=\frac{1}{2}\ket{000}+\frac{1}{2}\ket{100}+\frac{1}{2}\ket{101}-\frac{1}{2}\ket{111}\]
+    and the third qubit is measured. What are the probabilities of the two possible measurement outcomes and what are the resulting superpositions of the three qubits for each case?
+    To determine the answer we ewrite,
+    \[
+    \ket{\psi}=\left(\frac{1}{2}\ket{00}+\frac{1}{2}\ket{10}\right)\ket{0}+\left(\frac{1}{2}\ket{10}-\frac{1}{2}\ket{11}\right)\ket{1}
+    \]
+    The probability that the measurement outcome is 0 is
+    \[
+    \|\frac{1}{2}\ket{00}+\frac{1}{2}\ket{10}\|^2=\frac{1}{2}
+    \]
+    and in this case the resulting superposition is 
+    \[
+    \sqrt{2}\left(\frac{1}{2}\ket{00}+\frac{1}{2}\ket{10}\right)\ket{0}=\frac{1}{\sqrt{2}}\ket{000}+\frac{1}{\sqrt{2}}\ket{100}
+    \]
+    The probability that the measurement outcome is 1 is
+    \[
+    \|\frac{1}{2}\ket{10}-\frac{1}{2}\ket{11}\|^2=\frac{1}{2}
+    \]
+    and in this case the resulting superposition is
+    \[
+    \sqrt{2}\left(\frac{1}{2}\ket{10}-\frac{1}{2}\ket{11}\right)\ket{1}=\frac{1}{\sqrt{2}}\ket{101}-\frac{1}{\sqrt{2}}\ket{111}
+    \]
+\end{example}
+
+
+
+
+
+
+
+
+
+\chapter{Axioms of Quantum Mechanics}
 \subsection{Postulate 1: The State Space Postulate}
 The state of an isolated quantum mechanical system is completely specified by a state vector $\ket{\psi}$ 
 which is a unit vector that belongs to a complex vector space with inner product (a Hilbert Space) $\mathbb{C}^{n}$, where $n$ is the 
@@ -408,14 +1561,6 @@ Thus, the measurement operators satisfy the completeness equation:
     \]
 \end{example}
 
-\begin{importantnote}
-    In general, there are three important basis that we take about doing measurements in Quantum Computing:
-    \begin{enumerate}
-        \item \textbf{Computational Basis/Standard Basis:} The basis in which the states are represented as $\ket{0},\ket{1},\ldots,\ket{N-1}$.
-        \item \textbf{Hadamard Basis:} The basis in which the states are represented as $\ket{+},\ket{-}$ where $\ket{+}=\dfrac{\ket{0}+\ket{1}}{\sqrt{2}}$ and $\ket{-}=\dfrac{\ket{0}-\ket{1}}{\sqrt{2}}$.
-        \item \textbf{Y Basis:} The basis in which the states are represented as $\ket{+i},\ket{-i}$ where $\ket{+i}=\dfrac{\ket{0}+\iota\ket{1}}{\sqrt{2}}$ and $\ket{-i}=\dfrac{\ket{0}-\iota\ket{1}}{\sqrt{2}}$.
-    \end{enumerate}
-\end{importantnote}
 
 \begin{example}
     Consider a state $\ket{\psi}=\left(\frac{1}{\sqrt{6}}-\frac{1}{\sqrt{3}}\right)\ket{+}+\left(\frac{1}{\sqrt{6}}+\frac{1}{\sqrt{3}}\right)\ket{-}$ (it can be given in any basis, say here it is given in hadamard basis).
@@ -647,12 +1792,6 @@ Recal that when we measure a particle in the computational basis it collapses to
     \] 
 \end{example}
 
-\begin{importantnote}
-    \textbf{No-Cloning Theorem}
-    \begin{theorem}
-
-    \end{theorem}
-\end{importantnote}
 
 
 
@@ -3406,11 +4545,12 @@ We wish to determine whether the device is a bomb or dud without exploding the b
     As can be seen in the table \ref{tab:Prob}, the probability of the bomb exploding after N iterations drops rapidly for very large N. Thus, the Elitzur-Vaidman Bomb Detection Algorithm is a very efficient algorithm for detecting a working bomb without exploding it.
 \end{enumerate}
 
-\section{Deutsch's Algorithm}
-It is a simple and good to learn basic algorithm.
+\chapter{Deutsch's Algorithm}
+This is one of the simple quantum algorithms in this section which is admittedly curiosities, rather than practical algorithms. It's hard to think of real-world applications that fit their frame-work, and where it worth the trouble to build a quantum device to solve thee problems. It is important to pay attention to the ideas and maneuvers that these quantum algorithms make. After these algorithms, we will be seeing increasingly sophisticated extensions of these maneuvers, that accomplish more dramatic algorithmic feats. This is a very different setting in which some advantage is gained by using quantum information over classical information.
+\section{The Problem Definition}
 \begin{definition}
     Given a function $f:\{0,1\}\rightarrow\{0,1\}$, which takes a single bit as input and 
-    produces a single bit as output. The function $f$ is said to be constant if $f(0)=f(1)$ and $f$ is said to be balanced if $f(0)\neq f(1)$.
+    produces a single bit as output. The function $f$ is said to be constant if $f(0)=f(1)$ and $f$ is said to be balanced if $f(0)\neq f(1)$. The goal is to determine whether or not $f(0)=f(1)$ by making queries to $f$.
 \end{definition}
 
 There are four possible functions as shown in the table \ref{tab:Deutsch}. Out of these four possible cases we can see that two are constant and the other two are balanced functions.
@@ -3453,21 +4593,84 @@ There are four possible functions as shown in the table \ref{tab:Deutsch}. Out o
 
 \textbf{Given a function $f$, our aim is to determine whether the given function is constant or balanced with as minimum number of queries as possible to the function.}
 
-\textbf{On a Classical Computer: }To solve this problem on a classical computer we are required to make two function calls. If both the outputs are the same 
-then the function is constant and if the outputs are different then the function is balanced. Thus, we require \textbf{two function calls} to determine whether the function is constant or balanced.
+\section{The Classical Solution}
+\textbf{On a Classical Computer: }Let's first consider classical queries necessary to solve Deutsch's problem. One query is not sufficient. To see why this is so, suppose that you make one query at some $a\in\{0,1\}$ to acquire $f(a)$. This gives absolutely no information about the other value, $f(\neg a)$. It is possible that $f(\neg a)=f(a)$ and it is possible that $f(\neg a)\neq f(a)$. Therefore, two queries and clearly two queries are sufficient. In conclusion, to solve this problem on a classical computer we are required to make two function calls. If both the outputs are the same then the function is constant and if the outputs are different then the function is balanced. Thus, we require \textbf{two classical queries/function calls} to determine whether the function is constant or balanced. Thus, two evaluations of the functions are necessary and sufficient to answer the question. If only one evaluation is permitted, the function could still be either constant or balanced regardless of the input and output obtained.
 
-\textbf{On a Quantum Computer:}To solve this problem on a Quantum Computer using deutsch's Algorithm we are required to make only one fuction call. This speedup is because of the superposition.
+One may wonder whether the number of reversible classical queries is different. In fact, reversible classical query at $(a,b)$ provide exactly the same amount of information as a simple classical queries of at $a$. The output of the reversible query at $(a,b)$ is $(a,b\oplus f(a))$, and note that $(a,b)$ are already known. Therefore, there are only two possibilities of interest for the output:
+\[
+b\oplus f(a)=b, \text{which occurs if and only if $f(a)=0$}
+\]
+\[
+b\oplus f(a) \neq b, \text{which occurs if and only if $f(a)=1$}
+\]
+Therefore, even with reversible classical queries, one query is not sufficient. An algorithm solving Deutsch's problem with two reversible classical queries looks like as shown in the following classical circuit \ref{fig:classical_deutsch}.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=1\linewidth]{../images/Deutsch_classical.png}
+    \caption{Classical Deutsch Circuit}
+    \label{fig:classical_deutsch}
+\end{figure}
+The first query XORs the value of $f(0)$ to the second bit. Then the first bit is flipped to 1, so the second query XORs the value of $f(1)$ to the second bit. At the end, the second bit contains the value of $f(0) \oplus f(1)$, which is the solution to Deutsch's problem.
+
+
+
+There is an obvious 2-query quantum algorithm that solves the Deutsch's problem just like the circuit shown in the figure \ref{fig:classical_deutsch}.
+\section{The Quantum Solution: Deutsch's Algorithm}
+\textbf{On a Quantum Computer:}To solve this problem on a Quantum Computer using Deutsch's Algorithm we are required to make only one function call. This speedup is because of the superposition.
+
+Now when we consider the same question in the context of quantum information. We need to change the question slightly, however, in order for it to fit into the model of quantum information that we are considering. More specifically, we must insist that the action of the device corresponds to a unitary transformation. It is therefore not sufficient to consider the black box to be a one qubit action as follows:
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{../images/Deutsch_bb.png}
+    \label{fig:enter-label}
+\end{figure}
+For example, if $f=f_3$ then this gate would correspond to the matrix
+\[
+\begin{pmatrix} 1 & 1 \\ 0 & 0 \end{pmatrix}
+\]
+which is not unitary.
+
+Instead, for any function $f:\{0,1\}\rightarrow\{0,1\}$ we define a 2-qubit quantum gate $B_f$ as follows:
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{../images/deutsch_oracle.png}
+    \caption{Oracle}
+    \label{fig:deutsch_oracle}
+\end{figure}
+It can be verified that the corresponding matrix is unitary for and function $f$. For example, if $f=f_4$ from the table \ref{tab:Deutsch}, then $f(0_=1$ and $f91)=0$, so the corresponding matrix is
+\[
+\begin{pmatrix} 0 & 1 & 0 & 0 \\1 & 0 & 0 & 0\\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{pmatrix}
+\]
+For any function $f$, the matrix corresponding to $B_f$ will always be a permutation matrix, meaning that all of the entries are 0 or 1 and every row and every column has exactly one 1 in it. Permutation matrices are always unitary.
+
+In general, if
+\[
+f:\{0,1\}^n\rightarrow \{0,1\}^m
+\]
+is any function (for any positive integers n and m).. The associated quantum transformation $B_f$ will be defined by
+\[
+B_f\ket{x}\ket{y}=\ket{x}\ket{y\oplus f(x)}
+\]
+(where $\oplus$ denotes the bitwise exclusive OR). The associated matrix will always be a permutation matrix, and is therefore unitary. Note that we generally assume the second input to the oracle to be $\ket{0}$ so this simplifies the oracle to as follows:
+\[
+B_f\ket{x}\ket{0}=\ket{x}\ket{0 \oplus f(x)}=\ket{x}\ket{f(x)}
+\]
 
 The circuit for Deutsch's Algorithm is as shown in the figure \ref{fig:deutsch}.
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{../images/deutsch.png}
+    \includegraphics[width=1\textwidth]{../images/deutsch.png}
     \caption{Deutsch's Algorithm}
     \label{fig:deutsch}
 \end{figure}
 Consider the oracle as shown in the figure \ref{fig:deutsch}. The oracle is a black box which takes inputs $\ket{x}$ and $\ket{y}$ as inputs 
-and outputs $\ket{x}$ and $\ket{y\oplus f(x)}$ as outputs. It is a unitary operator and implements the functions $f$.\\
-\\
+and outputs $\ket{x}$ and $\ket{y\oplus f(x)}$ as outputs. It is a unitary operator (denoted by $U_f$) and implements the functions $f$.
+
+\subsection{Idea of the Algorithm}
+The primary limitation of the classical algorithm is that we can either input 0 or 1 to the reversible classical query. It is the because of this classical limitation imposed by the classical laws of physics that does not allow us to compute the solution in one single query but requires two separate queries. This classical limitation is overcome in case of quantum solution. The input to the black-box/quantum query model of computation can be a superposition of 0 and 1 and thus allows simultaneous computation of both the inputs 0 and 1 to the function. Then using some manipulations, upon measurement we can get a distinctive results which can results in clearly distinguished two classical outcomes either 0 or 1 thus allowing us to identify whether the function $f$ was constant or balanced. It is the power of superposition of states of 0 and 1 in application of the laws quantum mechanics and thus quantum computing that allows us to identify the function $f$ in a single query.
+
+\subsection{Algorithm}
 \textbf{Claim: }If upon measurement of the first qubit, if it is $\ket{0}$ then the function is constant or else the function is balanced.
 \\
 \textbf{Analysis: }At inputs both the qubits $q_0=\ket{0}$ and $q_1=\ket{0}$. As $q_0$ passes though the Hadamard Gate it becomes $\ket{+}=\frac{\ket{0}+\ket{1}}{\sqrt{2}}$.
@@ -3497,7 +4700,7 @@ Now consider two cases:
         (H\otimes I)(\ket{+} \otimes \ket{-})=\ket{0}\otimes \ket{-}
     \]
     Hence, as the qubit $q_0$ passes through the Hadamard gate, the action of the Hadamard gate on the first qubit will be $H\ket{+}=\ket{0}$. 
-    Thus, upon measurement the output will be $\ket{0}$ with probablity $1$. Thus, we get a measurement of 0.
+    Thus, upon measurement the output will be $\ket{0}$ with probability $1$. Thus, we get a measurement of 0.
     
     \item \textbf{Case 1: Function is Constant $f(0)=f(1)=1$}\\
     If the function is constant then $f(0)=f(1)$. Let $f(0)=f(1)=1$ and thus the output of the oracle will be:
@@ -3512,7 +4715,7 @@ Now consider two cases:
         (H\otimes I)(\ket{+} \otimes -\ket{-})=\ket{0}\otimes -\ket{-}
     \]
     Hence, as the qubit $q_0$ passes through the Hadamard gate, the action of the Hadamard gate on the first qubit will be $H\ket{+}=\ket{0}$.
-    Thus, upon measurement the output will be $\ket{0}$ with probablity $1$. Thus, we get a measurement of 0.
+    Thus, upon measurement the output will be $\ket{0}$ with probability $1$. Thus, we get a measurement of 0.
     
     \item \textbf{Case 2: Function is Balanced with $f(0)=0$ and $f(1)=1$}\\
     If the function is balanced then $f(0)\neq f(1)$ and let $f(0)=0$ and $f(1)=1$. Thus, the output of the oracle will be:
@@ -3527,7 +4730,7 @@ Now consider two cases:
         (H\otimes I)(\ket{-} \otimes \ket{-})=\ket{1}\otimes \ket{-}
     \]
     Hence, as the qubit $q_0$ passes through the Hadamard gate, the action of the Hadamard gate on the first qubit will be $H\ket{-}=\ket{1}$.
-    Thus, upon measurement the output will be $\ket{1}$ with probablity $1$. Thus, we get a measurement of 1.
+    Thus, upon measurement the output will be $\ket{1}$ with probability $1$. Thus, we get a measurement of 1.
 
     \item \textbf{Case 2: Function is Balanced with $f(0)=1$ and $f(1)=0$}\
     If the function is balanced then $f(0)\neq f(1)$ and let $f(0)=1$ and $f(1)=0$. Thus, the output of the oracle will be:
@@ -3542,10 +4745,47 @@ Now consider two cases:
         (H\otimes I)(\ket{-} \otimes -\ket{-})=\ket{1}\otimes -\ket{-}
     \]
     Hence, as the qubit $q_0$ passes through the Hadamard gate, the action of the Hadamard gate on the first qubit will be $H\ket{-}=\ket{1}$.
-    Thus, upon measurement the output will be $\ket{1}$ with probablity $1$. Thus, we get a measurement of 1.
+    Thus, upon measurement the output will be $\ket{1}$ with probability $1$. Thus, we get a measurement of 1.
 \end{enumerate}
-\textbf{Conclusion: }\\
+Note that we can summarise the above results as shown. Recall that the output from the oracle was
+\begin{align*}
+&\frac{1}{2}\left[\ket{0}\ket{0\oplus f(0)}-\ket{0}\ket{1\oplus f(0)}+\ket{1}\ket{0\oplus f(1)}-\ket{1}\ket{1\oplus f(1)}\right]\\
+&\frac{1}{2}[\ket{0}\left(\ket{0\oplus f(0)}-\ket{1\oplus f(0)}\right) + \ket{1}\left(\ket{0 \oplus f(1)} - \ket{1 \oplus f(1)} \right)]
+\end{align*}
+Now using the fact that 
+\[
+\ket{0 \oplus a}-\ket{1 \oplus a} = (-1)^a(\ket{0}-\ket{1})
+\]
+we can simplify the above equation to
+\[
+\frac{1}{2}[\ket{0}(-1)^{f(0)}(\ket{0}-\ket{1}) + \ket{1}(-1)^{f(1)}(\ket{0}-\ket{1})]
+\]
+which can be further simplified as
+\[
+\frac{1}{2}[((-1)^{f(0)}\ket{0}+(-1)^{f(1)}\ket{1})(\ket{0}-\ket{1})]
+\]
+Now factorizing the qubits we get
+\[
+\left(\frac{1}{\sqrt{2}}((-1)^{f(0)}\ket{0}+(-1)^{f(1)}\ket{1})\right)\otimes \left(\frac{1}{\sqrt{2}}(\ket{0}-\ket{1}\right)
+\]
+\begin{align*}
+&=\left(\frac{1}{\sqrt{2}}((-1)^{f(0)}\ket{0}+(-1)^{f(1)}\ket{1})\right)\otimes \ket{-}\\
+&=(-1)^{f(0)}\left(\frac{1}{\sqrt{2}}\ket{0}+\frac{1}{\sqrt{2}}(-1)^{f(0)\oplus f(1)}\ket{1}\right)\otimes \ket{-}
+\end{align*}
+Now we apply the hadamard gate on the first qubit as shown in the circuit \ref{fig:deutsch}. We get
+\begin{align*}
+&(H\otimes I)\left(\left(\frac{1}{\sqrt{2}}\ket{0}+\frac{1}{\sqrt{2}}(-1)^{f(0)\oplus f(1)}\ket{1}\right)\otimes (-1)^{f(0)}\ket{-}\right)\\
+&=\ket{f(0)\oplus f(1)} \otimes (-1)^{f(0)}\ket{-}
+\end{align*}
+Here, we have used the observation that
+\[
+H\left(\frac{1}{\sqrt{2}}\ket{0}+\frac{1}{\sqrt{2}}(-1)^a\ket{1}\right)=\ket{a}
+\]
+for $a \in \{0,1\}$, which is again easily verified by considering the cases $a=0$ and $a=1$. Thus, upon measurement of the first qubit, the measurement therefore results in the value $f(0) \oplus f(1)$ which is one of the basis states either 0 or 1 with certainty. This value is $0$ if $f$ is constant and $1$ if $f$ is balanced.
+
 In order to summarize the above algorithm, note that in case if the function is constant we get a measurement of 0 and if the function is balanced we get a measurement of 1. Thus, we can determine whether the function is constant or balanced using only one function call. This is a speedup over the classical algorithm which requires two function calls to determine whether the function is constant or balanced.
+
+
 
 \section{Deutsch-Josza Algorithm}
 This is a generalization of the Deutsch Algorithm.
@@ -3794,7 +5034,209 @@ Then, in the final measurement we measure the first n qubits and if the function
 Thus, we can determine whether the function is constant or balanced with just one query to the Oracle. This is an exponential speedup over the classical algorithm which requires $2^{n-1}+1$ queries to determine whether the function is constant or balanced.
 Thus, the time complexity of this algorithm is $\mathcal{O}(1)$ i.e. constant time complexity. Hence, an exponential speedup over the classical algorithm.
 
-\section{Simon's Algorithm}
+
+\section{Complexity Analysis}
+Note that the classical query cost is expensive only if we require absolutely perfect performance. If a classical procedure queries $f$ in random locations then, in case of a balanced function, it would have to be very unlucky to draw the same bit value.
+
+Here's a classical probabilistic procedure that makes just two queries and performs fairly well. It selects two locations randomly (independently) and then outputs "constant" if the two bits are the same and "balanced" if the two bits values are different.
+
+What happens if $f$ is constant? In that case the algorithm always succeeds. What happens if $f$ is balanced? In that case the algorithm succeeds with probability $\frac{1}{2}$. The probability that the two bits will be different will be $\frac{1}{2}$.
+
+By repeating the above procedure k times, we can make the error probability exponentially small with respect to $k$. Only 4 queries are needed to obtain success probability $3/4$. And the success probability can be made to any constant, arbitrarily close to 1, with a constant number of queries.
+
+In summary, we have considered three problems in the black-box model. For each problem, a quantum algorithms solves it with just one query, but more queries are required by classical Algorithm.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|c|}
+    \hline
+        Problem & Quantum Solution & Classical Deterministic & Classical Probabilistic\\
+        \hline
+         Deutsch & 1 & 2 & 2\\
+         \hline
+         Deutsch-Jozsa & 1 & $2^{n-1}+1$ & $\mathcal{O}(1)$\\
+         \hline
+    \end{tabular}
+    \caption{Summary of Query costs for the problems}
+    \label{tab:deutsch_querycost}
+\end{table}
+For Deutsch's problem, any classical algorithm requires 2 queries. And, for the Deutsch-Jozsa problem, any classical algorithm requires exponentially many queries to solve the problem perfectly. However, there is a probabilistic classical algorithm that makes only a constant number of queries and solves the problem with bounded error probability.
+
+Along this line of thought, the following question seems natural. Is there a black-box problem for which the quantum-vs-classical query cost separation is stronger? For example, for which even probabilistic classical algorithms with bounded-error probability will require exponentially more queries than a quantum algorithm?
+
+We'll address this question in the next chapter.
+
+\section{Implementation using Qiskit}
+\subsection{Background}
+Usage estimate: 4 seconds (NOTE; This is an estimate only. Your runtime may vary)\\
+In order to run Deutsch-Jozsa algorithm (a generalization of Deutsch's algorithm) requires an oracle that implements the function either constant or balanced and Deutsch-Josza Circuit.
+
+Here, we demonstrate how to construct Deutsch-Josza oracles and use the gates from the Qiskit circuit library to easily set up a Deutsch-Josza Circuit. The runtime \textit{Sampler} primitive allows seamless execution of Deutsch-Josza circuit.
+
+\subsection{Requirements}
+Before starting this tutorial, enusre that you have the following installed:
+\begin{itemize}
+    \item Qiskit SDK 1.0 or later, with visualization support ( pip install 'qiskit[visualization]')
+    \item Qiskit Runtime (pip install qiskit-ibm-runtime) 0.22 or later
+\end{itemize}
+
+\subsection{Setup}
+Here we import the small number of tools we need for this tutorial.
+\begin{lstlisting}[language=Python]
+# Built-in modules
+import math
+
+# Imports from Qiskit
+from qiskit import QuantumCircuit
+from qiskit.circuit.library import GroverOperator, MCMT, ZGate
+from qiskit.visualization import plot_distribution
+
+# Imports from Qiskit Runtime
+from qiskit_ibm_runtime import QiskitRuntimeService
+from qiskit_ibm_runtime import SamplerV2 as Sampler
+\end{lstlisting}
+\begin{lstlisting}[language=Python]
+# To run on hardware, select the backend with the fewest number of jobs in the queue
+service = QiskitRuntimeService(channel="ibm_quantum")
+backend = service.least_busy(operational=True, simulator=False)
+backend.name
+\end{lstlisting}
+This output one of the ibm quantum computers (say 'ibm\_brisbane').
+\begin{enumerate}
+    \item \textbf{Step 1: Map classical inputs to a quantum problem}: \\
+    There are four possibilities for the oracles for the case of Deutsch Circuit where the oracle implements the function $f:\{0,1\}\rightarrow \{0,1\}$ which could either be constant ($f_1$ or  $f_2$) or constant ($f_3$ or $f_4$) as given in table \ref{tab:Deutsch}. The code used for creating the Deutsch Circuit is as follows:
+    \begin{lstlisting}[language=Python]
+def deutsch_circuit(value):
+    # Create a Quantum Circuit
+    qubits=QuantumRegister(2,name="q")
+    cbits=ClassicalRegister(1,name="c")
+    circuit=QuantumCircuit(qubits,cbits)
+    
+    q0,q1=qubits
+    circuit.h(q0)
+    circuit.x(q1)
+    circuit.h(q1)
+    
+    circuit.barrier()
+    if(value==1):
+        circuit.id(q0)
+        circuit.id(q1)
+    elif(value==2):
+        circuit.id(q0)
+        circuit.x(q1)
+    elif(value==3):
+        circuit.cx(q0,q1)
+    elif(value==4):
+        circuit.cx(q0,q1)
+        circuit.x(q1)
+    
+    circuit.barrier()
+    circuit.h(q0)
+    
+    circuit.measure(q0,0)
+    
+    return circuit
+    \end{lstlisting}
+    The circuits along with the corresponding oracles are as shown in the figure below:
+    \begin{figure}[H]
+        \centering
+        \begin{subfigure}[b]{0.45\linewidth}
+        \centering
+        \includegraphics[width=1\linewidth]{../images/deutsch_f1.png}
+        \caption{$f=f_1$}
+        \label{fig:deutsch_f1}
+        \end{subfigure}
+        \hfill
+        \centering
+        \begin{subfigure}[b]{0.45\linewidth}
+        \centering
+        \includegraphics[width=1\linewidth]{../images/deutsch_f2.png}
+        \caption{$f=f_2$}
+        \label{fig:deutsch_f2}
+        \end{subfigure}
+        \vspace{0.5 cm}
+        \begin{subfigure}[b]{0.45\linewidth}
+        \centering
+        \includegraphics[width=1\linewidth]{../images/deutsch_f3.png}
+        \caption{$f=f_3$}
+        \label{fig:deutsch_f3}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=1\linewidth]{../images/deutsch_f4.png}
+        \caption{$f=f_4$}
+        \label{fig:deutsch_f4}
+        \end{subfigure}    
+        \caption{Deutsch Circuit implementation for possible functions along with their corresponding oracles}
+        \label{fig:deutsch_circuit}
+    \end{figure}
+    Note that each of the oracle (shown between the two barriers) implements the required function. Thus the above shown figure corresponds to the Deutsch circuit with its functions in the oracle implementation.
+
+    \item \textbf{Step 2: Optimize Problems for Quantum Execution}
+\begin{lstlisting}[language=Python]
+from qiskit.transpiler.preset_passmanagers import 
+
+generate_preset_pass_manager
+
+target = backend.target
+pm = generate_preset_pass_manager(target=target, optimization_level=3)
+
+circuit_isa_1 = pm.run(qc)
+circuit_isa_1.draw(output="mpl", idle_wires=False, style="iqp")
+\end{lstlisting}
+
+    \begin{figure}[H]
+        \centering
+        \begin{subfigure}[b]{0.6\linewidth}
+        \centering
+        \includegraphics[width=1\linewidth]{../images/opt_deutsch_f1.png}
+        \caption{$f=f_1$}
+        \label{fig:opt_deutsch_f1}
+        \end{subfigure}
+        \hfill
+        \centering
+        \begin{subfigure}[b]{0.6\linewidth}
+        \centering
+        \includegraphics[width=1\linewidth]{../images/opt_deutsch_f2.png}
+        \caption{$f=f_2$}
+        \label{fig:opt_deutsch_f2}
+        \end{subfigure}
+        \vspace{0.5 cm}
+        \begin{subfigure}[b]{0.6\linewidth}
+        \centering
+        \includegraphics[width=1\linewidth]{../images/opt_deutsch_f3.png}
+        \caption{$f=f_3$}
+        \label{fig:opt_deutsch_f3}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}[b]{0.6\textwidth}
+        \centering
+        \includegraphics[width=1\linewidth]{../images/opt_deutsch_f4.png}
+        \caption{$f=f_4$}
+        \label{fig:opt_deutsch_f4}
+        \end{subfigure}    
+        \caption{Corresponding Optimized Deutsch Circuit}
+        \label{fig:opt_deutsch_circuit}
+    \end{figure}
+
+    \item \textbf{Step 3: Execute using Qiskit Primitives}\\
+We are now required to run the circuit and sample the measurements on the first qubit thus for execution we will use the Sampler runtime primitive.
+\end{enumerate}
+
+
+
+\begin{lstlisting}[language=Python]
+# TO run on local simulator:
+#1. Use the StatevectorSampler from qiskit.primitves instead
+sampler=Sampler(backend=backend)
+sampler.options.default_shots=10_000
+result_1 = sampler.run([circuit_isa_1])
+dist_1 = result_1.result()
+    
+\end{lstlisting}
+
+\chapter{Simon's Algorithm}
 \begin{definition}
     Given a function $f:\{0,1\}^n \rightarrow \{0,1\}^n$ which takes n input bits and returns n output bits.
     The function is a two - to - one function, such that $f(x)=f(x\oplus s)$ for $s \in \{0,1\}^n$.
@@ -3811,7 +5253,7 @@ Thus, the time complexity of this algorithm is $\mathcal{O}(1)$ i.e. constant ti
         f(010)&=f(101) \\
         f(011)&=f(100) \\
     \end{align*}
-    Consider the follwing functions as an example with outputs given in tabular form:
+    Consider the fololwing functions as an example with outputs given in tabular form:
     \begin{table}[H]
         \centering
         \begin{tabular}{|c|c|}
@@ -6272,7 +7714,7 @@ Note that
 \end{thebibliography}
 
 \chapter{Block Encoding}
-In order to perform matrix computations, we must first address the problem of the input model: how to get access to information in matrix $A\in \mathbb{C}^{N \times N} (N=2^n)$ which is generally a non-unitary matrix, into the quantum computer? One possible input model is given via the unitary $e^{\iota \tau A}$ (if A is not Hermitian, in some scenarios we an consider its Hermitian version via the dilation method). This is particularly useful when $e^{\iota \tau A}$ can be constructed using simple circuits, e.g. Trotter Splitting,
+In order to perform matrix computations, we must first address the problem of the input model: how to get access to information in matrix $A\in \mathbb{C}^{N \times N} (N=2^n)$ which is generally a non-unitary matrix, into the quantum computer? One possible input model is given via the unitary $e^{\iota \tau A}$ (if A is not Hermitian, in some scenarios we an consider its Hermitian version via the dilation method).
 
 A more general input model, as will be discussed in this chapter is called "block encoding". Of course, if A is a dense matrix without obvious structures, any input model will be very expensive (e.g. exponential in n) to implement. Therefore a commonly assumed input model is s-sparse there are at most s nonzero entries in each row/column of the matrix. Furthermore, we have an efficient procedure to get access to the location, as well as the value of the nonzero entries. This in general can again be a difficult task given that the number of nonzero entries can still be exponential in n for a sparse matrix. Some dense matrices may also be efficiently block encoded on quantum computers. This chapter will illustrate the block encoding procedure via a number of detailed examples.
 
@@ -6303,15 +7745,8 @@ Now using the controlled rotation, the information of $\tilde{A}_{ij}$, $\tilde{
 \begin{align*}
 \ket{0}\ket{0^d}\ket{i}\ket{j}&\xrightarrow{O'_A}\ket{0}\ket{\tilde{\theta}_{ij}}\ket{i}\ket{j}\\
 &\xrightarrow{CR}\left(A_{ij}\ket{0}+\sqrt{1-|A_{ij}|^2}\ket{1}\right)\ket{\tilde{\theta}_{ij}}\ket{i}\ket{j}\\
-&\xrightarrow{(O'_A)^{-1}}\left(A_{ij}\ket{0}+\sqrt{1-|A_{ij}|^2x}\ket{1}\right)\ket{0^d}\ket{i}\ket{j}
+&\xrightarrow{(O'_A)^{-1}}\left(A_{ij}\ket{0}+\sqrt{1-|A_{ij}|^2x}\ket{1}\right)ket{0^d}\ket{i}\ket{j}
 \end{align*}
-This can be implemented as shown in the circuit \ref{fig:controlledrotationoracle}
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=1\linewidth]{../images/matrixquery.png}
-    \caption{Query model for matrix entries}
-    \label{fig:controlledrotationoracle}
-\end{figure}
 From now on, we will always assume that the matrix entries of A can be queried using the phase oracle $O_A$ or its variants.
 
 \section{Block Encoding}
@@ -6327,7 +7762,6 @@ and
 \[
 U_A\ket{0,b}=\begin{bmatrix}Ab\\ * \end{bmatrix}=\ket{0}A\ket{b}+\ket{\perp}
 \]
-\[U_A\ket{0,b}=\|A\ket{b}\|\left(\ket{0}\otimes \frac{A\ket{b}}{\|A\ket{b}\|}\right)+\|\ket{\psi}\|\left(\ket{1}\otimes \frac{\ket{\psi}}{\|\ket{\psi}\|}\right)\]
 Here the unnormalized state $\ket{\perp}$ can be written as $\ket{1}\ket{\psi}$ for some unnormalized state $\ket{\psi}$, that is irrelevant to the computation of $A\ket{b}$. In particular, it satisfies the orthogonality relation.
 \[
 (\bra{0}\otimes I_n)\ket{\perp}=0
@@ -6380,7 +7814,7 @@ p(0^m)=\frac{1}{\alpha^2}\|A\ket{b}\|^2=\frac{1}{\alpha^2}\braket{b|A^{\dagger}A
 \]
 So if $\alpha$ is chosen to be too large, the probability of obtaining all $0$s from the measurement can be vanishingly small.
 
-Finally, it can be difficult to find $U_A$ to encode $A$ exactly. This is not a problem, since it is sufficient if we can find $U_A$ to block encode $A$ upto some error $\epsilon$. We are now ready to give the definition of block encoding.
+Finally, it can be difficult to fins $U_A$ to encode $A$ exactly. This is not a problem, since it is sufficient if we can find $U_A$ to block encode $A$ upto some error $\epsilon$. We are now ready to give the definition of block encoding.
 
 \begin{definition}
     (Block encoding) Given an n-qubit matrix $A$, if we can find $\alpha,\epsilon \in \mathbb{R}_+$, and an $(m+n)$-qubit unitary matrix $U_A$ so that
@@ -6400,7 +7834,7 @@ Therefore we may first evaluate the state $U_A\ket{0^m,j}$, and perform inner pr
 \[
 \braket{0^m,i|U_A\ket{0^m,j}}=\braket{0^m,i|U_BU_C\ket{0^m,j}}=(U^{\dagger}_B\ket{0^m,i})^{\dagger}(U_C\ket{0^m,j})
 \]
-So we can evaluate the states $U^{\dagger}_B\ket{0^m,i},U_C\ket{0^mj}$ independently, and then verify the inner product is $A_{ij}$. Such a calculation amounts to running the circuit shown in fig \ref{fig:generalblockencoding}, and if the ancilla qubits are measured to be $0^m$, the system qubits return the normalized state $\sum_iA_{ij}\ket{i}/\|\sum_iA_{ij}\ket{i}\|$.
+So we can evaluate the states $U^{\dagger}_B\ket{0^m,i},U_C\ket{0^mj}$ independently, and then verify the inner product is $A_{ij}$. Such a calculation amounts to running the circuit shown in fig \ref{generalblockencoding}, and if the ancilla qubits are measured to be $0^m$, the system qubits return the normalized state $\sum_iA_{ij}\ket{i}/\|\sum_iA_{ij}\ket{i}\|$.
 \begin{figure}
     \centering
     \includegraphics[width=1\linewidth]{../images/generalblockencoding.png}
@@ -6613,11 +8047,56 @@ The square root operation is well defined if $A_{ij}\geq0$ for all entries. If $
 
 
 
+\chapter{Quantum Subspace Methods}
+\section{Basic Quantum Computing Concepts}
+A qubit is a physical system whose states are described by unit vectors in two dimensional Hilbert space $\mathcal{H} = \mathbb{C}^2$. A system of $N_q$ qubits, also called a register, has states described by unit vectors in the Hilbert Space $\mathcal{H}_{N_q}=\mathcal{H}^{\otimes N_q}$. An orthonormal basis of the Hilbert space $\mathcal{H}_{N_q}$ is given by the following vectors, called computational basis states,
+\[
+\ket{\mathbf{z}}=\ket{z_{n-1}}\otimes \ket{z_{n-2}} \otimes \ldots \otimes \ket{z_0}=\ket{z}, z\in \{0,1\}^{N_q}, z=\sum_{l=0}^{N_q-1} z_l2^l \in \{0 \ldots 2^{N_q-1}\}
+\]
+\[=\ket{z_{n-1}\ldots z_0}\]
+Starting from a register of $N_q$ qubits initialised in the state $\ket{0} \in \mathcal{H}_{N_q}$ an $N_q$-qubit state $\ket{\Phi}$ can be prepared by applying single and multi-qubit unitary transformations, or gates.
 
+\section{Single-qubit gates}
+Single-qubit Pauli operators
+\[
+\mathbb{I}=\begin{pmatrix} 1 & 0 \\ 0 & 1 \end{pmatrix},X=\begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix}, Y=\begin{pmatrix} 0 & -\iota \\ \iota & 0 \end{pmatrix}, Z=\begin{pmatrix} 1 & 0 \\ 0 & -1 \end{pmatrix}
+\]
+are very important in quantum computation. A single qubit can be prepared in a generic state $\ket{\Phi}$ by initialisation in $\ket{0}$ and application of single-qubit Pauli rotations, i.e. an unitary transformation of the form
+\[
+R_{\sigma}(\theta)=e^{-\iota \frac{\theta}{2}\sigma},\sigma \in \{X,Y,Z\}, \theta \in [0,2\pi)
+\]
+In the matrix form, with $\alpha = \cos(\theta/2), \beta=\sin (\theta/2), $ and $\gamma=e^{\iota \theta/2}$
+\[
+R_X(\theta)=\begin{pmatrix} \alpha & -\iota \beta \\ -\iota \beta & \alpha \end{pmatrix}, R_Y(\theta)=\begin{pmatrix} \alpha & -\beta \\ \beta & \alpha \end{pmatrix}, R_Z(\theta)=\begin{pmatrix} \gamma^* & 0 \\ 0 & \gamma \end{pmatrix}
+\]
+It is also useful to recall that $R_{\sigma}(\theta)=\cos (\theta/2)\sigma$. A generic single qubit gate with unit determinant. U, can be written as
+\[
+U=R_Z(\theta_2)R_Y(\theta_1)R_Z(\theta_0)=\begin{pmatrix} e^{-\iota \frac{\theta_0+\theta_1}{2}} \cos (\theta_1/2) & -e^{\iota \frac{\theta_0-\theta_2}{2}}\sin (\theta_1/2) \\ e^{-\iota \frac{\theta_0-\theta_2}{2}} \sin (\theta_1/2) & e^{\iota \frac{\theta_0+\theta_2}{2}}\cos (\theta_1/2) \end{pmatrix}
+\]
+for suitable $\theta_0,\theta_1,\theta_2$, in what is called a ZYZ decomposition (one can think of these angles as equivalent Euler angles up to the double cover of SO(3) by SU(2).
 
+For some superconducting qubit architectures, the available 1-qubit gates are the "square-root of X" and phase gates (the latter are applied in a virtual way by changing the phase of subsequent electromagnetic pulses, which reduces both the number of gates in the circuits and the errors, since virtual phase gates are implemented on classical software and not as physical operations) respectively.
+\[
+\sqrt{X}=e^{\iota \pi/4}R_X(\pi/2)=\begin{pmatrix} \frac{1-\iota}{2} & \frac{1-\iota}{2} \\ \frac{1-\iota}{2} & \frac{1+\iota}{2} \end{pmatrix}, P(\lambda)=e^{-\iota\lambda/2} R_Z(\lambda) =\begin{pmatrix}1 & 0 \\ 0 & e^{\iota\lambda} \end{pmatrix}
+\]
+Combining $\sqrt{X}$ and phase gates one can construct X and Y rotations, e.g. $R_Y(\theta)=\sqrt{X}R_Z(\theta)\sqrt{X}^{\dagger}$. Similarly, a generic single-qubit gate with unit determinant can be written in the following VZ decomposition, as
+\[
+U_3(\theta,\phi,\lambda)=\begin{pmatrix} \cos (\theta/2) & -e^{\iota \lambda} \sin (\theta/2) \\ e^{\iota \phi}\cos (\theta/2) & e^{\iota (\phi+\lambda)} \cos(\theta/2) \end{pmatrix}
+\]
+\[
+=e^{-\iota\frac{\pi +\theta}{2}}P(\phi+\pi)\sqrt{X}P(\theta+\pi)\sqrt{X}P(\lambda)
+\]
+Important single-qubit gates are the Hadamard, S and T, gates, respectively.
+\[
+Had=\frac{1}{\sqrt{2}}\begin{pmatrix} 1 & 1 \\ 1 & -1 \end{pmatrix}, S=P(\pi/2), T=P(\pi/4)
+\]
 
-
-
+\section{Two-qubit gates}
+Single-qubit gates are not sufficient for universal quantum computation, since they cannot entangle qubits. This goal is accomplished by combining single and two-qubit gates. An important example is the canonical gate
+\[
+Can(t_x,t_y,t_z)=e^{-\iota \frac{\pi}{2} (t_xX\otimes X+t_yY\otimes Y+t_z Z \otimes Z)}=R_{xx}(\pi t_x)R_{yy}(\pi t_y)R_{zz} (\pi t_z),
+\]
+where the parameters $t_x$
 
 
 
@@ -6957,11 +8436,31 @@ For the coding part, you can also follow lectures by \href{https://www.youtube.c
 Many more such youtube lectures are available, lectures by \href{https://www.youtube.com/watch?v=w08pSFsAZvE&list=PL0ojjrEqIyPy-1RRD8cTD_lF1hflo89Iu}{John preskill} where he speaks in a monotonous voice along with his notes on Quantum Computing.
 Short youtube lectures covering the maths by \href{https://www.youtube.com/watch?v=mpkYPEaifUg&list=PLqdVnC7OWuEcfKRZXsrooK_EPzwmWSi-N}{David Deutsch} and \href{https://www.youtube.com/watch?v=X2q1PuI2RFI&list=PL1826E60FD05B44E4}{Michael Nielsen}.
 Some good high level view introductory lectures by \href{https://www.youtube.com/watch?v=s1bxNomtaTE}{Scott Aaronson} and some amazing videos by \href{https://www.youtube.com/results?search_query=Quantum+Compting+Seth+lloyd}{Seth Lloyd} on the importance of Quantum Computers.
-Lectures by \href{https://www.youtube.com/watch?v=jwHM8AHOtJ0&list=PL_rDPTSJrz8eFc6lb8twvsV39cxSwpJ6r}{CERN} and many more a lecture series on \href{https://www.youtube.com/watch?v=vOo1rI_RRJo&list=PLDOlG2kTN3Z4xwQmnjSQomAqr3YDyCreJ}{Advanced Quantum Computing} and on
+Lectures by \href{https://www.youtube.com/watch?v=jwHM8AHOtJ0&list=PL_rDPTSJrz8eFc6lb8twvsV39cxSwpJ6r}{CERN} and many more lecture series on \href{https://www.youtube.com/watch?v=vOo1rI_RRJo&list=PLDOlG2kTN3Z4xwQmnjSQomAqr3YDyCreJ}{Advanced Quantum Computing} and on
 Quantum Simulations by \href{https://www.youtube.com/watch?v=a2ZxgUc20LE&list=PLf3vbYicbcT_l-qgpta8_K8gYH0JVmoL8}{APCTP}.
 
 
 \section{Linear Algebra}
+\subsection{Mathematical Notation}
+For a complex number $c=a+\iota b \in \mathbb{C}$ with $a,b\in \mathbb{R}$ and $\iota =\sqrt{-1}$, we use $c^*=a-\iota b$ (or $\overline{c}$) to denote its complex conjugate. We will also need mathematical notation that is used throughout quantum information. Here we write vectors in a specially way known as the "bra-ket" notation. While it may look a little cumbersome at first sight, it turns out to provide a convenient way of dealing with the many operations we will perform with such vectors. Let's start with two examples,. We write $\ket{v} \in \mathbb{C}^2$ to denote a vector in a 2-dimensional vector space. For example,
+\[
+\ket{v}=\begin{pmatrix} 1 \\ 0 \end{pmatrix}
+\]
+The "bra"of this vector is the conjugate transpose, which for our example looks like
+\[
+\bra{v} = ((\ket{v})*)^T=\begin{pmatrix} 1^* \\ 0^* \end{pmatrix}^T=\begin{pmatrix} 1 & 0 \end{pmatrix}
+\]
+The genera definition of the "bra-ket" notation is as follows:
+\begin{definition}
+    \textbf{Ket and Bra notation.} A ket, denoted $\ket{.}$, represents a d-dimensional column vector in the complex vector space $\mathbb{C}^d$. A bra, denoted $\bra{.}$, is a d-dimensional row vector equal to the complex conjugate of the corresponding ket, namely
+    \[
+    \bra{.}=(\ket{.}^*)^T
+    \]
+    where * denotes the entry-wise conjugate, and T denotes the transpose.
+\end{definition}
+
+
+\subsection{Basics of Linear Algebra}
 
 \begin{definition}
     Linear Transformation: A function $T:V\rightarrow W$ is called a linear transformation if for all $\ket{v},\ket{w}\in V$ and $a\in\mathbb{F}$ the following properties hold:
@@ -6987,9 +8486,6 @@ Quantum Simulations by \href{https://www.youtube.com/watch?v=a2ZxgUc20LE&list=PL
 \begin{definition}
     Inverse Transformation: Let $T:V\rightarrow W$ be a linear transformation. A linear transformation $T^{-1}:W\rightarrow V$ is called the inverse transformation of $T$ if $TT^{-1}=T^{-1}T=I$ where $I$ is the identity transformation.
 \end{definition}
-
-
-\subsection{Basics of Linear Algebra}
 
 \begin{definition}
     Field ($\mathbb{F}$): A field is a set of elements that is closed under two operations, addition and multiplication, and satisfies the following axioms:
@@ -7089,7 +8585,7 @@ examples include matrices, functions. In Quantum mechanics we generally deal wit
 In Quantum Computing, we deal with finite dimensional complex vector spaces. Thus, it could not be imagined as arrows since they deal with real vector spaces (but imagining as arrows helps in general).
 
 \begin{definition}
-    Subspace: A subset $W$ of a vector space $V$ over a field $\mathbb{F}$ is called a subspace of $V$ if $W$ is itself a vector space over $\mathbb{F}$
+    \textbf{Subspace:} A subset $W$ of a vector space $V$ over a field $\mathbb{F}$ is called a subspace of $V$ if $W$ is itself a vector space over $\mathbb{F}$
     with the same operations of addition and scalar multiplication defined on $V$.
     Note that a subspace must always contain zero vector $\ket{0}$ of the vector space $V$ to satisfy the additive identity axiom.
 \end{definition}
@@ -7099,7 +8595,7 @@ In Quantum Computing, we deal with finite dimensional complex vector spaces. Thu
 \end{example}
 
 \begin{definition}
-    Linear Combination: Let $V$ be a vector space over a field $\mathbb{F}$ and let $\ket{v_1},\ket{v_2},\ldots,\ket{v_n}$ be vectors in $V$. A vector of the form
+    \textbf{Linear Combination:} Let $V$ be a vector space over a field $\mathbb{F}$ and let $\ket{v_1},\ket{v_2},\ldots,\ket{v_n}$ be vectors in $V$. A vector of the form
     \begin{equation}
         a_1\ket{v_1}+a_2\ket{v_2}+\ldots+a_n\ket{v_n}
     \end{equation}
@@ -7123,7 +8619,7 @@ In Quantum Computing, we deal with finite dimensional complex vector spaces. Thu
 \end{example}
 
 \begin{definition}
-    Span: Let $V$ be a vector space over a field $\mathbb{F}$ and 
+    \textbf{Span:} Let $V$ be a vector space over a field $\mathbb{F}$ and 
     let $\ket{v_1},\ket{v_2},\ldots,\ket{v_n}$ be vectors in $V$. 
     The set of all linear combinations of $\ket{v_1},\ket{v_2},\ldots,\ket{v_n}$ 
     is called the span of $\ket{v_1},\ket{v_2},\ldots,\ket{v_n}$ 
@@ -7131,7 +8627,7 @@ In Quantum Computing, we deal with finite dimensional complex vector spaces. Thu
 \end{definition}
 
 \begin{definition}
-    Linear Independence: Let $V$ be a vector space over a field $\mathbb{F}$ and let $\ket{v_1},\ket{v_2},\ldots,\ket{v_n}$ be vectors in $V$. The vectors $\ket{v_1},\ket{v_2},\ldots,\ket{v_n}$ are said to be linearly independent if the only solution to the equation
+    \textbf{Linear Independence:} Let $V$ be a vector space over a field $\mathbb{F}$ and let $\ket{v_1},\ket{v_2},\ldots,\ket{v_n}$ be vectors in $V$. The vectors $\ket{v_1},\ket{v_2},\ldots,\ket{v_n}$ are said to be linearly independent if the only solution to the equation
     \begin{equation}
         a_1\ket{v_1}+a_2\ket{v_2}+\ldots+a_n\ket{v_n}=\ket{0}
         \label{eq:Linear Independence}
@@ -7208,7 +8704,7 @@ The inner product is a function that takes two vectors as input and returns a sc
     In $\mathbb{R}^n$ as Field the inner product is defined as $\braket{u|v}=\sum_{i=1}^{n}u_iv_i$
     and holds the following properties:
     \begin{enumerate}
-        \item Symmetry: $\braket{u|v}=\braket{v|u}$
+        \item Symmetry: $\braket{u|v}=\braket{v|u}^*$
         \item Linearity: $\braket{au+bw|v}=a\braket{u|v}+b\braket{w|v}=\braket{v|au+bw}$
         \item Positive Definite: $\braket{v|v}=\sum_{i=1}^{n}v_i^2\geq 0$ and $\braket{v|v}=0$ iff $\ket{v}=\ket{0}$
     \end{enumerate}
@@ -7234,9 +8730,26 @@ the case of real vector spaces here the projections of a on b is not the same as
 can be clearly observed since the inner product is conjugate symmetric ($\braket{u|v}=\braket{v|u}^*$). Thus, the projection of u on v is a complex conjugate of 
 the projection of v on u.}
 \begin{definition}
+    \textbf{Absolute value of a complex number}. Consider a complex number $z\in\mathbb{C}$ expressed as $z=x+\iota y$ where $x,y \in \mathbb{R}$ are real numbers representing the real and imaginary parts of $z$ respectively. The absolute value, or otherwise known as modulus of $z$ is given by
+    \[
+    |z|=\sqrt{z^*z}=\sqrt{x^2+y^2}
+    \]
+\end{definition}
+\begin{example}
+    For example, for $z=1_\iota 2$ its absolute value is given by $|z|=\sqrt{1^2+2^2}=\sqrt{5}$.
+\end{example}
+
+\begin{definition}
     Norm (length) of a vector: Let $V$ be a vector space over a field $\mathbb{F}$. The norm of a vector $\ket{v}\in V$ is defined as $\|\ket{v}\|=\sqrt{\braket{v|v}}$.
     A vector which has a norm of 1 is called a unit vector.
 \end{definition}
+
+\begin{example}
+    Consider a ket $\ket{v}=\frac{1}{2}\begin{pmatrix} 1+\iota \\ 1-\iota \end{pmatrix} \in \mathbb{C}^2$. The corresponding bra is given by $\bra{v} =\frac{1}{2}\begin{pmatrix} 1-\iota & 1+\iota \end{pmatrix}$, and the length of $\ket{v}$ is
+    \[
+    \sqrt{\braket{v|v}} =\sqrt{\frac{1}{4}2(1+\iota)(1-\iota)}=\sqrt{\frac{1}{2}(1+\iota -\iota -\iota^2)}=\sqrt{\frac{1}{2}2}=1
+    \]
+\end{example}
 
 \begin{definition}
     Orthogonality: Let $V$ be a vector space over a field $\mathbb{F}$. Two vectors $\ket{u},\ket{v}\in V$ are said to be orthogonal if $\braket{u|v}=0$
@@ -7294,6 +8807,18 @@ Properties of Adjoint Operation:
     \item $(a\ket{v}+b\ket{w})^{\dagger}=\bra{v}a^{*}+\bra{w}b^{*}$
     \item $(\ket{v}^{\dagger})^{\dagger}=\ket{v}$
 \end{enumerate}
+
+\begin{example}
+    note that the inner product of two vectors $\ket{v_1},\ket{v_2} \in \mathbb{C}^d$ is in general a complex number. Later on, we shall see that the modulus squared of the inner product $|\braket{v_1|v_2}|^2$ is of much significance. As an example, let us consider the inner product of the vectors $\ket{v}$ and $\ket{w}$ given as
+    \[
+    \ket{v}=\begin{pmatrix} 1 \\0 \end{pmatrix},ket{w}=\begin{pmatrix} 2 \\ 3 \end{pmatrix}
+    \]
+    We have
+    \[
+    \braket{v|w}=\begin{pmatrix} 1 & 0 \end{pmatrix} \begin{pmatrix}2 \\3 \end{pmatrix}=1\cdot 2+0\cdot 3 =2
+    \]
+    Note that $|\braket{v_1|v_2}|^2=\braket{v_1|v_2}\braket{v_2|v_1}$.
+\end{example}
 \subsection{Gram-Schmidt Orthogonalization}
 Given a set of linearly independent vectors $\ket{v_1},\ket{v_2},\ldots,\ket{v_n}$ in a vector space $V$ over a field $\mathbb{F}$, the Gram-Schmidt orthogonalization process constructs an orthonormal basis $\ket{u_1},\ket{u_2},\ldots,\ket{u_n}$ of $V$ from the given set of linearly independent vectors. The process is as follows:
 \begin{enumerate}
@@ -7883,12 +9408,12 @@ where V is the matrix of orthogonal eigen vectors, $\Lambda$ is a diagonal marix
 
 \subsubsection{Simultaneous Diagonalization of two Hermitian Operators}
 \begin{definition}
-    Suppose A and B are Hermitian operators, Then $[A,B]=0$ if and only if there exists an orthonormal bassis
-    such that both A and B are diagonal with respect to that basis. We can say that A and B are simulatneously diagonizable.    
+    Suppose A and B are Hermitian operators, Then $[A,B]=0$ if and only if there exists an orthonormal basis
+    such that both A and B are diagonal with respect to that basis. We can say that A and B are simultaneously diagonizable.    
 \end{definition}
 
 \subsubsection{Operator Functions}
-We restrict ourselves to duntions that can be written as a power series. Consider a series
+We restrict ourselves to functions that can be written as a power series. Consider a series
 \[ f(x)=\sum_{n=0}^{\infty} a_nx^n \]
 where $a_n$ are complex numbers. Then we can define the same function for an operator to be:
 \[ f(A)=\sum_{n=0}^{\infty} a_nA^n \]
@@ -8017,6 +9542,31 @@ where $\sigma_{max}$ and $\sigma_{min}$ are the maximum and minimum singular val
 \kappa(A)=\dfrac{|\lambda_{max}(A)|}{|\lambda_{min}(A)|}
 \]
 Note that here $\lambda_{max}$ and $\lambda_{min}$ are in the absolute sense.
+
+\subsection{Overview of Iterative Methods}
+These methods dominate the large-scale computations. The importance of iterative algorithms in linear algebra stems from the fact that non-iterative or direct algorithms for general matrices require $\mathcal{O}(m^3)$ computations. It is very high when $m$ is large, and in the relative sense that since the input to most matrix problem involves only $\mathcal{O}(m^2)$ inputs. Large matrices arise indirectly in the discretization of differential or integral equations. For very very large m, it is an approximation to $\infty$.  They have some kind of structure, and ways have been found to exploit this structure in more and more contexts. The most obvious structure that a large matrix may have is sparsity i.,e. preponderance of zero entries. For example, a finite difference discretization of the partial differential equation may lead to a matrix of dimension $m=10^5$ with only $\nu =10$ nonzero entries per row. This kind of structure is readily exploited by the iterative methods we shall discuss. 
+
+For these algorithms we use a matrix in the form of a black box. Given input $x$, it outputs $Ax$. Some iterative algorithm may require the computation of $A^*x$. The iterative algorithm requires nothing more than the ability to determine $Ax$ for any x, which in a computer program will be effected by a procedure whose internal workings need be of no concern to the designer of the iterative algorithm. For the example of a sparse matrix $A$, it is easy to design a procedure to compute $Ax$ in only $\mathcal{O}(\nu m)$ rather than $\mathcal{O}(m^2)$ operations. most recently, it has become apparent that other kinds of matrix structure may also be exploitable, even though the matrices involved are dense. For example, the solution of integral equations by numerical methods typically leads to dense matrix problems; in engineering these are called boundary element or panel methods. The coefficients have a deal of regularity in them. All this is in marked contrast to the algorithms of direct linear algebra, such as Gaussian or Householder triangularization, which explicitly manipulate matrix entries so as to introduce zeros, but in the process generally destroy sparsity. Sparsity has been the kind of structure exploited most often in iterative matrix computations.
+
+\subsubsection{Krylov Subspaces}
+The idea is of projecting an $m-$ dimensional problem into a lower-dimensional Krylov subspace. Given a matrix $A$ and a vector $b$, the associated Krylov sequence is the set of vectors $b,Ab,A^2b,A^3b,\ldots$, which can be computed by the black box in the form $b,Ab,A(Ab),A(A(Ab)),\ldots$. The corresponding Krylov subspaces are the spaces spanned by successively larger group of these vectors. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 \subsection{Conclusions}
 \textbf{
 \begin{itemize}
@@ -8082,7 +9632,7 @@ where by definition,
 \[ \left( \sum_i c_i A_i \otimes B_i\right) \ket{v} \otimes \ket{w} = \sum_i c_i A_i \ket{v} \otimes B_i \ket{w} \]
 
 The inner product on the spaces V and W can be used to define a natural inner product on $V \otimes W$. Define
-\[ \left( \sum_i a_i\ket{v_i}\otimes \ket{w_i}, \sum_j b_j \ket{v'_j} \otimes \ket{w'_j}\right) \equiv \sum_{ij} a_i^* b_j\braket{v_i|v'_j}\braket{w_i|w'_j} \]
+\[ \left( \sum_i a_i\ket{v_i}\otimes \ket{w_i}, \sum_j b_j \ket{v'_j} \otimes \ket{w'_j}\right) \equiv \sum_{ij} a_i*b_j\braket{v_i|v'_j}\braket{w_i|w'_j} \]
 It can be shown that the function so defined is a well-defined inner product. The inner product space $V \otimes W$ inherits the other structure we are familiar with such as notions of an adjoint , unitary, normality and Hermiticity.\\
 \\
 \textbf{Kronecker Product}\\
@@ -8958,7 +10508,42 @@ Whether you will work locally or in a cloud environment, the first step for all 
 
 Checkout the IBM Quantum Qiskit guide on \href{https://docs.quantum.ibm.com/guides/install-qiskit}{how to install} Qiskit and Qiskit Runtime and setup an \href{https://docs.quantum.ibm.com/guides/setup-channel}{IBM Quantum channel}.
 
+\section{Anatomy of a Quantum Computing Service}
+How does a Quantum program go from being on your laptop with you as the end user through to actually being run on a real quantum device?
+\begin{figure}
+    \centering
+    \includegraphics[width=0.75\linewidth]{../images/AnatomyofQC.png}
+    \caption{Anatomy of Quantum Computing Service}
+    \label{fig:AnatomyofQC}
+\end{figure}
+You need to use some Quantum programming language and in this case its going to be Qiskit to construct a quantum program. Then using a Cloud based service in this case called Qiskit Runtime to package up that program and send it through the cloud until it hits a server in a laboratory somewhere. Then the program will go through control electronics. The outcome of this will be your program will be converted to microwave pulse sequences that can then be run on real quantum processor. Once your program is run we will get the results back which will get propagated all the way back up the chain, back to you, the end user on your laptop. This gives you an overview at the high level view of the process and indicates the stuff going behind the scenes that maybe you as the end user aren't aware of. For the purpose of this lecture we are going to be focusing on user and Qiskit runtime (the parts with which user will be directly interacting with).
 
+\begin{figure}
+    \centering
+    \includegraphics[width=0.75\linewidth]{../images/results_example.png}
+    \caption{Example of final result}
+    \label{fig:results_example}
+\end{figure}
+An example of final result is as shown in the figure \ref{fig:results_example}. You will get a series of bit strings many zeros and ones, these in a classical format. you will typically have run the program many times on the quantum device and so you will get probabilities back on how did you get a certain bit string more so than others. Thus as can be seen through the graph that the quantum program gave a lot of results that were 000 and 111 which is probably the answer to the program that you are trying to run. We also get a lot of much smaller counts of different bitstrings here. And this, shows that there are some errors on the quantum device. Quantum devices are not perfect. You will often get small numbers of incorrect bit strings from the outcome of your experiment. This is why you have to run your program multiple times so that you can start to see these are where the errors are. We can also talk about ways to prevent or mitigate these kinds of errors. Ideally we would only want to see two bars in the image.
+
+\textbf{What is Qiskit?}\\
+\begin{itemize}
+\item Qiskit SDK is an open-source SDK for working with Quantum Computers at the level of extended quantum circuits, operators and primitives. You can find the code and documentation here. Currently version 1.0 is used released on Feb 2024.
+
+\item Qiskit runtime is a cloud based service for executing quantum computations on IBM Quantum hardware. Qiskit runtime services is not open-source but the client that you use to interact with that service is. And you can check that repository on GitHub along with the documentation. Currently version 2 is used (released March 2024).
+
+\item Qiskit patterns is a framework for breaking down domain-specific problem into stages to build a quantum program. It is guidelines on how to construct a full quantum program including everything from building your inital circuit through to running it on real hardware and getting the results at the end.
+
+\item The Qiskit Ecosystem is a collection of software and projects that build or extend Qiskit. These are additional packages which are building on Qiskit which can be an addition to your toolbox of Qiskit SDK and Qiskit runtime. These are referred to as part of the Qiskit ecosystem. It can be found here to find the catalog some maintained by IBM and some maintained by members of the open source community.
+\end{itemize}
+
+\subsection{Getting set up with Qiskit}
+\begin{lstlisting}
+pip install 'qiskit[visualization]' # Install Qiskit SDK with the additional visualization capabilities
+pip install qiskit-ibm-runtime
+\end{lstlisting}
+
+For visualizing circuits and results install Qiskit with visualization add-on.
 
 
 
