@@ -5083,15 +5083,14 @@ Before starting this tutorial, enusre that you have the following installed:
 \subsection{Setup}
 Here we import the small number of tools we need for this tutorial.
 \begin{lstlisting}[language=Python]
-# Built-in modules
+#Built-in modules
 import math
 
-# Imports from Qiskit
-from qiskit import QuantumCircuit
-from qiskit.circuit.library import GroverOperator, MCMT, ZGate
+#imports from Qiskit
+from qiskit import QuantumCircuit, QuantumRegister, ClassicalRegister
 from qiskit.visualization import plot_distribution
 
-# Imports from Qiskit Runtime
+#Imports from Qiskit Runtime
 from qiskit_ibm_runtime import QiskitRuntimeService
 from qiskit_ibm_runtime import SamplerV2 as Sampler
 \end{lstlisting}
@@ -5137,7 +5136,12 @@ def deutsch_circuit(value):
     
     return circuit
     \end{lstlisting}
-    The circuits along with the corresponding oracles are as shown in the figure below:
+    For creating one of the circuits, use the following code:
+    \begin{lstlisting}[language=Python]
+        qc_4=deutsch_circuit(value=4)
+        qc_4.draw("mpl")
+    \end{lstlisting}
+    All the circuits along with their corresponding oracles implementing the four functions are as shown in the figure below:
     \begin{figure}[H]
         \centering
         \begin{subfigure}[b]{0.45\linewidth}
@@ -5221,20 +5225,66 @@ circuit_isa_1.draw(output="mpl", idle_wires=False, style="iqp")
     \end{figure}
 
     \item \textbf{Step 3: Execute using Qiskit Primitives}\\
-We are now required to run the circuit and sample the measurements on the first qubit thus for execution we will use the Sampler runtime primitive.
-\end{enumerate}
 
-
-
-\begin{lstlisting}[language=Python]
+    We are now required to run the circuit and sample the measurements on the first qubit. Thus for execution we will use the Sampler runtime primitive.
+    \begin{lstlisting}[language=Python]
 # TO run on local simulator:
 #1. Use the StatevectorSampler from qiskit.primitves instead
 sampler=Sampler(backend=backend)
 sampler.options.default_shots=10_000
-result_1 = sampler.run([circuit_isa_1])
-dist_1 = result_1.result()
-    
-\end{lstlisting}
+result_1 = sampler.run([circuit_isa_1]).result
+dist_1 = result_1[0].data.c.get_counts()   
+    \end{lstlisting}
+    The output of the above code will be the distribution of the measurements on the first qubit. Similar code can be written for all the four possible functions.
+
+    \item \textbf{Step 4: Post-Process Results}\\
+    Now we plot a histogram of the measurements on the first qubit in the classical format.
+    \begin{lstlisting}[language=Python]
+from qiskit.visualization import plot_histogram
+plot_histogram(dist_1)
+    \end{lstlisting}
+    The output of the above code will be the histogram of the distribution of the measurements on the first qubit. Similar code can be written for all the four possible functions.
+
+    The following output is produced upon running this code on ibm\_brisbane as shown in figure \ref{fig:deutsch_results}. The histogram plot is done for 10000 shots and results can be clearly seen the results as expected. The minor deviations in the results is due to the inherent errors (because of the noise) in the quantum computer and its probabilistic nature in the measurement process.
+    \begin{figure}[H]
+        \centering
+        \begin{subfigure}[b]{0.45\linewidth}
+        \centering
+        \includegraphics[width=1\linewidth]{../images/deutsch_result_f1.png}
+        \caption{$f=f_1 \implies \text{constant}$}
+        \label{fig:deutsch_result_f1}
+        \end{subfigure}
+        \hfill
+        \centering
+        \begin{subfigure}[b]{0.45\linewidth}
+        \centering
+        \includegraphics[width=1\linewidth]{../images/deutsch_result_f2.png}
+        \caption{$f=f_2\implies \text{constant}$}
+        \label{fig:deutsch_result_f2}
+        \end{subfigure}
+        \vspace{0.5 cm}
+        \begin{subfigure}[b]{0.45\linewidth}
+        \centering
+        \includegraphics[width=1\linewidth]{../images/deutsch_result_f3.png}
+        \caption{$f=f_3\implies \text{balanced}$}
+        \label{fig:deutsch_result_f3}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=1\linewidth]{../images/deutsch_result_f4.png}
+        \caption{$f=f_4\implies \text{balanced}$}
+        \label{fig:deutsch_result_f4}
+        \end{subfigure}    
+        \caption{Results}
+        \label{fig:deutsch_results}
+    \end{figure}
+    We can see in the figure \ref{fig:deutsch_result_f1} that the result of the measurement of the first qubit is 0 (9943 times) and 1 (57 times). Thus, we can conclusively say that the function implemented was a constant function (inside the oracle) which we know is true. Hence, the results are expected. Similar conclusions can be made for all the other results and we can clearly see that they agree with what we implemented and expected.
+\end{enumerate}
+
+
+
+
 
 \chapter{Simon's Algorithm}
 \begin{definition}
