@@ -4637,7 +4637,7 @@ Instead, for any function $f:\{0,1\}\rightarrow\{0,1\}$ we define a 2-qubit quan
     \caption{Oracle}
     \label{fig:deutsch_oracle}
 \end{figure}
-It can be verified that the corresponding matrix is unitary for and function $f$. For example, if $f=f_4$ from the table \ref{tab:Deutsch}, then $f(0_=1$ and $f91)=0$, so the corresponding matrix is
+It can be verified that the corresponding matrix is unitary for and function $f$. For example, if $f=f_4$ from the table \ref{tab:Deutsch}, then $f(0_=1$ and $f_1)=0$, so the corresponding matrix is
 \[
 \begin{pmatrix} 0 & 1 & 0 & 0 \\1 & 0 & 0 & 0\\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{pmatrix}
 \]
@@ -5219,6 +5219,8 @@ Thus, this can be written as:
 \[
     \frac{1}{\sqrt{2^n}}\sum_{x \in \{0,1\}^n}\ket{x}\frac{(\ket{f(x)}-\ket{\overline{f(x)}})}{\sqrt{2}}=\frac{1}{\sqrt{2^n}}\sum_{x \in \{0,1\}^n}(-1)^{f(x)}\ket{x}\ket{-}
 \]
+Note that the first n qubits form a uniform superposition of all $2^n$ computational basis states of n qubits, with a phase of $(-1)^{f(x)}$ for each $\ket{x}$. IN constant case, either all the phases are $+1$ or all the phases are $-1$. So the state remains in a uniform superposition of computational basis states and just picks up a global phase of $+1$ or $-1$. In balanced case, there are lots of possibilities, depending on which particular balanced function it is. But one thing we can say is that the state is orthogonal to the state that arises in the constant case. Because, in the computational basis, the state will have $+1$ in half of its components and $-1$ in the other half. So when you take the dot product, with a vector that has (say) $+1$ in each component you get an equal number of $+1$s and $-1$s, which cancel and results in zero. Note that since the cases that we are trying to distinguish between result in orthogonal state, in principle, they are perfectly distinguishable. 
+
 Now we apply the Hadamard gate on the first n qubits and the action of the Hadamard gate on the first n qubits will be:
 \begin{align*}
     (H^{\otimes n}\otimes I)\left(\frac{1}{\sqrt{2^n}}\sum_{x \in \{0,1\}^n}(-1)^{f(x)}\ket{x}\ket{-}\right)&=H^{\otimes n}\left(\frac{1}{\sqrt{2^n}}\sum_{x \in \{0,1\}^n}(-1)^{f(x)}\ket{x}\right)\otimes I\ket{-}\\
@@ -5228,7 +5230,7 @@ Recall that $H^{\otimes n}\ket{x}=\dfrac{1}{\sqrt{2^n}}\sum_{y \in \{0,1\}^n}(-1
 \[
     \left(\frac{1}{2^n}\sum_{x \in \{0,1\}^n}\sum_{y \in \{0,1\}^n}(-1)^{f(x)+x\cdot y}\ket{y}\right)\otimes \ket{-}
 \]
-Now, we perform the measurement on the first n qubits. Now, all we really care about is the probability that the measurements all give outcome 0. The amplitude associated with the classical state $\ket{0^n}$ is
+Now, we perform the measurement on the first n qubits. In the constant case, this transforms the state of the $\pm \ket{00\ldots 0}=\pm \ket{0^n}$. IN the balanced case, since unitary operations preserve orthogonality relationships, the state is transformed to some state that is orthogonal to $\ket{0^n}$. Now, all we really care about is the probability that the measurements all give outcome 0. The amplitude associated with the classical state $\ket{0^n}$ is
 \[
 \dfrac{1}{2^n}\sum_{x\in\{0,1\}^n} (-1)^{f(x)}
 \]
@@ -5266,13 +5268,11 @@ Consider the following two cases:
         \[
             \left(\frac{1}{2^n}\sum_{x \in \{0,1\}^n}\sum_{y \in \{0,1\}^n}(-1)^{f(x)+x\cdot y}\ket{y}\right)\otimes \ket{-}
         \]
-        Upon simplifying we get,
-        \[
-            \left(\frac{1}{2^n}(2^n)(\pm\ket{11})\right)\otimes \ket{-}=\pm \ket{11}\otimes \ket{-}
-        \]
-        Depending on the input, for the balanced function the output will either be $\ket{11}$ or $-\ket{11}$.
-        In either cases, upon measurement the output will be $\ket{11}$ with probability $1$. Thus, we get a measurement of $\ket{11}$.
+        The output of this depends on the function but it will surely not be $\ket{0^n}$.
     \end{itemize}
+     If the outcome is $00.\ldots 0=0^n$ then we report "constant" and if the outcome is any string that's not $0^n$ (not all zeroes) then we report "balanced". Note that in the balanced case, it is impossible to get outcome $0^n$, because measuring a state orthogonal to $0^n$ cannot result in outcome $0^n$.
+
+     Thus, the one-query algorithm for the constant vs balanced problem works. It achieves something with one single query that requires exponentially many queries by any classical algorithm.
 \end{enumerate}
 
 \subsection{Example}
@@ -5510,6 +5510,33 @@ def deutsch_jozsa(num_qubits=2,value=0,oracle=True,oracle_type="constant",b_str=
 
     return circuit
     \end{lstlisting}
+    Note the above code can create only certain type o balanced functions and not all its variants. For creating the function $f=f_3$, the following code is used.
+    \begin{lstlisting}[language=Python]
+# Create a Quantum Circuit
+qubits=QuantumRegister(3,name="q")
+cbits=ClassicalRegister(2,name="c")
+circuit=QuantumCircuit(qubits,cbits)
+
+q0,q1,q2=qubits
+circuit.h(q0)
+circuit.h(q1)
+circuit.x(q2)
+circuit.h(q2)
+
+circuit.barrier()
+
+circuit.cx(q0,q2)
+
+circuit.barrier()
+
+circuit.h(q0)
+circuit.h(q1)
+circuit.measure(q0,0)
+circuit.measure(q1,1)
+
+circuit.draw("mpl")
+    \end{lstlisting}
+    The rest of the code corresponding to $f=f_3$ follows the similar pattern.
     For creating constant oracle circuit, use the following code:
     \begin{lstlisting}[language=Python]
 qc_const_0=deutsch_jozsa(num_qubits=2,value=0,oracle=True,oracle_type="balanced",b_str="00")
@@ -5542,8 +5569,8 @@ qc_bal_0.draw("mpl")
         \begin{subfigure}[b]{0.45\linewidth}
         \centering
         \includegraphics[width=1\linewidth]{../images/deutsch_jozsa_bal_0.png}
-        \caption{$f=f_9$ (Balanced)}
-        \label{fig:deutsch_jozsa_f9}
+        \caption{$f=f_3$ (Balanced)}
+        \label{fig:deutsch_jozsa_f3}
         \end{subfigure}
         \hfill
         \begin{subfigure}[b]{0.45\textwidth}
@@ -5587,7 +5614,7 @@ circuit_isa_const_0.draw(output="mpl",idle_wires=False,style="iqp")
         \begin{subfigure}[b]{0.45\linewidth}
         \centering
         \includegraphics[width=1\linewidth]{../images/deutsch_jozsa_bal_opt_0.png}
-        \caption{$f=f_9$ (Balanced)}
+        \caption{$f=f_3$ (Balanced)}
         \label{fig:deutsch_jozsa_bal_opt_0}
         \end{subfigure}
         \hfill
@@ -5642,8 +5669,8 @@ plot_histogram(dist_const_0)
         \begin{subfigure}[b]{0.45\linewidth}
         \centering
         \includegraphics[width=1\linewidth]{../images/deutsch_jozsa_bal_0result.png}
-        \caption{$f=f_9\implies \text{balanced}$}
-        \label{fig:deutsch_jozsa_result_f9}
+        \caption{$f=f_3\implies \text{balanced}$}
+        \label{fig:deutsch_jozsa_result_f3}
         \end{subfigure}
         \hfill
         \begin{subfigure}[b]{0.45\textwidth}
@@ -5655,7 +5682,7 @@ plot_histogram(dist_const_0)
         \caption{Deutsch-Jozsa Results}
         \label{fig:deutsch_jozsa_results}
     \end{figure}
-    We can see in the figure \ref{fig:deutsch_jozsa_result_f1} that the result of the measurement of the first two qubits is 00 (9891 times). Thus, we can conclusively say that the function implemented was a constant function (inside the oracle) which we know is true. Hence, the results are expected. Similar conclusions can be made for all the other results and we can clearly see that they agree with what we implemented and expected. Here, we are able to tell whether the function was constant or balanced but not what the function was out of the different possibilities. Note that the results might differ for different runs because of the noise in quantum computer. Similar results can also be found for four qubits circuit as shown in the figure \ref{fig:deutsch_jozsa_4q}.
+    We can see in the figure \ref{fig:deutsch_jozsa_result_f1} that the result of the measurement of the first two qubits is 00 (9891 times). Thus, we can conclusively say that the function implemented was a constant function (inside the oracle) which we know is true. Hence, the results are expected. Similar conclusions can be made for all the other results and we can clearly see that they agree with what we implemented and expected. Here, we are able to tell whether the function was constant or balanced but not what the function was out of the different possibilities. It can also be seen that the result is $0^n$ only in the case of constant function. It is some state orthogonal to $0^n$ in case of balanced functions and not $0^n$. Note that the results might differ for different runs because of the noise in quantum computer but the answers will still follow a similar probability distribution. Similar results can also be found for four qubits circuit as shown in the figure \ref{fig:deutsch_jozsa_4q}.
     \begin{figure}[H]
         \centering
         \includegraphics[width=0.75\linewidth]{../images/deutsch_jozsa_4q.png}
