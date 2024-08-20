@@ -2503,10 +2503,7 @@ In general, we start with state $\ket{0}$ for all the qubits initially, thus Act
     \]
 \end{example}
 
-
-
-
-\subsection{$S$ and $S^{\dagger}$ Gate}
+\subsection{\texorpdfstring{$S$ and $S^{\dagger}$ Gate}{S and S^\dagger Gate}}
 These are some specialised rotations,
 \subsubsection{$S$ Gate}
 It is $\pi/2$ rotation around Z axis of Bloch Sphere.
@@ -2653,10 +2650,10 @@ Action of $S^{\dagger}$ Gate on a general qubit $\ket{\psi}=\alpha\ket{0}+\beta\
         -i\beta
     \end{bmatrix}=\alpha\ket{0}-i\beta\ket{1}
 \]
-\textbf{Note that both $S$ and $S^{\dagger}$ gates are Unitary but not Hermitian thus they are not self-inverse. Reccall, that 
+\textbf{Note that both $S$ and $S^{\dagger}$ gates are Unitary but not Hermitian thus they are not self-inverse. Recall, that 
 the only criteria for a gate is to be a Unitary (from Postulate 2: Unitary evolution) gate and not necessarily Hermitian.}
 
-\subsection{$T$ and $T^{\dagger}$ Gate}
+\subsection{\texorpdfstring{$T$ and $T^{\dagger}$ Gate}{T and T^\dagger Gate}}
 These are some specialised rotations,
 \subsubsection{$T$ Gate}
 It is $\pi/4$ rotation around Z axis of Bloch Sphere.
@@ -4283,17 +4280,18 @@ The final Superdense coding circuit is as shown in the figure \ref{fig:superdens
 \newpage
 
 \chapter{Quantum Algorithms}
+This chapter contains the prerequisites required before jumping into Quantum Algorithms in order to understand the various aspects of a Quantum Algorithm.
 The following are the Quantum Algorithms are discussed in this section:
 \begin{enumerate}
     \item Elitzur-Vaidman Bomb Detection Algorithm
     \item Deutsch's Algorithm
-    \item Deutsch-Josza Algorithm
-    \item Simon's Algorithm
-    \item Shor's Algorithm
+    \item Deutsch-jozsa Algorithm
     \item Bernstein-Vazirani Algorithm
+    \item Simon's Algorithm
     \item Grover's Algorithm
     \item Quantum Fourier Transform
     \item Quantum Phase Estimation
+    \item Shor's Algorithm
 \end{enumerate}
 In order to understand Quantum Algorithms we must understand the Oracles and their working.
 \section{Oracles}\label{sec:Oracles}
@@ -4401,10 +4399,10 @@ Using this circuit it can be seen that the output of the entire circuit is $\ket
 The output from the first Quantum Circuit $U_f$ is $\ket{x},\ket{y\oplus f(x)},junk(x)$. To remove the junk bits, it was done by first copying the output $\ket{f(x)}$ to the other (working bits) bits and then the output from the $U_f$ circuit was passed through its inverse $U_f^{-1}=U^{\dagger}_f$. Thus, upon passing through its inverse the output will be $\ket{x},\ket{0},\ket{0}$ since $U_f^{\dagger}$ is a reverse circuit and hence will make the outputs back to the inputs. 
 Then the bits are swapped between as shown in the figure to get the desired output of 
 $\ket{x},\ket{y\oplus f(x)},\ket{0},\ket{0}$ with no junk. Thus, the output of the circuit is the input $\ket{x}$ and the output $\ket{y\oplus f(x)}$. This entire thing is called an Oracle. 
-Thus, we can imagine a Quantum Circuit which is an implementation of a classical fucntion $f$ as a black box which takes input $\ket{x}, \ket{y},\ket{0}$ and produces the output $\ket{x},\ket{y\oplus f(x)},\ket{0}$. 
-For the sake of simpliicity we generally ignore the $\ket{0}$ in inputs and outputs. 
+Thus, we can imagine a Quantum Circuit which is an implementation of a classical function $f$ as a black box which takes input $\ket{x}, \ket{y},\ket{0}$ and produces the output $\ket{x},\ket{y\oplus f(x)},\ket{0}$. 
+For the sake of simplicity we generally ignore the $\ket{0}$ in inputs and outputs. 
 
-Thus, wheverer given a classical function $f$, we can make it as a reversible quantum function and thus, implmement
+Thus, whenever given a classical function $f$, we can make it as a reversible quantum function and thus, implement
 it as a quantum circuit using reversible quantum gates. This can be visualized as shown in the figure \ref{oracle}.
 \begin{figure}[H]
     \centering
@@ -4413,7 +4411,8 @@ it as a quantum circuit using reversible quantum gates. This can be visualized a
     \label{oracle}
 \end{figure}
 
-\section{Elitzur-Vaidman Bomb Detection Algorithm}
+\chapter{Elitzur-Vaidman Bomb Detection Algorithm}
+\section{The Problem}
 We are given a device which can be a working Bomb or dud. The devices takes a Quantum bit as input and produces an output.
 If the device is a bomb, then the device performs a measurement on that qubit. If the outcome of the measurement is 1, then the bomb explodes, else the bomb does not explode.
 If the device is dud, then the device does nothing i.e output is same as input.
@@ -4428,8 +4427,8 @@ We wish to determine whether the device is a bomb or dud without exploding the b
         For the input of $\ket{0}$ if the device is a dud then the output is $\ket{0}$ since it does no operation on the input.
         For the input of $\ket{1}$ if the device is a dud then the output is $\ket{1}$ since it does no operation on the input.
     \end{itemize}
-    To summarise the above approach, giving input $\ket{0}$ isof no help as it provides no information about the device since in both the cases if its a bomb or a dud the output will be $\ket{0}$. 
-    Upon giving input $\ket{1}$ if the device is a dud then the output will be $\ket{1}$ and if the device is a bomb then the bomb will explode. Thus, it tells us whether the device is a bomb or a dud but if its a bomb it will explode. Thus, this approach is not useful since we can never deteact a working bomb.
+    To summarise the above approach, giving input $\ket{0}$ is of no help as it provides no information about the device since in both the cases if its a bomb or a dud the output will be $\ket{0}$. 
+    Upon giving input $\ket{1}$ if the device is a dud then the output will be $\ket{1}$ and if the device is a bomb then the bomb will explode. Thus, it tells us whether the device is a bomb or a dud but if its a bomb it will explode. Thus, this approach is not useful since we can never detect a working bomb.
     \item \textbf{Approach 2: Quantum Superposition Approach}\\
     Here we use a Hadamard Gate before and after the device. The circuit is as shown in the figure \ref{fig:elitzur-vaidman}.
     \begin{figure}[H]
@@ -4441,7 +4440,7 @@ We wish to determine whether the device is a bomb or dud without exploding the b
     Here the first measurement is present if device is a bomb.
     \begin{itemize}
         \item \textbf{Case 1: Device is a Bomb}\\
-        If we give input of $\ket{0}$ then upon passing thorugh the hadamard gate it will be $\ket{+}=\frac{\ket{0}+\ket{1}}{\sqrt{2}}$. As it passes through the device,
+        If we give input of $\ket{0}$ then upon passing through the hadamard gate it will be $\ket{+}=\frac{\ket{0}+\ket{1}}{\sqrt{2}}$. As it passes through the device,
         it performs a measurement since its a bomb. Thus, the outcome of the measurement in computational basis will be $\ket{0}$ with probability $\frac{1}{2}$ and $\ket{1}$ with probability $\frac{1}{2}$.
         Thus, in the cases where the outcome is $\ket{0}$ the bomb will not explode and the output will then pass through another Hadamard gate which will give output as $\ket{+}$. Thus, upon final measurement we will get 
         $\ket{0}$ with probability $\frac{1}{2}$ and $\ket{1}$ with probability $\frac{1}{2}$. In the case where the measurement outcome is $\ket{1}$ the bomb will explode.
@@ -4452,19 +4451,19 @@ We wish to determine whether the device is a bomb or dud without exploding the b
     \end{itemize}
     To summarize, the above approach, suppose there are a 1000 devices out of which probability of being a bomb is 50\%, thus, 500 are bombs and 500 are duds. If we given input $\ket{0}$ to all the devices. Then the output will be $\ket{0}$ for all the duds. 
     For the bombs, because of the measurement 50\% will detect $\ket{1}$ and will explode while the other $50\%$ will not explode and output $\ket{0}$. Thus, out of 500 bombs, 250 will explode and the rest 250 won't explode. 
-    Then, the out of the bombs which didn't explode and which give outcomes as $\ket{0}$, it will pass thorugh a hadamard gate whose output will be $\ket{+}$ and thus upon final measurement we will get $\ket{0}$ with probability $\frac{1}{2}$ and $\ket{1}$ with probability $\frac{1}{2}$.
+    Then, the out of the bombs which didn't explode and which give outcomes as $\ket{0}$, it will pass through a hadamard gate whose output will be $\ket{+}$ and thus upon final measurement we will get $\ket{0}$ with probability $\frac{1}{2}$ and $\ket{1}$ with probability $\frac{1}{2}$.
     Thus, out of the 250 bombs which didn't explode 50\% i.e. 125 of them will output$\ket{1}$ and the other 50\% i.e. 125 will output $\ket{0}$. 
 
     Thus, out of the 1000 devices we will get 250 bombs which will explode and out of the rest 750 devices we will get output of $\ket{0}$ for 625 (500 duds + 125 bombs which gave output $\ket{0}$) devices and output of $\ket{1}$ for 125 devices. Now, we are specifically interested in the cases where the output was $\ket{1}$ upon input $\ket{0}$. This is possible
-    only in the case where the devices were bomb which didn't explode, since had it been a dud the output would have been $\ket{0}$. Thus the 125 cases where the ouptut was $\ket{1}$ upon input of $\ket{0}$ are the bombs which didn't explode. 
-    Thus, out of the 500 bombs 250 of them exploded and we found 125 working bombs, and the other 125 bombs didn't explode but couldn't be identified among the duds. Thus, we found 25\% of the working bombs without exploding them. Or, we can say that the we can find a working bomb with a probability of $\frac{1}{8}$ out of all the given devices (or we can find a working bomb witout exploding given that the device is a bomb with probability $\frac{1}{4}$).
+    only in the case where the devices were bomb which didn't explode, since had it been a dud the output would have been $\ket{0}$. Thus the 125 cases where the output was $\ket{1}$ upon input of $\ket{0}$ are the bombs which didn't explode. 
+    Thus, out of the 500 bombs 250 of them exploded and we found 125 working bombs, and the other 125 bombs didn't explode but couldn't be identified among the duds. Thus, we found 25\% of the working bombs without exploding them. Or, we can say that the we can find a working bomb with a probability of $\frac{1}{8}$ out of all the given devices (or we can find a working bomb without exploding given that the device is a bomb with probability $\frac{1}{4}$).
     
     \textbf{What if the input had been $\ket{1}$?: }The result will be the same as above. The only difference is that the output will be $\ket{1}$ for the duds and the bombs which didn't explode. Some of the bombs which didn't explode will output $\ket{0}$ and thus, can be detected as working bombs.
     
     \textbf{Thus, we can find a working bomb with a probability of $\frac{1}{8}$ (i.e. without exploding) out of all the given devices (or we can find a working bomb witout exploding given that the device is a bomb with probability $\frac{1}{4}$). But, recall that in this case $\frac{1}{2}$ (i.e. 250 bombs) of the bombs exploded and out of the other $\frac{1}{2}$ (i.e. 250 bombs) which didn't explode we only found $\frac{1}{2}$ (i.e. 125 bombs) of the working bombs, the rest $\frac{1}{2}$ (i.e. 125 bombs) didn't explode but couldn't be identified either.}
 
     \item \textbf{Elitzur-Vaidman Bomb Detection Algorithm: }\\
-    Recall that we are measuring in orthnormal computational basis i.e. $\ket{0}$ and $\ket{1}$. Consider the Single-Qubit gate $R^Y_{\theta}$ which is defined as:
+    Recall that we are measuring in orthonormal computational basis i.e. $\ket{0}$ and $\ket{1}$. Consider the Single-Qubit gate $R^Y_{\theta}$ which is defined as:
     \[
         R^Y_{\theta}=\begin{bmatrix}
             \cos\frac{\theta}{2} & -\sin\frac{\theta}{2} \\
@@ -4518,7 +4517,7 @@ We wish to determine whether the device is a bomb or dud without exploding the b
         Now since the device is a bomb, it will perform a measurement. Thus, after passing the input $\ket{0}$ through the rotation gate, the output will be $\cos\frac{\pi}{2N}\ket{0}+\sin\frac{\pi}{2N}\ket{1}$.
         Now since the device is a bomb, it performs a measurement and the measurement will be $\ket{0}$ with probability $\cos^2\frac{\pi}{2N}$ and $\ket{1}$ with probability $\sin^2\frac{\pi}{2N}$. Now consider for very large N,
         the probability of getting $\ket{0}$ is $\lim_{N\rightarrow \infty} \cos^2\frac{\pi}{2N}\approx \cos 0 \approx 1$ and the probability of getting $\ket{1}$ is $\lim_{N\rightarrow \infty} \sin^2\frac{\pi}{2N}\approx \sin 0 \approx 0$. Thus, the output will be $\ket{0}$ with a very high probability and $\ket{1}$ has almost zero probability for very large N.
-        Thus, after the first iteration we will get $\ket{0}$ as the output with very high probabiltiy and this is then again passed through the rotation gate for the next iteration. Now, the second iteration will be the same as the first iteration since the input here is again $\ket{0}$ i.e.e same as in the first iteration and this will repeat for N iterations. 
+        Thus, after the first iteration we will get $\ket{0}$ as the output with very high probability and this is then again passed through the rotation gate for the next iteration. Now, the second iteration will be the same as the first iteration since the input here is again $\ket{0}$ i.e.e same as in the first iteration and this will repeat for N iterations. 
         After the N iterations the circuit will output $\ket{0}$ provided the bomb doesn't explode even though the probability of the bomb exploding is very low. Thus, the output of the circuit will be $\ket{0}$ for the case when the device is a bomb or it will explode with a very low probability. Note that the chances of the bomb exploding is inversely proportional to the 
         value of N i.e. the number of times we run the circuit. Thus, the chances of the bomb exploding is very low for very large N. Hence, we get the output as $\ket{0}$ for the case when the device is a bomb.
     \end{itemize}
@@ -4555,7 +4554,7 @@ This is one of the simple quantum algorithms in this section which is admittedly
 
 There are four possible functions as shown in the table \ref{tab:Deutsch}. Out of these four possible cases we can see that two are constant and the other two are balanced functions.
 
-\begin{table}[h]
+\begin{table}[H]
     \centering
      \begin{subtable}[b]{0.45\linewidth}
         \centering
@@ -4684,8 +4683,43 @@ Thus, the action of oracle will be as follows:
     U_f\ket{+}\ket{-}&=U_f(\frac{\ket{0}+\ket{1}}{\sqrt{2}}\frac{\ket{0}-\ket{1}}{\sqrt{2}})\\
     U_f\frac{1}{2}\left(\ket{00}-\ket{01}+\ket{10}-\ket{11}\right)&=\frac{1}{2}\left[\ket{0}\ket{0\oplus f(0)}-\ket{0}\ket{1\oplus f(0)}+\ket{1}\ket{0\oplus f(1)}-\ket{1}\ket{1\oplus f(1)}\right]
 \end{align*}
-Thus, the output of the oracle is as shown above.
-Now consider two cases:
+Thus, the output of the oracle is as shown above. Recall that the output from the oracle was
+\begin{align*}
+&\frac{1}{2}\left[\ket{0}\ket{0\oplus f(0)}-\ket{0}\ket{1\oplus f(0)}+\ket{1}\ket{0\oplus f(1)}-\ket{1}\ket{1\oplus f(1)}\right]\\
+&=\frac{1}{2}[\ket{0}\left(\ket{0\oplus f(0)}-\ket{1\oplus f(0)}\right) + \ket{1}\left(\ket{0 \oplus f(1)} - \ket{1 \oplus f(1)} \right)]
+\end{align*}
+Now using the fact that 
+\[
+\ket{0 \oplus a}-\ket{1 \oplus a} = (-1)^a(\ket{0}-\ket{1})
+\]
+we can simplify the above equation to
+\[
+\frac{1}{2}[\ket{0}(-1)^{f(0)}(\ket{0}-\ket{1}) + \ket{1}(-1)^{f(1)}(\ket{0}-\ket{1})]
+\]
+which can be further simplified as
+\[
+\frac{1}{2}[((-1)^{f(0)}\ket{0}+(-1)^{f(1)}\ket{1})(\ket{0}-\ket{1})]
+\]
+Now factorizing the qubits we get
+\[
+\left(\frac{1}{\sqrt{2}}((-1)^{f(0)}\ket{0}+(-1)^{f(1)}\ket{1})\right)\otimes \left(\frac{1}{\sqrt{2}}(\ket{0}-\ket{1})\right)
+\]
+\begin{align*}
+&=\left(\frac{1}{\sqrt{2}}((-1)^{f(0)}\ket{0}+(-1)^{f(1)}\ket{1})\right)\otimes \ket{-}\\
+&=(-1)^{f(0)}\left(\frac{1}{\sqrt{2}}\ket{0}+\frac{1}{\sqrt{2}}(-1)^{f(0)\oplus f(1)}\ket{1}\right)\otimes \ket{-}
+\end{align*}
+Note that $(-1)^{f(0)}$ does not belong to a specific qubit of the two. When we applied the oracle, the second qubit was in the state $\ket{-}$. This is called querying in the phase. Also, note that $(-1)^{f(0)}$ seems to be a global phase but it is not the global phase since the first qubit is in the superposition and depends on the value of $f(0)$. It's only a global phase if the first qubit is in a computational basis state, of the form $\ket{0}$ or $\ket{1}$. It's not a global phase if the qubit is in superposition and changes depending on the value of $f(0)$.
+Now we apply the hadamard gate on the first qubit as shown in the circuit \ref{fig:deutsch}. We get
+\begin{align*}
+&(H\otimes I)\left(\left(\frac{1}{\sqrt{2}}\ket{0}+\frac{1}{\sqrt{2}}(-1)^{f(0)\oplus f(1)}\ket{1}\right)\otimes (-1)^{f(0)}\ket{-}\right)\\
+&=\ket{f(0)\oplus f(1)} \otimes (-1)^{f(0)}\ket{-}
+\end{align*}
+Here, we have used the observation that
+\[
+H\left(\frac{1}{\sqrt{2}}\ket{0}+\frac{1}{\sqrt{2}}(-1)^a\ket{1}\right)=\ket{a}
+\]
+for $a \in \{0,1\}$, which is again easily verified by considering the cases $a=0$ and $a=1$. Thus, upon measurement of the first qubit, the measurement therefore results in the value $f(0) \oplus f(1)$ which is one of the basis states either 0 or 1 with certainty. This value is $0$ if $f$ is constant and $1$ if $f$ is balanced.
+For further explanation consider the two cases:
 \begin{enumerate}
     \item \textbf{Case 1: Function is Constant $f(0)=f(1)=0$}\\
     If the function is constant then $f(0)=f(1)$. Let $f(0)=f(1)=0$ and thus the output of the oracle will be:
@@ -4747,334 +4781,136 @@ Now consider two cases:
     Hence, as the qubit $q_0$ passes through the Hadamard gate, the action of the Hadamard gate on the first qubit will be $H\ket{-}=\ket{1}$.
     Thus, upon measurement the output will be $\ket{1}$ with probability $1$. Thus, we get a measurement of 1.
 \end{enumerate}
-Note that we can summarise the above results as shown. Recall that the output from the oracle was
-\begin{align*}
-&\frac{1}{2}\left[\ket{0}\ket{0\oplus f(0)}-\ket{0}\ket{1\oplus f(0)}+\ket{1}\ket{0\oplus f(1)}-\ket{1}\ket{1\oplus f(1)}\right]\\
-&\frac{1}{2}[\ket{0}\left(\ket{0\oplus f(0)}-\ket{1\oplus f(0)}\right) + \ket{1}\left(\ket{0 \oplus f(1)} - \ket{1 \oplus f(1)} \right)]
-\end{align*}
-Now using the fact that 
-\[
-\ket{0 \oplus a}-\ket{1 \oplus a} = (-1)^a(\ket{0}-\ket{1})
-\]
-we can simplify the above equation to
-\[
-\frac{1}{2}[\ket{0}(-1)^{f(0)}(\ket{0}-\ket{1}) + \ket{1}(-1)^{f(1)}(\ket{0}-\ket{1})]
-\]
-which can be further simplified as
-\[
-\frac{1}{2}[((-1)^{f(0)}\ket{0}+(-1)^{f(1)}\ket{1})(\ket{0}-\ket{1})]
-\]
-Now factorizing the qubits we get
-\[
-\left(\frac{1}{\sqrt{2}}((-1)^{f(0)}\ket{0}+(-1)^{f(1)}\ket{1})\right)\otimes \left(\frac{1}{\sqrt{2}}(\ket{0}-\ket{1}\right)
-\]
-\begin{align*}
-&=\left(\frac{1}{\sqrt{2}}((-1)^{f(0)}\ket{0}+(-1)^{f(1)}\ket{1})\right)\otimes \ket{-}\\
-&=(-1)^{f(0)}\left(\frac{1}{\sqrt{2}}\ket{0}+\frac{1}{\sqrt{2}}(-1)^{f(0)\oplus f(1)}\ket{1}\right)\otimes \ket{-}
-\end{align*}
-Now we apply the hadamard gate on the first qubit as shown in the circuit \ref{fig:deutsch}. We get
-\begin{align*}
-&(H\otimes I)\left(\left(\frac{1}{\sqrt{2}}\ket{0}+\frac{1}{\sqrt{2}}(-1)^{f(0)\oplus f(1)}\ket{1}\right)\otimes (-1)^{f(0)}\ket{-}\right)\\
-&=\ket{f(0)\oplus f(1)} \otimes (-1)^{f(0)}\ket{-}
-\end{align*}
-Here, we have used the observation that
-\[
-H\left(\frac{1}{\sqrt{2}}\ket{0}+\frac{1}{\sqrt{2}}(-1)^a\ket{1}\right)=\ket{a}
-\]
-for $a \in \{0,1\}$, which is again easily verified by considering the cases $a=0$ and $a=1$. Thus, upon measurement of the first qubit, the measurement therefore results in the value $f(0) \oplus f(1)$ which is one of the basis states either 0 or 1 with certainty. This value is $0$ if $f$ is constant and $1$ if $f$ is balanced.
 
-In order to summarize the above algorithm, note that in case if the function is constant we get a measurement of 0 and if the function is balanced we get a measurement of 1. Thus, we can determine whether the function is constant or balanced using only one function call. This is a speedup over the classical algorithm which requires two function calls to determine whether the function is constant or balanced.
+It is important to see that the first hadamard gate when applied to $\ket{0}$ state produces the superposition state $\ket{0}+\ket{1}$. The hadamard applied to $\ket{1}$ state results in $\ket{-}$ state which helps induce phases to the output from the oracle thus changing it from $\frac{1}{\sqrt{2}}(\ket{0}+\ket{1})$ to $\frac{1}{\sqrt{2}}((-1)^{f(0)}\ket{0}+(-1)^{f(1))}\ket{1}$. Then the Hadarmard applied to the first qubit extracts the phase difference and results in $\ket{f(0) \oplus f(1)}$. Thus, upon measurement, in case if the function is constant we get a measurement of 0 and if the function is balanced we get a measurement of 1. Thus, we can determine whether the function is constant or balanced using only one function call. This is a speedup over the classical algorithm which requires two function calls to determine whether the function is constant or balanced.
 
+Notice what this algorithm does not do. It does not somehow extract both values of the function, $f(0)$ and $f(1)$, with one single query. IN fact, if you run this algorithm, then you get no information about the value of $f(0)$ itself. Also, you get no information about the value of $f(1)$ itself. You only get information about $f(0) \oplus f(1)$.
 
-
-\section{Deutsch-Josza Algorithm}
-This is a generalization of the Deutsch Algorithm.
-\begin{definition}
-    Given a classical function $f:\{0,1\}^n \rightarrow \{0,1\}$, which takes n input bits and returns a single output bit.
-    The function is called constant if $f(x)=0$ or $f(x)=1$ for all $x \in \{0,1\}^n$ and the function is called balanced if $f(x)=0$ for exactly half of the inputs.
-\end{definition}
-
-Our aim is to find whether the function $f$ is constant or balanced with as minimum number of queries as possible to the Oracle.
-
-The total number of such possible functions are $2^{2^n}$ out of which $2$ are constant and $\dfrac{2^n!}{2^{n-1}!2^{n-1}!}$ are balanced functions for n input bits and 1 output bit.
-Say for the case n=2, the possible functions are as shown in the table \ref{tab:Deutsch-Josza}.
-\begin{table}[H]
+\subsection{Example}
+\begin{example}
+    \textbf{(One-out-of-four search)} Let $f:\{0,1\}^2 \rightarrow \{0,1\}$ with the special property that it attains the value 1 at exactly one of the four points in its domain. There are four possibilities for such a function and here are their truth tables.
+    \begin{table}[H]
     \centering
-    \begin{subtable}[b]{0.45\linewidth}
+     \begin{subtable}[b]{0.45\linewidth}
         \centering
-        \begin{tabular}{|c|c|c|}
+          \begin{tabular}{|c|c|c|}
             \hline
-            Function & Input & Output \\
+             Function & Input & Output \\
             \hline
-            $f_1$& 00 & 0 \\
-            & 01 & 0 \\
-            & 10 & 0 \\
-            & 11 & 0 \\
-            \hline
-            $f_2$& 00 & 1 \\
-            & 01 & 1 \\
-            & 10 & 1 \\
-            & 11 & 1 \\
-            \hline
-        \end{tabular}
-        \caption{Constant Function}
-    \end{subtable}%
-    \begin{subtable}[b]{0.45\linewidth}
-        \centering
-        \begin{tabular}{|c|c|c|}
-            \hline
-            Function & Input & Output \\
-            \hline
-            $f_3$& 00 & 0 \\
-            & 01 & 0 \\
-            & 10 & 1 \\
-            & 11 & 1 \\
-            \hline
-            $f_4$& 00 & 0 \\
-            & 01 & 1 \\
-            & 10 & 0 \\
-            & 11 & 1 \\
-            \hline
-            $\vdots$& $\vdots$ & $\vdots$ \\
-            \hline
-            $f_{9}$ & 00 & 0 \\
-            & 01 & 1 \\
-            & 10 & 1 \\
-            & 11 & 0 \\
-            \hline
-        \end{tabular}
-        \caption{Balanced Function}
-    \end{subtable}
-    \caption{Possible Functions}
-    \label{tab:Deutsch-Josza}
-\end{table}
+              $f_{00}$& 00 & 1 \\
+              & 01 & 0 \\
+              & 10 & 0 \\
+              & 11 & 0 \\
+             \hline
+           \end{tabular}
+           \caption{$f_{00}$}
+        \end{subtable}%
+     \begin{subtable}[b]{0.45\linewidth}
+            \centering
+            \begin{tabular}{|c|c|c|}
+                \hline
+                Function & Input & Output \\
+                \hline
+                $f_{01}$& 00 & 0 \\
+              & 01 & 1 \\
+              & 10 & 0 \\
+              & 11 & 0 \\
+                \hline
+            \end{tabular}
+            \caption{$f_{01}$}
+        \end{subtable}
+        \begin{subtable}[b]{0.45\linewidth}
+            \centering
+            \begin{tabular}{|c|c|c|}
+                \hline
+                Function & Input & Output \\
+                \hline
+                $f_{10}$& 00 & 0 \\
+              & 01 & 0 \\
+              & 10 & 1 \\
+              & 11 & 0 \\
+                \hline
+            \end{tabular}
+            \caption{$f_{10}$}
+        \end{subtable}
+        \begin{subtable}[b]{0.45\linewidth}
+            \centering
+            \begin{tabular}{|c|c|c|}
+                \hline
+                Function & Input & Output \\
+                \hline
+                $f_{11}$& 00 & 0 \\
+              & 01 & 0 \\
+              & 10 & 0 \\
+              & 11 & 1 \\
+                \hline
+            \end{tabular}
+            \caption{$f_{11}$}
+        \end{subtable}
+        \caption{Possible Functions}
+        \label{tab:deutsch_example}
+\end{table}    
+The goal is to determine which one it is. In other words, given  black-box computing such a function. Thus, access to the function is restricted to evaluations of the transformation $B_f$. We say that an evaluation of $B_f$ on some input (quantum or classical) is a query. You're promised that it's one of these four, but you're not told which one. Your goal is to determine which of the four function it is. Thus, we can think of this problem as representing a simple search problem.
 
-\textbf{On a Classical Computer: }In order to determine whether the function is constant or balanced we need to query the function
-for just 1 more than half of the possible inputs. Thus, we require $2^{n-1}+1$ queries to determine whether the function is constant or balanced.
-Thus, the time complexity for this on a classical computer is $\mathcal{O}(2^n)$ i.e. exponential time complexity. If all the inputs produce the same output then the function is constant else the function is balanced.
+Classically, three queries are sufficient to solve the problem. You can query in the first three places and see if one of them evaluates to 1. If none of them do then, by process of elimination, you can deduce that the 1 must be the fourth place.
 
-\textbf{On a Quantum Computer: }To solve this problem we need to query the function only once on a Quantum Computer using the Deutsch-Josza Algorithm.
-Thus, the time complexity to solve this problem is $\mathcal{O}(1)$ i.e. constant time complexity. This is an exponential speedup over the classical algorithm. The circuit for 
-Deutsch Josza Algorithm Circuit is as shown in the figure \ref{fig:deutsch-jozsa}.
-\begin{figure}[H]
+In the quantum case, one query will be sufficient to solve the problem. Here the oracle will perform operations implementing the function mapping two bits to one bit as
+\[
+U_f\ket{x}\ket{y}\ket{z}=\ket{x}\ket{y}\ket{z\oplus f(x,y)}
+\]
+There are two qubits for the input, and a third qubit for the output of the function. In the computational basis, the value of $f(x,y)$ is XORed onto the third qubit. Of course, that description is for states in the computational basis states.
+
+Similar to what we did in case of Deutsch's algorithm: by setting the target qubit to state $\ket{-}$ so as to query in the phase, and then querying inputs in a uniform superposition.
+\begin{figure}
     \centering
-    \includegraphics[width=0.8\textwidth]{../images/Deutsch-Jozsa.png}
-    \caption{Deutsch-Josza Algorithm}
-    \label{fig:deutsch-jozsa}
+    \includegraphics[width=1\linewidth]{../images/deutsch_example.png}
+    \caption{Quantum Circuit}
+    \label{fig:deutsch_example}
 \end{figure}
-The input of this circuit is $q_0=\ket{0},q_1=\ket{0},q_2=\ket{1}$.
-Now at the input we have $\ket{0}^{\otimes n}\ket{1}$ and the action of the Hadamard gate on the input will be:
+Consider the circuit as shown in the figure \ref{fig:deutsch_example}. The state after the Hadamard transform and just before the query can be written as
 \[
-    H^{\otimes n}\ket{0}^{\otimes n}H\ket{1}=\frac{1}{\sqrt{2^n}}\sum_{x \in \{0,1\}^n}\ket{x}\frac{(\ket{0}-\ket{1})}{\sqrt{2}}
+\left(\frac{1}{2}\ket{00}+\frac{1}{2}\ket{01}+\frac{1}{2}\ket{10}+\frac{1}{2}\ket{11}\right)\otimes \left(\frac{1}{\sqrt{2}}\ket{0}-\frac{1}{\sqrt{2}}\ket{1}\right)
 \]
-Now the oracle will show the action $U_f$ as $U_f\ket{x}\ket{y}=\ket{x}\ket{y \oplus f(x)}$ and thus the action of the oracle will be:
+After the transformation $U_f$ is performed the state will be
+\[
+\left(\frac{1}{2}(-1)^{f_{00}}\ket{00}+\frac{1}{2}(-1)^{f(01)}\ket{01}+\frac{1}{2}(-1)^{f10}\ket{10}+\frac{1}{2}(-1)^{f(11)}\ket{11}\right)\otimes\left(\frac{1}{\sqrt{2}}\ket{0}-\frac{1}{\sqrt{2}}\ket{1}\right)
+\]
+The reasoning is same as in the analysis off the Deutsch's algorithm - we are using the \textbf{\textit{phase-kickback effect}}. 
+
+Now we are left with four possibilities for the state of the first two qubits:
 \begin{align*}
-    U_f\left(\frac{1}{\sqrt{2^n}}\sum_{x \in \{0,1\}^n}\ket{x}\frac{(\ket{0}-\ket{1})}{\sqrt{2}}\right)&=U_f\left(\frac{1}{\sqrt{2^n}}\frac{1}{\sqrt{2}}\sum_{x \in \{0,1\}^n}\ket{x}\ket{0}-\ket{x}\ket{1}\right)\\
-    &=\frac{1}{\sqrt{2^n}}\frac{1}{\sqrt{2}}\sum_{x \in \{0,1\}^n}U_f\ket{x}\ket{0}-U_f\ket{x}\ket{1}\\
-    &=\frac{1}{\sqrt{2^n}}\sum_{x \in \{0,1\}^n}\ket{x}\frac{(\ket{0 \oplus f(x)}-\ket{1\oplus f(x)})}{\sqrt{2}}
+&f=f_{00} \implies \ket{\phi_{00}}=-\frac{1}{2}\ket{00}+\frac{1}{2}\ket{01}+\frac{1}{2}\ket{10}+\frac{1}{2}\ket{11}\\
+&f=f_{01} \implies \ket{\phi_{01}}=\frac{1}{2}\ket{00}-\frac{1}{2}\ket{01}+\frac{1}{2}\ket{10}+\frac{1}{2}\ket{11}\\
+&f=f_{10} \implies \ket{\phi_{10}}=\frac{1}{2}\ket{00}+\frac{1}{2}\ket{01}-\frac{1}{2}\ket{10}+\frac{1}{2}\ket{11}\\
+&f=f_{11} \implies \ket{\phi_{11}}=\frac{1}{2}\ket{00}+\frac{1}{2}\ket{01}+\frac{1}{2}\ket{10}-\frac{1}{2}\ket{11}
 \end{align*}
-Now $\ket{0 \oplus f(x)}=\ket{f(x)}$ and $\ket{1 \oplus f(x)} = \ket{\overline{f(x)}}$ where $\overline{f(x)}$ is the complement of $f(x)$. Thus, substituting this in the equation we get,
+Noe that these four states form an orthonormal set. This means that they are unit vectors and pairwise orthogonal.
 \[
-    \frac{1}{\sqrt{2^n}}\sum_{x \in \{0,1\}^n}\ket{x}\frac{(\ket{f(x)}-\ket{\overline{f(x)}})}{\sqrt{2}}
-\] 
-Now when $f(x)=0$ then $\frac{\ket{f(x)-\ket{\overline{f(x)}}}}{\sqrt{2}}=\frac{\ket{0}-\ket{1}}{\sqrt{2}}=\ket{-}$ and when $f(x)=1$ then $\frac{\ket{f(x)-\ket{\overline{f(x)}}}}{\sqrt{2}}=\frac{\ket{1}-\ket{0}}{\sqrt{2}}=-\ket{-}$.
-Thus, this can be written as: 
-\[
-    \frac{1}{\sqrt{2^n}}\sum_{x \in \{0,1\}^n}\ket{x}\frac{(\ket{f(x)}-\ket{\overline{f(x)}})}{\sqrt{2}}=\frac{1}{\sqrt{2^n}}\sum_{x \in \{0,1\}^n}(-1)^{f(x)}\ket{x}\ket{-}
+\braket{\phi_{ab}|\phi_{cd}}=\begin{cases} 1 & \text{if $a=c$ and $b=d$} \\ 0 & \text{otherwise} \end{cases}
 \]
-Now we apply the Hadamard gate on the first n qubits and the action of the Hadamard gate on the first n qubits will be:
+Whenever you have an orthonormal set like this, it is always possible to build a quantum circuit that exactly distinguishes the states. In fact, the corresponding unitary transformation is easy to obtain: you let the vectors form the columns of a matrix and then take the conjugate transform. In this case we want this matrix:
 \[
-    (H^{\otimes n}\otimes I)\left(\frac{1}{\sqrt{2^n}}\sum_{x \in \{0,1\}^n}(-1)^{f(x)}\ket{x}\ket{-}\right)=H^{\otimes n}\left(\frac{1}{\sqrt{2^n}}\sum_{x \in \{0,1\}^n}(-1)^{f(x)}\ket{x}\right)\otimes I\ket{-}
+U=\begin{pmatrix} -\frac{1}{2} &\frac{1}{2} & \frac{1}{2} & \frac{1}{2} \\ \frac{1}{2} & -\frac{1}{2} & \frac{1}{2} & \frac{1}{2} \\ \frac{1}{2} & \frac{1}{2} & -\frac{1}{2} & \frac{1}{2} \\ \frac{1}{2} & \frac{1}{2} & \frac{1}{2} & -\frac{1}{2} \end{pmatrix}
 \]
+You can check that $U\ket{\phi_{ab}}=\ket{ab}$ for all possible choice of $a,b\in\{0,1\}$. We can use the following gates that we have already seen to perform the unitary transformation U as seen in figure \ref{fig:deutsch_example}.
+Note that we have used a phase flip or $\sigma_z$ gate and and Controlled -Z gate with the control being on the first qubit and the second qubit being the target bit. Recall that the phase flip gate or $\sigma_z$ gate is
 \[
-    =\left(\frac{1}{\sqrt{2^n}}\sum_{x \in \{0,1\}^n}(-1)^{f(x)}H^{\otimes n}\ket{x}\right)\otimes \ket{-}
+\begin{pmatrix} 1 & 0 \\ 0 & -1 \end{pmatrix}
 \]
-Recall that $H^{\otimes n}\ket{x}=\dfrac{1}{\sqrt{2^n}}\sum_{y \in \{0,1\}^n}(-1)^{x\cdot y}\ket{y}$ for Hadamard gate (refer section \ref{qgate:hadamard}) acting on n qubits. Thus, substituting this in the above equation can be written as:
-\[
-    \left(\frac{1}{2^n}\sum_{x \in \{0,1\}^n}\sum_{y \in \{0,1\}^n}(-1)^{f(x)+x\cdot y}\ket{y}\right)\otimes \ket{-}
-\]
-Now, we perform the measurement on the first n qubits. Consider the following two cases:
-\begin{enumerate}
-    \item \textbf{Case 1: Function is Constant}
-    \begin{itemize}
-        \item Let $f(x)=0$ for all $x \in \{0,1\}^n$. Hence we need to perform measurement on the first n qubits of the following state:
-        \[
-            \left(\frac{1}{2^n}\sum_{x \in \{0,1\}^n}\sum_{y \in \{0,1\}^n}(-1)^{x\cdot y}\ket{y}\right)\otimes \ket{-}
-        \]
-        Upon simplifying we get,
-        \[
-            \left(\frac{1}{2^n}2^n\ket{0^{\otimes n}}\right)\otimes \ket{-} = \ket{0^{\otimes n}} \otimes \ket{-}
-        \]
-        Thus, upon measurement the output will be $\ket{0^{\otimes n}}$ with probability $1$. Thus, we get a measurement of $\ket{0^{\otimes n}}$.
-        \item Let $f(x)=1$ for all $x \in \{0,1\}^n$. Hence we need to perform measurement on the first n qubits of the following state:
-        \[
-            \left(\frac{1}{2^n}\sum_{x \in \{0,1\}^n}\sum_{y \in \{0,1\}^n}(-1)^{1+x\cdot y}\ket{y}\right)\otimes \ket{-}
-        \]
-        Upon simplifying we get,
-        \[
-            \left(\frac{1}{2^n}2^n\ket{0^{\otimes n}}\right)\otimes \ket{-} = -\ket{0^{\otimes n}} \otimes \ket{-}
-        \]
-        Thus, upon measurement the output will be $\ket{0^{\otimes n}}$ with probability $1$. Thus, we get a measurement of $\ket{0^{\otimes n}}$.
-    \end{itemize}
-    \item \textbf{Case 2: Function is Balanced}
-    \begin{itemize}
-        \item Let $f(x)$ be a balanced function. Thus, $f(x)=0$ for exactly half of the inputs and $f(x)=1$ for the other half of the inputs. Hence we need to perform measurement on the first n qubits of the following state:
-        \[
-            \left(\frac{1}{2^n}\sum_{x \in \{0,1\}^n}\sum_{y \in \{0,1\}^n}(-1)^{f(x)+x\cdot y}\ket{y}\right)\otimes \ket{-}
-        \]
-        Upon simplifying we get,
-        \[
-            \left(\frac{1}{2^n}(2^n)(\pm\ket{11})\right)\otimes \ket{-}=\pm \ket{11}\otimes \ket{-}
-        \]
-        Depending on the input, for the balanced function the output will either be $\ket{11}$ or $-\ket{11}$.
-        In either cases, upon measurement the output will be $\ket{11}$ with probability $1$. Thus, we get a measurement of $\ket{11}$.
-    \end{itemize}
-\end{enumerate}
+\end{example}
 
 \begin{example}
-    \begin{figure}[H]
-        \centering
-        \includegraphics[width=0.8\textwidth]{../images/deutsch-jozsa-algorithm.png}
-        \caption{Deutsch-Josza Algorithm for n=2}
-        \label{fig:deutsch-jozsaex}
-    \end{figure}
-    Consider the Deutsch-Josza algorithm for n=2. The possible functions are as shown in the table \ref{tab:Deutsch-Josza}
-    and the circuit for the Deutsch-Josza algorithm is as shown in the figure \ref{fig:deutsch-jozsa}. 
-    The input to the circuit is $\ket{00}\ket{1}$. The action of the Hadamard gate on the input will be:
-    \begin{align*}
-        H^{\otimes 2}\ket{00}H\ket{1}&=\frac{1}{2}\sum_{x\in \{0,1\}^2}\ket{x}\frac{\ket{0}-\ket{1}}{\sqrt{2}} \\
-        &=\frac{1}{2\sqrt{2}}\left(\ket{000}+\ket{010}+\ket{100}+\ket{110}-\ket{001}-\ket{011}-\ket{101}-\ket{111}\right)
-    \end{align*}
-    The action of the oracle will be:
-    \[
-        U_f\left(\frac{1}{2\sqrt{2}}(\ket{000}+\ket{010}+\ket{100}+\ket{110}-\ket{001}-\ket{011}-\ket{101}-\ket{111})\right)=
-    \]
-    \[
-        \frac{1}{2\sqrt{2}}(U_f\ket{000}+U_f\ket{010}+U_f\ket{100}+U_f\ket{110}-U_f\ket{001}-U_f\ket{011}-U_f\ket{101}-U_f\ket{111})
-    \]
-    \[
-    =\frac{1}{2\sqrt{2}}(\ket{00}\ket{f(00)}+\ket{01}\ket{f(01)}+\ket{10}\ket{f(10)}+\ket{11}\ket{f(11)}-\ket{00}\ket{\overline{f(00)}}
-    \]
-    \[
-    -\ket{01}\ket{\overline{f(01)}}-\ket{10}\ket{\overline{f(10)}}-\ket{11}\ket{\overline{f(11)}})
-    \]
-    Now consider the following cases;
-    \begin{enumerate}
-        \item \textbf{Case 1: $f(x)$ is constant}\\
-        \begin{itemize}
-            \item Let $f(x)=0$ for all $x \in \{0,1\}^2$. Thus, the output of the oracle will be:
-            \[
-                \frac{1}{2\sqrt{2}}(\ket{00}\ket{0}+\ket{01}\ket{0}+\ket{10}\ket{0}+\ket{11}\ket{0}-\ket{00}\ket{1}-\ket{01}\ket{1}-\ket{10}\ket{1}-\ket{11}\ket{1})
-            \]
-            \[
-            =\frac{1}{2\sqrt{2}}(\ket{000}+\ket{010}+\ket{100}+\ket{110}-\ket{001}-\ket{011}-\ket{101}-\ket{111})
-            \]
-            \[
-            =\frac{1}{2}(\ket{00}+\ket{01}+\ket{10}+\ket{11})\otimes \frac{\ket{0}-\ket{1}}{\sqrt{2}}
-            \]
-            Now we apply Hadamard on the first n qubits and we get:
-            \[
-                (H^{\otimes 2}\otimes I)\frac{1}{2}((\ket{00}+\ket{01}+\ket{10}+\ket{11})\otimes \ket{-})
-            \]
-            \[
-                =\frac{1}{2}(H^{\otimes 2}\ket{00}+H^{\otimes 2}\ket{01}+H^{\otimes 2}\ket{10}+H^{\otimes 2}\ket{11})\otimes \ket{-}
-            \]
-            \[
-                =\frac{1}{2}[\frac{1}{2}(\ket{00}+\ket{01}+\ket{10}+\ket{11})+\frac{1}{2}(\ket{00}-\ket{01}+\ket{10}-\ket{11})
-            \]
-            \[
-                \frac{1}{2}(\ket{00}+\ket{01}-\ket{10}-\ket{11})+\frac{1}{2}(\ket{00}-\ket{01}-\ket{10}+\ket{11})]\otimes \ket{-}
-            \]
-            Upon simplifying we get,
-            \[
-                \frac{1}{4}(4\ket{00})\otimes \ket{-}=\ket{00}\otimes \ket{-}
-            \]
-            Thus, upon measurement the output will be $\ket{00}$ with probability $1$. Thus, we get a measurement of $\ket{00}$.
-            \item Let $f(x)=1$ for all $x \in \{0,1\}^2$. Thus, the output of the oracle will be:
-            \[
-                \frac{1}{2\sqrt{2}}(\ket{00}\ket{1}+\ket{01}\ket{1}+\ket{10}\ket{1}+\ket{11}\ket{1}-\ket{00}\ket{0}-\ket{01}\ket{0}-\ket{10}\ket{0}-\ket{11}\ket{0})
-            \]
-            \[
-            =\frac{-1}{2\sqrt{2}}(\ket{000}+\ket{010}+\ket{100}+\ket{110}-\ket{001}-\ket{011}-\ket{101}-\ket{111})
-            \]
-            \[
-            =\frac{-1}{2}(\ket{00}+\ket{01}+\ket{10}+\ket{11})\otimes \frac{\ket{0}-\ket{1}}{\sqrt{2}}
-            \]
-            Now we apply Hadamard on the first n qubits and we get:
-            \[
-                (H^{\otimes 2}\otimes I)\frac{-1}{2}((\ket{00}+\ket{01}+\ket{10}+\ket{11})\otimes \ket{-})
-            \]
-            \[
-                =\frac{-1}{2}(H^{\otimes 2}\ket{00}+H^{\otimes 2}\ket{01}+H^{\otimes 2}\ket{10}+H^{\otimes 2}\ket{11})\otimes \ket{-}
-            \]
-            \[
-                =\frac{-1}{2}[\frac{1}{2}(\ket{00}+\ket{01}+\ket{10}+\ket{11})+\frac{1}{2}(\ket{00}-\ket{01}+\ket{10}-\ket{11})
-            \]
-            \[
-                \frac{-1}{2}(\ket{00}+\ket{01}-\ket{10}-\ket{11})+\frac{1}{2}(\ket{00}-\ket{01}-\ket{10}+\ket{11})]\otimes \ket{-}
-            \]
-            Upon simplifying we get,
-            \[
-                \frac{-1}{4}(4\ket{00})\otimes \ket{-}=-\ket{00}\otimes \ket{-}
-            \]
-            Thus, upon measurement the output will be $\ket{00}$ with probability $1$. Thus, we get a measurement of $\ket{00}$.
-        \end{itemize}
-        \item \textbf{Case 2: $f(x)$ is balanced}\\
-        \begin{itemize}
-            \item Let $f(x)$ be a balanced function. Thus, $f(x)=0$ for exactly half of the inputs and $f(x)=1$ for the other half of the inputs.
-            Then it can be shown that based upon the input chosen the output will be either of the first n qubits, $\ket{11}$ or $-\ket{11}$.
-            Thus, upon measurement the output will be $\ket{11}$ with probability $1$. Thus, we get a measurement of $\ket{11}$.
-        \end{itemize}
-    \end{enumerate}
+    Implement all the four functions in oracles and simulate the results on a quantum computer.
 \end{example}
-\textbf{Conclusion: }\\
-From the above algorithm, we can clearly see that for determining whether the 
-function $f:\{0,1\}^n \rightarrow \{0,1\}$ is constant or balanced we need to input the function with n $\ket{0}$ and 1 $\ket{1}$ and query the function only once.
-Then, in the final measurement we measure the first n qubits and if the function is constant we get $\ket{0^{\otimes n}}$ and if the function is balanced we get $\ket{11}$.
-Thus, we can determine whether the function is constant or balanced with just one query to the Oracle. This is an exponential speedup over the classical algorithm which requires $2^{n-1}+1$ queries to determine whether the function is constant or balanced.
-Thus, the time complexity of this algorithm is $\mathcal{O}(1)$ i.e. constant time complexity. Hence, an exponential speedup over the classical algorithm.
-
-
-\section{Complexity Analysis}
-Note that the classical query cost is expensive only if we require absolutely perfect performance. If a classical procedure queries $f$ in random locations then, in case of a balanced function, it would have to be very unlucky to draw the same bit value.
-
-Here's a classical probabilistic procedure that makes just two queries and performs fairly well. It selects two locations randomly (independently) and then outputs "constant" if the two bits are the same and "balanced" if the two bits values are different.
-
-What happens if $f$ is constant? In that case the algorithm always succeeds. What happens if $f$ is balanced? In that case the algorithm succeeds with probability $\frac{1}{2}$. The probability that the two bits will be different will be $\frac{1}{2}$.
-
-By repeating the above procedure k times, we can make the error probability exponentially small with respect to $k$. Only 4 queries are needed to obtain success probability $3/4$. And the success probability can be made to any constant, arbitrarily close to 1, with a constant number of queries.
-
-In summary, we have considered three problems in the black-box model. For each problem, a quantum algorithms solves it with just one query, but more queries are required by classical Algorithm.
-
-\begin{table}[H]
-    \centering
-    \begin{tabular}{|c|c|c|c|}
-    \hline
-        Problem & Quantum Solution & Classical Deterministic & Classical Probabilistic\\
-        \hline
-         Deutsch & 1 & 2 & 2\\
-         \hline
-         Deutsch-Jozsa & 1 & $2^{n-1}+1$ & $\mathcal{O}(1)$\\
-         \hline
-    \end{tabular}
-    \caption{Summary of Query costs for the problems}
-    \label{tab:deutsch_querycost}
-\end{table}
-For Deutsch's problem, any classical algorithm requires 2 queries. And, for the Deutsch-Jozsa problem, any classical algorithm requires exponentially many queries to solve the problem perfectly. However, there is a probabilistic classical algorithm that makes only a constant number of queries and solves the problem with bounded error probability.
-
-Along this line of thought, the following question seems natural. Is there a black-box problem for which the quantum-vs-classical query cost separation is stronger? For example, for which even probabilistic classical algorithms with bounded-error probability will require exponentially more queries than a quantum algorithm?
-
-We'll address this question in the next chapter.
-
 \section{Implementation using Qiskit}
 \subsection{Background}
 Usage estimate: 4 seconds (NOTE; This is an estimate only. Your runtime may vary)\\
-In order to run Deutsch-Jozsa algorithm (a generalization of Deutsch's algorithm) requires an oracle that implements the function either constant or balanced and Deutsch-Josza Circuit.
+In order to run Deutsch's algorithm requires an oracle that implements the function either constant or balanced and Deutsch's Circuit.
 
-Here, we demonstrate how to construct Deutsch-Josza oracles and use the gates from the Qiskit circuit library to easily set up a Deutsch-Josza Circuit. The runtime \textit{Sampler} primitive allows seamless execution of Deutsch-Josza circuit.
+Here, we demonstrate how to construct Deutsch's oracles and use the gates from the Qiskit circuit library to easily set up a Deutsch's Circuit. The runtime \textit{Sampler} primitive allows seamless execution of Deutsch's circuit.
 
 \subsection{Requirements}
-Before starting this tutorial, enusre that you have the following installed:
+Before starting this tutorial, ensure that you have the following installed:
 \begin{itemize}
     \item Qiskit SDK 1.0 or later, with visualization support ( pip install 'qiskit[visualization]')
     \item Qiskit Runtime (pip install qiskit-ibm-runtime) 0.22 or later
@@ -5279,14 +5115,588 @@ plot_histogram(dist_1)
         \caption{Results}
         \label{fig:deutsch_results}
     \end{figure}
-    We can see in the figure \ref{fig:deutsch_result_f1} that the result of the measurement of the first qubit is 0 (9943 times) and 1 (57 times). Thus, we can conclusively say that the function implemented was a constant function (inside the oracle) which we know is true. Hence, the results are expected. Similar conclusions can be made for all the other results and we can clearly see that they agree with what we implemented and expected.
+    We can see in the figure \ref{fig:deutsch_result_f1} that the result of the measurement of the first qubit is 0 (9943 times) and 1 (57 times). Thus, we can conclusively say that the function implemented was a constant function (inside the oracle) which we know is true. Hence, the results are expected. Similar conclusions can be made for all the other results and we can clearly see that they agree with what we implemented and expected. Here, we are able to tell whether the function was constant or balanced but not what the function was out of the four different possibilities. Thus the results are in agreement with the theory showing that the function implemented in the oracle can be identified if it is constant or balanced based on whether the output is 0 or 1 respectively. Note that $f=f_1$ was a constant function and was accordingly implemented inside the oracle, now looking at the results we can conclusively say that the function was a constant function. Similar can be said for all the four functions implemented. Note that the results might differ for different runs because of the noise in quantum computer.
 \end{enumerate}
 
+\chapter{Deutsch-Jozsa Algorithm}
+This is a generalization of the Deutsch Algorithm which generalizes the functions from n bits to 1 bit. This quantum algorithm solves the problem with exponentially fewer queries than any classical algorithm.
+\section{The Problem Definition}
+\begin{definition}
+    Given a classical function $f:\{0,1\}^n \rightarrow \{0,1\}$, which takes n input bits and returns a single output bit.
+    The function is called constant if $f(x)=0$ or $f(x)=1$ for all $x \in \{0,1\}^n$ and the function is called balanced if $f(x)=0$ for exactly half of the inputs.
+\end{definition}
 
+Our aim is to find whether the function $f$ is constant or balanced with as minimum number of queries as possible to the Oracle.
 
+The total number of such possible functions are $2^{2^n}$ out of which $2$ are constant and $^{2^n}C_{2^{n-1}}= \dfrac{2^n!}{2^{n-1}!(2^n-2^{n-1})!}\approx \dfrac{2^n}{\sqrt{n}}$ are balanced functions for n input bits and 1 output bit. The rest are neither.
+Say for the case n=2, the possible functions are as shown in the table \ref{tab:Deutsch-jozsa}. We are given a black-box computing a function that is promised to be either constant or balanced, but we are not told which one. Our goal is to figure out which of the two cases it is, with as few queries to $f$ as possible.
+\begin{table}[H]
+    \centering
+    \begin{subtable}[b]{0.45\linewidth}
+        \centering
+        \begin{tabular}{|c|c|c|}
+            \hline
+            Function & Input & Output \\
+            \hline
+            $f_1$& 00 & 0 \\
+            & 01 & 0 \\
+            & 10 & 0 \\
+            & 11 & 0 \\
+            \hline
+            $f_2$& 00 & 1 \\
+            & 01 & 1 \\
+            & 10 & 1 \\
+            & 11 & 1 \\
+            \hline
+        \end{tabular}
+        \caption{Constant Function}
+    \end{subtable}%
+    \begin{subtable}[b]{0.45\linewidth}
+        \centering
+        \begin{tabular}{|c|c|c|}
+            \hline
+            Function & Input & Output \\
+            \hline
+            $f_3$& 00 & 0 \\
+            & 01 & 0 \\
+            & 10 & 1 \\
+            & 11 & 1 \\
+            \hline
+            $f_4$& 00 & 0 \\
+            & 01 & 1 \\
+            & 10 & 1 \\
+            & 11 & 0 \\
+            \hline
+            $\vdots$& $\vdots$ & $\vdots$ \\
+            \hline
+            $f_{9}$ & 00 & 0 \\
+            & 01 & 1 \\
+            & 10 & 1 \\
+            & 11 & 0 \\
+            \hline
+        \end{tabular}
+        \caption{Balanced Function}
+    \end{subtable}
+    \caption{Possible Functions}
+    \label{tab:Deutsch-jozsa}
+\end{table}
+\section{The Classical Solution}
+\textbf{On a Classical Computer: }Note that even if you query the function in many sports and always see the same value, youstill might not know which way it goes. It could be constant. But it could also be that, in many of the places that you did not query, the function takes the opposite value nad it's actually a balanced function. It's only after you've queried in more than half of the spots that you can b sure about which case it is. Therefore, for number of queries that a classical algorithm must make is $2^{n+1}+1$. In order to determine whether the function is constant or balanced we need to query the function for just 1 more than half of the possible inputs. Thus, we require $2^{n-1}+1$ queries to determine whether the function is constant or balanced.
+Thus, the time complexity for this on a classical computer is $\mathcal{O}(2^n)$ i.e. exponential time complexity. That's a lot of queries when n is large. If all the inputs produce the same output then the function is constant else the function is balanced.
 
+\section{The Quantum Solution: Deutsch-Jozsa Algorithm}
+\textbf{On a Quantum Computer: }To solve this problem we need to query the function only once on a Quantum Computer using the Deutsch-jozsa Algorithm.Thus, the time complexity to solve this problem is $\mathcal{O}(1)$ i.e. constant time complexity. This is an exponential speedup over the classical algorithm. 
+
+\subsection{Idea of the Algorithm}
+Similar to the case of Deutsch algorithm, we start off as usual, setting the target qubit to state $\ket{-}$ and seeing the other qubits - those where the inputs to $f$ are - into a uniform superposition of all $n$-qubit state. That's what the Hadamard to each of n qubits in state $\ket{0}$ does as shown in figure \ref{fig:deutsch-jozsa}. Thus resulting phase kickback (also called querying in the phase) on all the qubits except the target bit. Then applying a hadamard transform on all the n qubits to extract the phase difference. Finally, performing a measurement which can clearly distinguish between constant, if the measurement reveals all 0 and balanced, if the measurement reveals all 1 in the classical state, Thus, determining functions implemented inside the oracle. 
+
+\subsection{Algorithm}
+
+The circuit for Deutsch-Jozsa Algorithm Circuit is as shown in the figure \ref{fig:deutsch-jozsa}.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{../images/Deutsch-Jozsa.png}
+    \caption{Deutsch-Jozsa Circuit}
+    \label{fig:deutsch-jozsa}
+\end{figure}
+The input of this circuit is $q_0=\ket{0},q_1=\ket{0},\ldots,q_{n-1}=\ket{0}, q_n=\ket{1}$.
+Now at the input we have $\ket{0}^{\otimes n}\ket{1}$ and the action of the Hadamard gate on the input will be:
+\[
+    H^{\otimes n}\ket{0}^{\otimes n}H\ket{1}=\frac{1}{\sqrt{2^n}}\sum_{x \in \{0,1\}^n}\ket{x}\frac{(\ket{0}-\ket{1})}{\sqrt{2}}
+\]
+Now the oracle will show the action $U_f$ as $U_f\ket{x}\ket{y}=\ket{x}\ket{y \oplus f(x)}$ (Here $x \in \{0,1\}^n$ and thus the action of the oracle will be:
+\begin{align*}
+    U_f\left(\frac{1}{\sqrt{2^n}}\sum_{x \in \{0,1\}^n}\ket{x}\frac{(\ket{0}-\ket{1})}{\sqrt{2}}\right)&=U_f\left(\frac{1}{\sqrt{2^n}}\frac{1}{\sqrt{2}}\sum_{x \in \{0,1\}^n}\ket{x}\ket{0}-\ket{x}\ket{1}\right)\\
+    &=\frac{1}{\sqrt{2^n}}\frac{1}{\sqrt{2}}\sum_{x \in \{0,1\}^n}U_f\ket{x}\ket{0}-U_f\ket{x}\ket{1}\\
+    &=\frac{1}{\sqrt{2^n}}\sum_{x \in \{0,1\}^n}\ket{x}\left(\frac{\ket{0 \oplus f(x)}-\ket{1\oplus f(x)}}{\sqrt{2}}\right)
+\end{align*}
+Now $\ket{0 \oplus f(x)}=\ket{f(x)}$ and $\ket{1 \oplus f(x)} = \ket{\overline{f(x)}}$ where $\overline{f(x)}$ is the complement of $f(x)$. Thus, substituting this in the equation we get,
+\[
+    \frac{1}{\sqrt{2^n}}\sum_{x \in \{0,1\}^n}\ket{x}\left(\frac{\ket{f(x)}-\ket{\overline{f(x)}}}{\sqrt{2}}\right)
+\] 
+Now when $f(x)=0$ then $\frac{\ket{f(x)-\ket{\overline{f(x)}}}}{\sqrt{2}}=\frac{\ket{0}-\ket{1}}{\sqrt{2}}=\ket{-}$ and when $f(x)=1$ then $\frac{\ket{f(x)-\ket{\overline{f(x)}}}}{\sqrt{2}}=\frac{\ket{1}-\ket{0}}{\sqrt{2}}=-\ket{-}$.
+Thus, this can be written as: 
+\[
+    \frac{1}{\sqrt{2^n}}\sum_{x \in \{0,1\}^n}\ket{x}\frac{(\ket{f(x)}-\ket{\overline{f(x)}})}{\sqrt{2}}=\frac{1}{\sqrt{2^n}}\sum_{x \in \{0,1\}^n}(-1)^{f(x)}\ket{x}\ket{-}
+\]
+Now we apply the Hadamard gate on the first n qubits and the action of the Hadamard gate on the first n qubits will be:
+\begin{align*}
+    (H^{\otimes n}\otimes I)\left(\frac{1}{\sqrt{2^n}}\sum_{x \in \{0,1\}^n}(-1)^{f(x)}\ket{x}\ket{-}\right)&=H^{\otimes n}\left(\frac{1}{\sqrt{2^n}}\sum_{x \in \{0,1\}^n}(-1)^{f(x)}\ket{x}\right)\otimes I\ket{-}\\
+    &=\left(\frac{1}{\sqrt{2^n}}\sum_{x \in \{0,1\}^n}(-1)^{f(x)}H^{\otimes n}\ket{x}\right)\otimes \ket{-}
+\end{align*}
+Recall that $H^{\otimes n}\ket{x}=\dfrac{1}{\sqrt{2^n}}\sum_{y \in \{0,1\}^n}(-1)^{x\cdot y}\ket{y}$ for Hadamard gate (refer section \ref{qgate:hadamard}) acting on n qubits. Thus, substituting this in the above equation can be written as:
+\[
+    \left(\frac{1}{2^n}\sum_{x \in \{0,1\}^n}\sum_{y \in \{0,1\}^n}(-1)^{f(x)+x\cdot y}\ket{y}\right)\otimes \ket{-}
+\]
+Now, we perform the measurement on the first n qubits. Now, all we really care about is the probability that the measurements all give outcome 0. The amplitude associated with the classical state $\ket{0^n}$ is
+\[
+\dfrac{1}{2^n}\sum_{x\in\{0,1\}^n} (-1)^{f(x)}
+\]
+Thus, the probability that the measurement all give outcome 0 is
+\[ 
+\left|\dfrac{1}{2^n} \sum_{x\in\{0,1\}^n}
+(-1)^{f(x)}\right|^2=\begin{cases} 1 & \text{if $f$ is constant} \\ 0 & \text{if $f$ is balanced} \end{cases}
+\]
+Consider the following two cases:
+\begin{enumerate}
+    \item \textbf{Case 1: Function is Constant}
+    \begin{itemize}
+        \item Let $f(x)=0$ for all $x \in \{0,1\}^n$. Hence we need to perform measurement on the first n qubits of the following state:
+        \[
+            \left(\frac{1}{2^n}\sum_{x \in \{0,1\}^n}\sum_{y \in \{0,1\}^n}(-1)^{x\cdot y}\ket{y}\right)\otimes \ket{-}
+        \]
+        Upon simplifying we get,
+        \[
+            \left(\frac{1}{2^n}2^n\ket{0^{\otimes n}}\right)\otimes \ket{-} = \ket{0^{\otimes n}} \otimes \ket{-}
+        \]
+        Thus, upon measurement the output will be $\ket{0^{\otimes n}}$ with probability $1$. Thus, we get a measurement of $\ket{0^{\otimes n}}$.
+        \item Let $f(x)=1$ for all $x \in \{0,1\}^n$. Hence we need to perform measurement on the first n qubits of the following state:
+        \[
+            \left(\frac{1}{2^n}\sum_{x \in \{0,1\}^n}\sum_{y \in \{0,1\}^n}(-1)^{1+x\cdot y}\ket{y}\right)\otimes \ket{-}
+        \]
+        Upon simplifying we get,
+        \[
+            \left(\frac{1}{2^n}2^n\ket{0^{\otimes n}}\right)\otimes \ket{-} = -\ket{0^{\otimes n}} \otimes \ket{-}
+        \]
+        Thus, upon measurement the output will be $\ket{0^{\otimes n}}$ with probability $1$. Thus, we get a measurement of $\ket{0^{\otimes n}}$.
+    \end{itemize}
+    \item \textbf{Case 2: Function is Balanced}
+    \begin{itemize}
+        \item Let $f(x)$ be a balanced function. Thus, $f(x)=0$ for exactly half of the inputs and $f(x)=1$ for the other half of the inputs. Hence we need to perform measurement on the first n qubits of the following state:
+        \[
+            \left(\frac{1}{2^n}\sum_{x \in \{0,1\}^n}\sum_{y \in \{0,1\}^n}(-1)^{f(x)+x\cdot y}\ket{y}\right)\otimes \ket{-}
+        \]
+        Upon simplifying we get,
+        \[
+            \left(\frac{1}{2^n}(2^n)(\pm\ket{11})\right)\otimes \ket{-}=\pm \ket{11}\otimes \ket{-}
+        \]
+        Depending on the input, for the balanced function the output will either be $\ket{11}$ or $-\ket{11}$.
+        In either cases, upon measurement the output will be $\ket{11}$ with probability $1$. Thus, we get a measurement of $\ket{11}$.
+    \end{itemize}
+\end{enumerate}
+
+\subsection{Example}
+\begin{example}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.8\textwidth]{../images/deutsch-jozsa-algorithm.png}
+        \caption{Deutsch-jozsa Algorithm for n=2}
+        \label{fig:deutsch-jozsaex}
+    \end{figure}
+    Consider the Deutsch-jozsa algorithm for n=2. The possible functions are as shown in the table \ref{tab:Deutsch-jozsa}
+    and the circuit for the Deutsch-jozsa algorithm is as shown in the figure \ref{fig:deutsch-jozsaex}. 
+    The input to the circuit is $\ket{00}\ket{1}$. The action of the Hadamard gate on the input will be:
+    \begin{align*}
+        H^{\otimes 2}\ket{00}H\ket{1}&=\frac{1}{2}\sum_{x\in \{0,1\}^2}\ket{x}\frac{\ket{0}-\ket{1}}{\sqrt{2}} \\
+        &=\frac{1}{2\sqrt{2}}\left(\ket{000}+\ket{010}+\ket{100}+\ket{110}-\ket{001}-\ket{011}-\ket{101}-\ket{111}\right)
+    \end{align*}
+    The action of the oracle will be:
+    \begin{align*}
+        &U_f\left(\frac{1}{2\sqrt{2}}(\ket{000}+\ket{010}+\ket{100}+\ket{110}-\ket{001}-\ket{011}-\ket{101}-\ket{111})\right)\\
+        &=\frac{1}{2\sqrt{2}}(U_f\ket{000}+U_f\ket{010}+U_f\ket{100}+U_f\ket{110}-U_f\ket{001}-U_f\ket{011}-U_f\ket{101}-U_f\ket{111})\\
+        &=\frac{1}{2\sqrt{2}}(\ket{00}\ket{f(00)}+\ket{01}\ket{f(01)}+\ket{10}\ket{f(10)}+\ket{11}\ket{f(11)}-\ket{00}\ket{\overline{f(00)}}
+    \end{align*}
+    \[
+    -\ket{01}\ket{\overline{f(01)}}-\ket{10}\ket{\overline{f(10)}}-\ket{11}\ket{\overline{f(11)}})
+    \]
+    Now consider the following cases:
+    \begin{enumerate}
+        \item \textbf{Case 1: $f(x)$ is constant}\\
+        \begin{itemize}
+            \item Let $f(x)=0$ for all $x \in \{0,1\}^2$. Thus, the output of the oracle will be:
+            \begin{align*}
+                &\frac{1}{2\sqrt{2}}(\ket{00}\ket{0}+\ket{01}\ket{0}+\ket{10}\ket{0}+\ket{11}\ket{0}-\ket{00}\ket{1}-\ket{01}\ket{1}-\ket{10}\ket{1}-\ket{11}\ket{1})\\
+                &=\frac{1}{2\sqrt{2}}(\ket{000}+\ket{010}+\ket{100}+\ket{110}-\ket{001}-\ket{011}-\ket{101}-\ket{111})\\
+                &=\frac{1}{2}(\ket{00}+\ket{01}+\ket{10}+\ket{11})\otimes \frac{\ket{0}-\ket{1}}{\sqrt{2}}
+            \end{align*}
+            Now we apply Hadamard on the first n qubits and we get:
+            \begin{align*}
+                &(H^{\otimes 2}\otimes I)\frac{1}{2}((\ket{00}+\ket{01}+\ket{10}+\ket{11})\otimes \ket{-})\\
+                &
+                =\frac{1}{2}(H^{\otimes 2}\ket{00}+H^{\otimes 2}\ket{01}+H^{\otimes 2}\ket{10}+H^{\otimes 2}\ket{11})\otimes \ket{-}\\
+                &=\frac{1}{2}[\frac{1}{2}(\ket{00}+\ket{01}+\ket{10}+\ket{11})+\frac{1}{2}(\ket{00}-\ket{01}+\ket{10}-\ket{11})
+            \end{align*}
+            Upon simplifying we get,
+            \[
+                \frac{1}{4}(4\ket{00})\otimes \ket{-}=\ket{00}\otimes \ket{-}
+            \]
+            Thus, upon measurement the output will be $\ket{00}$ with probability $1$. Thus, we get a measurement of $\ket{00}$.
+            \item Let $f(x)=1$ for all $x \in \{0,1\}^2$. Thus, the output of the oracle will be:
+            \begin{align*}
+                &\frac{1}{2\sqrt{2}}(\ket{00}\ket{1}+\ket{01}\ket{1}+\ket{10}\ket{1}+\ket{11}\ket{1}-\ket{00}\ket{0}-\ket{01}\ket{0}-\ket{10}\ket{0}-\ket{11}\ket{0})\\
+            &=\frac{-1}{2\sqrt{2}}(\ket{000}+\ket{010}+\ket{100}+\ket{110}-\ket{001}-\ket{011}-\ket{101}-\ket{111})\\
+            &=\frac{-1}{2}(\ket{00}+\ket{01}+\ket{10}+\ket{11})\otimes \frac{\ket{0}-\ket{1}}{\sqrt{2}}
+            \end{align*}
+            Now we apply Hadamard on the first n qubits and we get:
+            \begin{align*}
+                &(H^{\otimes 2}\otimes I)\frac{-1}{2}((\ket{00}+\ket{01}+\ket{10}+\ket{11})\otimes \ket{-})\\
+                &=\frac{-1}{2}(H^{\otimes 2}\ket{00}+H^{\otimes 2}\ket{01}+H^{\otimes 2}\ket{10}+H^{\otimes 2}\ket{11})\otimes \ket{-}\\
+                &=\frac{-1}{2}[\frac{1}{2}(\ket{00}+\ket{01}+\ket{10}+\ket{11})+\frac{1}{2}(\ket{00}-\ket{01}+\ket{10}-\ket{11})\\
+                &\frac{-1}{2}(\ket{00}+\ket{01}-\ket{10}-\ket{11})+\frac{1}{2}(\ket{00}-\ket{01}-\ket{10}+\ket{11})]\otimes \ket{-}
+            \end{align*}
+            Upon simplifying we get,
+            \[
+                \frac{-1}{4}(4\ket{00})\otimes \ket{-}=\ket{00}\otimes -\ket{-}
+            \]
+            Thus, upon measurement the output will be $\ket{00}$ with probability $1$. Thus, we get a measurement of $\ket{00}$.
+        \end{itemize}
+        \item \textbf{Case 2: $f(x)$ is balanced}\\
+        \begin{itemize}
+            \item Let $f(x)$ be a balanced function. Thus, $f(x)=0$ for exactly half of the inputs and $f(x)=1$ for the other half of the inputs.
+            Then it can be shown that based upon the input chosen the output will be either of the first n qubits, $\ket{11}$ or $-\ket{11}$.
+            Thus, upon measurement the output will be $\ket{11}$ with probability $1$. Thus, we get a measurement of $\ket{11}$.
+        \end{itemize}
+    \end{enumerate}
+\end{example}
+
+\section{Complexity Analysis}
+Note that the classical query cost is expensive only if we require absolutely perfect performance. If a classical procedure queries $f$ in random locations then, in case of a balanced function, it would have to be very unlucky to draw the same bit value.
+
+Here's a classical probabilistic procedure that makes just two queries and performs fairly well. It selects two locations randomly (independently) and then outputs "constant" if the two bits are the same and "balanced" if the two bits values are different.
+
+What happens if $f$ is constant? In that case the algorithm always succeeds. What happens if $f$ is balanced? In that case the algorithm succeeds with probability $\frac{1}{2}$. The probability that the two bits will be different will be $\frac{1}{2}$.
+
+By repeating the above procedure k times, we can make the error probability exponentially small with respect to $k$. Only 4 queries are needed to obtain success probability $3/4$. And the success probability can be made to any constant, arbitrarily close to 1, with a constant number of queries.
+
+In summary, we have considered three problems in the black-box model. For each problem, a quantum algorithms solves it with just one query, but more queries are required by classical Algorithm.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|c|}
+    \hline
+        Problem & Quantum Solution & Classical Deterministic & Classical Probabilistic\\
+        \hline
+         Deutsch & 1 & 2 & 2\\
+         \hline
+         Deutsch-Jozsa & 1 & $2^{n-1}+1$ & $\mathcal{O}(1)$\\
+         \hline
+    \end{tabular}
+    \caption{Summary of Query costs for the problems}
+    \label{tab:deutsch_querycost}
+\end{table}
+For Deutsch's problem, any classical algorithm requires 2 queries. And, for the Deutsch-Jozsa problem, any classical algorithm requires exponentially many queries to solve the problem perfectly. However, there is a probabilistic classical algorithm that makes only a constant number of queries and solves the problem with bounded error probability.
+
+Along this line of thought, the following question seems natural. Is there a black-box problem for which the quantum-vs-classical query cost separation is stronger? For example, for which even probabilistic classical algorithms with bounded-error probability will require exponentially more queries than a quantum algorithm?
+
+These problems seem rather unnatural, and it is difficult to imagine any realistic setting in which one would need or want to solve these problems. But perhaps more importantly, so far we have not demonstrated any significant advantage of quantum algorithms over probabilistic algorithms. We'll address this question in the next chapter.
+
+\section{Conclusion}
+From the above algorithm, we can clearly see that for determining whether the 
+function $f:\{0,1\}^n \rightarrow \{0,1\}$ is constant or balanced we need to input the function with n $\ket{0}$ and 1 $\ket{1}$ and query the function only once.
+Then, in the final measurement we measure the first n qubits and if the function is constant we get $\ket{0^{\otimes n}}$ and if the function is balanced we get $\ket{11}$.
+Thus, we can determine whether the function is constant or balanced with just one query to the Oracle. This is an exponential speedup over the classical algorithm which requires $2^{n-1}+1$ queries to determine whether the function is constant or balanced.
+Thus, the time complexity of this algorithm is $\mathcal{O}(1)$ i.e. constant time complexity. Hence, an exponential speedup over the classical algorithm.
+
+\section{Implementation using Qiskit}
+\subsection{Background}
+Usage estimate: 4 seconds on ibm\_brisbane(NOTE; This is an estimate only. Your runtime may vary)\\
+In order to run Deutsch-Jozsa algorithm requires an oracle that implements the function either constant or balanced and Deutsch-Jozsa Circuit.
+
+Here, we demonstrate how to construct Deutsch-Josza oracles and use the gates from the Qiskit circuit library to easily set up a Deutsch-Jozsa Circuit.
+
+\subsection{Requirements}
+Before starting this tutorial, ensure that you have the following installed:
+\begin{itemize}
+    \item Qiskit SDK 1.0 or later, with visualization support ( pip install 'qiskit[visualization]')
+    \item Qiskit Runtime (pip install qiskit-ibm-runtime) 0.22 or later
+\end{itemize}
+
+\subsection{Setup}
+Here we import the small number of tools we need for this tutorial.
+\begin{lstlisting}[language=Python]
+#Built-in modules
+import math
+
+#imports from Qiskit
+from qiskit import QuantumCircuit, QuantumRegister, ClassicalRegister
+from qiskit.visualization import plot_distribution
+
+#Imports from Qiskit Runtime
+from qiskit_ibm_runtime import QiskitRuntimeService
+from qiskit_ibm_runtime import SamplerV2 as Sampler
+\end{lstlisting}
+\begin{lstlisting}[language=Python]
+# To run on hardware, select the backend with the fewest number of jobs in the queue
+service = QiskitRuntimeService(channel="ibm_quantum")
+backend = service.least_busy(operational=True, simulator=False)
+backend.name
+\end{lstlisting}
+This output one of the ibm quantum computers (say 'ibm\_brisbane').
+\begin{enumerate}
+    \item \textbf{Step 1: Map classical inputs to a quantum problem}: \\
+    Deutsch-Jozsa algorithm requires an oracle that implements the function either constant or balanced. Here, we demonstrate how to construct Deutsch-Jozsa oracles and use the gates from the Qiskit circuit library to easily set up a Deutsch-Jozsa Circuit. Here, we will work the  with 2 qubits for constant and balanced functions and verify the results as expected.
+
+The runtime Sampler primitive allows seamless execution of Deutsch circuit.
+    \begin{lstlisting}[language=Python]
+def deutsch_jozsa(num_qubits=2,value=0,oracle=True,oracle_type="constant",b_str=""):
+    # Create a Quantum Circuit
+    qubits=QuantumRegister(num_qubits+1,name="q")
+    cbits=ClassicalRegister(num_qubits,name="c")
+    circuit=QuantumCircuit(qubits,cbits)
+
+    circuit.x(qubits[-1])
+
+    for qubit in qubits:
+        circuit.h(qubit)
+    
+    circuit.barrier()
+
+    if(oracle==True):
+        oracle_qc=QuantumRegister(num_qubits+1)
+        oracle=QuantumCircuit(oracle_qc,name="Oracle")
+        if(oracle_type=="constant"):
+            if(value==1):
+                oracle.x(oracle_qc[-1])
+                oracle.name="Const Oracle: 1"
+            elif(value==0):
+                oracle.id(oracle_qc[-1])
+                oracle.name="Const Oracle: 0"
+            else:
+                raise ValueError("Value must be 0 or 1")
+        elif(oracle_type=="balanced"):
+            if(b_str==""):
+                raise ValueError("Balanced Oracle requires a bit string")
+            if(len(b_str)!=num_qubits):
+                raise ValueError("Bit string must be of length equal to number of qubits")
+            for qubit in range(num_qubits):
+                if(b_str[qubit]=="1"):
+                    oracle.x(oracle_qc[qubit])
+            
+            for qubit in oracle_qc[:-1]:
+                oracle.cx(qubit,oracle_qc[-1])
+
+            for qubit in range(num_qubits):
+                if(b_str[qubit]=="1"):
+                    oracle.x(oracle_qc[qubit])
+            oracle.name="Balanced Oracle"
+        else:
+            raise ValueError("Oracle type must be 'constant' or 'balanced'")
+            
+        circuit.append(oracle, qubits)
+    
+    else:
+        if(oracle_type=="constant"):
+            if(value==1):
+                circuit.x(qubits[-1])
+            elif(value==0):
+                circuit.id(qubits[-1])
+            else:
+                raise ValueError("Value must be 0 or 1")
+        elif(oracle_type=="balanced"):
+            if(b_str==""):
+                raise ValueError("Balanced Oracle requires a bit string")
+            if(len(b_str)!=num_qubits):
+                raise ValueError("Bit string must be of length equal to number of qubits")
+            for qubit in range(num_qubits):
+                if(b_str[qubit]=="1"):
+                    circuit.x(qubits[qubit])
+            
+            for qubit in qubits[:-1]:
+                circuit.cx(qubit,qubits[-1])
+
+            for qubit in range(num_qubits):
+                if(b_str[qubit]=="1"):
+                    circuit.x(qubits[qubit])
+        else:
+            raise ValueError("Oracle type must be 'constant' or 'balanced'")
+            
+    circuit.barrier()
+
+    for qubit in qubits:
+        circuit.h(qubit)
+
+    for qubit in qubits[:-1]:
+        circuit.measure(qubit,qubits.index(qubit))
+
+    return circuit
+    \end{lstlisting}
+    For creating constant oracle circuit, use the following code:
+    \begin{lstlisting}[language=Python]
+qc_const_0=deutsch_jozsa(num_qubits=2,value=0,oracle=True,oracle_type="balanced",b_str="00")
+qc_const_0.draw("mpl")
+    \end{lstlisting}
+    For a balanced oracle, the code used is as follows:
+    \begin{lstlisting}[language=Python]
+qc_bal_0=deutsch_jozsa(num_qubits=2,value=1,oracle=False,oracle_type="balanced",b_str="00")
+qc_bal_0.draw("mpl")
+    \end{lstlisting}
+    Similarly any other circuit can be created by changing the input parameters.
+    The circuit along with the corresponding oracle implementing the function is as shown in the figure \ref{fig:deutsch-jozsa_circuit} according to the table \ref{tab:Deutsch-jozsa}.
+     \begin{figure}[H]
+        \centering
+        \begin{subfigure}[b]{0.45\linewidth}
+        \centering
+        \includegraphics[width=1\linewidth]{../images/deutsch_const_0.png}
+        \caption{$f=f_1$ (Constant)}
+        \label{fig:deutsch_jozsa_f1}
+        \end{subfigure}
+        \hfill
+        \centering
+        \begin{subfigure}[b]{0.45\linewidth}
+        \centering
+        \includegraphics[width=1\linewidth]{../images/deutsch_const_1.png}
+        \caption{$f=f_2$ (Constant)}
+        \label{fig:deutsch_jozsa_f2}
+        \end{subfigure}
+        \vspace{0.5 cm}
+        \begin{subfigure}[b]{0.45\linewidth}
+        \centering
+        \includegraphics[width=1\linewidth]{../images/deutsch_jozsa_bal_0.png}
+        \caption{$f=f_9$ (Balanced)}
+        \label{fig:deutsch_jozsa_f9}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=1\linewidth]{../images/deutsch_jozsa_bal_1.png}
+        \caption{$f=f_4$ (Balanced)}
+        \label{fig:deutsch_jozsa_f4}
+        \end{subfigure}    
+        \caption{Deutsch-Jozsa Circuit implementation for few of the possible functions along with their corresponding oracles}
+        \label{fig:deutsch-jozsa_circuit}
+    \end{figure}
+    Note that the oracle (shown between the two barriers) implements the required functions. Thus the above shown figure corresponds to the Deutsch-Jozsa circuit with a few of the possible function. 
+    \item \textbf{Step 2: Optimize Problems for Quantum Execution}
+\begin{lstlisting}[language=Python]
+from qiskit.transpiler.preset_passmanagers import generate_preset_pass_manager
+
+target=backend.target
+pm = generate_preset_pass_manager(backend=backend, optimization_level=3)
+
+circuit_isa_const_0=pm.run(qc_const_0)
+circuit_isa_const_0.draw(output="mpl",idle_wires=False,style="iqp")
+\end{lstlisting}
+
+\begin{figure}[H]
+        \centering
+        \begin{subfigure}[b]{0.45\linewidth}
+        \centering
+        \includegraphics[width=1\linewidth]{../images/deutsch_const_opt_0.png}
+        \caption{$f=f_1$ (Constant)}
+        \label{fig:deutsch_const_opt_f1}
+        \end{subfigure}
+        \hfill
+        \centering
+        \begin{subfigure}[b]{0.45\linewidth}
+        \centering
+        \includegraphics[width=1\linewidth]{../images/deutsch_const_opt_1.png}
+        \caption{$f=f_2$ (Constant)}
+        \label{fig:deutsch_const_opt_f2}
+        \end{subfigure}
+        \vspace{0.5 cm}
+        \begin{subfigure}[b]{0.45\linewidth}
+        \centering
+        \includegraphics[width=1\linewidth]{../images/deutsch_jozsa_bal_opt_0.png}
+        \caption{$f=f_9$ (Balanced)}
+        \label{fig:deutsch_jozsa_bal_opt_0}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=1\linewidth]{../images/deutsch_jozsa_bal_opt_1.png}
+        \caption{$f=f_4$ (Balanced)}
+        \label{fig:deutsch_jozsa_bal_opt_1}
+        \end{subfigure}    
+        \caption{Optimized Deutsch-Jozsa Circuit implementation for possible functions along with their corresponding oracles}
+        \label{fig:deutsch-jozsa_opt_circuit}
+    \end{figure}
+    The Optimized circuit shown in figure \ref{fig:deutsch-jozsa_opt_circuit} are the ones that actually get executed on a quantum computer as they are optimized for the target hardware.
+    \item \textbf{Step 3: Execute using Qiskit Primitives}\\
+    We are now required to run the circuit and sample the measurements on the first qubit. Thus for execution we will use the Sampler runtime primitive.
+    \begin{lstlisting}[language=Python]
+# TO run on local simulator:
+#1. Use the StatevectorSampler from qiskit.primitves instead
+sampler=Sampler(backend=backend)
+sampler.options.default_shots=10_000
+result_const_0 = sampler.run([circuit_isa_const_0]).result()
+dist_const_0 = result_const_0[0].data.c.get_counts()  
+    \end{lstlisting}
+    The output of the above code will be the distribution of the measurements on the first two qubit. Similar code can be written for all the other possible functions by just implementing the required oracle.
+
+    \item \textbf{Step 4: Post-Process Results}\\
+    Now we plot a histogram of the measurements on the first two qubits in the classical format.
+    \begin{lstlisting}[language=Python]
+from qiskit.visualization import plot_histogram
+plot_histogram(dist_const_0)
+    \end{lstlisting}
+    The output of the above code will be the histogram of the distribution of the measurements on the first two qubits. Similar code can be written for all the possible functions.
+
+    The following output is produced upon running this code on ibm\_brisbane as shown in figure \ref{fig:deutsch_jozsa_results}. The histogram plot is done for 10000 shots and results can be clearly seen as expected. The minor deviations in the results is due to the inherent errors (because of the noise) in the quantum computer and its probabilistic nature in the measurement process.
+    \begin{figure}[H]
+        \centering
+        \begin{subfigure}[b]{0.45\linewidth}
+        \centering
+        \includegraphics[width=1\linewidth]{../images/deutsch_jozsa_const_0results.png}
+        \caption{$f=f_1 \implies \text{constant}$}
+        \label{fig:deutsch_jozsa_result_f1}
+        \end{subfigure}
+        \hfill
+        \centering
+        \begin{subfigure}[b]{0.45\linewidth}
+        \centering
+        \includegraphics[width=1\linewidth]{../images/deutsch_jozsa_const_1results.png}
+        \caption{$f=f_2\implies \text{constant}$}
+        \label{fig:deutsch_jozsa_result_f2}
+        \end{subfigure}
+        \vspace{0.5 cm}
+        \begin{subfigure}[b]{0.45\linewidth}
+        \centering
+        \includegraphics[width=1\linewidth]{../images/deutsch_jozsa_bal_0result.png}
+        \caption{$f=f_9\implies \text{balanced}$}
+        \label{fig:deutsch_jozsa_result_f9}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=1\linewidth]{../images/deutsch_jozsa_bal_1result.png}
+        \caption{$f=f_4\implies \text{balanced}$}
+        \label{fig:deutsch_jozsa_result_f4}
+        \end{subfigure}    
+        \caption{Deutsch-Jozsa Results}
+        \label{fig:deutsch_jozsa_results}
+    \end{figure}
+    We can see in the figure \ref{fig:deutsch_jozsa_result_f1} that the result of the measurement of the first two qubits is 00 (9891 times). Thus, we can conclusively say that the function implemented was a constant function (inside the oracle) which we know is true. Hence, the results are expected. Similar conclusions can be made for all the other results and we can clearly see that they agree with what we implemented and expected. Here, we are able to tell whether the function was constant or balanced but not what the function was out of the different possibilities. Note that the results might differ for different runs because of the noise in quantum computer. Similar results can also be found for four qubits circuit as shown in the figure \ref{fig:deutsch_jozsa_4q}.
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.75\linewidth]{../images/deutsch_jozsa_4q.png}
+        \caption{Four Qubit Example of Balanced Function}
+        \label{fig:deutsch_jozsa_4q}
+    \end{figure}
+    The corresponding optimal circuit is shown in figure \ref{fig:opt_deutsch_jozsa_4q}.
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.75\linewidth]{../images/opt_deutsch_jozsa_4q.png}
+        \caption{Optimized Deutsch-Jozsa Circuit for 4 qubit balanced function}
+        \label{fig:opt_deutsch_jozsa_4q}
+    \end{figure}
+    The result is shown in figure \ref{fig:deutsch_jozsa_4q_result}.
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.75\linewidth]{../images/deutsch_jozsa_4q_result.png}
+        \caption{Deutsch-Jozsa results for 4 qubit balanced function}
+        \label{fig:deutsch_jozsa_4q_result}
+    \end{figure}
+
+    Similarly, circuits can be draw for any constant or balanced function for any number of qubits and then optimized and thus, results can be obtained for any circuit.
+
+    Note that in general we do not show the oracle and instead hide the oracle. Recall from the previous results that any classical function can be implemented on quantum computer and thus, we are generally not concerned with how to implement the classical function inside the oracle, instead we focus on running the algorithm. It is always assumed that the classical oracle implemented with function will be given to us as a black-box function. Thus, the figures shown in \ref{fig:deutsch_3q_example} and the figure \ref{fig:deutsch_3q_oracle} are equivalent figures where in one case the function implemented is hidden inside the oracle.
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\linewidth]{../images/deutsch_3q_example.png}
+    \caption{Deutsch-Jozsa Example of 3 qubit balanced function}
+    \label{fig:deutsch_3q_example}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{../images/deutsch_3q_oracle.png}
+    \caption{Deutsch-Jozsa Corresponding 3 qubit oracle for balanced function}
+    \label{fig:deutsch_3q_oracle}
+\end{figure}
+\end{enumerate}
 
 \chapter{Simon's Algorithm}
+This problem is another one of the completely artificial problems, but now the advantage of quantum over probabilistic is quite significant: a linear  number of queries will be needed by the quantum algorithm whereas an exponential number will be needed for any classical probabilistic algorithm. Also, although the problem is artificial, it is surprisingly close to a very natural and important real-world problem as we will see.
+\section{The Problem Definition}
 \begin{definition}
     Given a function $f:\{0,1\}^n \rightarrow \{0,1\}^n$ which takes n input bits and returns n output bits.
     The function is a two - to - one function, such that $f(x)=f(x\oplus s)$ for $s \in \{0,1\}^n$.
@@ -5303,7 +5713,7 @@ plot_histogram(dist_1)
         f(010)&=f(101) \\
         f(011)&=f(100) \\
     \end{align*}
-    Consider the fololwing functions as an example with outputs given in tabular form:
+    Consider the following functions as an example with outputs given in tabular form:
     \begin{table}[H]
         \centering
         \begin{tabular}{|c|c|}
@@ -5329,12 +5739,14 @@ plot_histogram(dist_1)
     Now given that the function is a two-to-one function we are required to find s.
 \end{example}
 
+\section{The Classical Solution}
 \textbf{On a Classical Computer: }In order to determine the period of the function we need to query the function for $2^{n-1}+1$ times to determine the period of the function.
 This is because the total number of possible inputs are $2^n$ and since the function is a two-to-one function with a period of s, it produces the same output for half of the inputs.
-Thus, in order to find s calssically, in the worst case scenario we are required to query the function for $2^{n-1}+1$ times to determine the period of the function.
+Thus, in order to find s classically, in the worst case scenario we are required to query the function for $2^{n-1}+1$ times to determine the period of the function.
 Thus, the time complexity of the algorithm is $\mathcal{O}(2^n)$ i.e. exponential time complexity. So, the best way to solve this problem is using randomized algorithms using some probabilistic approach. In that case, 
 the running time is $\mathcal{O}(2^{n/2})$, which is still exponential. Note that once we know two inputs (say x,y) with the same output. Then, we can use $x \oplus y=s$ to find s (because $y=x\oplus s\implies x \oplus y=x\oplus (x \oplus s) = 0\oplus s=s$. Because $x \oplus x=0$).
 
+\section{The Quantum Solution: Simon's Algorithm}
 \textbf{On a Quantum Computer: }To solve this problem we need to query the function $\mathcal{O}(n)$ times on a Quantum Computer using the Simon's Algorithm which is a linear time complexity.
 The circuit for Simon's Algorithm is as shown in the figure \ref{fig:simon}.
 \begin{figure}[H]
@@ -5344,7 +5756,8 @@ The circuit for Simon's Algorithm is as shown in the figure \ref{fig:simon}.
     \label{fig:simon}
 \end{figure}
 
-\textbf{Analysis of Simon's Algorithm: }\\
+\subsection{Algorithm}
+\textbf{Analysis of Simon's Algorithm: }
 The input to the circuit is $\ket{0}^{\otimes n}\ket{0}^{\otimes n}$. 
 Then the action of hadamard gates on the input will be:
 \[
@@ -5358,7 +5771,7 @@ Thus, the action of the oracle will be:
     U_f\left(\frac{1}{\sqrt{2^n}}\sum_{x \in \{0,1\}^n}\ket{x}\ket{0}^{\otimes n}\right)=\frac{1}{\sqrt{2^n}}\sum_{x \in \{0,1\}^n}\ket{x}\ket{f(x)}
 \]
 Now  we perform a measurement on the second registers. Now the second registers are in some superposition and upon measurement will 
-collapse to some classical values. Let the output of the second register be $f(z)$. Becuase of this the first register will have only those values which are mapped to $f(z)$.
+collapse to some classical values. Let the output of the second register be $f(z)$. Because of this the first register will have only those values which are mapped to $f(z)$.
 
 Thus, the state of the system will be:
 \[
@@ -5382,7 +5795,7 @@ Now, there are two possible cases:
     \item \textbf{Case 1: $y\cdot s=1$}. Then the amplitude of y will be zero and thus that value won't be taken in the superposition.
     \item \textbf{Case 2: $y\cdot s=0$}.Then the amplitude of that corresponding y will be 2 and thus will be in the superposition.
 \end{itemize}
-Thus, the supoerposition will consist of only those values of y for which $y\cdot s=0$.
+Thus, the superposition will consist of only those values of y for which $y\cdot s=0$.
 We can use this fact to run the circuit n times and attain a system of n linearly independent equations. We can then solve these equations to find s.
 \begin{example}
     Consider the function $f:\{0,1\}^4\rightarrow \{0,1\}^4$ as shown in the table \ref{tab:simonex2}.
@@ -5472,7 +5885,7 @@ We can use this fact to run the circuit n times and attain a system of n linearl
     Now we rerun the circuit and for the next time upon measurement we get, say $\ket{1001}$ which works for the system of linear equations since it is independent of the previous vectors $\ket{0010}$ and $\ket{0100}$.
     Thus, our set of vectors now contains $\{\ket{0010},\ket{0100},\ket{1001}\}$. Now we have 3 linearly independent vectors and thus we can form a system of linear equations to find s.
 
-    Now, we know that each of the linearly indpendent vector in the set $\{\ket{0010},\ket{0100},\ket{1001}\}$ is a solution to the equation $y\cdot s=0$. Thus, we can form a system of linear equations as shown below:
+    Now, we know that each of the linearly independent vector in the set $\{\ket{0010},\ket{0100},\ket{1001}\}$ is a solution to the equation $y\cdot s=0$. Thus, we can form a system of linear equations as shown below:
     \[
     \begin{bmatrix}
         0 & 0 & 1 & 0 \\
@@ -5494,7 +5907,7 @@ We can use this fact to run the circuit n times and attain a system of n linearl
         0
     \end{bmatrix}
     \]
-    Upon, solving this system of lienear equations we get:
+    Upon, solving this system of linear equations we get:
     \begin{align*}
     s_3&=0 \\
     s_2&=0 \\
@@ -5502,14 +5915,15 @@ We can use this fact to run the circuit n times and attain a system of n linearl
     \end{align*}
     Now, we can choose one of the values of $s_1$ or $s_4$. Let us choose $s_4$.
     Now, $s_4=0$ or $s_4=1$. 
-    Let us choose $s_4=0$ then we get, $s_1=0$ which gives a trivial solution os $s=0000$. Let $s_4=1$ then we get, $s_1=-1\implies (-1) mod 2=1$.
+    Let us choose $s_4=0$ then we get, $s_1=0$ which gives a trivial solution of $s=0000$. Let $s_4=1$ then we get, $s_1=-1\implies (-1) mod 2=1$.
     Thus, we get $s=1001$ which is the correct solution.
 \end{example}
 
 
-\section{Bernstein-Vazirani Algorithm}
 
-\section{Shor's Algorithm}
+\chapter{Bernstein-Vazirani Algorithm}
+
+\chapter{Shor's Algorithm}
 \begin{definition}
     Given a number $N$ which is a composite number. We are required to find the prime factors of the number $N$.
 \end{definition}
@@ -6876,10 +7290,10 @@ Consider the figure \ref{fig:qtf_final}.
     \caption{circuit}
     \label{fig:qtf_final}
 \end{figure}
-In quantum algorithm, the first step is that the odd and even terms are together in superposition: the odd terms ae those 
+In quantum algorithm, the first step is that the odd and even terms are together in superposition: the odd terms are those 
 whose least significant bit is 1, and even with 0. Therefore, we can apply $QFT_{N/2}$ to both the odd and even terms together.
 We do this by simply applying the $QFT_{N/2}$ to the m-1 most significant bits, and recombine the odd and even appropriately by 
-applying the Hadmard to the least significant bit as shown in the figure \ref{qft_1}.
+applying the Hadmard to the least significant bit as shown in the figure \ref{fig:qft_1}.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{../images/qft_1.png}
@@ -6887,7 +7301,7 @@ applying the Hadmard to the least significant bit as shown in the figure \ref{qf
     \label{fig:qft_1}
 \end{figure}
 
-Now to carry out the phase multiplication, we need to multiply each odd term j by the phase $\omega_j$. But remeber, an odd number in binary ends with a 1, while an even ends with 0.
+Now to carry out the phase multiplication, we need to multiply each odd term j by the phase $\omega_j$. But remember, an odd number in binary ends with a 1, while an even ends with 0.
 Thus, we can use the controlled phase shift, where the least significant bits is the control, to multiply only the odd terms by the phase without doing anything to the even terms. 
 Recall that the controlled phase shift is similar to the CNOT gate in that it only applies a phase to the target if the control bit is one.
 
@@ -7730,46 +8144,13 @@ Note that
 \|B\|\leq \|I+B^{\dagger}B\|\leq 1+(1+\Delta t\|A\|)^2\leq 5
 \]
 
-
-% Manually add references
-\begin{thebibliography}{9}
-    \bibitem{harrow2009quantum}
-    Aram W. Harrow, Avinatan Hassidim, Seth Lloyd,
-    \textit{Quantum algorithm for linear systems of equations},
-    Physical Review Letters 103, 150502 (2009),
-    \url{https://arxiv.org/abs/0811.3171}
-    \bibitem{qiskitextbook2023}
-    various authors. (2023). Qiskit Textbook. Github. https://github.com/Qiskit/textbook
-    \url{https://github.com/Qiskit/textbook}
-    \bibitem{de2019quantum}De Wolf, R. (2019). Quantum computing: Lecture notes. ArXiv Preprint ArXiv:1907.09415.
-    \url{https://doi.org/10.48550/arXiv.1907.09415}
-    \bibitem{lin2022lecture}Lin, L. (2022). Lecture notes on quantum algorithms for scientific computation. ArXiv Preprint ArXiv:2201.08309.
-    \url{https://doi.org/10.48550/arXiv.2201.08309}
-    \bibitem{shewchuk1994introduction}
-    Shewchuk, J. R.,  others. (1994). An introduction to the conjugate gradient method without the agonizing pain.
-    \url{https://www.cs.cmu.edu/~quake-papers/painless-conjugate-gradient.pdf}
-    \bibitem{dewes2012characterization}
-    Dewes, A., Ong, F. R., Schmitt, V., Lauro, R., Boulant, N., Bertet, P., Vion, D.,  Esteve, D. (2012). Characterization of a two-transmon processor with individual single-shot qubit readout. Physical Review Letters, 108(5), 057002.
-    \url{https://doi.org/10.1103/PhysRevLett.108.057002}
-\bibitem{stamatopoulos2020option}
-    Stamatopoulos, N., Egger, D. J., Sun, Y., Zoufal, C., Iten, R., Shen, N.,  Woerner, S. (2020). Option pricing using quantum computers. Quantum, 4, 291.
-    \url{https://doi.org/10.22331/q-2020-07-06-291}
-    \bibitem{iten2019introduction}
-    Iten, R., Reardon-Smith, O., Malvetti, E., Mondada, L., Pauvert, G., Redmond, E., Kohli, R. S., Colbeck, R. (2019). Introduction to universalqcompiler. ArXiv Preprint ArXiv:1904.01072.
-    \url{https://doi.org/10.48550/arXiv.1904.01072}
-    \bibitem{}
-    \url{https://quantum.ibm.com/}
-    \bibitem{dervovic2018quantumlinearsystemsalgorithms}
-    Dervovic, D., Herbster, M., Mountney, P., Severini, S., Usher, N., Wossnig, L. (2018). Quantum linear systems algorithms: a primer. \url{https://arxiv.org/abs/1802.08227}
-\end{thebibliography}
-
 \chapter{Block Encoding}
 In order to perform matrix computations, we must first address the problem of the input model: how to get access to information in matrix $A\in \mathbb{C}^{N \times N} (N=2^n)$ which is generally a non-unitary matrix, into the quantum computer? One possible input model is given via the unitary $e^{\iota \tau A}$ (if A is not Hermitian, in some scenarios we an consider its Hermitian version via the dilation method).
 
 A more general input model, as will be discussed in this chapter is called "block encoding". Of course, if A is a dense matrix without obvious structures, any input model will be very expensive (e.g. exponential in n) to implement. Therefore a commonly assumed input model is s-sparse there are at most s nonzero entries in each row/column of the matrix. Furthermore, we have an efficient procedure to get access to the location, as well as the value of the nonzero entries. This in general can again be a difficult task given that the number of nonzero entries can still be exponential in n for a sparse matrix. Some dense matrices may also be efficiently block encoded on quantum computers. This chapter will illustrate the block encoding procedure via a number of detailed examples.
 
 \section{Query model for matrix entries}
-The query model for sparse matrices is based on certain quantum oracles. In some scenarios, these quantum oracles can be implemented all the way to the elementary gate level. Throughout the discussion we assume $A$ is an n-qbuit, square matrix, and 
+The query model for sparse matrices is based on certain quantum oracles. In some scenarios, these quantum oracles can be implemented all the way to the elementary gate level. Throughout the discussion we assume $A$ is an n-qubit, square matrix, and 
 \[
 \|A\|_{max}=\max_{ij}|A_{ij}|<1
 \]
@@ -7884,7 +8265,7 @@ Therefore we may first evaluate the state $U_A\ket{0^m,j}$, and perform inner pr
 \[
 \braket{0^m,i|U_A\ket{0^m,j}}=\braket{0^m,i|U_BU_C\ket{0^m,j}}=(U^{\dagger}_B\ket{0^m,i})^{\dagger}(U_C\ket{0^m,j})
 \]
-So we can evaluate the states $U^{\dagger}_B\ket{0^m,i},U_C\ket{0^mj}$ independently, and then verify the inner product is $A_{ij}$. Such a calculation amounts to running the circuit shown in fig \ref{generalblockencoding}, and if the ancilla qubits are measured to be $0^m$, the system qubits return the normalized state $\sum_iA_{ij}\ket{i}/\|\sum_iA_{ij}\ket{i}\|$.
+So we can evaluate the states $U^{\dagger}_B\ket{0^m,i},U_C\ket{0^mj}$ independently, and then verify the inner product is $A_{ij}$. Such a calculation amounts to running the circuit shown in fig \ref{fig:generalblockencoding}, and if the ancilla qubits are measured to be $0^m$, the system qubits return the normalized state $\sum_iA_{ij}\ket{i}/\|\sum_iA_{ij}\ket{i}\|$.
 \begin{figure}
     \centering
     \includegraphics[width=1\linewidth]{../images/generalblockencoding.png}
@@ -10430,7 +10811,7 @@ By cascading, many of these full-adders together we obtain a circuit to add two 
 \begin{proof}
     Any fixed gates can be used to compute any function $f:\{0,1\}^n \rightarrow \{0,1\}^m$.
     Consider the proof for the simplified function $f:\{0,1\}^n \rightarrow \{0,1\}$ with n input bits
-    and a single output bit. This is a Boolean function. Using mathematical indcution, For $n=1$, there are four possible functions: the identity, which is 
+    and a single output bit. This is a Boolean function. Using mathematical induction, For $n=1$, there are four possible functions: the identity, which is 
     a single wire; the bit flip, implemented using a NOT Gate; the function which replaces the input bit with a 0, which can be obtained using ANDing the input 
     with a work bit initially in the 0 state; and the function which replaces the input bit with a 1, which can be obtained using ORing the input with a work bit initially in the 1 state.
     Thus, we have proved for n=1.
@@ -10440,7 +10821,7 @@ By cascading, many of these full-adders together we obtain a circuit to add two 
     So $f_0=f(x_1,x_2,\ldots,x_n,0)$ and $f_1=f(x_1,x_2,\ldots,x_n,1)$.
     By the induction hypothesis, there are circuits $C_0$ and $C_1$ that compute $f_0$ and $f_1$ respectively.
     Thus, now we are required to design a circuit with computes $f$. Thus, we design a circuit that computes both $f_0$ and $f_1$ 
-    on the first n bits and then dependening on whether the first bit of the input was 0 or a 1 it outputs the appropriate answer.
+    on the first n bits and then depending on whether the first bit of the input was 0 or a 1 it outputs the appropriate answer.
     This can be done using a circuit as shown in figure \ref{fig:compute}.
     \begin{figure}[H]
         \centering
@@ -10452,13 +10833,13 @@ By cascading, many of these full-adders together we obtain a circuit to add two 
 For the Universal Circuit Construction:
 \begin{itemize}
     \item wires, which preserve the states of the bits;
-    \item ancilla bits prepared in the stnadard states, used in the n=1 case of the proof;
+    \item ancilla bits prepared in the standard states, used in the n=1 case of the proof;
     \item FANOUT operation, which takes a single bits as input and outputs two copies of that bit;
-    \item The CROSSOVER opertaion, which interchanges the values of the two bits;
+    \item The CROSSOVER operation, which interchanges the values of the two bits;
     \item the AND, OR, and NOT operations, which are the basic logic gates.
 \end{itemize}
 
-In the case of quantum wirers for the preservation of qubits qubit state, it is not necessarily obvious that good quantum wires for
+In the case of quantum wires for the preservation of qubits qubit state, it is not necessarily obvious that good quantum wires for
 the preservation of qubits can be constructed. The FANOUT operation cannot be performed because of the \textbf{No - cloning Theorem}.
 The AND and XOR Gates are not invertible thus irreversible and hence can't be implemented in a straight forward manner as unitary quantum gates.
 Thus, implementing a universal quantum circuit is not as straight forward as in the classical case.
@@ -10598,7 +10979,7 @@ For visualizing circuits and results install Qiskit with visualization add-on.
 
 
 \backmatter  % Use letter page numbering style (A, B, C, D...) for the post-content pages
-  % The references (bibliography) information are stored in the file named "Bibliography.bib"
+  % The references (bibliography) information are stored in the file named "references.bib"
     \bibliographystyle{plain}
-    \bibliography{Bibliography}
+    \bibliography{references}
 \end{document}
