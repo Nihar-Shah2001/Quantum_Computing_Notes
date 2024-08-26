@@ -214,27 +214,26 @@ for supporting me spiritually throughout writing this thesis and my life in gene
 
 \tableofcontents  % Print the table of contents
 
-\listoffigures  % Print the list of figures
+%\listoffigures  % Print the list of figures
 
-\listoftables  % Print the list of tables
+%\listoftables  % Print the list of tables
 
-\chapter*{Notations} % Notations chapter, unnumbered \addcontentsline{toc}{chapter}{Notations} % Add the notations chapter to the table of contents
-\addcontentsline{toc}{chapter}{Notations}  % Add the notations chapter to the table of contents
+% \chapter*{Notations} % Notations chapter, unnumbered \addcontentsline{toc}{chapter}{Notations} % Add the notations chapter to the table of contents
+% \addcontentsline{toc}{chapter}{Notations}  % Add the notations chapter to the table of contents
 
-\begin{description}
-    \item[$\mathbb{R}$] The set of all real numbers
-    \item[$\mathbb{R}^{m \times n} $] The set of all $m \times n$ real matrices
-    \item[$\mathbb{Z}$] The set of all integers
-    \item[$\mathbb{N}$] The set of all natural numbers
-    \item[$\mathbb{Q}$] The set of all rational numbers
-    \item[$\mathbb{C}$] The set of all complex numbers
-    \item[$\mathbb{C}^{m \times n}$] The set of all $m \times n$ complex matrices
-    \item[$\mathbb{F}$] Field
-    \item[$\mathbb{F}^{n}$] The set of all $n$-dimensional vectors over the field $\mathbb{F}$
-    \item[$\ket{v}$] A vector in a vector space
-\end{description}
+% \begin{description}
+%     \item[$\mathbb{R}$] The set of all real numbers
+%     \item[$\mathbb{R}^{m \times n} $] The set of all $m \times n$ real matrices
+%     \item[$\mathbb{Z}$] The set of all integers
+%     \item[$\mathbb{N}$] The set of all natural numbers
+%     \item[$\mathbb{Q}$] The set of all rational numbers
+%     \item[$\mathbb{C}$] The set of all complex numbers
+%     \item[$\mathbb{C}^{m \times n}$] The set of all $m \times n$ complex matrices
+%     \item[$\mathbb{F}$] Field
+%     \item[$\mathbb{F}^{n}$] The set of all $n$-dimensional vectors over the field $\mathbb{F}$
+%     \item[$\ket{v}$] A vector in a vector space
+% \end{description}
 
-% ... rest of your document
 
 \mainmatter  % Arabic page numbering style (1, 2, 3, 4...) for the content
 
@@ -595,7 +594,7 @@ Of course, there might be many other bases for $\mathbb{C}^2$. But here,we will 
     \]
     So $\ket{+}$ is normalized. Furthermore, the inner product
     \[
-    braket{+|-}=\frac{1}{2}\begin{pmatrix} 1 & 1 \end{pmatrix} \begin{pmatrix} 1 \\ -1 \end{pmatrix} = 0
+    \braket{+|-}=\frac{1}{2}\begin{pmatrix} 1 & 1 \end{pmatrix} \begin{pmatrix} 1 \\ -1 \end{pmatrix} = 0
     \]
     So $\ket{+}$ and $\ket{-}$ are orthogonal to each other.
 \end{example}
@@ -1393,7 +1392,7 @@ The same method works for more than 2 qubits as well.
 
 
 \chapter{Axioms of Quantum Mechanics}
-\subsection{Postulate 1: The State Space Postulate}
+\section{Postulate 1: The State Space Postulate}
 The state of an isolated quantum mechanical system is completely specified by a state vector $\ket{\psi}$ 
 which is a unit vector that belongs to a complex vector space with inner product (a Hilbert Space) $\mathbb{C}^{n}$, where $n$ is the 
 dimension of the state space of the system. 
@@ -1454,7 +1453,7 @@ $\alpha_i$ for the state $\ket{\psi_i}$.
 
 \textbf{There are two things we can do with a quantum state: Measure it or let it evolve (without measuring it).}
 
-\subsection{Postulate 2: Evolution Postulate}\label{subsection:Postulate 2}
+\section{Postulate 2: Evolution Postulate}\label{subsection:Postulate 2}
 The time evolution of a closed Quantum System is described by the Schrodinger equation as:
 \[
     i\hbar\frac{d}{dt}\ket{\psi(t)}=H\ket{\psi(t)}
@@ -1495,7 +1494,7 @@ but varies according to some external control parameters which are under experim
 course of an experiment. The system is therefore not closed, but it does evolve according to Schrdinger's equation with a time varying Hamiltonian, to some good
 approximation. Thus we will describe the evolutions of a quantum system even those system's which aren't closed using unitary operators.}
 
-\subsection{Postulate 3: Measurement Postulate}
+\section{Postulate 3: Measurement Postulate}
 \textbf{Measurement in the computational basis}\\
 Consider a Quantum System in a state $\ket{\psi} = \sum_{j=0}^{N-1} \alpha_j \ket{j}$ which is some unknown superposition of the classical states $\ket{j}$. We cannot know exactly what the superposition of the states $\ket{\psi}$ is
 since we can see only the classical states. Thus if we measure the state $\ket{\psi}$ it will collapse to one of the classical states
@@ -1602,7 +1601,7 @@ Thus, the measurement operators satisfy the completeness equation:
 \end{importantnote}
 
 
-\subsubsection{Projective Measurements}
+\subsection{Projective Measurements}
 A special case of the general measurement postulate. Consider a Quantum System with quantum state $\ket{\psi}$. A projective measurement on some space, with m possible outcomes, is a collection of projectors.
 $P_1,\ldots,P_m$ that all act on tha same space and sum to identity $\sum_{j=1}^m P_j=I$. These projectors are \textit{pairwise orthogonal},
 $P_iP_j=\delta_{ij}P_i$ where $\delta_{ij}$ is the Kronecker delta. The Projector $P_j$ projects onto some subspace $V_j$ of the total Hilbert Space $V$. 
@@ -1671,7 +1670,7 @@ Calculation of Average values for Projective measurements. By defintion, the ave
     \braket{M}&=\bra{\psi}M\ket{\psi}
 \end{align*}
 
-\subsubsection{Postive Operator Valued Measure (POVM) measurements}
+\subsection{Postive Operator Valued Measure (POVM) measurements}
 For some applications, the post-measurement of the state is of little interest. We only care about the final probability distribution 
 on the m-outcomes, then we can use the most general type of measrurement called \textit{positive-operator-valued-measrue (POVM)}. For example,
 when the system is measured only once, at the end. In such cases, the POVM measurement is more general than the projective measurement.
@@ -1705,7 +1704,7 @@ measurement elements $E_i$ are projectors. (That is $E_i^2=E_i$ and $E_i^{\dagge
     The operators $E_m$ are known as the POVM elements associated with the measurement. The complete set $\{E_m\}$ is known as POVM.
 \end{definition}
 
-\subsection{Postulate 4: Composite Systems}
+\section{Postulate 4: Composite Systems}
 Consider a composite system amde up of two or more distinct quantum physical systems.
 What are the states of the composite system? How the state space of a composite system is built up from the state spaces of the component 
 systems.
@@ -1736,7 +1735,7 @@ $\ket{101}$ will be represented in matrix form as:
 \]
 
 
-\subsubsection{Full and Partial Measurements of a multi-particle systems}
+\subsection{Full and Partial Measurements of a multi-particle systems}
 A full measurement is a measurement that is performed on all the particles of a multi-particle system.
 A partial measurement is a measurement that is performed on some of the particles of a multi-particle system.
 Recal that when we measure a particle in the computational basis it collapses to one of the classical states.
@@ -3806,6 +3805,19 @@ We can construct Fredkin gate using CNOT and Toffoli gate as shown in the figure
     in the same linear combination as that in which the state $\ket{\psi}$ was superposed.
 \end{importantnote}
 \section{Quantum Circuits}
+The allowed operations on (pure) quantum states are those that map normalized states to normalized states, namely unitary operators $U$, satisfying $UU^{\dagger}=U^{\dagger}U=I$. To have a sensible notion of efficient computation, we require that the unitary operators appearing in a quantum computation are realized by quantum circuits. We are given a set of gates, each of which acts on one or two qubits at a time (meaning that it is a tensor product of one or two qubit operator with the identity operator on the remaining qubits). A quantum computation begins in the $\ket{0}$ state, applies a sequence of one and two qubit gates chosen from the set of allowed gates, and finally reports an outcome obtained by measuring in the computational basis.
+
+A quanutm circuit (also called quantum network or quantum gate array) generalizes the idea of classical circuit families, replacing the AND, OR, and NOT gates by elementary quantum gates. A quantum gate is a unitary transformation on a small (usually 1,2, or 3) number of qubits). We saw a number of examples already: the bitflip gate X, the phaseflip gate Z, the Hadamard gate H. The main 2-qubit gate we have seen is the controlled-NOT (CNOT) gate. Adding another control qubit, we get the 3-qubit Toffoli gate, also called controlled-controlled-not (CCNOT) gate. This negates the third bit of its input if both of the first two bits are 1. The Toffoli gate is important because it is compltet for classical reversible computation: any classical computation can be implemented by a circuit of Toffoli gates. This is easy to see: using auxiliary wires with fixed values, toffoli can implement AND (fix the 3rd ingoing wire to 0) and NOT (fix the 1 st and 2nd ingoing wire to 1). It is known that And and NOT-gates together sufficient to implement any classical Boolean circuit, so if we can apply 9or simulate) Toffoli gates, we can implement any classical computation in a reversible manner.
+
+Mathematically, such elementary quantum gates can be composed into bigger unitary operations by taking tensor products (if gates are applied in parallel to different parts of the register), and ordinary matrix products (if gates are applied sequentially). We have already seen a simple example of such a circuit of elementary gates in the previous chapter, namely to implement teleportation.
+
+As in the classical case, a quantum circuit is a finite directed acyclic graph of input nodes, gates, and output node. There are n nodes that contain the input (as classical bits); in addition we may have some more input nodes that are initially $\ket{0}$ ("workspace"). The internal nodes of the quantum circuit are quantum gates that each operate on at most two or three qubits of the state. The gates in the circuit transform the initial state vector into a final state, which will generally be a superposition. We measure some or all qubits of this final state in the computational basis in order to (probabilistically) obtain a classical output to the algorithm. We can think of the measurement of one qubit in the computational basis as one special type of gate. We may assume without much loss of generality that such measurements only happen at the very end of the circuit. 
+
+What about the more general kinds of measurements? If we want to apply such a measurement in the circuit model, we will have to implement it using a circuit of elementary gates followed by a measurement in the computational basis. For example, suppose projectors $P_0$ and $P_1$ both have rank $2^n/2$. Then there exists a unitary $U$ that maps an n-qubit state $\ket{\phi}$ to a state whose first qubit is $\ket{1}$ whenever $P_1\ket{\psi}=\ket{\psi}$. We can now implement the projective measurement by first applying a circuit that implements $U$, and then measuring (in the computational basis) the first qubit of the resulting state. The minimal-size circuit to implement $U$ could be very large (i.e. ,expensive) if the projective measurement is complicated, but that is how it should be.
+
+To draw quantum circuits, the convention is to let time progress from left to right: we start with the initial state on the left. Each qubit is pictured as a horizontal wire, and the circuit prescribes which gates are to be applied to which wires. Single-qubit gates like X and H just act on one wire, while multi-qubit gates such as the CNOT act on multiple wires simultaneously. When one qubit "controls" the application of a gate to another qubit, then the controlling wires is drawn with a dot linked vertically to the gate that is applied to the target qubit. This happens for instance with the CNOT, where the applied single-qubit gate is X, usually drawn as $\oplus$ in a circuit picture (similarly, the Toffoli gate is drawn in a circuit with a dot on the two control wire and an $\oplus$ on the target wires).
+
+Note that if we have a circuit for unitary $U$, it is very easy to find a circuit for the inverse $U^{-1}$ with the same complexity: just reverse the order of the gates, and take the inverse of each gate. For example, if $U=U_1U_2U_3$, then $U^{-1}=U_3^{-1} U_2^{-1]U_1^{-1}}$.
 \begin{example}
     Consider the quantum circuit as shown in figure \ref{fig:qcircuit1}.
     \begin{figure}[H]
@@ -4280,12 +4292,14 @@ The final Superdense coding circuit is as shown in the figure \ref{fig:superdens
 \newpage
 
 \chapter{Quantum Algorithms}
-This chapter contains the prerequisites required before jumping into Quantum Algorithms in order to understand the various aspects of a Quantum Algorithm.
-The following are the Quantum Algorithms are discussed in this section:
+Before reading this chapter it is advised to read the Appendix B. The Appendix B contains the theoretical foundation of classical circuit which would be later on explored in depth for understanding quantum complexity theory.
+
+This chapter contains the prerequisites required before jumping into Quantum Algorithms in order to understand the various aspects of a Quantum Algorithm like their complexity, oracles and their working, depth and width and many more.
+The following are the Quantum Algorithms discussed in this book in the subsequent chapters:
 \begin{enumerate}
     \item Elitzur-Vaidman Bomb Detection Algorithm
     \item Deutsch's Algorithm
-    \item Deutsch-jozsa Algorithm
+    \item Deutsch-Jozsa Algorithm
     \item Bernstein-Vazirani Algorithm
     \item Simon's Algorithm
     \item Grover's Algorithm
@@ -4293,8 +4307,386 @@ The following are the Quantum Algorithms are discussed in this section:
     \item Quantum Phase Estimation
     \item Shor's Algorithm
 \end{enumerate}
-In order to understand Quantum Algorithms we must understand the Oracles and their working.
+\section{Classical Circuits simulating Quantum Circuits}
+Classical circuits can simulate quantum circuits but the only known constructions have exponential overhead.
+\begin{theorem}
+    A quantum circuit of size s acting on n qubits can be simulated by a classical circuit of size $\mathcal{O}(sn^22^n)$.
+\end{theorem}
+\begin{proof}
+    The idea of the simulation is quite simple. An n-qubit state is a $2^n$ dimensional vector  $\sum_{x \in \{0,1\}^n} \alpha_x\ket{x}$. Store the $2^n$ in an array of size $2^n$, each with n-bits precision (which means accuracy within $2^{-n}$) as shown in the figure \ref{fig:2ndimarray}.
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.1\linewidth]{../images/2ndimarray.png}
+        \caption{$2^n$ dimensional array storing the amplitudes of the state $\sum_{x\in\{0,1\}^n} \alpha_x\ket{x}$}
+        \label{fig:2ndimarray}
+    \end{figure}
+    The initial state is a computational basis state. Each gate corresponds to $2^n\times 2^n$ matrix and the effect of the gate is to multiply the state vector by that matrix. In fact that matrix will be sparse for 1-qubit and 2-qubit gates, with only a constant number of nonzero entries for each row and each column. Therefore, there are a constant number of arithmetic operations per entry of the array. let's allow $\mathcal{O}(n^2)$ elementary gates for each such arithmetic operation (on n-bit precision numbers). The simulation cost is $\mathcal{O}(n^22^n)$ for each gate in the circuit. We multiply that by the number of gates in the quantum circuit $s$ to get a cost of $\mathcal{O}(sn^22^n)$. That's the gate cost to get the final state of the computation, just before the measurement.
+
+    For measurements, we compute the absolute value squared of each entry of the array. Again, that's $2^n$ arithmetic operations. At this point, the entries in the array are the probabilities after the measurement.
+
+    The output of the quantum circuit is not the probabilities; it's a sample according to the distribution. First we sample the first bit of the output, the probability that this bit is 0 is the sum of the first half of the entries of the array; the probability that this bit is 1 is the sum of the second half. Once, we have the first bit, we can have a similar approach for the second bit, using conditional probabilities, conditioned on the value of the first bit, and so on for the other bits. this also costs $\mathcal{O}(n^22^n)$ elementary classical gates.
+
+    Note that if we take the quantum circuit that results from Shor's algorithm and then simulate it by a classical circuit then simulate that quantum circuit by a classical circuit, the result is not very efficient. it's exponential and in fact it's worse than the best currently-known classical algorithm for factoring.
+
+    If we view the aforementioned simulation in the usual high-level language of algorithms, it is exponential space in addition to exponential time (because it stores the huge array). In fact there's a way to reduce the store to polynomial while maintaining exponential time.
+\end{proof}
+
+
+\section{Quantum Computation}
+Two models exist to explain how a quantum computer can apply computational steps to its register of qubits: the quantum Turing machine and the Quantum Circuit Model. These models are equivalent, in the sense that they can simulate each other in polynomial time, assuming the circuits are appropriately "uniform". We only explain the circuit model here, which is more popular.
+
+
+\section{Linear Growth and Duhamel's Principle}
+Consider a Quantum Algorithm denoted by a Unitary U (since every
+transformation in Quantum Computing is Unitary, thus a quantum algorithm can be thought of as a black box
+which performs a Unitary on some qubits and outputs those qubits (note that the number
+of qubits in input = number of qubits in the output) ). Now,
+we know that the product of Unitary Matrices is a Unitary matrix. Thus we
+can decompose the Unitary U into a product of Unitary matrices $U=U_1U_2\ldots U_k$.
+\textbf{Assumption: Suppose we can implement each $U_i$ to precision $\epsilon$ then the following \textit{Hybrid Argument}}
+\begin{proposition}
+    Hybrid Argument: Given Unitaries $U_1,\tilde{U_1},\ldots,U_K,\tilde{U_K} \in \mathbb{C}^{N \times N}$
+    satisfying,
+    \[\|U_i-\tilde{U_i}\|_2 \leq \epsilon \quad \forall i=1,\ldots,K\]
+    we have,
+    \[\|U_K\ldots U_2 U_1 - \tilde{U_K}\ldots \tilde{U_2}\tilde{U_1}\| \leq K\epsilon\]
+\end{proposition}
+\begin{proof}
+    Using a telescoping series, we can write:
+    \begin{align*}
+        U_K\ldots U_2U_1 - \tilde{U_K}\ldots \tilde{U_1} = & U_K\ldots U_2U_1-U_K\ldots U_2 \tilde{U_1} + U_K\ldots U_2\tilde{U_1} \\
+        & - U_K \ldots \tilde{U_2}\tilde{U_1}+\ldots+U_K\tilde{U_{K-1}}\ldots \tilde{U_1}-\tilde{U_K}\ldots \tilde{U_1} \\
+        &= U_K\ldots U_2(U_1-\tilde{U_1}) + U_K\ldots U_3(U_2-\tilde{U_2})\tilde{U_1} + \ldots \\
+        & + U_K(U_{K-1}-\tilde{U_{K-1}})\ldots \tilde{U_1} + (U_K-\tilde{U_K})\ldots \tilde{U_1} \\
+    \end{align*}
+    Note that here we define the norm of a matrix as operator (spectral) norm $\|A\|=\max_{\|x\|_2=1}\|Ax\|_2$.
+    Now, using the property that, $\|A+B\| \leq \|A\|+\|B\|$ for matrices, we get:
+    \begin{align*}
+        \|U_K\ldots U_2U_1-\tilde{U_K}\ldots \tilde{U_2}\tilde{U_1}\| & \leq \|U_K\ldots U_2(U_1-\tilde{U_1})\| \\
+        & + \|U_K\ldots U_3(U_2-\tilde{U_2})\tilde{U_1}\| + \ldots + \|U_K(U_{K-1}-\tilde{U_{K-1}})\ldots \tilde{U_1}\| \\
+        & + \|(U_K-\tilde{U_K})\ldots \tilde{U_1}\| \\
+    \end{align*}
+    Now using the property that, $\|AB\| \leq \|A\|\|B\|$ for matrices and using the property that the $\|A\|=1$ for a Unitary matrix since Unitary matrix preserves norm
+    of the vector and only rotates it, Thus, we get:
+    \begin{align*}
+        \|U_K\ldots U_2U_1-\tilde{U_K}\ldots \tilde{U_2}\tilde{U_1}\| & \leq \|U_K\ldots U_2\|\|U_1-\tilde{U_1}\| \\
+        & + \|U_K\ldots U_3\|\|U_2-\tilde{U_2}\|\|\tilde{U_1}\| + \ldots + \|U_K\|\|U_{K-1}-\tilde{U_{K-1}}\|\ldots \|\tilde{U_1}\| \\
+        & + \|U_K-\tilde{U_K}\|\ldots \|\tilde{U_1}\| \\
+        &\leq\|U_1-\tilde{U_1}\|+\|U_2-\tilde{U_2}\|\ldots \|U_K-\tilde{U_K}\| \\
+        & \leq \sum_{i=1}^K\|U_i-\tilde{U_i}\| \\
+        & \leq K\epsilon
+    \end{align*}
+    \textbf{Thus, we say that if we can implement each local unitary to precision $\epsilon$, the global error grows at most linearly with
+    respect to the number of gates and is bounded by $K\epsilon$.}
+    \textit{The above proof can be seen as a discrete analogue of the variation of constants method (also called Duhamel's principle)}.
+\end{proof}
+ 
+\begin{proposition}
+    \textit{(Duhamel's principle for Hamiltonian Simulation)} Let $U(t),\tilde{U}(t) \in \mathbb{C}^{N \times N}$
+    satisfy
+    \[ \iota \partial_t U(t)=HU(t), \quad \iota\partial_t \tilde{U}(t) = H\tilde{U}(t) + B(t), \quad U(0)=\tilde{U}(0)=I \]
+    where $H \in \mathbb{C}^{N \times N}$ is a Hermitian matrix and $B(t) \in \mathbb{C}^{N \times N}$ is an arbitrary matrix. Then
+    \[ \tilde{U}(t)=U(t)-\iota\int_0^t U(t-s)B(s)ds \]
+    and
+    \[\|\tilde{U}(t)-U(t)\|\leq \int_0^t\|B(s)\|ds\]
+\end{proposition}
+\begin{proof}
+    Substituting the equation,
+    \[ \tilde{U}(t)=U(t)-\iota\int_0^t U(t-s)B(s)ds \]
+    into the equation,
+    \[ \iota\partial_t \tilde{U}(t) = H\tilde{U}(t)+B(t) \]
+    we see that it satisfies.
+    Now consider a special case where $B(t)=E(t)\tilde{U}(t)$, then
+    \[\tilde{U}(t)=U(t)-\iota \int_0^t U(t-s)E(s)\tilde{U}(s)ds\]
+    Now, taking the norm of the above equation we get:
+    \[\|\tilde{U}(t)-U(t)\|\leq \int_0^t\|E(s)\|ds\]
+    This is a direct analogue o the hybrid argument in the continuous setting.
+\end{proof}
+
+\section{Universality of various sets of elementary gates}
+Which set of elementary gates should we allow? There are several reasonable choices.
+\begin{enumerate}
+    \item The set of all 1-qubit operations together with the 2-qubit CNOT gate is universal, meaning that any other unitary transformation can be built from these gates. Allowing all 1-qubit gates is not very realisitc from an implementation point of view, as there are continuously many of them, and we cannot expect experimentalists to implement gates to infinite precision. However, the model is usually restricted, only allowing a small finite set of 1-qubit gates from which all other 1-qubit gates can be efficiently approximated.
+    \item The set consists of CNOT, Hadamard, and the phase-gate $T=R_{\pi/4}$ is universal in the sense of approximation, meaning that any other unitary can be arbitrarily well approximated using circuits of only these gates. the \textit{Solovay-Kitaev theorem} says that this approximation is quite efficient: we can approximate any gate on 1 or 2 qubits upto error $\epsilon$ using a number of gates (from our small set) that is only $polylog(1/\epsilon)$ , i.e., polynomial in the logarithm of $1/\epsilon$; in particular, simulating arbitrary gates upto exponentially small error costs only a polynomial overhead. It is often convenient to restrict to real numbers and use an even smaller set of gates:
+    \item The set of hadamard and Toffoli (CCNOT) is universal for all unitaries with real entries in the sense of approximation, meaning that any unitary with only real entries can be arbitrarily well approximated using circuits of only these gates.
+\end{enumerate}
+
+\section{Universal gate sets and Reversible Computation}
+Universal gate sets are the set of gates which can be used to represent any gate as a combination of the gates from the set.
+In case of Classical Computation, the NAND gate is a universal gate set. The "NOR" gate is also a universal gate set.
+ 
+\textbf{In case of Quantum Computations, any Unitary operator on n qubits can be implemented using
+1- and 2- qubit gates.} A set of universal quantum gates S is universal if given any unitary operator U and desired precision $\epsilon$ we can
+find $U_1,\cdots, U_m \in S$ such that
+\[\|U-U_m\ldots U_1\| \leq \epsilon\]
+\textbf{Some of the possible choices of the universal gate sets are \{H,T,CNOT\}, \{H,Toffoli\}}
+ 
+\begin{theorem}
+    \textit{(Solovay-Kitaev Theorem)} Let $\mathcal{S}, \mathcal{T}$ be two universal gate sets
+    that are closed under inverses. Then any m-gate circuit using the gate set S can be implemented to precision
+    $\epsilon$ using a circuit of $\mathcal{O}(m\cdot polylog(m/\epsilon))$ gates from the gate set T, and there is
+    a classical alogirhtm for finding thsi circuit in time $\mathcal{O}(m\cdot polylog(m\epsilon))$. (Here polylog is the
+    polynomial of the logarithm of the argument). \textbf{All choices of Universal gates are equivalent}
+\end{theorem}
+ 
+\textbf{Any classical circuit can also be asymptotically efficiently implemented using a quantum circuit.} (Classical gates can be efficiently
+simulated using quantum circuits.)
+ 
+Step1: Note that NAND and other classical gates (such as AND, OR, etc..) are not reversible gates! Thus, we need to convert the classical gates to reversible gates.
+Any irreversible classical gate $x \rightarrow f(x)$ can be converted to a reversible gate by adding an extra bit called the "garbage bit" and then applying the reversible gate.
+The reversible gate is then defined as $x,y \rightarrow x,f(x)\oplus y$.
+Thus, in particular we have $(x,0) \rightarrow (x,f(x))$.
+the key idea here is to store all the intermediate steps of the computation.
+On the quantum computer, storing all the intermediate computational steps is problematic:
+\begin{itemize}
+    \item Waste of Quantum Resources
+    \item Interediate bits stored in some extra qubits are still entangled to the quantum state of interest. (If environment interferes with the
+    intermeditate result, then the quantum state of interest also gets affected.)
+\end{itemize}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{../images/uncomputation.png}
+    \caption{Uncomputation of a classical gate}
+    \label{fig:uncomp}
+\end{figure}
+
+Step 2: \textbf{Uncomputation: }To implement a boolean function $f:\{0,1\}^n \rightarrow \{0,1\}^m$ assume that there is an oracle.
+\[
+\ket{0^m}\ket{x}\rightarrow \ket{f(x)}\ket{x}\]
+where $\ket{0^m}$ comes from a m-qubit output register. The oracle is often further implemented
+with the help of a working register (aka garbage register - they are ancilla registers which can be freed after uncomputation) such that
+\[U_f:\ket{0^w}\ket{0^m}\ket{x}\rightarrow \ket{g(x)}\ket{f(x)}\ket{x}\]
+From no deletion theorem, there is no generic unitary operator that can set a black box-state to $\ket{0^w}$.
+In order to set the working register back to $\ket{0^w}$ while keeping the input and output state, we introduce another set of m-qubit ancillar registers
+initialised as $\ket{0^m}$. Then we use n-qubit CNOT controlled on the output register and obtain
+\[\ket{0^m}\ket{g(x)}\ket{f(x)}\ket{x} \rightarrow \ket{f(x)}\ket{g(s)}\ket{f(x)}\ket{x}\]
+Note that the multi-qubit CNOT gate only performs the classical copying operation in the computational basis and thus does not violate 
+the \textit{No- Cloning Theorem}.
+Now we know, $U_f^{\dagger}=U_f^{-1}$,
+\[ (I_m \otimes U_f^{\dagger})\ket{f(x)}\ket{g(x)}\ket{f(x)}\ket{x} = \ket{f(x)}\ket{g(x)}\ket{f(x)}\ket{x} =\ket{f(x)}\ket{0^w}\ket{0^m}\ket{x}\]
+The, we apply a SWAP operation on the ancilla and output registers to obtain 
+\[\ket{f(x)}\ket{0^w}\ket{0^m}\ket{x}\rightarrow\ket{0^m}\ket{0^w}\ket{f(x)}\ket{g(x)}\]
+
+Thus, not the ancilla and the working register are set to the initial state. They are no longer entangled to the input or output register and can be reused for other 
+purposes. This is called \textbf{Uncomputation}.
+
+(Discarding Working Registers). Thus after the uncomputation step the first two registers as shown are uncahnged before and after the application of the circuit, though 
+they are changed during the intermediate steps. Therefore \ref{fig:uncomp} effectively implements a unitary operator
+\[ (I_{m+w} \otimes V_f)\ket{0^m}\ket{0^w}\ket{0^m}\ket{x}=\ket{0^m}\ket{0^w}\ket{f(x)}\ket{x}\]
+or
+\[V_f\ket{0^m}\ket{x}=\ket{f(x)}\ket{x}\]
+NOte hter the definition of $V_f$ all the working registers have been discarded allowing us to simplify notation and focus on the essence of Quantum Algorithm.
+
+\textbf{Thus, using the technique of uncomputation, if the map $x \rightarrow f(x)$ can be efficiently implemented on a classical computer, then we can implement the map
+efficiently on a quantum computer as well. All reversible single-bit and two-bit classical gates can be implemented using single-bit and two-bit quantum gates. Thus, the reversible map can be made into a unitary opertaion as}
+\[ U_f:\ket{x,y}\rightarrow\ket{x,y\oplus f(x)}\] 
+\textbf{This proves that quantum computers are at least as powerful as classical computers.}
+$U_f$ can be applied to any superposition of the states in the computational basis. Thus, the quantum computer can perform the computation on all possible inputs simultaneously.
+\[ U_f:\frac{1}{\sqrt{2^n}}\sum_{x\in\{0,1\}^n}\ket{x,0}\rightarrow \frac{1}{\sqrt{2^n}}\sum_{x\in\{0,1\}^n}\ket{x,f(x)}\]
+\textbf{Note: This does not mean that we can efficiently implement the map $\ket{x}\rightarrow \ket{f(x)}$. If f is a bijection, and we have
+access tot he inverse of the reversible circuit for computing $f^{\-1}$ then we may use the technique of uncomputation to implement such a map.}
+
+
+\section{Quantum Circuits simulating Classical Circuits}
+It is natural to ask how the classical model of computation compares with the quantum model of computation. Can quantum circuits simulate classical circuits? Can classical circuits simulate quantum circuits? How efficient are these simulations?
+
+For quantum circuits to simulate classical circuits, the Pauli X gate (that maps $\ket{0}$ to $\ket{1}$ and $\ket{1}$ to $\ket{0}$ can be viewed as a NOT gate, but what quantum gate corresponds to the AND gate? None of the operations that we have considered so far has any resemblance to the AND gate. The Toffoli gate makes such a connection.
+the 3-qubit Toffoli gate will be useful for simulating AND gates. It's denoted this way, like a CNOT gate, but with an additional control qubit as shown in figure \ref{fig:toffoli_and}.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{../images/Toffoligate.png}
+    \caption{Toffoli gate acting on computational basis states $(a,b,c \in \{0,1\})$}
+    \label{fig:toffoli_and}
+\end{figure}
+On computational basis states $\ket{a},\ket{b},$ and $\ket{c}$ it flips the third qubit if and only if both of the control qubits are in the state $\ket{1}$; otherwise it does nothing. The $8 \times 8$ unitary matrix for this gate is
+\[
+\begin{bmatrix} 1 & 0 & 0 & 0& 0 & 0 & 0 & 0 \\
+0 & 1 & 0 & 0& 0 & 0 & 0 & 0 \\
+0 & 0 & 1 & 0& 0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 1& 0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0& 1 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0& 0 & 1 & 0 & 0 \\
+0 & 0 & 0 & 0& 0 & 0 & 0 & 1 \\
+0 & 0 & 0 & 0& 0 & 0 & 1 & 0 
+\end{bmatrix}
+\]
+For arbitrary 3-qubit states, that are not necessarily computational basis states, the action of the gate on the state is to multiply the state vector by this $8 \times 8$ matrix. The Toffoli gtes is sometimes called the controlled-controlled-NOT gate or controlled-CNOT gate.
+\begin{theorem}
+    Any classical circuit of size s can be simulated by a quantum circuit of size $\mathcal{O}(s)$, where the gates used are Pauli X, CNOT, and Toffoli.
+\end{theorem}
+\begin{proof}
+Recall that in classical computation NAND gate is a universal gate set (or $\{NOT, AND\}=\{NAND\}$ constitute a universal gate set, NOT (AND)=NAND). Thus, if we are able to simulate NOT and AND gates on a quantum computer then we can convert any classical circuit into a circuit made up of only NOT and AND and then to a corresponding quantum circuit by replacing the classical NOT and AND gates with their corresponding quantum gates (Pauli X and Toffoli and CNOT gate for fanout operation respectively) counterparts.
+    We use Toffoli gates to simulate AND gates as illustrated in figure \ref{fig:toffoli_classical}.
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.5\linewidth]{../images/toffoli_classical.png}
+        \caption{Using a Toffoli gate to simulate classical AND gate}
+        \label{fig:toffoli_classical}
+    \end{figure}
+    Bits are represented as computational basis states in the natural way (bits $a,b \in \{0,1\}$ are represented by $\ket{a}$ and $\ket{b}$). To compute the AND of a and b, third ancilla qubit in state $\ket{0}$ is added and then a Toffoli gate is applied as shown in figure \ref{fig:toffoli_classical}. This causes the state of the ancilla qubit to become $ket{a \land b}$. The first two qubits can be discarded, or just ignored for the rest of the computation. That's how an AND gate can be simulated.
+
+    To simulate NOT gates, we can use the Pauli X gate.
+    Finally, we can explicitly simulate a fan-out gate by adding an ancilla in state $\ket{0}$ and apply a CNOT gate, as shown in figure \ref{fig:CNOT_fanout}.
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.3\linewidth]{../images/CNOT_fanout.png}
+        \caption{Using a CNOT gate to simulate a classical fan-out gate}
+        \label{fig:CNOT_fanout}
+    \end{figure}
+    Note that we defined quantum circuits to be in terms of 1-qubit and 2-qubit gates, but our simulation of classical circuits used 3-qubit gates: the Toffoli gate. We can remedy this by simulating each Toffoli gate by a series of 2-qubit gates. Let's  show how to do this. To start, we will make use of a $2\times 2$ unitary matrix with the property that if you square it you get Pauli X. Since X is essentially the NOT gate, this matrix is sometimes referred toa s a "square root of NOT". Note that, in classical information, there is no square root of NOT, so the quantum square root of NOT can be regarded as a curiosity. Let's refer to this matrix as V. Henceforth, assumed that we have such a matrix V in hand. From this, we can define a controlled-V gate. Also, we can define a controlled-$V^*$ gate. Now, consider the following circuit, consisting of 2-qubit gates.
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.75\linewidth]{../images/squarerootx.png}
+        \caption{Simulating a Toffoli gate in terms of 2-qubit gates}
+        \label{fig:toffoli_2-qubit}
+    \end{figure}
+    This computes Toffoli gate.
+    we can work out the $ 8 \times 8$ matrix corresponding to each gate and then multiply the five matrices and see if the product is the matrix for the toffoli gate.
+
+    A second approach is to verify that the circuits are equivalent in the case where the first two qubits are in computational basis states $\ket{00},\ket{01},\ket{10},\ket{11}$. 
+\end{proof}
+Thinking about this way, we can gain some intuition about wy the circuit works. in the future if you need to design a quantum circuit to achieve something, such intuition can be helpful. 
+
+Some classical algorithms make use of random number generators and we have not captured this in our definition of classical circuits. Say we allow our classical algorithms to access random bits, that are zero with probability $\frac{1}{2}$ and one with probability $\frac{1}{2}$. Can we simulate such random bits with quantum circuits? This is actually quite easy, since constructing a $\ket{+}$ state and measuring it yields a random bit. But this entails an intermediate measurement. our quantum circuits will not look like ones we defined earlier, where all the measurements are at the end. Can we simulate random bits without the intermediate measurements? the answer is yes, by the following construction
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{../images/randbit_sim.png}
+    \caption{Simulating random bits without using measurements}
+    \label{fig:randbit_sim}
+\end{figure}
+Instead of measuring the qubit in the $\ket{+}$ state, we apply a CNOT gate to a target qubit (an ancilla) in the state $\ket{0}$. Then we ignore that ancilla qubit for the rest of the computation. The final probabilities when the circuits is measured at the end will be exactly the same as if a random bit had been inserted at that place in the computation.
+
+Using our decomposition of the Toffoli gate into 2-qubit gates and our results about simulating classical randomness, we can strengthen the above theorem to the following:
+\begin{corollary}
+    Any classical probabilistic circuit of size s can be simulated by a quantum circuit of size $\mathcal{O}(s)$, consisting of 1-qubit and 2-qubit gates.
+\end{corollary}
+
+\section{Computational Complexity Classes}
+On theoretical computer science, there are various taxonomies of computational problems according to their computational difficulty. The below shown are a few of these and how the power of quantum computer fits in within this classification.
+
+Consider all binary functions over the set of all binary strings (of the form $f:\{0,1\}^*\rightarrow \{0,1\}$). The input is a binary string of some length n, where n can be anything. And the output is one bit. These are sometimes called decision problems since the answer is a binary decision, $0$ or $1$, yes or no, accept or reject. This is a common convention for reasons of simplicity. most problems that are not naturally decision problems can be reworked to be expressed as decision problems.
+
+\begin{definition}
+    \textbf{P (polynomial time)} Solvable by $\mathcal{O}(n^c)$-size classical circuits (for some constant c). technically, we require uniform circuit families, one for each input size.
+\end{definition}
+
+\begin{definition}
+    \textbf{BPP (bounded-error probabilistic polynomial time} Solvable by $\mathcal{O}(n^c)$-size probabilistic classical circuit whose worst-case error probability is $\leq \frac{1}{4}$.
+\end{definition}
+Note that there is some arbitrariness in the error bound $\leq \frac{1}{4}$. Any polynomial-size circuit achieving this can be converted into another circuit whose error probability is $\leq \epsilon$ by repeating the process $\log(1/\epsilon)$ times and taking the majority value. using $\frac{1}{4}$ is simple, though any constant below $\frac{1}{2}$ would work.
+
+In analogy too the classical class $\mathbf{BPP}$, we will define $\mathbf{BQP}$ ("Bounded-error Quantum Polynomial time") as the class of languages that can efficiently be computed with success probability at least $2/3$ by (a family of) quantum circuits whose size grows at most polynomially with the input length.
+\begin{definition}
+    \textbf{BQP (bounded-error quantum polynomial time)} Solvable by $\mathcal{O}(n^c)$-size quantum circuits with worst-case error probability $\leq \frac{1}{4}$.
+\end{definition}
+
+\begin{definition}
+    \textbf{EXP (exponential time)} Solvable by $\mathcal{O}(2^n)$-size classical circuits.
+\end{definition}
+
+The following containments among these complexity classes are known:
+\[
+\mathbf{P}\subseteq \mathbf{BPP} \subseteq \mathbf{BQP} \subseteq \mathbf{EXP}
+\]
+
+\section{Quantum Algorithms as Quantum Circuits}
+Now let's consider quantum circuits as shown in the figure \ref{fig:quantum-circ}.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{../images/quantum-circ.png}
+    \caption{Generic form of a Quantum Circuit}
+    \label{fig:quantum-circ}
+\end{figure}
+The input gate is on the left, as computational basis states. Data flows from left to right as a series of unitary gates. Then measurement gates occur at the end, which yields the output of the computation.
+
+Again, we can take various cost measures of quantum circuits, such as the number of gates, the depth, or the width. Let's focus on the number of gates. As with classical circuits, we need a notion of what an elementary gate is. For now let's consider the elementary gates to be the set of all 1-qubit and 2-qubit gates. We'll consider simpler gates later on.
+
+Consider the factoring problem again. Peter Shor's famous factoring algorithm can be expressed as a quantum circuit for factoring that consists of $O(n^2 \log n)$ gates - a polynomial number of gates! An efficient implementation of this algorithm would break several cryptosystems, whose security is based in the presumed computational hardness of factoring.
+
+
+
+
+
+ 
+
+ 
+\section{Fixed Point Number Representation and Classical Arithmetic operations}
+Any integer $k \in [N]=\{0,1,\cdots,N-1\}$ where $N=2^n$ can be expressed as n n-bit string as
+$k=k_{n-1}\cdots ,k_0$  with $k_i \in \{0,1\}$. This is called binary representation of integer k.
+\[
+k=\sum_{i \in [n]}k_i2^i
+\]
+The number k divided by $2^m \quad (0\leq m\leq n)$ (note that the decimal is shifted to be after $k_m$).
+\[
+a=\frac{k}{2^m}=\sum_{i\in [n]}k_i2^{i-m}=(k_{n-1}\cdots k_m.k_{m-1}\cdots k_0)\]
+when m=n,
+\[
+a=\frac{k}{2^n}=\sum_{i\in [n]}=\sum_{i\in[n]}k_i2^{i-n}=0.k_{n-1}\cdots k_0
+\]
+ 
+$a=0.k_{n-1}\cdots k_0$ so that $k_i$ is the ith decimal of a in the binary representation. Note that here $0\leq a\leq 1$.
+The number $(0.k_{n-1}\cdots k_i)$ is called n-bit fixed point representation of a. Therefore to represent a the additive precision $\epsilon$,
+$n=\lceil\log_2(\epsilon)\rceil$ qubits are required. \textbf{We may add one extra bit to indicate its sign}.
+ 
+Thus, we can perform classical arithmetic operations, such as $(x,y)\rightarrow x+y,(x,y)\rightarrow xy,x \rightarrow x^{\alpha}, x\rightarrow \cos\alpha $ etc.
+using reversible quantum circuits. \textbf{The number of ancilla qubits, and the number of elementary gates needed for implementing such circuits is $O(poly(n))$.}
+Thus, quantum computer is theoretically as powerfule as classical computers, there is a very significant overhead in implementing reversblie classcial circuits on quantum devices, both in terms of the number
+of ancilla qubits and the circuit depth.
+ 
+\section{Fault tolerant Computation}
+\textbf{We assumed that quantum operations can be perfectly performed and all errors come from either approximation errors at the mathematical level,
+or Monte Carlo errors in the readout process due to its probabilistic nature of the measurement process.}
+Note that because of technical difficult quantum gates, and measurements involve significant erros on near-term quantum devices.
+\textbf{Threshold theorem: If the noise in individual quantum gates is below a certian constant threshold (around $10^{-4}$ or above) it is possible to perform an arbitrarily
+large computaion with any desired precision. This requries quantum error correction protocols.}
+
+\section{Complexity of Quantum Algorithms}
+Let n be the number of imput bits. \textbf{Efficiency of Quantum Algorithm: } A Quantum Algorithm
+is efficient if the number of gates in the quantum circuit is $\mathcal{O}(poly(n))$.
+Because of Probabilistic nature of measurements it is required for probability of correct answer to be higher.
+Generally, $p>2/3$ is considered to be a good probability of success or at least $p>1/2 + 1/poly(n)$.
+Consdier a case when Probability of getting a correct answer is $p=1/2+\epsilon$ where $\epsilon>0$ is a constant.
+Then the best method of deciding the correct answer is based on the frequency of the outcomes, the higher frequency outcome 
+is the correct answer. But how many repititions should be performed? Then the number of repetitions of the algorithm
+can be found using Chernoff bound as (say for binary outcome $X_i=0$ or $X_i=1$):
+\[P(\sum X_i \leq n/2) \leq e^{-2n\epsilon^2}\] 
+where n is the number of times. Thus the error gets exponentially small.
+In Quantum Algorithms, Computational cost = Query Complexity. \textbf{Goal: Perform a given task using 
+as few queries as possible to oracle ($U_f$)}. A Quantum Oracle (black box) is a Unitary operator that implements the function $f$.
+\begin{example}
+    (Query access to boolean function) $f:\{0,1\}^n \rightarrow \{0,1\}$ be a boolean function and oracle be defined as:
+    \[ U_f\ket{x}=(-1)^{f(x)}\ket{x} \]
+    where $x \in \{0,1\}^n$. This is used in Grover's Algorithm. This is called phase kickback as $f(x)$ is returned as a phase factor.
+    Thus, $U_f$ can be applied to superposition of the states in computational basis.
+    Having query access to $f(x)$ does not mean we know $f(x)$.
+\end{example}
+\begin{example}
+    (Partially specified oracles) Sometimes it is possible we might not be interested in entire $U_f$ but only $U_f$ applied to certain vectors
+    say for example, as shown
+    \[ U_f\ket{0}\ket{x}=\ket{0}A\ket{x}+\ket{1}B\ket{x}\]
+    \[U_f=\begin{bmatrix} A & * \\ B & * \end{bmatrix}\]
+    where $A,B$ are arbitrary $ N \times N$ unitary matrices. This is called as partially specified oracle.
+\end{example}
+
+\textbf{Query complexity hides the implementation details of $U_f$}. For some cases, we can prove lower bounds on number of queries to solve a certain problems (example: Grover's Algorithm) but it's 
+a difficult problem.
+Once we know number of elementary gates need to implement $U_f$ we know gate complexity of the total algorithm.
+However, some queries can be (provably) difficult to implement, and there can be a large gap between the query complexity and gate
+complexity.  Quantum Algorithm should not dominate the total gate complexity. 
+
+Circuit depth is the maximum number of gates on any path from input to output. It is equivalent of "Wall clock time" 
+in classical computation. Quantum states can be preserved only for a short amount of time = Coherence time.
+Thus circuit depth can be used to check whether the coherence time is exceeded by a Quantum Computer.
+\textbf{Quantum Algorithm should be depth efficient.} Thus, try to reduce the circuit time even if we need to run it multiple times.
+
+A Quantum Algorithm consist of set of qubits (system registers - storing quantum states of interest and ancilla registers - 
+auxiliary registers needed to implement the unitary operations acting on system registers) starting from an initial state
+, apply a series of one/two qubit states, and perform measurements, perform uncomputation whenever possible. 
+Within ancilla register if a register can be freed by uncomputation then it is called a working register. Working register can be 
+reused for other purposes. \textbf{We do not factor the cost of working registers into asymptotic cost analysis in the literature.}
+
 \section{Oracles}\label{sec:Oracles}
+Before jumping into Quantum Algorithms we must understand the Oracles and their working.
 Consider a classical circuit representing a classical function $f$. 
 Consider the classical function $f:\{0,1\}^n \rightarrow \{0,1\}^m$ which takes $n$ bits as input and gives $m$ bits as output.
 \textbf{We can represent this classical function using a classical circuit}. (For the proof of this please refer to Applendix \ref{proof:classicalcomputations})
@@ -4411,6 +4803,12 @@ it as a quantum circuit using reversible quantum gates. This can be visualized a
     \label{oracle}
 \end{figure}
 
+\section{Quantum Parallelism}
+One uniquely quantum-mechanical effect that awe can use for building quantum algorithms is quantum parallelism. Suppose we have a classical algorithm that computes some function $f:\{0,1\}^n \rightarrow \{0,1\}^m$. Then we can build a quantum circuit $U$ (consisting only of Toffoli gates) that maps $\ket{z}\ket{0}\rightarrow \ket{z}\ket{f(z)}$ for every $ \in \{0,1\}^n$. Now suppose we apply $U$ to a superposition of all inputs $z$ (which is easy to build using n Hadamard transformations):
+\[
+U\left(\frac{1}{\sqrt{2^n}} \sum_{z \in \{0,1\}^n} \ket{z}\ket{0}\right)=\frac{1}{\sqrt{2^n}}\sum_{z \in \{0,1\}^n} \ket{z}\ket{f(z)}
+\]
+We applied $U$ just once, but the final superposition contains $f(z)$ for all $2^nb$ input values z! however, by itself this is not very useful and does not give more than classical randomization, since observing the final superposition will give just one uniformly random $\ket{z}\ket{f(z)}$ and all other information will be lost. as we will see below, quantum parallelism needs to be combined with the effects of interference and entanglement in order to get something that is better than classical.
 \chapter{Elitzur-Vaidman Bomb Detection Algorithm}
 \section{The Problem}
 We are given a device which can be a working Bomb or dud. The devices takes a Quantum bit as input and produces an output.
@@ -4421,7 +4819,7 @@ We wish to determine whether the device is a bomb or dud without exploding the b
     \item \textbf{Approach 1: Naive Approach }\\We give the device naively the input of $\ket{0}$ and $\ket{1}$. 
     \begin{itemize} 
         \item \textbf{Case 1: Device is a Bomb}\\
-        If we give device input of $\ket{0}$ then the output will also be $\ket{0}$ always, becuase the outcome of the measurement will be $\ket{0}$ so the bomb doesn't explode and returns $\ket{0}$. 
+        If we give device input of $\ket{0}$ then the output will also be $\ket{0}$ always, because the outcome of the measurement will be $\ket{0}$ so the bomb doesn't explode and returns $\ket{0}$. 
         If we give device inputof $\ket{1}$ then upon measurement the outcome will be $\ket{1}$ and the bomb explodes always.
         \item \textbf{Case 2: Device is a Dud}\\
         For the input of $\ket{0}$ if the device is a dud then the output is $\ket{0}$ since it does no operation on the input.
@@ -4460,7 +4858,7 @@ We wish to determine whether the device is a bomb or dud without exploding the b
     
     \textbf{What if the input had been $\ket{1}$?: }The result will be the same as above. The only difference is that the output will be $\ket{1}$ for the duds and the bombs which didn't explode. Some of the bombs which didn't explode will output $\ket{0}$ and thus, can be detected as working bombs.
     
-    \textbf{Thus, we can find a working bomb with a probability of $\frac{1}{8}$ (i.e. without exploding) out of all the given devices (or we can find a working bomb witout exploding given that the device is a bomb with probability $\frac{1}{4}$). But, recall that in this case $\frac{1}{2}$ (i.e. 250 bombs) of the bombs exploded and out of the other $\frac{1}{2}$ (i.e. 250 bombs) which didn't explode we only found $\frac{1}{2}$ (i.e. 125 bombs) of the working bombs, the rest $\frac{1}{2}$ (i.e. 125 bombs) didn't explode but couldn't be identified either.}
+    \textbf{Thus, we can find a working bomb with a probability of $\frac{1}{8}$ (i.e. without exploding) out of all the given devices (or we can find a working bomb without exploding given that the device is a bomb with probability $\frac{1}{4}$). But, recall that in this case $\frac{1}{2}$ (i.e. 250 bombs) of the bombs exploded and out of the other $\frac{1}{2}$ (i.e. 250 bombs) which didn't explode we only found $\frac{1}{2}$ (i.e. 125 bombs) of the working bombs, the rest $\frac{1}{2}$ (i.e. 125 bombs) didn't explode but couldn't be identified either.}
 
     \item \textbf{Elitzur-Vaidman Bomb Detection Algorithm: }\\
     Recall that we are measuring in orthonormal computational basis i.e. $\ket{0}$ and $\ket{1}$. Consider the Single-Qubit gate $R^Y_{\theta}$ which is defined as:
@@ -5950,11 +6348,6 @@ We can use this fact to run the circuit n times and attain a system of n linearl
 
 \chapter{Bernstein-Vazirani Algorithm}
 
-\chapter{Shor's Algorithm}
-\begin{definition}
-    Given a number $N$ which is a composite number. We are required to find the prime factors of the number $N$.
-\end{definition}
-
 \chapter{Grover's Search Algorithm}
 It is the second most famous quantum algorithm after Shor's algorithm.
 It doesn't prove exponential speed up, but only a quadratic speedup, yet it is much more
@@ -6755,12 +7148,12 @@ for all $j=1,2,\ldots,2^n$. Thus, now we define the \textbf{PHASE ESTIMATION PRO
 
 \begin{remark}
     Note that we have made no specific requirements on the precision to which $\theta$ must be approximated. 
-    It will urn out that for an arbitrary Quantum circuit Q and eigen vector $\ket{\psi}$, the number $\theta$ can be efficiently approximated by the procedure that we will describe, but only to low precision (to a logarithimic number of bits in the circuit size).
-    However, for certain choices of U it will be possible to achieve much higer precision, and when we apply our methods to factoring this is the case in which we will be inteested.
+    It will urn out that for an arbitrary Quantum circuit Q and eigen vector $\ket{\psi}$, the number $\theta$ can be efficiently approximated by the procedure that we will describe, but only to low precision (to a logarithmic number of bits in the circuit size).
+    However, for certain choices of U it will be possible to achieve much higher precision, and when we apply our methods to factoring this is the case in which we will be interested.
 \end{remark}
 
-\subsection{Clasical Method}
-Using a classical computer, we can estimate $\theta$ using $U\ket{\psi} \oslash \ket{\psi}$, where $\oslash$ stands for the elemnt-wise division operation. Specifically, 
+\subsection{Classical Method}
+Using a classical computer, we can estimate $\theta$ using $U\ket{\psi} \oslash \ket{\psi}$, where $\oslash$ stands for the element-wise division operation. Specifically, 
 if $\ket{\psi}$ is indeed an eigen vector and $\braket{j|\psi}\neq 0$, for any j in the computational basis, then we can extract the phase from
 \[
 \bra{j}U\ket{\psi}/\braket{j|\psi}=e^{2\pi i \theta}
@@ -6770,7 +7163,7 @@ In this chapter we look at some of the most basic variants.
 
 \subsection{Hadamard Test}
 For computing the expectation value of an Unitary operator with respect to a general state (not necessarily an eigen vector state) i.e. $\bra{\psi}U\ket{\psi}$.
-Note that U is Unitary and not necessarily Hermitian, this doe snot correspond to the measurmenet of a physical observable.
+Note that U is Unitary and not necessarily Hermitian, this doe snot correspond to the measurement of a physical observable.
 Instead the real and imaginary part of the expectation value need to be measured separately.
 The (real) Hadamard test is a quantum algorithm that computes the real part of the expectation value of a unitary operator with respect to a state.
 The circuit is as shown in the figure \ref{Hadamardtest}
@@ -6780,15 +7173,15 @@ The circuit is as shown in the figure \ref{Hadamardtest}
     \caption{Hadamard Test}
     \label{Hadamardtest}
 \end{figure}
-Note that the cirucit transforms $\ket{0}\ket{\psi}$ as:
+Note that the circuit transforms $\ket{0}\ket{\psi}$ as:
 \[
 (H\otimes I)(\ket{0}\ket{\psi})\rightarrow \frac{1}{\sqrt{2}}(\ket{0}+\ket{1})\ket{\psi}=\frac{1}{\sqrt{2}}(\ket{0}\ket{\psi}) +\frac{1}{\sqrt{2}}(\ket{1}\ket{\psi})
 \]
-Then perfoming a Controlled Unitary operation:
+Then performing a Controlled Unitary operation:
 \[
 (I\otimes c-U)(\frac{1}{\sqrt{2}}(\ket{0}\ket{\psi}) +\frac{1}{\sqrt{2}}(\ket{1}\ket{\psi}))=\frac{1}{\sqrt{2}}(\ket{0}\ket{\psi}+\ket{1}U\ket{\psi})
 \]
-Now applying the Hadamard transformation ont the first qubit we get:
+Now applying the Hadamard transformation on the first qubit we get:
 \[
 (H\otimes I)\frac{1}{\sqrt{2}}(\ket{0}\ket{\psi}+\ket{1}U\ket{\psi})\rightarrow \frac{1}{\sqrt{2}}(H\ket{0}\ket{\psi}+H\ket{1}U\ket{\psi})
 \]
@@ -6801,7 +7194,7 @@ here we use $\sqrt{\bra{(I+U^{\dagger})(I+U)\ket{\psi}}}$ and upon solving for t
 \frac{\sqrt{2+2Re(\bra{\psi}U\ket{\psi})}}{2}\left(\ket{0}\otimes \frac{(\ket{\psi}+U\ket{\psi})}{\sqrt{2+2Re(\bra{\psi}U\ket{\psi})}}\right)+&\\
 \frac{\sqrt{2-2Re(\bra{\psi}U\ket{\psi})}}{2}\left(\ket{1}\otimes \frac{(\ket{\psi}-U\ket{\psi})}{\sqrt{2-2Re(\bra{\psi}U\ket{\psi})}}\right)
 \end{align*}
-Now upon measurement of the first qubit, the probabiltiy of measuring the first qubit to be 0 is:
+Now upon measurement of the first qubit, the probability of measuring the first qubit to be 0 is:
 \[
 p(0)=\frac{2+2Re(\bra{\psi}U\ket{\psi})}{4}=\frac{1}{2}(1+Re(\bra{\psi}U\ket{\psi}))
 \]
@@ -6866,13 +7259,13 @@ unitary circuit preparing $\ket{\phi}$ and $\ket{\psi}$.
 U_{\phi}\ket{0^n}=\ket{\phi}, \quad U_{\psi}\ket{0^n}=\ket{\psi}
 \]
 Then we have $\braket{\phi|\psi}=\bra{0^n}U_{\phi}^{\dagger}U_{\psi}^{\dagger}\ket{0^n}$.
-Now putting $U=U_{\phi}U_{\psi}$ in the (real) and (imegaingary) Hadamard test and putting the state 
+Now putting $U=U_{\phi}U_{\psi}$ in the (real) and (imaginary) Hadamard test and putting the state 
 $\ket{0^n}$ in the second register, thus calculating the expectation value,
 we can obtain the real and imaginary parts of $\braket{\phi|\psi}$.
 
-\subsubsection{Single Phase Estimtation}
+\subsubsection{Single Phase Estimation}
 The hadamard test can be also be used to derive the simplest version of the phase estimation based on success probabilities.
-Apply the Hadamrad test as shown in the figure \ref{Hadamardtest}. with $U,\psi$ satisfying the equation $U\ket{\psi}=e^{2\pi i \theta}\ket{\psi}$.
+Apply the Hadamard test as shown in the figure \ref{Hadamardtest}. with $U,\psi$ satisfying the equation $U\ket{\psi}=e^{2\pi i \theta}\ket{\psi}$.
 Then the probability of measuring the first qubit to be in state $\ket{1}$ is:
 \[
 p(1)=\frac{1}{2}(1-Re(e^{2\pi i \theta}))=\frac{1}{2}(1-cos(2\pi \theta))
@@ -7403,6 +7796,11 @@ j'=j_mj_{m-1}...j_1=\lfloor j/2\rfloor
 \[
 k'=k_{m-1}k_{m-2}...k_0=k-k_m2^m
 \]
+
+\chapter{Shor's Algorithm}
+\begin{definition}
+    Given a number $N$ which is a composite number. We are required to find the prime factors of the number $N$.
+\end{definition}
 
 \chapter{The HHL Algorithm}
 \section{Introduction}
@@ -8170,6 +8568,149 @@ Note that
 \[
 \|B\|\leq \|I+B^{\dagger}B\|\leq 1+(1+\Delta t\|A\|)^2\leq 5
 \]
+\chapter{Trotter based Hamiltonian Simulation}
+\section{The Problem Definition}
+The Hamiltonian simulation problem with a time-independent Hamiltonian, or the Hamiltonian simulation problem for short is the following problem: 
+\begin{definition}Given an initial state $\ket{\psi_0}$ and a Hamiltonian $H$, evaluate the quantum state at time $t$ according to $\ket{\phi(t)}=e^{\iota t H}\ket{\psi_0}$. 
+\end{definition}
+Hamiltonian simulation is of immense importance in characterizing quantum dynamics for a diverse range of systems and situations in quantum physics, chemistry and materials science. Simulation of one quantum Hamiltonian by another quantum system was also one of the motivations of Feynman's 1982 proposal for design of quantum computers. We have also seen that Hamiltonian simulation appears as a quantum subroutine in numerous other quantum algorithms such as QPE and its various applications.
+
+The Hamiltonian simulation problem can also be viewed as a linear ODE:
+\[
+\partial_t\psi(t)=-\iota H\psi(t), \quad \psi90)=\psi_0
+\]
+However, thanks to the unitary operator $e^{-\iota t H}$ for any $t$, we do not need to store the full history of the quantum states, and can instead focus on the quantum state at time $t$ of interest.
+
+Following conceptualization of a universal quantum simulator using a Trotter decomposition of time evolution operator $e^{-\iota t H}$, many new quantum algorithms for Hamiltonian simulation have been proposed. This chapter focuses on the Trotter based Hamiltonian simulation methods (also called the product formula).
+
+\section{Trotter Splitting}
+Consider the Hamiltonian simulation problem $H=H_1+H_2$, where $e^{-\iota H_1 \Delta t}$ and $e^{-\iota H_2 \Delta t}$ can be efficiently computed at least for some $\Delta t$. IN general $[H_1,H_2]\neq 0$, and the splitting of the evolution of $H_1,H_2$ needs to be implemented via the Lie product formula
+\[
+e^{-\iota t H}=\lim_{L\rightarrow \infty} \left(e^{- \iota \frac{t}{L}H_1} e^{-\iota \frac{t}{L}H_2}\right)^L
+\]
+When taking L to be a finite number, and let $\Delta t = t/L$, this gives the simplest first order Trotter method with
+\[
+\|e^{-\iota \Delta t H}-e^{-\iota \Delta tH_1} e^{-\iota \Delta tH_2}\|=\mathcal{O}(\Delta t^2)
+\]
+Therefore to perform Hamiltonian simulation to time t, the error is
+\[
+\|e^{-\iota t H}-\left(e^{-\iota \frac{t}{L}H_1} e^{-\iota \frac{t}{L}H_2}\right)^L\| = \mathcal{O}(\Delta t^2L)=\mathcal{O}\left(\frac{t^2}{L}\right)
+\]
+So to reach precision $\epsilon$ in the operator norm, we need
+\[
+L=\mathcal{O}(t^2\epsilon^{-1})
+\]
+This can be improved to the second order Trotter method (also called the symmetric trotter splitting or Strang splitting)
+\[
+\| e^{-\iota \Delta t H}-e^{-\iota \Delta t/2 H_2}e^{-\iota \Delta tH_1}e^{-\iota \Delta t/2H_2}\|=\l=\mathcal{O}(\Delta t^3)
+\]
+Following a similar analysis to the first order method, we find that to reach precision $\epsilon$ we need
+\[
+L=\mathcal{O}(t^{\frac{3}{2}}\epsilon^{-1/2})
+\]
+Higher order Trotter methods are also available, such as the p-th order Suzuki formula. The local truncation error is $(\Delta t)^{p+1}$. therefore to reach precision $\epsilon$, we need
+\[
+L=\mathcal{O}(t^{\frac{p+1}{p}}\epsilon^{-1/p})
+\]
+This is often written as $L=\mathcal{O}(t^{1+o(1)}\epsilon^{-o(1)})$  as $p\rightarrow \infty$.
+
+\begin{example}
+    (Simulating transverse field Ising model). For the one dimensional transverse filed Ising model (TFIM) with nearest neighbor interaction, wince all Pauli-$Z_i$ operators commute, we have
+    \[
+    e^{-\iota tH_1}:=e^{\iota t}\sum_{i=1}^{n-1} Z_iZ_{i+1} = \Pi_{i=1}^{n-1} e^{\iota t Z_i Z_{i+1}}
+    \]
+    Each $e^{\iota t Z_i Z_{i+1}}$ is a rotation involving only the qubits $i,j$, and the splitting has no error. Similarly
+    \[
+    e^{-\iota t H_2}:=e^{d\sum_)iX_i}= \Pi_i e^{\iota t g X_i}
+    \]
+    and each $e^{\iota t g X_i}$ can be implemented independently without error.
+\end{example}
+\begin{example}
+    (Particle in a Potential). Let $H=-\Delta_r + V(\mathbf{r})=H_1+H_2$ be the Hamiltonian of a particle in a potential field $V(\mathbf{r})$, where $\mathbf{r} \in \Omega = [0,1]^d$ with periodic boundary conditions. After discretization using Fourier modes, $e^{\iota H_1 t}$ can be efficiently performed by diagonalizing $H_1$ in the Fourier space, and $e^{\iota H_2t}$ can be efficiently performed since $V(\mathbf{r})$ is diagonal in the real space.
+\end{example}
+
+\section{Commutator type error bound}
+In this section we try to refine the error bounds in the equation by evaluating the preconstant explicitly. For simplicity we focus only on the first order Trotter formula. The trotter propagator $\tilde{U}(t)=e^{-\iota tH_1}e^{-\iota tH_2}$ satisfies the equation
+\begin{align*}
+\iota \partial_t\tilde{U}(t)&=e^{-\iota tH_1}e^{-\iota tH_2}+e^{-\iota tH_1}H_2e^{-\iota tH_2}\\
+&=(H_1+H_2)e^{-\iota tH_1}e^{-\iota tH_2}+e^{-\iota t H_1}H_2e^{-\iota tH_2}-H_2e^{-\iota t H_1}e^{-\iota t H_2}\\
+&=H\tilde{U}(t)+[e^{-\iota t H_1},H_2]e^{-\iota t H_2}
+\end{align*}
+with initial condition $\tilde{U}(0)=I$. By Duhamel's principle, and let $U(t)=e^{-\iota tH}$, we have
+\[
+\tilde{U}(t)=U(t)-\iota \int_0^t e^{-\iota H(t-s)}[e^{-\iota sH_1},H_2]e^{-\iota sH_2} ds
+\]
+So we have
+\[
+\|\tilde{U}(t)-U(t)\|\leq \int_0^t \|e^{-\iota s H_1},H_2\|ds
+\]
+Now consider $G(t)=[e^{-\iota t H_1},H_2]e^{\iota t H_1}=e^{-\iota tH_1}H_2e^{\iota t H_1}-H_2$, which satisfies $G(0)=0$ and
+\[
+\iota \partial_tG(t)=e^{-\iota t H_1} [H_1,H_2]e^{+\iota t H_1}
+\]
+Hence,
+\[
+\|[e^{-\iota t H_1},H_2]\|=\|G(t)\|\leq t\|[H_1,H_2]\|
+\]
+Plugging this back to Equation we have
+\[
+\|\tilde{U}9T)-U(t)\|\leq \int_0^t s\|[H_1,H_2]\|ds \leq \frac{t^2}{2}\|[H_1,H_2]\|\leq t^2\nu^2
+\]
+In the last equality, we have used the relation $\|[H_1,H_2]\| \leq 2\nu^2$ with $\nu = \max\{\|H_1\|,\|H_2\|\}$. Therefore equation can be replaced by a sharper inequality
+\[
+\|e^{-\iota \Delta tH}-e^{-\iota \Delta t H_1}e^{-\Delta tH_2}\|\leq \frac{\Delta t^2}{2} \|[H_1,H_2]\|\leq (\Delta t)^2\nu^2
+\]
+Here the first inequality is called the commutator norm error estimate, and the second inequality the operator norm error estimate.
+
+For the transverse field Ising model with nearest neighbor interaction, we have $\|H_1\|,\|H_2\|=\mathcal{O}(n)$, and hence $\nu^2=\mathcal{O}(n^2)$. On the other hand, since $[Z_iZ_j,X_k]\neq 0$ only if $k=i$ or $k=j$, the commutator bound satisfies $\|H_1,H_2]\|=\mathcal{O}(n)$. therefore to reach precision $\epsilon$, the scaling of the total number of time steps $L$ with respect to the system size is $\mathcal{O}(n^2/\epsilon$ according to the estimate based on the operator norm, but is only $\mathcal{O}(n/\epsilon)$ according to that based on the commutator norm.
+
+For the particle in a potential, for simplicity consider $d=1$ and the domain $\Omega=[0,1]$ is discretized using a uniform grid of size $N$. For smooth and bounded potential, we have $\|H_1\|=\mathcal{O}(N^2)$, and $\|V\|=\mathcal{O}(1)$. therefore the operator norm bound gives $\nu^2=\mathcal{O}(N^4)$. This is too pessimistic. Reexamining the second inequality of the equation shows that in this case, the error bound should be $\mathcal{O}((\Delta t)^2\nu)$ instead of $(\Delta t)^2 \nu^2$. So according to the operator norm error estimate, w have $L=\mathcal{O}(N^2/\epsilon)$. On the other hand, in the continuous space, for any smooth function $\psi(r)$, we have
+\[
+[H_1,H_2]\psi=\left[-\frac{d^2}{dr^2},V\right]\psi=-V''\psi-V'\psi'
+\]
+So
+\[
+\|H_1,H_2]\psi\|\leq \\V''\|+\|V'\|\|\psi'\|=\mathcal{O}(N)
+\]
+here we have used that $\|V'\|=\|V''\|=\mathcal{O}(1)$, and $\|\psi'\|=\mathcal{O}(N)$ in the worst case scenario. therefore $\|[H_1,H_2]\|=\mathcal{O}(N)$, and we obtain a significantly improved estimate $L=\mathcal{O}(N/\epsilon)$ according to the commutator norm.
+
+The commutator scaling of the trotter error is an important feature of the method. there are papers for analysis of the second order Trotter method, and for the analysis of the commutator scaling of high order trotter methods.
+
+\begin{remark}
+    (vector norm bound). The Hamiltonian simulation problem of interest in practice often concerns the solution with particular types of initial conditions, instead of arbitrary initial conditions. Therefore the operator norm bound in the equation can still be too loose. Taking the initial condition into account, we readily obtain
+    \[
+    \|e^{-\iota |delta tH}\psi(0)-e^{\-iota \Delta tH_1}e^{-\iota \delta tH_2}\psi(0)\|\leq \frac{\Delta t^2}{2}\max_{0\leq s \leq \Delta t} \|[H_1,H_2]\psi(s)\|
+    \]
+    For the example of the particle in a potential, we have
+    \[
+    \max_{0\leq s\leq \Delta t} \|[H_1,H_2]\psi(s)\|\leq \|V''\|+\|V'\| \max_{0\leq s \leq \Delta t} \|\psi'(s)\|
+    \]
+    Therefore, if we are given the a priori knowledge that $\max_{0\leq s \leq t} \|\psi'(s)\|=\mathcal{O}(1)$, we may even have $L=\mathcal{O}(\epsilon^{-1})$, i.e., the number of time steps is independent of $N$.
+\end{remark}
+
+\begin{example}
+    Consider the Hamiltonian simulation problem for $H=H_1+H_2+H_3$. Show that the first order Trotter formula
+    \[
+    \tilde{U}(t)=e^{-\iota t H_1}e^{-\iota t H_2}e^{-\iota t H_3}
+    \]
+    has a commutator type error bound.
+\end{example}
+\begin{example}
+    Consider the time-independent Hamiltonian simulation problem for the following controlled Hamiltonian
+    \[
+    H(t)=a(t)H_1+b(t)H_2
+    \]
+    where $a(t)$ and $b(t)$ are smooth functions bounded together will all derivatives. We focus on the following trotter type splitting, defined as
+    \[
+    \tilde{U}(t):=\tilde{U}(t_n,t_{n-1})\ldots \tilde{U}(t-1,t_0), \quad \tilde{U}(t_{j+1},t_j)=e^{-\iota \Delta ta(t_j)H_1}e^{-\iota \Delta tb(t_j)H_2}
+    \]
+    where the intervals $[t)j,t_{j+1}]$ are equidistant and of length $\Delta t$ on the interval $[0,t]$ with $t_n=t$. Show that this method has first-order accuracy, but does not exhibit a commutator type error bound in general.
+\end{example}
+
+
+
+
+
 
 \chapter{Block Encoding}
 In order to perform matrix computations, we must first address the problem of the input model: how to get access to information in matrix $A\in \mathbb{C}^{N \times N} (N=2^n)$ which is generally a non-unitary matrix, into the quantum computer? One possible input model is given via the unitary $e^{\iota \tau A}$ (if A is not Hermitian, in some scenarios we an consider its Hermitian version via the dilation method).
@@ -8506,10 +9047,23 @@ The square root operation is well defined if $A_{ij}\geq0$ for all entries. If $
 
 
 \chapter{Quantum Subspace Methods}
+
+Quantum Subspace Methods (QSMs) are a class of quantum computing algorithms where the time-independent Schrodinger equation $\hat{\mathcal{H}}\psi=E\psi$ for a quantum system is projected onto a subspace of the underlying Hilbert Space. This projection transforms the Schrodinger equation into an eigenvalue problem $\hat{\mathcal{H}}\ket{\psi}=E\ket{\psi}$ determined by \textit{measurements carried out on a quantum device. The eigenvalue problem is then solved on a classical computer, yielding approximations to extremal (lowest and highest) eigenvalues and their corresponding eigenvectors}. They are a hybrid quantum-classical methods, where a quantum device is supported by classical computational resources is employed to tackle a problem. The exact solution of the Schrodinger equation for a molecule with more than two elements is a formidable problem. This is because within the Born-Oppenheimer approximation, the difficulty originates from the two-electron terms, which introduce correlations in the motion of electrons under the potential generated by nuclei. For this reason, the Schrodinger equation is solved approximately.
+
+Estimating the ground state energy of a quantum system has broad applications across physics and chemistry. The simulation of ground and excited-state properties of electronic systems is an important application of quantum computing algorithms. \textbf{Idea: Projection of the Schrodinger equation onto a subspace of the many-electron Hilbert Space have been proposed to extract Hamiltonian Eigen pairs}. The QSMs promising class of quantum computing algorithms for near-tem and fault-tolerant quantum devices. The methods studied here are the following:
+\begin{enumerate}
+    \item Hamilton Krylov space
+    \item Quantum subroutines - real and imaginary time evolution
+\end{enumerate}
+Then we discuss their computational cost (scaling of simulation on classical/quantum computers) and accuracy (convergence properties) of classical and quantum subspace methods. Then we talk about applications of QSMs.Then implementation of QSMs on quantum devices - importance and challenges posed by finite statistical samples (shot noise) and decoherence the economisation of quantum circuits and measurements to contain the computational cost of QSMs. Finally conclusion and perspectives.
+
+
+
+
 \section{Basic Quantum Computing Concepts}
 A qubit is a physical system whose states are described by unit vectors in two dimensional Hilbert space $\mathcal{H} = \mathbb{C}^2$. A system of $N_q$ qubits, also called a register, has states described by unit vectors in the Hilbert Space $\mathcal{H}_{N_q}=\mathcal{H}^{\otimes N_q}$. An orthonormal basis of the Hilbert space $\mathcal{H}_{N_q}$ is given by the following vectors, called computational basis states,
 \[
-\ket{\mathbf{z}}=\ket{z_{n-1}}\otimes \ket{z_{n-2}} \otimes \ldots \otimes \ket{z_0}=\ket{z}, z\in \{0,1\}^{N_q}, z=\sum_{l=0}^{N_q-1} z_l2^l \in \{0 \ldots 2^{N_q-1}\}
+\ket{\mathbf{z}}=\ket{z_{N_q-1}}\otimes \ket{z_{N_q-2}} \otimes \ldots \otimes \ket{z_0}=\ket{z}, z\in \{0,1\}^{N_q}, z=\sum_{l=0}^{N_q-1} z_l2^l \in \{0 \ldots 2^{N_q-1}\}
 \]
 \[=\ket{z_{n-1}\ldots z_0}\]
 Starting from a register of $N_q$ qubits initialised in the state $\ket{0} \in \mathcal{H}_{N_q}$ an $N_q$-qubit state $\ket{\Phi}$ can be prepared by applying single and multi-qubit unitary transformations, or gates.
@@ -8556,284 +9110,635 @@ Can(t_x,t_y,t_z)=e^{-\iota \frac{\pi}{2} (t_xX\otimes X+t_yY\otimes Y+t_z Z \oti
 \]
 where the parameters $t_x$
 
+\section{Classical Subspace Methods}
+Subspace methods construct finite dimensional approximation to the eigenvalue equation $\hat{\mathcal{H}}\ket{\psi}=E\ket{\psi}$, an approach called Galerkin's method. Specifically, given a set of many electron wave functions $\ket{v_0},\ldots,\ket{v_{n-1}}$, we seek a function of the form $\ket{\psi_{\mu}}=\sum_{\beta=0}^{n-1} C_{\beta\mu}\ket{v_\beta}$, that solves the projection equation of the Schrodinger equation $\hat{\mathcal{H}}\ket{\psi}=E\ket{\psi}$ onto the subspace $V_n=Span(\ket{v_0},\ldots,\ket{v_{n-1}})$, i.e., for each $\alpha ,\mu \in[n]:=\{0,1,\ldots ,n-1\}$
+\begin{align*}
+    \sum_{\beta=0}^{n-1} \hat{H}C_{\beta\mu}\ket{v_{\beta}}&=E_{\mu} \sum_{\beta=0}^{n-1} C_{\beta\mu}\ket{v_{\beta}}
+\end{align*}
+Now taking inner product with $\bra{v_{\alpha}}$, we get,
+\[
+\sum_{\beta=0}^{n-1} \braket{v_{\alpha}|\hat{H}|v_{\beta}} C_{\beta\mu} = E_{\mu} \sum_{\beta=0}^{n-1} \braket{v_{\alpha}|v_{\beta}} C_{\beta\mu}
+\]
+for $\alpha,\mu \in [n]$. In the matrix form this can be written as follows:
+\begin{align*}
+\begin{bmatrix} \braket{v_0|\hat{H}|v_0} & \braket{v_0|\hat{H}|v_1} & \ldots & \braket{v_0|\hat{H}|v_{n-1}} \\ 
+\braket{v_1|\hat{H}|v_0} & \braket{v_1|\hat{H}|v_1} & \ldots & \braket{v_1|\hat{H}|v_{n-1}} \\
+\vdots & \vdots & \ddots & \vdots \\
+\braket{v_{n-1}|\hat{H}|v_0} & \braket{v_{n-1}|\hat{H}|v_1} & \ldots & \braket{v_{n-1}|\hat{H}|v_{n-1}}
+\end{bmatrix}\begin{bmatrix} C_{00} & C_{01} & \ldots & C_{0n-1} \\ 
+C_{10} & C_{11} & \ldots & C_{1n-1} \\ 
+\vdots & \vdots & \ddots & \vdots \\
+C_{n-10} & C_{n-11} & \ldots & C_{n-1n-1} 
+\end{bmatrix} =
+\end{align*}
+\begin{align*}
+\begin{bmatrix} \braket{v_0|v_0} & \braket{v_0|v_1} & \ldots & \braket{v_{0}|v_{n-1}} \\
+\braket{v_0|v_0} & \braket{v_0|v_1} & \ldots & \braket{v_{0}|v_{n-1}} \\
+\vdots & \vdots & \ddots & \vdots  \\
+\braket{v_{n-1}|v_0} & \braket{v_{n-1}|v_1} & \ldots & \braket{v_{n-1}|v_{n-1}} \\
+\end{bmatrix}\begin{bmatrix} C_{00} & C_{01} & \ldots & C_{0n-1} \\ 
+C_{10} & C_{11} & \ldots & C_{1n-1} \\ 
+\vdots & \vdots & \ddots & \vdots \\
+C_{n-10} & C_{n-11} & \ldots & C_{n-1n-1} 
+\end{bmatrix}\begin{bmatrix} E_{0} & 0 & \ldots & 0 \\ 
+0 & E_1 & \ldots &0 \\ 
+\vdots & \vdots & \ddots & \vdots \\
+0 & 0 & \ldots & E_{n-1} 
+\end{bmatrix} &
+\end{align*}
+This is called \textbf{Generalised Eigenvalue Equation (GEEV)} which can be compactly written as $HC=SCE$, where $H$ and $S$ denote the Hamiltonian and overlap matrices, respectively, whose entries are
+\[
+H_{\alpha\beta}=\braket{v_{\alpha}|\hat{H}|v_{beta}}: \quad S_{\alpha\beta}=\braket{v_{\alpha}|v_{\beta}}
+\]
+
+\begin{importantnote}
+    The approximate Eigenvalue $E_{\mu}$ and eigen vectors $\ket{\psi_\mu}$ differ from the exact ones since the approximate eigenvectors are restricted to subspace $V_n$. The quality of a subspace method depends on several factors:
+    \begin{enumerate}
+        \item the nature of the basis vectors $\ket{v_{\beta}}$
+        \item the dimension n of the employed subspace
+        \item the cost (and associated error) of computing the matrices $H, S$ 
+        \item the numerical stability of the equation $HC=SCE$., connected with the condition number of the overlap matrix $S$.
+    \end{enumerate}
+\end{importantnote}
+
+Classical Subspace methods include:
+\begin{enumerate}
+    \item Krylov Space Methods
+    \item Lanczos Method
+    \subsubsection{Block Encoding}
+    \begin{definition}
+        A block encoding of a Hamiltonian $H$ (acting on a Hilbert space $\mathcal{H_s}$ whose states are denoted $\ket{.}_s$) is a pair (U,G), where $U$ is unitary acting on $\mathcal{H}_a \otimes \mathcal{H}_s$ (for some auxiliary Hilbert space $\mathcal{H}_a$ whose states are dentoed $\ket{.}_a$), and $\ket{G}_a=G\ket{0}_a $ is a state of the auxiliary qubits such that
+        \[
+        (\bra{G}_a \otimes I_s)U(\ket{G}_a\otimes I_s)=H
+        \]
+        where $I_s$ denotes identity action on $\mathcal{H}_s$.
+    \end{definition}
+    Consider the following example of block encoding of an $n$-qubit Hamiltonian.
+    \begin{example}
+        A Hamiltonian can be expressed as a linear combination of Pauli operators.
+        \[
+        H=\sum_{i=0}^{T-1} \alpha_iP_i
+        \]
+        where $\alpha_i$ are real coefficients, $P_i$ are Pauli operators, and the number of terms is $T=O(poly(n))$. We assume that the coefficients $\alpha_i$ are non-negative, and instead each Pauli $P_i$ carries a $\pm 1$ sign. We also require a normalization condition on $H: \sum_{i=0}^{T-1}|\alpha_i|=\sum_{i=0}^{T-1}\alpha_i=1$. Given some non-normalized input Hamiltonian whose coefficients are $\alpha_i^{(E)}$, we obtain normalized coefficents as $\alpha_i=|\alpha_i^{(E)}|/\sum_{i=0}^{T-1}|\alpha_i^{(E)}|$.
+        The block encoding unitary is
+        \[
+        U=\sum_{i=0}^{T-1} \ket{i}_a\bra{i}_a\otimes P_i
+        \]
+        i.e., application of each Pauli term $P_i$ controlled on the state of the auxiliary register being $\ket{i}_a$. The corresponding block encoding state is
+        \[
+        \ket{G}_a=\sum_{i=0}^{T-1}\sqrt{\alpha_i}\ket{i}_a
+        \]
+        Inserting $U$ as defined and $\ket{G}_a$ and using the fact that $\alpha_i\geq 0$ for all $i$, one can verify that
+        \[
+        \left(\sum_{i=0}^{T-1} \sqrt{\alpha_i}\bra{i}_a \otimes I_s\right)\left(\sum_{j=0}^{T-1}\ket{j}_a \bra{j}_a\otimes P_j\right)\left(\sum_{k=0}^{T-1} \sqrt{\alpha_k}\ket{k}_a \otimes I_s\right)
+        \]
+        which gets simplified to
+        \[
+        \sum_{i=0}^{T-1}\sum_{j=0}^{T-1}\sum_{k=0}^{T-1}  \sqrt{\alpha_i}\sqrt{\alpha_k} \braket{i|j}_a\braket{j|k}_a \otimes P_j
+        \]
+        \[
+        \sum_{i=0}^{T-1}\sum_{j=0}^{T-1}\sum_{k=0}^{T-1}  \sqrt{\alpha_i}\sqrt{\alpha_k} \delta_{ij}\delta_{jk} \otimes P_j
+        \]
+        \[
+        \sum_{i=0}^{T-1} \alpha_i \otimes P_i = H
+        \]
+        Thus, $(U,G)$ forms a valid block encoding of $H$.
+    \end{example}
+    \item Davidson Method
+\end{enumerate}
+\subsection{Krylov Space Methods}
+\subsection{Lanczos Method}
+
+\section{Quantum Subspace Methods}
+Classically, estimating the ground state energy of a quantum system is believed to be exponentially hard in the system size, due to the cost of representing vectors in the Hilbert space. Many algorithms for the task have been proposed that avoid this representation problem by the encoding the system's Hilbert space in the Hilbert space of a register of qubits, whose dimension also grows exponentially. The problem of finding ground state energies of local Hamiltonians is \textbf{QMA-Hard}. Thus, sufficiently generally quantum algorithms for approximating ground state energies must require additional assumptions.
+Some of the typical assumptions are finding an initial guess state that has $\Omega(1/poly(n))$ overlap with sufficiently low-yin energy states (for n qubits), finding a gapped adiabatic path from an efficiently solvable Hamiltonian to the target Hamiltonian, optimizing variational quantum circuit, or assuming bounded correlation strength.
+
+\subsection{Idea of the Algorithm}
+The quantum subspace expansion (QSE) method constructs a variational subspace spanned by a set of states $\{\ket{v_\beta}\}_{\beta=0}^{n-1}$. Hamiltonian eigenstates are approximated by a linear combination of basis states, $\ket{\psi_{\mu}}=\sum_{\beta} C_{\beta\mu}\ket{v_[\alpha}$. To obtain expansion coefficients $C_{\beta\mu}$, one computes matrix elements $S_{\alpha\beta}=\braket{v_{\alpha}|v_\beta}$ and $H_{\alpha\beta}=\braket{v_{\alpha}|\hat{H}|v_{\beta}}$ in the chosen basis and solves the GEEV $HC=SCE$. Within QSE, a quantum device is used to compute the matrix elements $H_{\alpha\beta}$ and $S_{\alpha\beta}$, and a classical computer to solve the GEEV and obtain approximate eigenpairs $\{E_{\mu},\ket{\psi_{\mu}}$. The quantum circuits required to compute $H_{\alpha\beta}$ and $S_{\alpha\beta}$ depend on the choice of the basis $\ket{v_{\alpha}}_{\alpha=0}^{n-1}$.
+
+\subsection{Difference between QSE and VQE}
+The main advantage of QSE (and other subspace methods) over the well-established variational quantum eigensolver (VQE) is that QSE does not require a non-linear parameter optimisation, which is an NP-hard problem, as part of the eigen value approximation. While both QSE and VQE employ quantum and classical computers in synergy, the nature of their interaction is profoundly different: in VQE, each update of the quantum circuit parameters requires a new call of the quantum computer in just one call. Furthermore, QSE circuits can be naturally parallelised over multiple quantum computers (or groups of qubits within a quantum computer). A limitation of QSE is that the eigen states $\ket{\psi_{\mu}}$ are never actually stored on a quantum device, so computing properties after a QSE calculation generally requires additional measurements.
+
+The accuracy and computational cost of a QSE calculation depends on the choice of the basis states $\{\ket{v_{\alpha}}\}_{\alpha=0}^{n-1}$. However, no specific prescription is provided for the selection, similar to the original Galerkin's method. In this sense, QSE can be regarded as family of QSMs, differentiated by the choice of the basis states.
+
+\subsection{Hamiltonian Krylov Space Methods}
+Note that constructing a Krylov space generated by powers of the Hamiltonian on a quantum computer is non-trivial. This is because the Hamiltonian and its powers are non-unitary operations, thus cannot be trivially mapped onto a quantum circuit. The use of block-encoding unitaries was proposed to circumvent this limitation.
+
+\subsubsection{Chebysev Quantum Krylov}
+It is Quantum implementation of the classical Krylov space. This method is exact in the sense that it has no algorithmic error in the construction of the Krylov space i.e. approximations such as Trotterization or other approximate algorithms are not required. 
 
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-\chapter{Advanced Quantum Computing}
-\section{Linear Growth and Duhamel's Principle}
-Consider a Quantum Algorithm deonted by a Unitary U (since every
-transformation in Quantum Computing is Unitary, thus a quantum algorithm can be thought of as a black box
-which performs a Untiary on some qubits and outputs those qubits (note that the number
-of qubits in input = number of qubits in the output) ). Now,
-we know that the product of Unitary Matrices is a Unitary matrix. Thus we
-can decompose the Unitary U into a product of Unitary matrices $U=U_1U_2\ldots U_k$.
-\textbf{Assumption: Suppose we can implement each $U_i$ to precision $\epsilon$ then the following \textit{Hybrid Argument}}
-\begin{proposition}
-    Hybrid Argument: Given Unitaries $U_1,\tilde{U_1},\ldots,U_K,\tilde{U_K} \in \mathbb{C}^{N \times N}$
-    satisfying,
-    \[\|U_i-\tilde{U_i}\|_2 \leq \epsilon \quad \forall i=1,\ldots,K\]
-    we have,
-    \[\|U_K\ldots U_2 U_1 - \tilde{U_K}\ldots \tilde{U_2}\tilde{U_1}\| \leq K\epsilon\]
-\end{proposition}
-\begin{proof}
-    Using a telescoping series, we can write:
-    \begin{align*}
-        U_K\ldots U_2U_1 - \tilde{U_K}\ldots \tilde{U_1} = & U_K\ldots U_2U_1-U_K\ldots U_2 \tilde{U_1} + U_K\ldots U_2\tilde{U_1} \\
-        & - U_K \ldots \tilde{U_2}\tilde{U_1}+\ldots+U_K\tilde{U_{K-1}}\ldots \tilde{U_1}-\tilde{U_K}\ldots \tilde{U_1} \\
-        &= U_K\ldots U_2(U_1-\tilde{U_1}) + U_K\ldots U_3(U_2-\tilde{U_2})\tilde{U_1} + \ldots \\
-        & + U_K(U_{K-1}-\tilde{U_{K-1}})\ldots \tilde{U_1} + (U_K-\tilde{U_K})\ldots \tilde{U_1} \\
-    \end{align*}
-    Note that here we define the norm of a matrix as operator (spectral) norm $\|A\|=\max_{\|x\|_2=1}\|Ax\|_2$.
-    Now, using the property that, $\|A+B\| \leq \|A\|+\|B\|$ for matrices, we get:
-    \begin{align*}
-        \|U_K\ldots U_2U_1-\tilde{U_K}\ldots \tilde{U_2}\tilde{U_1}\| & \leq \|U_K\ldots U_2(U_1-\tilde{U_1})\| \\
-        & + \|U_K\ldots U_3(U_2-\tilde{U_2})\tilde{U_1}\| + \ldots + \|U_K(U_{K-1}-\tilde{U_{K-1}})\ldots \tilde{U_1}\| \\
-        & + \|(U_K-\tilde{U_K})\ldots \tilde{U_1}\| \\
-    \end{align*}
-    Now using the property that, $\|AB\| \leq \|A\|\|B\|$ for matrices and using the property that the $\|A\|=1$ for a Unitary matrix since Unitary matrix preserves norm
-    of the vector and only rotates it, Thus, we get:
-    \begin{align*}
-        \|U_K\ldots U_2U_1-\tilde{U_K}\ldots \tilde{U_2}\tilde{U_1}\| & \leq \|U_K\ldots U_2\|\|U_1-\tilde{U_1}\| \\
-        & + \|U_K\ldots U_3\|\|U_2-\tilde{U_2}\|\|\tilde{U_1}\| + \ldots + \|U_K\|\|U_{K-1}-\tilde{U_{K-1}}\|\ldots \|\tilde{U_1}\| \\
-        & + \|U_K-\tilde{U_K}\|\ldots \|\tilde{U_1}\| \\
-        &\leq\|U_1-\tilde{U_1}\|+\|U_2-\tilde{U_2}\|\ldots \|U_K-\tilde{U_K}\| \\
-        & \leq \sum_{i=1}^K\|U_i-\tilde{U_i}\| \\
-        & \leq K\epsilon
-    \end{align*}
-    \textbf{Thus, we say that if we can implement each local unitary to precision $\epsilon$, the global error grows at most linearly with
-    respect to the number of gates and is bounded by $K\epsilon$.}
-    \textit{The above proof can be seen as a discrete analogue of the variation of constants method (also called Duhamel's principle)}.
-\end{proof}
- 
-\begin{proposition}
-    \textit{(Duhamel's principle for Hamiltonian Simulation)} Let $U(t),\tilde{U}(t) \in \mathbb{C}^{N \times N}$
-    satisfy
-    \[ \iota \partial_t U(t)=HU(t), \quad \iota\partial_t \tilde{U}(t) = H\tilde{U}(t) + B(t), \quad U(0)=\tilde{U}(0)=I \]
-    where $H \in \mathbb{C}^{N \times N}$ is a Hermitian matrix and $B(t) \in \mathbb{C}^{N \times N}$ is an arbitrary matrix. Then
-    \[ \tilde{U}(t)=U(t)-\iota\int_0^t U(t-s)B(s)ds \]
-    and
-    \[\|\tilde{U}(t)-U(t)\|\leq \int_0^t\|B(s)\|ds\]
-\end{proposition}
-\begin{proof}
-    Substituting the equation,
-    \[ \tilde{U}(t)=U(t)-\iota\int_0^t U(t-s)B(s)ds \]
-    into the equation,
-    \[ \iota\partial_t \tilde{U}(t) = H\tilde{U}(t)+B(t) \]
-    we see that it satisfies.
-    NOe consider a special case where $B(t)=E(t)\tilde{U}(t)$, then
-    \[\tilde{U}(t)=U(t)-\iota \int_0^t U(t-s)E(s)\tilde{U}(s)ds\]
-    Now, taking the norm of the above equation we get:
-    \[\|\tilde{U}(t)-U(t)\|\leq \int_0^t\|E(s)\|ds\]
-    This is a direct analogue o the hybrid argument in the continuous setting.
-\end{proof}
- 
-\section{Universal gate sets and Reversible Computation}
-Universal gate sets are the set of gates which can be used to represent any gate as a combination of the gates from the set.
-In case of Classical Computation, the NAND gate is a universal gate set. The "NOR" gate is also a universal gate set.
- 
-\textbf{In case of Quantum Computations, any Unitary operator on n qubits can be implemented using
-1- and 2- qubit gates.} A set of universal quantum gates S is universal if given any unitary operator U and desired precision $\epsilon$ we can
-find $U_1,\cdots, U_m \in S$ such that
-\[\|U-U_m\ldots U_1\| \leq \epsilon\]
-\textbf{Some of the possible choices of the universal gate sets are \{H,T,CNOT\}, \{H,Toffoli\}}
- 
-\begin{theorem}
-    \textit{(Solovay-Kitaev Theorem)} Let $\mathcal{S}, \mathcal{T}$ be two universal gate sets
-    that are closed under inverses. Then any m-gate circuit using the gate set S can be implemented to precision
-    $\epsilon$ using a circuit of $\mathcal{O}(m\cdot polylog(m/\epsilon))$ gates from the gate set T, and there is
-    a classical alogirhtm for finding thsi circuit in time $\mathcal{O}(m\cdot polylog(m\epsilon))$. (Here polylog is the
-    polynomial of the logarithm of the argument). \textbf{All choices of Universal gates are equivalent}
-\end{theorem}
- 
-\textbf{Any classical circuit can also be asymptotically efficiently implemented using a quantum circuit.} (Classical gates can be efficiently
-simulated using quantum circuits.)
- 
-Step1: Note that NAND and other classical gates (such as AND, OR, etc..) are not reversible gates! Thus, we need to convert the classical gates to reversible gates.
-Any irreversible classical gate $x \rightarrow f(x)$ can be converted to a reversible gate by adding an extra bit called the "garbage bit" and then applying the reversible gate.
-The reversible gate is then defined as $x,y \rightarrow x,f(x)\oplus y$.
-Thus, in particular we have $(x,0) \rightarrow (x,f(x))$.
-the key idea here is to store all the intermediate steps of the computation.
-On the quantum computer, storing all the intermediate computational steps is problematic:
+\chapter{Variational Algorithms}
+To write Variational algorithms:near-term hybrid quantum-classical algorithms that are ideal candidates to achieve quantum advantage. 
+The aim of this section is to learn:
 \begin{itemize}
-    \item Waste of Quantum Resources
-    \item Interediate bits stored in some extra qubits are still entangled to the quantum state of interest. (If environment interferes with the
-    intermeditate result, then the quantum state of interest also gets affected.)
+    \item each step in variational algorithm design workflow
+    \item trade offs associated with each step
+    \item how to use Qiskit Runtime primitives to optimize for speed and accuracy.
 \end{itemize}
-\begin{figure}[H]
+
+In this chapter we will see the specifics of variational algorithms and near-term hybrid quantum-classical algorithms based on the variational theorem of quantum mechanics. These algorithms can leverage the utility provided by today's non-fault-tolerant quantum computers, making them ideal candidates to achieve quantum advantage.
+
+\begin{figure}
     \centering
-    \includegraphics[width=0.8\textwidth]{../images/uncomputation.png}
-    \caption{Uncomputation of a classical gate}
-    \label{fig:uncomp}
+    \includegraphics[width=0.75\linewidth]{../images/VQE_algo.png}
+    \caption{Variational Algorithm}
+    \label{figvqe_algo}
 \end{figure}
 
-Step 2: \textbf{Uncomputation: }To implement a boolean function $f:\{0,1\}^n \rightarrow \{0,1\}^m$ assume that there is an oracle.
+Variational algorithms include several modular components that can be combined and optimized based on algorithm, software and hardware advancements. This includes a cost function that describes a specific problem with a set of parameters, an ansatz to express the search space with these parameters, and an optimizer to iteratively explore the search space. During each iterations, the optimizer evaluates the cost function with the current parameters and selects the next iteration's parameters until it converges on an optimal solution. The hybrid nature of this family of algorithms comes from the fact that the cost functions are evaluated using quantum resources and optimized through classical ones.
+
+\begin{enumerate}
+    \item \textbf{Initialize Problem: }Variational algorithms start by initializing the quantum computer in a default state $\ket{0}$, then transforming it to some desired (non-parameterized) state $\ket{\rho}$, which we will call \textit{reference state}.\\
+    This transformation is represented by the application of a unitary reference operator $U_R$ on the default state, such that $U_R\ket{0}=\ket{\rho}$.
+    \item \textbf{Prepare ansatz: }To begin iteratively optimizing from the default state $\ket{0}$ to the target state $\ket{\psi(\vec{\theta})}$, we must define a \textit{variational form} $U_V(\vec{\theta})$ to represent a collection of parameterized states for our variational algorithm to explore.\\
+    We refer to any particular combination of reference state and variational form as an ansatz state such that $U_A(\vec{\theta}):=U_V(\vec{\theta})U_R$. Ansatze will ultimately take the form of parameterize quantum circuits capable of taking the default state $\ket{0}$ to the target state $\ket{\psi(\vec{\theta})}$.\\
+    All in all we will have:
+    \begin{align*}
+        \ket{0}\xrightarrow{U_R} U_R\ket{0}&=\ket{\rho}\xrightarrow{U_V(\vec{\theta})} U_A(\vec{\theta})\ket{0}\\
+        &=U_V(\vec{\theta})U_R\ket{0}\\
+        &=U_V(\vec{\theta})\ket{\rho}\\
+        &=\ket{\psi(\vec{\theta})}
+    \end{align*}
+    \item \textbf{Evaluate Cost function: }We can encode our problem into a \textit{cost function} $C(\vec{\theta})$ as a linear combination of Pauli operators , run on a quantum system. While this can be information about a physical system, such as energy or spin, we can also encode non-physical problems as well. We can leverage Qiskit Runtime primitives to address noise with error suppression and mitigation while evaluating our cost function.
+    \item \textbf{Optimize Parameters: }Evaluations are taken to a classical computer, where a classical optimizer analyzes them and chooses the next set of values for the variational parameters. If we have a pre-existing optimal solution, we can set it as an \textit{initial point} $\vec{\theta_0}$ to bootstrap our optimization. Using this \textit{initial state} $\ket{\psi(\vec{\theta_0})}$ could help our optimizer find a valid solution faster.
+    \item \textbf{Adjust ansatz parameters with results, and re-run: }the entire process is repeated until the classical optimizer's finalization criteria are met, and an optimal set of parameter values $\vec{\theta^*}$ is returned. the proposed solution state for our problem will be $\ket{\psi(\vec{\theta}^*)}=U_A(\vec{\theta^*})\ket{0}$.
+\end{enumerate}
+
+\section{Variational Theorem}
+A common goal of variational algorithms is to find the quantum state with the lowest or highest eigenvalue of a certain observable. A key insight we'll use is the variation theorem of quantum mechanics. before going into its full statement, let us explore some of the mathematical intuition behind it.
+
+\subsection{Mathematical intuition for energy and ground state}
+In quantum mechanics, energy comes in the form of a quantum observable usually referred to as the \textit{Hamiltonian}, which we'll denote by $\hat{\mathcal{H}}$. let us consider its spectral decomposition:
 \[
-\ket{0^m}\ket{x}\rightarrow \ket{f(x)}\ket{x}\]
-where $\ket{0^m}$ comes from a m-qubit output register. The oracle is often further implemented
-with the help of a working register (aka garbage register - they are ancilla registers which can be freed after uncomputation) such that
-\[U_f:\ket{0^w}\ket{0^m}\ket{x}\rightarrow \ket{g(x)}\ket{f(x)}\ket{x}\]
-From no deletion theorem, there is no generic unitary operator that can set a black box-state to $\ket{0^w}$.
-In order to set the working register back to $\ket{0^w}$ while keeping the input and output state, we introduce another set of m-qubit ancillar registers
-initialised as $\ket{0^m}$. Then we use n-qubit CNOT controlled on the output register and obtain
-\[\ket{0^m}\ket{g(x)}\ket{f(x)}\ket{x} \rightarrow \ket{f(x)}\ket{g(s)}\ket{f(x)}\ket{x}\]
-Note that the multi-qubit CNOT gate only performs the classical copying operation in the computational basis and thus does not violate 
-the \textit{No- Cloning Theorem}.
-Now we know, $U_f^{\dagger}=U_f^{-1}$,
-\[ (I_m \otimes U_f^{\dagger})\ket{f(x)}\ket{g(x)}\ket{f(x)}\ket{x} = \ket{f(x)}\ket{g(x)}\ket{f(x)}\ket{x} =\ket{f(x)}\ket{0^w}\ket{0^m}\ket{x}\]
-The, we apply a SWAP operation on the ancilla and output registers to obtain 
-\[\ket{f(x)}\ket{0^w}\ket{0^m}\ket{x}\rightarrow\ket{0^m}\ket{0^w}\ket{f(x)}\ket{g(x)}\]
-
-Thus, not the ancilla and the working register are set to the initial state. They are no longer entangled to the input or output register and can be reused for other 
-purposes. This is called \textbf{Uncomputation}.
-
-(Discarding Working Registers). Thus after the uncomputation step the first two registers as shown are uncahnged before and after the application of the circuit, though 
-they are changed during the intermediate steps. Therefore \ref{fig:uncomp} effectively implements a unitary operator
-\[ (I_{m+w} \otimes V_f)\ket{0^m}\ket{0^w}\ket{0^m}\ket{x}=\ket{0^m}\ket{0^w}\ket{f(x)}\ket{x}\]
-or
-\[V_f\ket{0^m}\ket{x}=\ket{f(x)}\ket{x}\]
-NOte hter the definition of $V_f$ all the working registers have been discarded allowing us to simplify notation and focus on the essence of Quantum Algorithm.
-
-\textbf{Thus, using the technique of uncomputation, if the map $x \rightarrow f(x)$ can be efficiently implemented on a classical computer, then we can implement the map
-efficiently on a quantum computer as well. All reversible single-bit and two-bit classical gates can be implemented using single-bit and two-bit quantum gates. Thus, the reversible map can be made into a unitary opertaion as}
-\[ U_f:\ket{x,y}\rightarrow\ket{x,y\oplus f(x)}\] 
-\textbf{This proves that quantum computers are at least as powerful as classical computers.}
-$U_f$ can be applied to any superposition of the states in the computational basis. Thus, the quantum computer can perform the computation on all possible inputs simultaneously.
-\[ U_f:\frac{1}{\sqrt{2^n}}\sum_{x\in\{0,1\}^n}\ket{x,0}\rightarrow \frac{1}{\sqrt{2^n}}\sum_{x\in\{0,1\}^n}\ket{x,f(x)}\]
-\textbf{Note: This does not mean that we can efficiently implement the map $\ket{x}\rightarrow \ket{f(x)}$. If f is a bijection, and we have
-access tot he inverse of the reversible circuit for computing $f^{\-1}$ then we may use the technique of uncomputation to implement such a map.}
-\begin{example}
-    Suppose there are three bits and we wish to apply AND gate twice and get the result in the classical setting as:
-
-\end{example}
-
- 
-\section{Fixed Point Number Representation and Classical Arithmetic operations}
-Any integer $k \in [N]=\{0,1,\cdots,N-1\}$ where $N=2^n$ can be expressed as n n-bit string as
-$k=k_{n-1}\cdots ,k_0$  with $k_i \in \{0,1\}$. This is called binary representation of integer k.
-\[
-k=\sum_{i \in [n]}k_i2^i
+\hat{\mathcal{H}}=\sum_{k=0}^{N-1} \lambda_k\ket{\phi_k}\bra{\phi_k}
 \]
-The number k divided by $2^m \quad (0\leq m\leq n)$ (note that the decimal is shifted to be after $k_m$).
+where $N$ is the dimensionality of the space of state, $\lambda_k$ is the k-th eigenvalue or, physically, the k-th energy level, and $\ket{\phi_k}$ is the corresponding eigen state: $\hat{\mathcal{H}}\ket{\phi_k}=\lambda_k\ket{\phi_k}$, the expected energy of a system in the (normalized) state $ket{\psi}$ will be:
+\begin{align*}
+\braket{\psi|\hat{\mathcal{H}}|\psi}&=\braket{\psi|\left(\sum_{k=0}^{N-1}\lambda_k\ket{\phi_k}\bra{k}\right)|\psi}\\
+&=\sum_{k=0}^{N-1}\lambda_k\braket{\psi|\phi_k}\braket{\phi_k|\psi}\\
+&=\sum-{k=0}^{N-1}\lambda_k|\braket{\psi|\phi_k}|^2
+\end{align*}
+If we take into account that $\lambda_0\leq\lambda_k, \forall k$, we have:
+\begin{align*}
+    \braket{\psi|\hat{\mathcal{H}}|\psi}&=\sum_{k=0}^{N-1}|\braket{\psi|\phi_k}|^2\\
+    &\geq \sum_{k=0}^{N-1} \lambda_0|\braket{\psi|\phi_k}|^2\\
+    &=\lambda_0\sum_{k=0}^{N-1}|\braket{\psi|\phi_k}|^2\\
+    &=\lambda_0
+\end{align*}
+Since $\{\ket{\phi_k}\}_{k=0}^{N-1}$ is an orthonormal basis, the probability of measuring $\ket{\phi_k}$ is $p_k=|\braket{\psi|\phi_k}|^2$, and the sum of all the probabilities is such that $\sum_{k=0}^{N-1}|\braket{\psi|\phi_k}|^2=\sum_{k=0}^{N-1}p_k=1$. In short, the expected energy of any system is higher than the lowest energy or ground state energy:
 \[
-a=\frac{k}{2^m}=\sum_{i\in [n]}k_i2^{i-m}=(k_{n-1}\cdots k_m.k_{m-1}\cdots k_0)\]
-when m=n,
-\[
-a=\frac{k}{2^n}=\sum_{i\in [n]}=\sum_{i\in[n]}k_i2^{i-n}=0.k_{n-1}\cdots k_0
+\braket{\psi|\hat{\mathcal{H}}\psi}\geq \lambda_0
 \]
- 
-$a=0.k_{n-1}\cdots k_0$ so that $k_i$ is the ith decimal of a in the binary representation. Note that here $0\leq a\leq 1$.
-The number $(0.k_{n-1}\cdots k_i)$ is called n-bit fixed point representation of a. Therefore to represent a the additive precision $\epsilon$,
-$n=\lceil\log_2(\epsilon)\rceil$ qubits are required. \textbf{We may add one extra bit to indicate its sign}.
- 
-Thus, we can perform classical arithmetic operations, such as $(x,y)\rightarrow x+y,(x,y)\rightarrow xy,x \rightarrow x^{\alpha}, x\rightarrow \cos\alpha $ etc.
-using reversible quantum circuits. \textbf{The number of ancilla qubits, and the number of elementary gates needed for implementing such circuits is $O(poly(n))$.}
-Thus, quantum computer is theoretically as powerfule as classical computers, there is a very significant overhead in implementing reversblie classcial circuits on quantum devices, both in terms of the number
-of ancilla qubits and the circuit depth.
- 
-\section{Fault tolerant Computation}
-\textbf{We assumed that quantum operations can be perfectly performed and all errors come from either approximation errors at the mathematical level,
-or Monte Carlo errors in the readout process due to its probabilistic nature of the measurement process.}
-Note that because of technical difficult quantum gates, and measurements involve significant erros on near-term quantum devices.
-\textbf{Threshold theorem: If the noise in individual quantum gates is below a certian constant threshold (around $10^{-4}$ or above) it is possible to perform an arbitrarily
-large computaion with any desired precision. This requries quantum error correction protocols.}
+the above argument applies to any valid (normalized) quantum state $\ket{\psi}$, so it is perfectly possible to consider parameterized state $\ket{\psi(\vec{\theta})}$ that depends on a parameter vector $\vec{\theta}$. This is where the "variational" part comes into play. If we consider a cost function given by $C(\vec{\theta}):=\braket{\psi(\vec{\theta})|\hat{\mathcal{H}}|\psi(\vec{\theta})}$ and we want to minimize it, the minimum will always satisfy:
+\[
+\min_{\vec{\theta}}C(\vec{\theta}) = \min_{\vec{\theta}} \braket{\psi(\vec{\theta}|\hat{\mathcal{H}}|\psi(\vec{\theta})}\geq \lambda_0
+\]
+The minimum value of $C(\vec{\theta})$ will be the closest that one can get to $lambda_0$ using the parameterized state $\ket{\psi(\vec{\theta})}$, and equality will only be reached it there exists a parameter vector $\vec{\theta^*}$ such that $\ket{\vec{\theta^*}}=\ket{\phi_0}$
 
-\section{Complexity of Quantum Algorithms}
-Let n be the number of imput bits. \textbf{Efficiency of Quantum Algorithm: } A Quantum Algorithm
-is efficient if the number of gates in the quantum circuit is $\mathcal{O}(poly(n))$.
-Because of Probabilistic nature of measurements it is required for probability of correct answer to be higher.
-Generally, $p>2/3$ is considered to be a good probability of success or at least $p>1/2 + 1/poly(n)$.
-Consdier a case when Probability of getting a correct answer is $p=1/2+\epsilon$ where $\epsilon>0$ is a constant.
-Then the best method of deciding the correct answer is based on the frequency of the outcomes, the higher frequency outcome 
-is the correct answer. But how many repititions should be performed? Then the number of repetitions of the algorithm
-can be found using Chernoff bound as (say for binary outcome $X_i=0$ or $X_i=1$):
-\[P(\sum X_i \leq n/2) \leq e^{-2n\epsilon^2}\] 
-where n is the number of times. Thus the error gets exponentially small.
-In Quantum Algorithms, Computational cost = Query Complexity. \textbf{Goal: Perform a given task using 
-as few queries as possible to oracle ($U_f$)}. A Quantum Oracle (black box) is a Unitary operator that implements the function $f$.
-\begin{example}
-    (Query access to boolean function) $f:\{0,1\}^n \rightarrow \{0,1\}$ be a boolean function and oracle be defined as:
-    \[ U_f\ket{x}=(-1)^{f(x)}\ket{x} \]
-    where $x \in \{0,1\}^n$. This is used in Grover's Algorithm. This is called phase kickback as $f(x)$ is returned as a phase factor.
-    Thus, $U_f$ can be applied to superposition of the states in computational basis.
-    Having query access to $f(x)$ does not mean we know $f(x)$.
-\end{example}
-\begin{example}
-    (Partially specified oracles) Sometimes it is possible we might not be interested in entire $U_f$ but only $U_f$ applied to certain vectors
-    say for example, as shown
-    \[ U_f\ket{0}\ket{x}=\ket{0}A\ket{x}+\ket{1}B\ket{x}\]
-    \[U_f=\begin{bmatrix} A & * \\ B & * \end{bmatrix}\]
-    where $A,B$ are arbitrary $ N \times N$ unitary matrices. This is called as partially specified oracle.
-\end{example}
+\subsection{Variational theorem of Quantum Mechanics}
+If the (normalized) state $\ket{\psi}$ of a quantum system depends on a parameter vector $\vec{\theta}$, then the optimal approximation of the ground state (i.e. the eigen state $\ket{\phi_0}$ with the minimum value $\lambda_0$) is the one that minimizes the expectation value of the Hamiltonian $\hat{\mathcal{H}}$:
+\[
+\braket{\hat{\mathcal{H}}}(\vec{\theta}):=\braket{\psi(\vec{\theta})|\hat{\mathcal{H}}|\psi(\vec{\theta})} \geq \lambda_0
+\]
+The reason why the variational theorem is stated in terms of energy minima is that it includes a number of mathematical assumptions:
+\begin{itemize}
+    \item For physical reasons, a finite lower bound to the energy $E\geq \lambda_0>-\infty$ needs to exist, even for $N\rightarrow \infty$.
+    \item Upper bounds do not generally exist.
+\end{itemize}
+However, mathematically speaking, there is nothing special about the Hamiltonian $\hat{\mathcal{H}}$ beyond these assumptions, so the theorem can be generalized to other quantum observables and their eigenstates provided they follow the same constraints. Also, note that if finite upperbounds exist, the same mathematical arguments could be made for maximizing eigen values by swapping lower bounds for upper bounds.
 
-\textbf{Query complexity hides the implementation details of $U_f$}. For some cases, we can prove lower bounds on number of queries to solve a certain problems (example: Grover's Algorithm) but it's 
-a difficult problem.
-Once we know number of elementary gates need to implement $U_f$ we know gate complexity of the total algorithm.
-However, some queries can be (provably) difficult to implement, and there can be a large gap between the query complexity and gate
-complexity.  Quantum Algorithm should not dominate the total gate complexity. 
+\section{Reference States}
+In this section, we will explore how we can initialize our system with a reference state to help our variational algorithm converge faster. First, we will learn how to construct a reference state manually, and then explore several standard options that can be used in a variational algorithm.
 
-Circuit depth is the maximum number of gates on any path from input to output. It is equivalent of "Wall clock time" 
-in classical computation. Quantum states can be preserved only for a short amount of time = Coherence time.
-Thus circuit depth can be used to check whether the coherence time is exceeded by a Quantum Computer.
-\textbf{Quantum Algorithm should be depth efficient.} Thus, try to reduce the circuit time even if we need to run it multiple times.
+\subsection{Default State}
+A \textit{reference state} refers to the initial fixed part of our problem. To prepare a reference state, we need to apply the appropriate, non -parameterized unitary $U_R$ at the start of out quantum circuit, such that $\ket{\rho}=U_R\ket{0}$. If you have an educated guess or data point from an existing optimal solution, the variational algorithm will likely converge faster if you use that as a starting point.
 
-A Quantum Algorithm consist of set of qubits (system regiters - storing quantum states of interest and ancilla registers - 
-auxillary registers needed to implement the unitary operations acting on system registers) starting from an inital state
-, apply a series of one/two qubit states, and perform measurements, perform uncomputation whenever possible. 
-Within ancilla register if a register can be freed by uncomputation then it is called a working register. Working register can be 
-reused for other purposes. \textbf{We do not factor the cost of working registers into asymptoptic cost analysis in the literature.}
+The simplest possible reference state is the default state, where we use the starting state of an n-qubit quantum circuit: $\ket{0^{\otimes n}}$. For the default state, our unitary operator $U_R=I$. Due to its simplicity, the default state is a valid reference state used in many scenarios.
 
+\subsection{Classical Reference state}
+Suppose you have a 3-qubit system and you want to start in the state $\ket{001}$ instead of the default state $\ket{000}$. This is an example of a purely classical reference state, and to construct it, you simply need to apply an X gate to qubit 0 (following Qiskit's qubit ordering), as $\ket{001}=X_0\ket{000}$.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.25\linewidth]{../images/ref_state.png}
+    \caption{Reference state}
+    \label{fig:ref_state}
+\end{figure}
+In this case, our unitary operator $U_R=X_0$, which leads to the reference state $\ket{\rho}=\ket{001}$.
+\begin{lstlisting}[language=Python]
+from qiskit import QuantumCircuit
+qc=QuantumCircuit(3)
+qc.x(0)
 
+qc.draw("mpl")
+\end{lstlisting}
+This outputs the following circuit:
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{../images/ref_state_dia.png}
+    \caption{Classical Reference State Circuit}
+    \label{fig:ref_state_classical}
+\end{figure}
+\subsection{Quantum Reference State}
+Suppose you aim to start with a more complex state that involves superposition and/or entanglement such as $\frac{1}{\sqrt{2}}(\ket{100}+\ket{111})$.
 
+To obtain this state from $ket{000}$, one approach is to use a hadmadrd gate on qubit $0 (H_0)$, a CNOTE(CX) gate with qubit 0 as the control qubit and qubit 1 as the target qubit ($CNOT_{01}$), and finally an X gate applied to qubit 2 ($X_2$).
 
+In this scenario, our unitary operator is $U_R=X_2CNOT_{01}H_0\ket{000}$, and our reference state is $\ket{\rho}=\frac{1}{\sqrt{2}}(\ket{100}+\ket{111}$.
+\begin{lstlisting}[language=Python]
+qc=QuantumCircuit(3)
+qc.h(0)
+qc.cx(0,1)
+qc.x(2)
 
+qc.draw("mpl")
+\end{lstlisting}
+This outputs the following circuit:
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{../images/ref_state_quantum.png}
+    \caption{Quantum Reference State}
+    \label{fig:ref_state_quantum}
+\end{figure}
 
+\subsection{Constructing Reference States using template circuits}
+We can also use various template circuits, such as Twolocal which allows for expressing multiple tunable parameters and entanglements with ease. We will cover these template circuits in more detail in the next section, but we can use them fr our reference state if we bind the parameters.
+\begin{lstlisting}[language=Python]
+from qiskit.circuit.library import TwoLocal
+from math import pi
 
+reference_circuit = twoLocal(2,"rx","cz",entanglement="linear",reps=1)
+theta_list = [pi//2,pi/2,pi/2,pi/2]
 
+reference_circuit = reference_circuit.assign_parameters(theta_list)
 
+reference_circuit.decompose().draw("mpl")
+\end{lstlisting}
+This outputs the following circuit:
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{../images/ref_state_template.png}
+    \caption{Reference State using Template}
+    \label{fig:ref_state_template}
+\end{figure}
 
+\subsection{Application Specific Reference States}
+\subsubsection{Quantum Machine Learning}
+In the context of a variational quantum classifie (VQC), the training data is encoded into a quantum state with a parameterized circuit known as a feature map, where each parameter value represents a data point from the training dataset. The ZZFeatureMap is a type of parameterized circuit that can be utilized to pass our data point(x) to this feature map.
 
+\begin{lstlisting}[language=Python]
+from qiskit.circuit.library import ZZFeatureMap
+data=[0.1,0.2]
 
+zz_feature_map_reference = ZZFeatureMap(feature_dimension=2, reps=2)
+zz_feature_map_reference = zz_feature_map_reference.assign_parameters(data)
+zz_feature_map_reference.decompose().draw("mpl")
+\end{lstlisting}
+This outputs the following circuit:
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{../images/ref_state_zzfmap.png}
+    \caption{Reference State using ZZFeatureMap}
+    \label{fig:ref_state_zzfmap}
+\end{figure}
 
+\section{Ansatze and Variational Forms}
+At the heart of all variational algorithm  lies the key idea of analyzing the differences between states, which are conveniently related through some well-behaved mapping (e.g., continuous, differentiable) from a set of parameters or variables - hence the name.
 
+First, we'll explore how to construct parameterized circuits by hand. We'll use these circuits to define a variational form that represents a collection of parameterized states for our variational algorithms to explore. Then, we'll construct our ansatz by applying this variational form to our reference state.
+
+We'll also explore how to trade off speed versus accuracy while exploring this search space.
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\linewidth]{../images/prep_ansatz.png}
+    \caption{Prepare Ansatz}
+    \label{fig:prep_ansatz}
+\end{figure}
+\subsection{Parameterized Quantum Circuits}
+Variational algorithms operate by exploring and comparing a range of quantum state $\ket{\psi(\vec{\theta})}$, which depends on a finite set of k parameters $\vec{\theta}=(\theta^0,\ldots,\theta^{k-1})$. These states can be prepared using a parameterized quantum circuit, where gates are defined with tunable parameters. It is possible to create this parameterized circuit without binding specific angles yet:
+\begin{lstlisting}[language=Python]
+from qiskit.circuit import QuantumCircuit, Parameter
+
+theta = Parameter("theta")
+
+qc = QuantumCircuit(3)
+qc.rx(theta, 0)
+qc.cx(0, 1)
+qc.x(2)
+
+qc.draw("mpl")
+\end{lstlisting}
+This outputs the following parameterized circuit:
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.25\linewidth]{../images/param_qc.png}
+    \caption{Parameterized Quantum Circuit}
+    \label{fig:param_qc}
+\end{figure}
+\begin{lstlisting}[language=Python]
+from math import pi
+
+angle_list=[pi/3, pi/2]
+circuits = [qc.assign_parameters({theta:angle} from angle in angle_list)]
+
+for circuit in circuits:
+    display(cicuit.draw("mpl")
+\end{lstlisting}
+This outputs the following circuits:
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.25\linewidth]{../images/param_ex1.png}
+    \caption{For $\theta=\pi / 3$}
+    \label{fig:param_ex1}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.25\linewidth]{../images/param_ex2.png}
+    \caption{For $\theta = \pi/2 $}
+    \label{fig:param_ex2}
+\end{figure}
+\subsection{Variational Form and Ansatz}
+To iteratively optimize from a reference state $\ket{\rho}$ to a target state $\ket{\psi(\vec{\theta})}$, we need to define a variational form $U_V(\vec{\theta})$ that represents a collection of parameterized state for out variational algorithm to explore:
+\begin{align*}
+    \ket{0}\xrightarrow{U_R} U_R\ket{0}&=\ket{\rho}\xrightarrow{U_V(\vec{\theta}}U_A(\vec{\theta}\ket{0}\\
+    &=U_V(\vec{\theta})U_R\ket{0}\\
+    &=U_V(\vec{\theta})\ket{\rho}\\
+    &=\ket{\psi(\vec{\theta})}
+\end{align*}
+Note that the parameterized state depends on both the reference state $\ket{\rho}$, which does not depends on any parameters, and the variational form $U_V(\vec{\theta})$, which always depends on parameters. We refer to the combination of these two halves as an ansatz: $U_A(\vec{\theta}):=U_V(\vec{\theta})U_R$.
+
+As we construct our ansatz to represent a collection of parameterized states for our variational algorithm to explore, we realize an important issue: dimenisonality. an n-qubit system (i.e., Hilbert space) ha a vast number of distinct quantum states in the configuration space. We would require an unwieldy number of parameters to fully explore it. Quantitatively, its dimensionality is $D=2^{2n}$. To make matters worse, the runtime complexity of sarch algorithms, and others alike, grows exponentially with this dimensionality, a phenomenon often referred to in the literature as the curse of dimensionality.
+
+To counter this setback, it is common practice to impose some reasonable constraints on the variational form such that only the most relevant states are explore. Finding an efficient truncated ansatz is an active area of research, but we'll cover two common designs.
+\subsubsection{Heuristic ansatze and trade-offs}
+If you do not have any information about your particular problem that can help restrict the dimensionality, you can try any arbitrary family of parameterized circuits with fewer than $2^{2n}$. However, there are some trade-offs to consider:
+\begin{itemize}
+    \item \textbf{Speed: } By reducing the search space, the algorithm can run faster.
+    \item \textbf{Accuracy: } However, reducing the space could risk excluding the actual solution to the problem, leading to suboptimal solutions.
+    \item Noise: Deeper circuits are affected by noise, so we need to experiment with out ansatz's connectivity, gates and gate fidelity.
+\end{itemize}
+There is a fundamental trade-off between quality (or even solvability) and speed: the more parameters, the more likely you are to find a precise result, but the longer it will take to run the algorithm.
+
+\subsubsection{N-local circuits}
+One of the most widely used examples of heurisitc ansatzes is the N-loca circuits, for a few reasons:
+\begin{itemize}
+    \item \textbf{Efficient Implementation: } The N-local ansatz is typically composed of simple, local gates that can be implemented efficiently on a quantum computer, using a small number of physical qubits. This makes it easier to construct and optimize quantum circuits.
+    \item \textbf{Captures important correlations: } The N-local ansatz can capture important correlations between the qubits in a quantum system, even with a small number of gates. This is because the local gates can act on neighboring qubits and create entanglement between them, which can be important for simulation complex quantum systems.
+\end{itemize}
+These circuits consist of rotation and entanglement layers that are repeated alternatively one or more times as follows:
+\begin{itemize}
+    \item Each layer if formed by gates of size at most N, where N has to be lower than the number of qubits.
+    \item For a rotation layer, the gates are stacked on top of each other. We can use standard rotation operations such as RX or CRZ. For an entanglement layer, we can use gates like Toffoli gates or CS with an entanglement strategy.
+    \item Both types of layers can be parameterized or not, but at least one of them needs to contain parameters. Otherwise, without at least one parameter, there wouldn't be any variations!
+    \item Optionally, an extra rotation layer can be added to the end of the circuit.
+\end{itemize}
+For example, let's create a 5-qubit Nlocal circuit with rotation blocks formed by RX and CRZ gates, entanglement blocks formed by Toffoli gates that at on n qubits $[0,1,2], [0,2,3],[4,2,1]$ and $[3,1,0]$ and 2 repitions of each layer.
+\begin{lstlisting}[language=Python]
+from qiskit.circuit.library import NLocal, CCXGate, CRZgate, RXGate
+from qiskit.circuit import Parameter
+
+theta=Parameter("theta")
+ansatz=NLocal(num_qubits=5,rotation_blocks=[RXGate(theta), CRZGate9theta)],entanglement_blocks=CCXGate(),entanglement=[[0,1,2],[0,2,3],[4,2,1],[3,1,0]],reps=2,insert_barriers=True)
+ansatz.decompose().draw("mpl")
+\end{lstlisting}
+This results in the following circuit:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{../images/5q_ansatz_ex.png}
+    \caption{NLocal 5qubit example Circuit}
+    \label{fig:5q_ansatz_ex}
+\end{figure}
+
+In the above example, the largest gate is the Toffoli gate, which acts on three qubits, making the circuit 3-local. The most commonly used type of N-local circuits are 2-local circuits with single-qubit rotation gates and 2-qubit entanglement gates.
+
+Let's create a 2-local circuit using Qiskit's TwoLocal class. The syntax is the same as NLocal, but there are some differences. For instance, most gates, such as RX, RZ, and CNOT, can be passed as strings without importing the gates or creating a Parameter instance.
+
+\begin{lstlisting}[language=Python]
+from qiskit.circuit.library import TwoLocal
+
+ansatz=TwoLocal(numqubits=5, rotation_blocks=["rx","rz"]], entanglement_blocks="cx",entanglement="linear",reps=2,insert_barriers=True,)
+ansatz.decompose().draw("mpl")
+\end{lstlisting}
+The circuit will be as shown:
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{../images/2local_ansatz.png}
+    \caption{TwoLocal Ansatz Circuit Example}
+    \label{fig:2local_ansatz}
+\end{figure}
+In this case, we used the linear entanglement distribution, where each qubit is entangled with the next. to learn about other strategies, refer to Twolocal's documentation.
+
+\subsubsection{EfficientSU2}
+EfficientSU2 is a hardware-efficient circuit that consists of single-qubit operations spanning SU(2) and CX entanglements. This is a heuristic pattern that can be used to prepare trial wave functions for variational quantum algorithms or as a classification circuit for machine learning.
+\begin{lstlisting}[language=Python]
+from qiskit.circuit.library import EfficientSU2
+
+ansatz=EfficientSU2(4,su2-gates=["rx',"y"],entanglement="linear",reps=1)
+ansatz.decompose().draw("mpl")
+\end{lstlisting}
+This results in following circuit:
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{../images/efficientsu2_ansatz.png}
+    \caption{EfficientSU2 ansatze}
+    \label{fig:efficeintsu2}
+\end{figure}
+\subsection{Problem-specific ansatze}
+While heuristic and hardware efficient ansatze help us to solve a problem in a naive way, we can cause problem-specific knowledge to restrict our circuit search space to a specific type. This will help us to gain speed without losing accuracy in our search process.
+
+\subsubsection{Optimization}
+In a max-cut problem, we want to partition nodes of a graph in a way that maximizes the number of edges between nodes in different groups. The desired max-cut partition for the graph below is clear: the 0th node on the left should be separated from the rest of the nodes in the right by a cut.
+
+\begin{lstlisting}[language=Python]
+imoprt rustworkx as rx
+from rustworkx.visualization import mpl_draw
+
+n=4
+G=rx.PyGraph()
+G.add_nodes_from(range(n))
+# The edge syntax is (start, end, weight)
+edges=[(0,1,1.0),(0,2,1.0),(0,3,1.0),(1,2,1.0),(2,3,1.0)]
+G.add_edges_from(edges)
+
+mpl_draw(G, pos=rx.shell_layout(G),with_labels=True, edge_labels=str, node_color="#1192E8")
+\end{lstlisting}
+The following is the resulting graph:
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\linewidth]{../images/graph.png}
+    \caption{graph}
+    \label{fig:graph}
+\end{figure}
+
+To utilize QAOA algorithm from a max-cut problem, we require a Pauli-Hamiltonian that encodes the cost in a manner such that the minimum expectation value of the operator corresponds to the maximum number of edges between the nodes in two different groups.
+
+For this, simple example, the operator is a linear combination of terms with Z operators on nodes connected by an edge (recall that the 0th qubit is farthest right): ZZII+IZZI+ ZIIZ+IZIZ+IIZZ. Once the operator is constructed, the ansatz for the QAOA algorithm can easily be built by using the QAOA Ansatz circuit from the Qiskit circuit library.
+\begin{lstlisting}[language=Python]
+# Pre-defined ansatz circuit, operator class and visualization too:
+from qiskit.circuit.library import QAOAAnsatz
+from qiskit.quantum_info import SparsePauliOp
+
+# Problem to Hamiltonian operator
+hamiltonian = SparsePauliOp.from_list(["ZZII",1),("IZZI",1),("ZIIZ",1),("IZIZ",1),("IIZZ",1)]
+# QAOA ansatz circuit
+ansatz=QAOAAnsatz(hamiltonian, reps=2)
+# Draw
+ansatz.decompose(reps=3).draw("mpl")
+\end{lstlisting}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{../images/QAOA_circ.png}
+    \caption{QAOA circuit}
+    \label{fig:qaoa_circ}
+\end{figure}
+The previous image illsutrates the ansatz in basic gates for clarity. However, it can be expressed in multiple levels of decomposition by changing the reps argument or by drawing the circuit without the decompose method. for example, the following representation directly shows the QAOA structure with the default reps value, which is reps=1.
+\begin{lstlisting}[language=Python]
+ansatz.decompose(reps=1).draw("mpl")
+\end{lstlisting}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{../images/ansatz_reps1.png}
+    \caption{Decompose Circuit}
+    \label{fig:asnatz_reps1}
+\end{figure}
+
+\subsubsection{Quantum Machine Learing}
+In machine learning,  a common application is the classification of data into two or more categories. This involves encoding a datapoint into a feature map that maps classical feature vectors into the quantum hilbert space. Constructing quantum feature maps based on the parameterized quantum circuits. Constructing quantum feature meaps based on parameterized quantum circuits that are hard to simulate classically is an important step towards obtaining a potential adantage over classical machine learning approached and is an active are of current research.
+
+The ZZFeatureMap can be used to create a parameterized circuit. We can pass in our data points to the feature map $(x)$ and a separate variational form to pass in weights as parameters $(\theta)$
+\begin{lstlisting}
+from qiskit.circuit.library import ZZFeatureMap, TwoLocal
+
+data=[0.1,0.2]
+
+zz_feature_map_reference=ZZFeatureMap(feature_dimension=2,reps=2)
+zz_feature_map_reference= zz_feature_map_reference.assign_parameters(data)
+
+variation_form=TwoLocal(2,["ry","rz"],"cz",reps=2)
+vqc_ansatz = zz_feautre_map_reference.compose(vairation_form)
+vqc_ansatz.decompose().draw("mpl")
+\end{lstlisting}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{../images/qml_circ.png}
+    \caption{ Circuit}
+    \label{fig:qlm_circ}
+\end{figure}
+
+The high-level variational workload looks as follows:
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{../images/ansatz.png}
+    \caption{Variational workload}
+    \label{fig:ansatz}
+\end{figure}
+For each variation parameter $\vec{\theta}$, a different quantum state will be produced. to find the optimal parameters, we need to define a problem-specific cost function to iteratively update our ansatz's parameters.
+
+\section{Cost Functions}
+We now see how to evaluate a cost function:
+\begin{enumerate}
+    \item First, we will learn about Qiskit Runtime primitives
+    \item Define a cost function $C(\vec{\theta})$. This is a problem-specific function that defines the problems goal for the optimizer to minimize (or maximise)
+    \item Defining a measurement strategy with Qiskit Runtime primitves to optimize speed vs accuracy
+\end{enumerate}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{../images/Costfunc.png}
+    \caption{Cost function}
+    \label{fig:cost_func}
+\end{figure}
+\subsection{Primitive}
+All physical systems, whether classical or quantum, exist in different states. For example, a car on a road can have a certain mass, position, speed, or accelerate that characterize its state. Similarly, quantum systems can also have different configurations or states, but they differ from classical system in how we deal with measurements and state evolution. This leads to unique properties such as superposition and entanglement that are exclusive to quantum mechanics. Just like we can describe a car's state using physical properties like speed or acceleration, we can also describe the state of a quantum system using observables, which are mathematical objects.
+
+In quantum mechanics, states are represented by normalized complex column vectors, or kets ($\ket{\psi})$, and \textbf{observable are hermitian operators} $\hat{H}=\hat{H}^{\dagger}$ that act on the kets. An eigenvector $(\ket{\lambda})$ of an observable is known as an eigenstate. Measuring an observable for one of its eigen states $(\ket{\lambda})$ will give us the corresponding eigenvalue $(\lambda)$ as readout.
+
+how to measure a quantum system and what can you measure, Qiskit offers two primitives that can help:
+\begin{itemize}
+    \item \textbf{Sampler: }Given a quantum state $\ket{\psi}$, this primitve obtains the probability of each possible computational basis state.
+    \item \textbf{Estimator: } Given a quantum observable $\hat{H}$ and a state $\ket{\psi}$, this primitve computes the expected value of $\hat{H}$.
+\end{itemize}
+
+\subsubsection{The Sampler Primitive}
+The $\textbf{Sampler}$ primitve calculates the probability of obtaining each possible state $\ket{k}$ from the computational basis, given a quantum circuit that prepare the state $\ket{\psi}$. It calculates
+\[
+    p_k=|\braket{k|\psi}|^2 \quad \forall k\in\mathbb{Z}_2^n \equiv \{0,1,\ldots, 2^n-1\}
+\]
+Qiskit Runtime's Sampler runs the circuit multiple times on a quantum device, performing measurements on each run, and reconstructing the probability distribution from the recovered bit strings. The more runs (or shots) it performs, the more accurate the results will be, but this requires more time and quantum resources.
+
+However, since the number of possible outputs grow exponentially with the number of qubits $n$ (i.e. $2^n$), the number of shots will need to grow exponentially as well in order to capture a dense probability distribution. Therefore, $\textbf{Sampler}$ is only efficient to sparse probability distributions; where the target state $\ket{\psi}$ must be expressible as a linear combination of the computational basis states, with the number of terms growing at most polynomially with the number of qubits:
+\[
+\ket{\psi} = \sum_k^{Poly(n)} w_k\ket{k}
+\]
+The \textbf{Sampler} can also be configured to retrieve probabilities from a subsection of the circuit representing a subset of the total possible states.
+
+\subsubsection{The Estimator Primitive}
+The \textbf{Estimator} primitive calculates the expectation value of an observable $\hat{H}$ for a quantum state $\ket{\psi}$; where the observable probabilities can be expressed as $p_{\lambda}=|\braket{\lambda|\psi}|^2$, being $\ket{\lambda}$ the eigen states of the observable $\hat{H}$. The expectation value is then defined as the average of all possible outcomes $\lambda$ (i.e. the eigenvalues of the observable) of a measurement of the state $\ket{\psi}$, weighted by the corresponding probabilities: 
+\[
+\braket{\psi|\hat{H}|\psi}=\braket{\hat{H}}_{\psi} :=\sum_{\lambda} \lambda\braket{\psi|\lambda}\braket{\lambda|\psi}=\sum_{\lambda} \lambda|\braket{\lambda|\psi}|^2=\sum_{\lambda} p_{\lambda} \lambda
+\]
+However, calculating the expectation value of an observable is not always possible, as we often don't know its eigenbasis. Qiskit Runtime's \textbf{Estimator} uses a complex algebraic process to estimate the expectation value on a real quantum device by breaking down the observable into a combination of other observables whose eigenbasis we do know.
+
+In simpler terms, \textbf{Estimator} breaks down any observable that it doesn't know how to measure into simpler, measurable outcomes called Pauli operators.
+
+Any operator can be expressed as a combination of $4^n$ Pauli operators.
+\[
+\hat{P}_k:=\sigma_{k_{n-1}} \otimes \ldots \otimes \sigma_{k_0} \quad \forall k \in \mathbb{Z}_4^n \equiv \{0,1,\ldots, 4^n-1\}
+\]
+such that
+\[
+\hat{H}=\sum_{k=0}^{4^n-1} w_k\hat{P}_k
+\]
+where $n$ is the number of qubits $k\equiv k_{n-1}\ldots k_0$ for $k_l\in\mathbb{Z}_4\equiv \{0,1,2,3\}$ (i.e. integers base 4), and $(\sigma_0,\sigma_1,\sigma_2,\sigma_3) :=(I,X,Y,Z)$.
+
+After performing this decomposition, \textbf{Estimator} derives a new circuit $V_k\ket{\psi}$ for each observable $\hat{P}_k$ (i.e. from the original circuit), to effectively diagonalize the Pauli observable in the computational basis, and calculates the probability $p_{kj}$ of obtaining each possible output $j$. Tt then looks for the eigenvalue $\lambda_{kj}$ of $P_k$ corresponding to each output $j$, multiplies by $w_k$, and adds all the results together to obtain the expected value of the observable $\hat{H}$ for the given state $\ket{\psi}$.
+\[
+\braket{\hat{H}}_{\psi}=\sum_{k=0}^{4^n-1}w_k\sum_{j=0}^{2^n-1} p_{kj}\lambda_{kj},
+\]
+Since calculating the expectation value of $4^n$ Paulis is impractical (i.e. exponentially growing), \textbf{Estimator} can only be efficient when a large amount of $w_k$ are zero (i.e. sparse Pauli decomposition instead of dense). Formally we say that, for this computation to be efficiently solvable, the number of non-zero terms has to grow at most polynomially with the number of qubits $n: \hat{H}=\sum_{k}^{Poly(n)} w_k\hat{P}_k$.
+The reader may notice the implicit assumption that probability sampling also needs to be efficient as explained for Sampler, which means
+\[
+\braket{H}_{\psi}=\sum_k^{Poly(n)} w_k\sum_{j}^{Poly(n)}p_{kj}\lambda_{kj}
+\]
+\subsubsection{Guided example to calculate expectation values}
+Let's assume the single-qubit state $\ket{+}:=H\ket{0}=\frac{1}{\sqrt{2}}(\ket{0}+\ket{1})$, and observable
+\[
+\hat{H}=\begin{pmatrix} -1 & 2 \\ 2 & 1 \end{pmatrix}=2X-Z
+\]
+with the following theoretical expectation value $\braket{\hat{H}}_{+}=\braket{+|\hat{H}|+}=2$
+since we do not know how to measure this observable, we cannot compute its expectation value direclty, and we need to re-express it as $\braket{H}_){+}=2\braket{X}_{+}-\braket{Z}_{+}$. Which can be shown to evaluate to the same result by virtue of noting that $\braket{+|X|+}=1$, and $\braket{+|Z|+}=0$.
+
+let's see how to compute $\braket{X}_+$ and $\braket{Z}_+$ directly. Since X and Z do not commute (i.e. dont' share the same eigen basis), they cannot be measured simultaneously, therefore we need the auxiliary circuits:
+\begin{lstlisting}[language=Python]
+from qiskit import QuantumCircuit
+from qiskit.quantum_info import SparsePauliOp
+
+# The following code will work for any other initial single-qubit state and observable
+original_circuit = QuantumCircuit(1)
+original_circuit.h(0)
+
+H = SparsePauliOp(["X", "Z"], [2, -1])
+
+aux_circuits = []
+for pauli in H.paulis:
+    aux_circ = original_circuit.copy()
+    aux_circ.barrier()
+    if str(pauli) == "X":
+        aux_circ.h(0)
+    elif str(pauli) == "Y":
+        aux_circ.sdg(0)
+        aux_circ.h(0)
+    else:
+        aux_circ.id(0)
+    aux_circ.measure_all()
+    aux_circuits.append(aux_circ)
+
+original_circuit.draw("mpl")
+\end{lstlisting}
 
 
 
@@ -10319,11 +11224,11 @@ The DFT matrix is a unitary matrix, that is, $F_n^{\dagger}F_n=I$. The DFT matri
 \begin{example}
     Find the quantum fourier transform for $n=4$ of the functions $\ket{f}=\frac{1}{2}(\ket{0}+\ket{1}+\ket{2}+\ket{3})=\frac{1}{2}\begin{pmatrix} 1 \\ 1 \\ 1 \\ 1 \end{pmatrix}$,
     $\ket{g}=\ket{0}= \begin{pmatrix} 1 \\ 0 \\ 0 \\ 0 \end{pmatrix}$ and $\ket{h}=\ket{1}= \begin{pmatrix} 0 \\ 1 \\ 0 \\ 0 \end{pmatrix}$.
-    Their correspondiong QFT are given by:
+    Their corresponding QFT are given by:
     \[ QFT_4\ket{f}=\dfrac{1}{4}\begin{pmatrix} 1 & 1 & 1 & 1 \\ 1 & i & -1 & -i \\ 1 & -1 & 1 & -1 \\ 1 & -i & -1 & i \end{pmatrix}\begin{pmatrix} 1 \\ 1 \\ 1 \\ 1 \end{pmatrix}=\dfrac{1}{4}\begin{pmatrix} 4 \\ 0 \\ 0 \\ 0 \end{pmatrix}=\begin{pmatrix} 1 \\ 0 \\ 0 \\ 0 \end{pmatrix} \]
     \[ QFT_4\ket{g}=\dfrac{1}{2}\begin{pmatrix} 1 & 1 & 1 & 1 \\ 1 & i & -1 & -i \\ 1 & -1 & 1 & -1 \\ 1 & -i & -1 & i \end{pmatrix}\begin{pmatrix} 1 \\ 0 \\ 0 \\ 0 \end{pmatrix}=\dfrac{1}{2}\begin{pmatrix} 1 \\ 1 \\ 1 \\ 1 \end{pmatrix}=\begin{pmatrix} 0.5 \\ 0.5 \\ 0.5 \\ 0.5 \end{pmatrix} \]
     \[ QFT_4\ket{h}=\dfrac{1}{2}\begin{pmatrix} 1 & 1 & 1 & 1 \\ 1 & i & -1 & -i \\ 1 & -1 & 1 & -1 \\ 1 & -i & -1 & i \end{pmatrix}\begin{pmatrix} 0 \\ 1 \\ 0 \\ 0 \end{pmatrix}=\dfrac{1}{2}\begin{pmatrix} 1 \\ i \\ -1 \\ -i \end{pmatrix}=\begin{pmatrix} 0.5 \\ 0.5i \\ -0.5 \\ -0.5i \end{pmatrix} \]
-    In examples, note that the columns of $QFT_4$ are orthogonal i.e. their inner produt is zero and along with that 
+    In examples, note that the columns of $QFT_4$ are orthogonal i.e. their inner product is zero and along with that 
     the 2-norm of the columns is 1. Thus, the QFT matrix is unitary.
 
     Note that the vectors like $\ket{f}$ that had fewer zeros (narrow spread) had fourier transforms with a lot of zeros (larger spread),
@@ -10541,15 +11446,19 @@ The circuit model can be used to represent any computation that can be performed
 digital computer. The circuit model is a useful abstraction that 
 allows us to reason about the efficiency of algorithms and design better algorithms. 
 
-Logic Gate: It is a function defined as $f:\{0,1\}^k \rightarrow \{0,1\}^l$ where k is the number of input bits and 
-l is the number of output bits. Note that no loops are allowed in such circuits to aviod instabilitiyes. Thus, they are Acylcic circuits.
+\begin{definition}
+\textbf{Logic Gate: }It is a function defined as $f:\{0,1\}^k \rightarrow \{0,1\}^l$ where k is the number of input bits and 
+l is the number of output bits.
+\end{definition}
+Note that no loops are allowed in such circuits to avoid instabilities. Thus, they are Acyclic circuits.
 This is the Circuit Model of Computation.
 Some of the useful Logic Gates are:
-\section{Logic Gates}
+\section{Classical Logic Gates}
 \subsection{NOT Gate}\label{cgate:NOT}
 The NOT gate is a unary gate that takes a single input bit and produces a single output bit. The output bit is the complement of the input bit i.e. if the input bit is 0, the output bit is 1 and if the input bit is 1, the output bit is 0.
 The truth table for the NOT gate is:
-\begin{center}
+\begin{table}[H]
+    \centering
     \begin{tabular}{|c|c|}
         \hline
         Input & Output \\
@@ -10558,7 +11467,10 @@ The truth table for the NOT gate is:
         1 & 0 \\
         \hline
     \end{tabular}
-\end{center}
+    \caption{Truth table for NOT Gate}
+    \label{tab:NOT_GATE}
+\end{table}
+
 The NOT gate is denoted by the symbol $\neg$.
 It's symbol is as shown:
 \begin{center}
@@ -10572,7 +11484,8 @@ Mathematically, the NOT gate is defined as:
 \subsection{AND Gate}\label{cgate:AND}
 The AND gate is a binary gate that takes two input bits and produces a single output bit. The output bit is 1 if both input bits are 1 and 0 otherwise.
 The truth table for the AND gate is:
-\begin{center}
+\begin{table}[H]
+\centering
     \begin{tabular}{|c|c|c|}
         \hline
         Input 1 & Input 2 & Output \\
@@ -10583,7 +11496,9 @@ The truth table for the AND gate is:
         1 & 1 & 1 \\
         \hline
     \end{tabular}
-\end{center}
+    \caption{Truth table for AND Gate}
+    \label{tab:AND_GATE}
+\end{table}
 The AND gate is denoted by the symbol $\land$.
 It's symbol is as shown:
 \begin{center}
@@ -10597,7 +11512,8 @@ Mathematically, the AND gate is defined as:
 \subsection{OR Gate}
 The OR gate is a binary gate that takes two input bits and produces a single output bit. The output bit is 1 if at least one of the input bits is 1 and 0 otherwise.
 The truth table for the OR gate is:
-\begin{center}
+\begin{table}[H]
+\centering
     \begin{tabular}{|c|c|c|}
         \hline
         Input 1 & Input 2 & Output \\
@@ -10608,7 +11524,9 @@ The truth table for the OR gate is:
         1 & 1 & 1 \\
         \hline
     \end{tabular}
-\end{center}
+    \caption{Truth table for OR Gate}
+    \label{tab:OR_GATE}
+\end{table}
 The OR gate is denoted by the symbol $\lor$.
 It's symbol is as shown:
 \begin{center}
@@ -10622,7 +11540,8 @@ Mathematically, the OR gate is defined as:
 \subsection{NAND Gate}
 The NAND gate is a binary gate that takes two input bits and produces a single output bit. The output bit is the complement of the AND gate i.e. the output bit is 0 if both input bits are 1 and 1 otherwise.
 The truth table for the NAND gate is:
-\begin{center}
+\begin{table}[H]
+\centering
     \begin{tabular}{|c|c|c|}
         \hline
         Input 1 & Input 2 & Output \\
@@ -10633,8 +11552,10 @@ The truth table for the NAND gate is:
         1 & 1 & 0 \\
         \hline
     \end{tabular}
-\end{center}
-The NAND gate is denoted by the symbol $\uparrow$.
+    \caption{Truth table for NAND Gate}
+    \label{tab:NAND_GATE}
+\end{table}
+The NAND gate is denoted by the symbol $\overline{\cdot}$.
 It's symbol is as shown:
 \begin{center}
     \begin{circuitikz}
@@ -10643,7 +11564,7 @@ It's symbol is as shown:
 \end{center}
 Mathematically, the NAND gate is defined as:
 \[ f(x,y)=\neg (x \land y) \]
-NOte that the NAND Gate can also be written by adding a NOT gate at the output of the AND gate as shown:
+Note that the NAND Gate can also be written by adding a NOT gate at the output of the AND gate as shown:
 \begin{center}
     \begin{circuitikz}
         \draw (0,0) node[and port] (myand) {};
@@ -10654,7 +11575,8 @@ NOte that the NAND Gate can also be written by adding a NOT gate at the output o
 \subsection{NOR Gate}
 The NOR gate is a binary gate that takes two input bits and produces a single output bit. The output bit is the complement of the OR gate i.e. the output bit is 0 if at least one of the input bits is 1 and 1 otherwise.
 The truth table for the NOR gate is:
-\begin{center}
+\begin{table}[H]
+\centering
     \begin{tabular}{|c|c|c|}
         \hline
         Input 1 & Input 2 & Output \\
@@ -10665,8 +11587,10 @@ The truth table for the NOR gate is:
         1 & 1 & 0 \\
         \hline
     \end{tabular}
-\end{center}
-The NOR gate is denoted by the symbol $\downarrow$.
+    \caption{Truth table for NOR Gate}
+    \label{tab:NOR_GATE}
+\end{table}
+The NOR gate is denoted by the symbol $\overline{A\lor B}$
 It's symbol is as shown:
 \begin{center}
     \begin{circuitikz}
@@ -10686,7 +11610,8 @@ NOR Gate can also be written by adding a NOT gate at the output of the OR gate a
 \subsection{XOR Gate}
 The XOR gate is a binary gate that takes two input bits and produces a single output bit. The output bit is 1 if the input bits are different and 0 otherwise.
 The truth table for the XOR gate is:
-\begin{center}
+\begin{table}[H]
+\centering
     \begin{tabular}{|c|c|c|}
         \hline
         Input 1 & Input 2 & Output \\
@@ -10697,7 +11622,9 @@ The truth table for the XOR gate is:
         1 & 1 & 0 \\
         \hline
     \end{tabular}
-\end{center}
+    \caption{Truth table for XOR Gate}
+    \label{tab:XOR_GATE}
+\end{table}
 The XOR gate is denoted by the symbol $\oplus$.
 It's symbol is as shown:
 \begin{center}
@@ -10711,7 +11638,8 @@ Mathematically, the XOR gate is defined as:
 \subsection{FANOUT Gate}
 The FANOUT gate is a unary gate that takes a single input bit and produces two output bits. The output bits are the same as the input bit.
 The truth table for the FANOUT gate is:
-\begin{center}
+\begin{table}[H]
+\centering
     \begin{tabular}{|c|c|c|}
         \hline
         Input & Output 1 & Output 2 \\
@@ -10720,14 +11648,17 @@ The truth table for the FANOUT gate is:
         1 & 1 & 1 \\
         \hline
     \end{tabular}
-\end{center}
+    \caption{Truth table for FANOUT Gate}
+    \label{tab:FANOUT_GATE}
+\end{table}
 Mathematically, the FANOUT gate is defined as:
 \[ f(x)=(x,x) \]
 
 \subsection{CROSSOVER Gate}
-The CROSSOVER gate is a binary gate that takes two input bits and produces two output bits. The output bits are the complement of the input bits i.e. if the input bits are (0,1), the output bits are (1,0) and if the input bits are (1,0), the output bits are (0,1).
-The truth table for the CROSSOVER gate is:
-\begin{center}
+The CROSSOVER gate is a binary gate that takes two input bits and produces two output bits. The output bits are the complement of the input bits i.e. if the input bits are (0,1), the output bits are (1,0) and if the input bits are l, the output bits are (0,1).
+The truth table for the CROSSOVER gate is:m
+\begin{table}[H]
+\centering
     \begin{tabular}{|c|c|c|c|c|}
         \hline
         Input 1 & Input 2 & Output 1 & Output 2 \\
@@ -10738,102 +11669,31 @@ The truth table for the CROSSOVER gate is:
         1 & 1 & 1 & 1 \\
         \hline
     \end{tabular}
-\end{center}
+    \caption{Truth table for CROSSOVER gate}
+    \label{tab:CROSSOVER_GATE}
+\end{table}
 This is same as saying that the value of two bits are interchanged.
 
+Note that OR gate can be simulated by three NOT gates and one AND gate using \textbf{De Morgan's law}
+\[
+a\lor b=\neg(\neg a\land \neg b) 
+\]
+Similarly XOR gate can be simulated by AND and NOT gates as
+\[
+a \oplus b=(\neg a \land b) \lor (a\land \neg b)
+\]
+which can be further simplified by using the above definition of OR gate using AND and NOT gate.
+
 \section{Classical Circuits}
-The Ancilla or work bits are the extra bits that are used in the computation 
+\begin{definition}
+    \textbf{Ancilla bits: }The Ancilla or work bits are the extra bits that are used in the computation 
 to store the intermediate results. They are temporary storage devices
 that is used to store the intermediate results are are not a part of the inputs 
-or the outuput bits of the computation. 
-\textbf{These elements can be used to compute any function}. For example, a half adder circuit
-as shown in figure 
-\begin{figure}[h!]
-    \centering
-    \begin{circuitikz}
-        \draw (-1.5,0) node[](in1) {};
-        \draw (-1.5,2) node[](in2) {};
-
-        % Gates
-        \draw (2,0) node[and port] (and) {};
-        \draw (2,2) node[xor port] (xor) {};
-
-        % In1
-        \draw (in1|-xor.in 2) node[left]{$x$} to[short, o-*] node[](in1split){} ++(0.5, 0) to[short] (xor.in 2);
-        \draw (in1split) to[short] (in1split|-and.in 1) to[short] (and.in 1);
-
-        % In2
-        \draw (in2|-and.in 2) node[left]{$y$} to[short, o-*] node[](in2split){} ++(1, 0) to[short] (and.in 2);
-        \draw (in2split) to[short] (in2split|-xor.in 1) to[short] (xor.in 1);
-
-        % Output
-        \draw (xor.out) to[short, -o] node[right]{$x \oplus y$} ++(0.25,0);
-        \draw (and.out) to[short, -o] node[right]{$c$} ++(0.25,0);
-    \end{circuitikz}
-
-    \caption{Half Adder}
-    \label{fig:HalfAdder}
-\end{figure}
-
-We can use half-adders to make a full-adder as shown in figure: \ref{fig:FullAdder}
-\begin{figure}[h!]
-    \centering % It's kind of not cenered, not exactly sure why
-    \begin{circuitikz}
-        \draw (-2,0) node[](in1) {};
-        \draw (-2,2) node[](in2) {};
-        \draw (-2,-1.28) node[](in_ue) {};
-
-        % Gates for HA1
-        \draw (2,0) node[and port] (and1) {};
-        \draw (2,2) node[xor port] (xor1) {};
-
-        % HA1 Border
-        \draw[draw=gray] (-1, -1) rectangle ++(3.5,4);
-        \draw (0.75, 3) node[above]{$HA_1$};
-
-        % HA1 In1
-        \draw (in1|-xor1.in 2) node[left]{$IN_1$} to[short, o-*] node[](in1split){} ++(1.5, 0) to[short] (xor1.in 2);
-        \draw (in1split) to[short] (in1split|-and1.in 1) to[short] (and1.in 1);
-        % HA1 In2
-        \draw (in2|-and1.in 2) node[left]{$IN_2$} to[short, o-*] node[](in2split){} ++(2, 0) to[short] (and1.in 2);
-        \draw (in2split) to[short] (in2split|-xor1.in 1) to[short] (xor1.in 1);
-
-        % Gates for HA2
-        \draw (7,1) node[and port] (and2) {};
-        \draw (7,3) node[xor port] (xor2) {};
-
-        % HA2 Border
-        \draw[draw=gray] (4.25, 0) rectangle ++(3.5, 4);
-        \draw (6, 4) node[above]{$HA_2$};
-
-        % HA2 inside 
-        \draw (and2.in 2) to[short, -*] node[](in3split){} ++(-0.5, 0);
-        \draw (xor2.in 2) to[short, -*] node[](in4split){} ++(-1, 0);
-        \draw (in3split) to[short] (in3split|-xor2.in 1) to[short] (xor2.in 1);
-        \draw (in4split) to[short] (in4split|-and2.in 1) to[short] (and2.in 1);
-
-        % Between Gates
-        \draw (xor1.out) to[short] ++(1.25, 0) node[](splitter1){} to[short] (splitter1|-in4split) to[short] (in4split);
-        \draw (in3split) to[short] (splitter1|-in3split) to[short] (splitter1|-in_ue) to[short] node[left]{$IN_C$} (in_ue|-in_ue) to[short, -o] (in_ue);
-
-        % OR
-        \draw (10,-0.25) node[or port] (or1) {};
-
-        \draw (and2.out) to[short] node[](splitter2){} ++(1,0) to[short] (splitter2|-or1.in 1) to[short] (or1.in 1);
-
-        \draw (and1.out) to[short] node[](splitter3){} ++(1.75,0) to[short] (splitter3|-or1.in 2) to[short] (or1.in 2);
-
-        % Output
-        \draw (xor2.out) to[short, -o] node[right](sumout){$Sum$} ++(3, 0);
-        \draw (or1.out) to[short, -o] node[right]{$Carry$} (sumout.west|-or1.out);
-    \end{circuitikz}
-
-    \caption{Full Adder}
-    \label{fig:FullAdder}
-\end{figure}
-As shown in the figure, the full adder is made up of two half adders and an OR gate. The carry bit from the first half adder is used as the input carry bit for the second half adder. The sum bits from both the half adders are fed to the OR gate to get the final sum bit. The carry bit from the second half adder is the final carry bit.
-By cascading, many of these full-adders together we obtain a circuit to add two n-bit integers.
-
+or the output bits of the computation.
+\end{definition}
+\begin{theorem}
+There always exists a classical circuit which can simulate any classical boolean function $f$.
+\end{theorem}
 \label{proof:classicalcomputations}
 \begin{proof}
     Any fixed gates can be used to compute any function $f:\{0,1\}^n \rightarrow \{0,1\}^m$.
@@ -10872,30 +11732,51 @@ The AND and XOR Gates are not invertible thus irreversible and hence can't be im
 Thus, implementing a universal quantum circuit is not as straight forward as in the classical case.
 
 \begin{example}
-    NAND gate can be used to simulate AND, XOR and NOT gates provided wires, ancilla bits and FANOUT are available as shown.
-    For implementing AND gate using NAND gates is shown in figure \ref{fig:and_imp}
-    \begin{figure}[H]
-        \centering
-        \includegraphics[width=0.5\textwidth]{../images/and_imp.png}
-        \caption{NAND gate used to simulate AND, XOR and NOT gates}
-        \label{fig:and_imp}
-    \end{figure}
-    Similarly, we can implement XOR as shown in figure \ref{fig:xor_imp} and NOT as shown in figure \ref{fig:not_imp}.
-    \begin{figure}[H]
-        \centering
-        \includegraphics[width=0.5\textwidth]{../images/xor_imp.png}
-        \caption{NAND gate used to simulate XOR gate}
-        \label{fig:xor_imp}
-    \end{figure}
-    \begin{figure}[H]
-        \centering
-        \includegraphics[width=0.3\textwidth]{../images/not_imp.png}
-        \caption{NAND gate used to simulate NOT gate}
-        \label{fig:not_imp}
-    \end{figure}
-
+    Half adder and Full adder circuits used in Classical Computers.
 \end{example}
-% Add more appendices as needed
+\section{Classical Algorithms as logic circuits}
+We can represent algorithms as logic circuits with the inputs on the left, time flows left to right and the outputs are on the right. Classical computer algorithms usually described in high level languages, but they implicitly represent many low-level logic operations, like this circuit shown in figure \ref{fig:classical-circ} of example.
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\linewidth]{../images/classical_circ.png}
+    \caption{Generic form of a classical circuit (information flows from left to right)}
+    \label{fig:classical-circ}
+\end{figure}
+a reasonable overall cost measure is the number of gates. There are other measures that we may care about such as the \textit{depth}, which is the length of the longest path from an input to an output. Or the \textit{width}, which is the maximum number of gates at any level, assuming that the gates are arranged in levels. But, to keep things simple, let's use the gate count as our main cost measure.
+
+The number of gates depends on what the elementary operations are. We'll take these to be AND and NOT gates (and let's not count the fan-out operations). What's important is that a gate does a constant amount of computational work. If we allowed arbitrary gates then any circuit could be reduced to just one supergate, but the cost of that one gate would not be very meaningful, but since we expect large gates to be expensive to implement.
+
+\subsection{Multiplication problem and factoring problem}
+Let's consider the \textit{multiplication problem} where one is given two n-bit binary integers as input and the output is their product (a 2n-bit integer). For example, for inputs 101 and 111, the output should be 100011 (because the product of 5 and 7 is 35).
+Think of the number of bits n as being quite large, larger than the number of bits of the arithmetic logic unit of your computer. In principle, you could multiply two numbers consisting of thousands of digits by pencil and paper using the method taught in school. And it can be coded up as an algorithm (commonly referred to as the grade school multiplication algorithm). How efficient is this algorithm? assuming you learned the algorithm that I did, its running time scales quadratically in its input size. By quadratic, I mean some constant times $n^2$ (for sufficiently large n).
+
+The constant depends on the exact gate set that you use and we'll often use the big-oh notation to suppress that.
+
+\begin{definition}
+    For $f,g:\mathbb{N}\rightarrow\mathbb{N}, g(n) \in O(g(n))$ if $f(n)\leq cg(n)$ for some constant $c > 0$ (and for sufficiently large n).
+\end{definition}
+Of course if we want to implement an algorithm then we do care about what the constant multiple is. But if we're looking at things theoretically then the big-oh notation helps reduce clutter and focus attention on asymptotic growth rates, which tend to be more important for large n.
+
+There are more efficient algorithms than the grade school method. The current record is $O(n \log n)$ which is quite good. (There's a rich history of multiplication algorithms that evolved from $O(n^2)$ to $O(n \log n)$, but we won't get into that here).
+
+Now let's look at the factoring problem, which can be roughly thought of as the inverse of the multiplication problem. The input is an n-bit number and the output is its prime factors. For example, for input 100011, the outputs are 101 and 111 (the prime factors of 35).
+
+You probably also learned this algorithm in grade school For factoring numbers: first check it the number is divisible by 2. Then check for divisibility by 3. You can skip 4, since that's a multiple of 2. then check 5, skip 6, check 7m and so on. You can stop once you get to the square root of the number because if you haven't found a divisor by then, the number must be prime.
+
+How expensive is this computationally? For large n, there are a lots of divisors to check, exponentially many. the cost is exponential in n, namely $O(exp(n))$. there are more sophisticated algorithms than this method. The best currently-known classical algorithm for factoring is the so-called \textit{number field sieve algorithm}, which scales exponentially in the cube root of n (to be more precise, $exp(n^{1/3}\log^{2/3}(n))$. since the cube root is in the exponent, this is still essentially exponential. There is no currently-known classical algorithm for factoring whose cost scales polynomially with respect to n.
+
+In fact, the presumed difficulty of factoring is the basis of the security of many crypto-systems.
+
+\section{Classical Circuits}
+In classical complexity theory, a Boolean circuit is a finite directed acyclic graph with AND, OR, and NOT gates. It has n input nodes, which contain the n input bits ($n\geq 0$). The internal nodes are AND, OR and NOT gates according to the circuit, and there are one or more designated output nodes. The initial input bits are fed into AND, OR and NOT gates according to the circuit, and eventually the output nodes assume some value.
+
+\textbf{We say that a circuit computes a Boolean function $f:\{0,1\}^n \rightarrow \{0,1\}^m$ if the output nodes get the right value $f(x)$ for every input $x \in \{0,1\}^n$.}
+
+A circuit family is a set $C=\{C_n\}$ of circuits, one for each input size $n$. Each circuit has one output bit. Such a family recognizes or decides a language $L \subseteq \{0,1\}^*=\cup_{n\geq 0} \{0,1\}^n$ if, for every $n$ and every input $x \in \{0,1\}^n$, the circuit $C_n$ outputs 1 if $x \in L$ and outputs 0 otherwise. We can think of language $L$ as a sequence of Boolean functions $f_n:\{0,1\}^n \rightarrow \{0,1\}$, where $f_n$ takes value 1 exactly on the n-bit strings that are in $L$. The circuit $C_n$ then computes the function $f_n$. Such a circuit family is uniformly polynomial if there is a deterministic Turing machine that outputs $C_n$ given n as input, using space logarithmic in $n$. Logarithmic space implies time that's at most polynomial in n, because such a machine will have only $poly(n)$ different internal states, so it either halts after $poly(n)$ steps or cycles forever. Note that the size (number of gates) of the circuit $C_n$ can then grow at most polynomially with $n$. It is known that uniformly polynomial circuit family iff $L\in P$, where $P$ is the class of languages decidable by polynomial-time Turing machines.
+
+Similarly, we can consider randomized circuits. these, receive, in addition to the n input bits, also some random bits ("coin flips") as input. A randomized circuit computes a function $f$ if it successfully computes the right answer $f(x)$ with probability at least $2/3$ for every $x$ (probability taken over the values of the random bits). Randomized circuits are equal in power to randomized Turing machines: a language $L$ can be decided by a uniformly polynomial randomized circuit family iff $L \in BPP$, where $\mathbf{BPP}$ ("Bounded-error Probabilistic Polynomial time") is the class of languages that can efficiently be recognized by randomized Turing machines with success probability at least $2/3$. because we can efficiently reduce the error probability of randomize algorithms, the particular value $2/3$ doesn't really matter here and may be replaced with any fixed constant in $(1/2,1)$.
+
+
 
 
 
