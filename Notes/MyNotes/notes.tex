@@ -4976,6 +4976,17 @@ More formally,
     Conversely, given a cloning device, we could clone $\ket{\psi}$ and $\ket{\varphi}$ an arbitrary number of times. Then, performing repeated measurements of the two states based on the measurement statistics in different measurement bases, we would (given enough measurements) be able to distinguish the two states based on the measurement statistics (there will of course be some error $\epsilon$ based on probabilistic considerations, but given that we have access to as many measurements of the states as we like, we are able to make this error arbitrarily low).
 \end{example}
 \section{Applications of Entanglement}
+\subsection{The CHSH Game}
+The CHSH game is a two-player game that demonstrates the power of entanglement. The game is played as follows:
+\begin{enumerate}
+    \item Alice and Bob are separated and cannot communicate with each other.
+    \item A referee sends a random bit $x$ to Alice and a random bit $y$ to Bob.
+    \item Alice and Bob each send a bit $a$ and $b$ respectively to the referee.
+    \item The referee checks whether $a \oplus b = x \land y$.
+    \item The referee wins if the condition is satisfied.
+\end{enumerate}
+
+\subsubsection{Implementation using Qiskit}
 \subsection{Quantum Teleportation}
 Suppose Alice has a qubit that she want to send to Bob. Let us say that the state of the qubit is $\alpha\ket{0}+\beta\ket{1}$. How many classical bits would be required to accomplish this task?
 
