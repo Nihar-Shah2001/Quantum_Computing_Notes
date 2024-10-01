@@ -1360,6 +1360,7 @@ It is not actually necessary to explicitly use the  display  command to see the 
 \begin{lstlisting}[language=Python]
 ket0 / 2 + ket1 / 2
 \end{lstlisting}
+Output:
 \begin{lstlisting}
 array([0.5, 0.5])
 \end{lstlisting}
@@ -1488,8 +1489,15 @@ display(statistics)
 plot_histogram(statistics)
 \end{lstlisting}
 Output:
-{'0': 554, '1': 446}
+\begin{lstlisting}
+{np.str_('0'): np.int64(568), np.str_('1'): np.int64(432)}
+\end{lstlisting}
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\textwidth]{../images/histogram_exp.png}
+    \caption{Histogram of measurement outcomes}
+\end{figure}
 
 Running the cell multiple times and trying different numbers of samples in place of 1000 may be helpful for developing some intuition for how the number of trials influences the estimated probabilities.
 
@@ -1538,7 +1546,11 @@ circuit.z(0)
 circuit.draw()
 \end{lstlisting}
 Output:
-
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\textwidth]{../images/circuit_exp.png}
+    \caption{Quantum Circuit}
+\end{figure}
 The operations are applied sequentially, starting on the left and ending on the right in the figure. Let us first initialize a starting quantum state vector and then evolve that state according to the sequence of operations.
 
 \begin{lstlisting}[language=Python]
@@ -1558,8 +1570,110 @@ statistics = v.sample_counts(4000)
 plot_histogram(statistics)
 \end{lstlisting}
 Output:
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\textwidth]{../images/histogram_exp2.png}
+    \caption{Histogram of measurement outcomes}
+\end{figure}
+In the previous lesson, we learned about Qiskit's Statevector and Operator classes, and used them to simulate quantum systems. In this section, we'll use them to explore the behavior of multiple systems. We'll start by importing these classes, as well as the square root function from NumPy .
 
+\begin{lstlisting}[language=Python]
+from qiskit.quantum_info import Statevector, Operator
+from numpy import sqrt
+\end{lstlisting}
 
+\subsubsection{Tensor products}
+The Statevector class has a tensor method which returns the tensor product of itself and another Statevector .
+
+For example, below we create two state vectors representing $\ket{0}$ and $\ket{1}$, and use the tensor method to create a new vector, $\ket{0}\otimes \ket{1}$.
+\begin{lstlisting}[language=Python]
+zero, one = Statevector.from_label("0"), Statevector.from_label("1")
+zero.tensor(one).draw("latex")
+\end{lstlisting}
+Output:
+\[
+\ket{01}
+\]
+In another example below, we create state vectors representing the 
+$\ket{+}$ and $\frac{1}{\sqrt{2}}(\ket{0}+\iota\ket{1})$ states, and combine them to create a new state vector. We'll assign this new vector to the variable psi.
+\begin{lstlisting}[language=Python]
+plus = Statevector.from_label("+")
+i_state = Statevector([1 / sqrt(2), 1j / sqrt(2)])
+psi = plus.tensor(i_state)
+
+psi.draw("latex")
+\end{lstlisting}
+Output:
+\[
+\frac{1}{2}\ket{00}+\frac{\iota}{2}\ket{01}+\frac{1}{2}\ket{10}+\frac{\iota}{2}\ket{11}
+\]
+The Operator class also has a tensor method. In the example below, we create the X and I gates and display their tensor product.
+\begin{lstlisting}[language=Python]
+X = Operator([[0, 1], [1, 0]])
+I = Operator([[1, 0], [0, 1]])
+
+X.tensor(I)
+\end{lstlisting}
+Output:
+\begin{lstlisting}
+Operator([[0.+0.j, 0.+0.j, 1.+0.j, 0.+0.j],
+          [0.+0.j, 0.+0.j, 0.+0.j, 1.+0.j],
+          [1.+0.j, 0.+0.j, 0.+0.j, 0.+0.j],
+          [0.+0.j, 1.+0.j, 0.+0.j, 0.+0.j]],
+         input_dims=(2, 2), output_dims=(2, 2))
+\end{lstlisting}
+We can then treat these compound states and operations as we did single systems in the previous lesson. For example, in the cell below we calculate $(I\otimes X)\ket{\psi}$ for the state psi we defined above. (The operator shown tensors matrices together.)
+\begin{lstlisting}[language=Python]
+psi.evolve(I ^ X).draw("latex")
+\end{lstlisting}
+\[
+\frac{\iota}{2}\ket{00}+\frac{1}{2}\ket{01}+\frac{\iota}{2}\ket{10}+\frac{1}{2}\ket{11}
+\]
+Below, we create a CX operator and calculate $CX\ket{\psi}$.
+\begin{lstlisting}[language=Python]
+CX = Operator(
+    [
+        [1, 0, 0, 0],
+        [0, 1, 0, 0],
+        [0, 0, 0, 1],
+        [0, 0, 1, 0],
+    ]
+)
+
+psi.evolve(CX).draw("latex")
+\end{lstlisting}
+\[
+\frac{1}{2}\ket{00}+\frac{\iota}{2}\ket{01}+\frac{\iota}{2}\ket{10}+\frac{1}{2}\ket{11}
+\]
+
+\subsection{Partial measurements}
+In the previous page, we used the measure method to simulate a measurement of the quantum state vector. This method returns two items: the simulated measurement result, and the new Statevector given this measurement.
+
+By default, measure measures all qubits in the state vector, but we can provide a list of integers to only measure the qubits at those indices. To demonstrate, the cell below creates the state $W=(\ket{001}+\ket{001}+\ket{010}+\ket{100})$
+(Note that Qiskit is primarily designed for use with qubit-based quantum computers. As such, Statevector will try to interpret any vector with elements as a system of n qubits. You can override this by passing a dims argument to the constructor. For example, dims=(4,2) would tell Qiskit the system has one four-level system, and one two-level system (qubit).)
+\begin{lstlisting}[language=Python]
+W = Statevector([0, 1, 1, 0, 1, 0, 0, 0] / sqrt(3))
+W.draw("latex")
+\end{lstlisting}
+\[
+\frac{\sqrt{3}}{3}\ket{001}+\frac{\sqrt{3}}{3}\ket{010}+\frac{\sqrt{3}}{3}\ket{100}
+\]
+The cell below simulates a measurement on the rightmost qubit (which has index 0). The other two qubits are not measured.
+\begin{lstlisting}[language=Python]
+result, new_sv = W.measure([0])  # measure qubit 0
+print(f"Measured: {result}\nState after measurement:")
+new_sv.draw("latex")
+\end{lstlisting}
+Output:
+\begin{lstlisting}
+Measured: 1
+State after measurement:
+\end{lstlisting}
+\[
+\ket{001}
+\]
+Try running the cell a few times to see different results. Notice that measuring a 1 means that we know both the other qubits are 
+$\ket{0}$, but measuring a 0 means the remaining two qubits are in the state $\frac{1}{\sqrt{2}}(\ket{01}+\ket{10})$.
 
 \chapter{Axioms of Quantum Mechanics}
 \section{Postulate 1: The State Space Postulate}
@@ -1589,7 +1703,7 @@ Thus, an arbitrary state of $\mathcal{H}$ can be written as:
     \ket{\psi}=\sum_{i=0}^{N-1}\sum_{j=0'}^{M-1}\alpha_{ij}\ket{i}\otimes\ket{j}
 \]
 where $\alpha_{ij}$ are complex numbers called amplitudes of $\ket{i}\otimes\ket{j}$ in $\ket{\psi}$.
-Sucg as state is called $\mathit{bipartite}$. Similarly, this can be extended to tripartite states which is a tensor product of three Hilbert spaces and so on.
+Such a state is called $\mathit{bipartite}$. Similarly, this can be extended to tripartite states which is a tensor product of three Hilbert spaces and so on.
 
 The simplest system is qubit - a quantum mechanical system with two-dimensional state space. Suppose $\ket{0}$ and
 $\ket{1}$ are two orthonormal basis vectors also generally called as \textbf{computational basis} of the state space of the qubit. Then the arbitrary state of the qubit can be represented as
@@ -2165,7 +2279,15 @@ Recall that when we measure a particle in the computational basis it collapses t
 
 
 \chapter{Qubits}
-A qubit is a two-dimensional quantum system. The state of a qubit can be represented as a vector in a two-dimensional complex vector space.
+A qubit is a two-dimensional quantum system. The state of a qubit can be represented as a vector in a two-dimensional complex vector space. In this chapter we explore quantum computation in detail. This chapter develops the fundamental principles of quantum computation, and establishes the basic building blocks for quantum circuits a universal language for describing sophisticated quantum computations. This chapter will introduce the fundamental model of quantum computation, the quantum circuit model and the concept that there exists a small set of gates which are universal, that is, any quantum computation whatsoever can be expressed in those gates along with some basic results of quantum computation. 
+
+% Many interesting problems are impossible to solve on a classical computer, not because they are in principle insoluble, but because of the astronomical resources required to solve realistic cases of the problem, The spectacular promise of quantum computers is to enable new algorithms which render feasible problems requiring exorbitant resources for their solution on a classical computer. Two broad classes of quantum algorithms are known which fulfill this promise. The first class of algorithms is based upon Shor's quantum Fourier transform, and includes remarkable algorithms for solving the factoring and discrete logarithm problems, providing an exponential speedup over the best known classical algorithms. The second class of algorithms is based upon Grover's algorithm for performing quantum searching. These prodes a less strinig but 
+
+
+Why are there so few quantum algorithms known which are better than their classical counterparts? The answer is that coming up with good quantum algorithm seems to be a difficult problem. There are at least two reasons for this. First, algorithm design, be it classical or quantum is not easy. The history of algorithms shows us that considerable ingenuity is often required to come up with near optimal algorithms, even for apparently simple problems, like the multiplication of two numbers. Finding good quantum algorithm is made doubly difficult because of the additional constraint that we want our quantum algorithms to be better than the best known classical algorithm. A second reason for the difficult for finding good quantum algorithms is that our intuitions are better adapted to the classical world that they are to the quantum world. If we think about our problems using our native intuition, then the algorithms we come up with are going to be classical algorithms. It takes special insights and special tricks to come up with good quantum algorithms.
+
+To quantify the cost we use the total number of gates required, or the circuit depth. The circuit language also comes with a toolbox of tricks that simpifies algorithm design and provides ready conceptual understanding.
+
 
 \section{Bloch-Poincare sphere representation of a Qubit}
 Consider a Qubit in an arbitrary state $\ket{\psi}=\alpha\ket{0}+\beta\ket{1}$ and $\ket{0}$ and $\ket{1}$ are orthonormal basis states, $\alpha$ and $\beta$ are complex numbers such that $|\alpha|^2+|\beta|^2=1$.
@@ -2969,6 +3091,10 @@ Action of Hadamard Gate on a general qubit $\ket{\psi}=\alpha\ket{0}+\beta\ket{1
         \dfrac{\alpha-\beta}{\sqrt{2}}
     \end{bmatrix}=\dfrac{\alpha+\beta}{\sqrt{2}}\ket{0}+\dfrac{\alpha-\beta}{\sqrt{2}}\ket{1}
 \]
+Note that we cal also write the Hadamard gate as 
+\[
+H=\frac{X+Z}{\sqrt{2}}=\frac{1}{\sqrt{2}}\left(\begin{bmatrix} 0 & 1 \\ 1 & 0 \end{bmatrix}+\begin{bmatrix} 1 & 0 \\ 0& -1 \end{bmatrix} \right)=\frac{1}{\sqrt{2}}\begin{bmatrix} 1 & 1 \\ 1 & -1 \end{bmatrix}
+\]
 Note that the Hadamard gate is also a self-inverse gate. Since its Hermitian as well as Unitary, thus $H^{\dagger}=H$ and $H^{\dagger}H=HH^{\dagger}=I; H=H^{-1}$.
 Thus, $H^2=I$. Intuitively this means that applying Hadamard gate twice will bring the quantum state back to the same quantum state. This can also be imagined 
 as doing rotations on bloch sphere and then arriving back at the same state.
@@ -3327,7 +3453,7 @@ In the operator Notation it is:
     T^{\dagger}\ket{1}&=e^{-i\pi/4}\ket{1}
 \end{align*}
 
-It is represented by the matrix in the computational basis ($\ket{0},\ket{1}$) as:
+One might wonder why the T gate is called the $\pi/8$ gate when it is $\pi/4$ that appears in the definition. The reason is that the gate has historically often been referred to as the $pi/8$ gate simply because up to an unimportant global phase $T$ is equal to a gate which has $exp(\pm \iota \pi.8)$ appearing on its diagonals. It is represented by the matrix in the computational basis ($\ket{0},\ket{1}$) as:
 \[
     T^{\dagger}=\begin{bmatrix}
         1 & 0 \\
@@ -3408,11 +3534,11 @@ exp(\iota Ax)=\sum_{i=1}^k exp(\iota x)\ket{v_i}\bra{v_i} + \sum_{i=k+1}^n exp(-
 \]
 By Euler's identity we have:
 \[
-exp(\iota Ax)=\sum-{i=1}^k (\cos(x)+\iota\sin(x))\ket{v_i}\bra{v_i} + \sum_{i=k+1}^n (\cos(x)-\iota \sin(x))\ket{v_i}\bra{v_i}
+exp(\iota Ax)=\sum_{i=1}^k (\cos(x)+\iota\sin(x))\ket{v_i}\bra{v_i} + \sum_{i=k+1}^n (\cos(x)-\iota \sin(x))\ket{v_i}\bra{v_i}
 \]
 Grouping terms, we obtain:
 \[
-exp(\iota Ax)=\cos(x) \sum_{i=1}^n \ket{v_i}\bra{v_i} + \iota \sin9x)\left(\sum_{i=1}^k \ket{v_i}\bra{v_i}-\sum_{i=k+1}^n \ket{v_1}\bra{v_i}\right)
+exp(\iota Ax)=\cos(x) \sum_{i=1}^n \ket{v_i}\bra{v_i} + \iota \sin(x)\left(\sum_{i=1}^k \ket{v_i}\bra{v_i}-\sum_{i=k+1}^n \ket{v_1}\bra{v_i}\right)
 \]
 Using the spectral decomposition and definition of $I$, we therefore obtain the desired relation:
 \[
@@ -3474,7 +3600,7 @@ Since all of the Pauli matrices satisfy $A^2=I$ i.e they are self inverse, for $
 
 \subsection{Quantum Rotation Gates}
 These are generalized rotations  in the Bloch Sphere 
-denoted as $R_X,R_Y,R_Z$ about the X,Y and Z axis of Bloch Sphere respectively.
+denoted as $R_X,R_Y,R_Z$ about the X,Y and Z axis of Bloch Sphere respectively. The Pauli matrices give rise to three useful classes of Unitary matrices when they are exponentiated, the rotation operators about the $x,y,z$ axes.
 \subsubsection{$R_X$ Gate}
 It is a rotation about X axis of Bloch Sphere by an angle $\theta$. Putting $\vec{n}=(1,0,0)$ in the previous equation and putting $\theta=-\theta/2$. This is denoted
 as $R^{X}_{\theta}$.
@@ -3664,10 +3790,117 @@ Recall that $\{\sigma_i,\sigma_j\}=2\delta_{ij}I$, using this, we have that:
 where we use the fact that $\hat{\mathbf{n}}$ is a vector of unit length.
 \end{example}
 
+\begin{example}
+    One reason why the $\hat{R}_n(\theta)$ operators are referred to as rotation operators is the following fact, which you are to prove. Suppose a single qubit has a state represented by the Bloch vector $\mathbf{\lambda}$. Then, the effects of the rotation $\hat{R}_n(\theta)$ on the state is to rotate by an angle $\theta$ about the $\hat{n}$ axis of the Bloch sphere. This fact explains the rather mysterious looking factors of two in the definition of the rotation matrices.
+
+    Let $\mathbf{\lambda}$ be an arbitrary Bloch vector. WLOG, we can express $\mathbf{\lambda}$ in a coordinate system such that $\hat{n}$ is aligned with $z$ axis, so it suffices to consider how the state behaves under the application $R_z(\theta)$. Let $\mathbf{\lambda}=(\lambda_x,\lambda_y,\lambda_z)$ be the vector expressed in this coordinate system. We know that the density operator corresponding to this Bloch vector is given by:
+    \[
+    \rho=\frac{I+\mathbf{\lambda} \cdot \mathbf{\sigma}}{2}
+    \]
+    We now observe how $\rho$ transforms under the conjugation of $R_z(\theta)$.
+    \begin{align*}
+        R_z(\theta)\rho R_z(\theta)^{\dagger} &=R_z(\theta)\rho R_z(-\theta)\\
+        &=R_z(\theta)\left(\frac{I+\lambda_xX+\lambda_yY+\lambda_zZ}{2}\right)R_z(-\theta)
+    \end{align*}
+    Using that $XZ=-ZX$, we make the observation that:
+    \begin{align*}
+        R_z(\theta)X&=\left(\cos \left(\frac{\theta}{2}\right)I-\iota \sin\left(\frac{\theta}{2}\right)Z \right) X\\
+        &=X\left(\cos \left(\frac{\theta}{2}\right)I+\iota \sin\left((\frac{\theta}{2}\right)Z\right)\\
+        &=X\left(\cos\left(\frac{-\theta}{2}\right)I-\iota \sin\left(\frac{-\theta}{2}\right)Z\right)\\
+        &=XR_z(-\theta)
+    \end{align*}
+    Similarly, we find that $R_z(\theta)Y=R_z(-\theta)Y$ (same anticommutation) and that $R_z(\theta)Z=ZR_z(\theta)$ (all terms commute). With this, for expression $R_z(\theta)\rho R_z(\theta)^{\dagger}$ simplifies to:
+    \begin{align*}
+        R_z(\theta)\rho R_z(\theta)^{\dagger}&=R_z(\theta)\left(\frac{I+\lambda_zX+\lambda_yY+\lambda_zZ}{2}\right) R_z(-\theta)\\
+        &= \frac{I+\lambda_xXR_z(-2\theta)+\lambda_yYR_z(-2\theta)+\lambda_zZ}{2}
+    \end{align*}
+    Calculating each of the terms in the above expression, we have:
+    \begin{align*}
+        XR_z(-2\theta)&=X\left(\cos\left(\frac{-2\theta}{2}\right)-\iota \sin\left(\frac{-2\theta}{2}\right) Z\right)\\
+        &=X(\cos(\theta)+\iota \sin(\theta)Z)\\
+        &=\cos(\theta)X+\iota \sin(\theta)XZ\\
+        &=\cos(\theta)X+\iota \sin(\theta)(-\iota Y)\\
+        &=\cos(\theta)X+\sin(\theta)Y\\
+        YR_z(-2\theta)&=Y(\cos(\theta)+\iota \sin(\theta)Z)\\
+        &=\cos(\theta)Y+\iota \sin(\theta)YZ\\
+        &=\cos(\theta)Y+\iota \sin(theta)(\iota X)\\
+        &=\cos(\theta)Y-\sin(\theta)X
+    \end{align*}
+    Plugging these back into the expression for $R_z(\theta)\rho R_z(\theta)^{\dagger}$ and collecting like terms, we have:
+    \[
+    R_z(\theta)\rho R_z(\theta)^{\dagger}=\frac{I+(\lambda_x\cos(\theta)-\lambda_y\sin(\theta))X+(\lambda_x\sin(\theta)+\lambda_y\cos(\theta))Y+lambda_zZ}{2}
+    \]
+    From this expression, we can read off the new Bloch vector $\mathbf{\lambda'}$ after conjugation by $R_z(\theta)$ to be:
+    \[
+    \mathbf{\lambda'}=(\lambda_x\cos(\theta)-\lambda_y \sin(\theta),\lambda_x\sin(\theta)+\lambda_y\cos(\theta),\lambda_z)
+    \]
+    Alternatively, suppose we apply the 3-dimensional rotation matrix $A_z(\theta)$ to the original bloch vector $\mathbf{\lambda}$. We have that:
+    \[
+    A_z(\theta)\mathbf{\lambda}=\begin{bmatrix}\cos\theta & -\sin\theta & 0 \\ \sin\theta & \cos\theta & 0 \\ 0 & 0 & 1 \end{bmatrix} \begin{bmatrix} \lambda_x \\ \lambda_y \\ \lambda_z \end{bmatrix}=\begin{bmatrix} \lambda_x \cos\theta-\lambda_y \sin\theta \\ \lambda_x\sin\theta+\lambda_y \cos\theta \\ \lambda_z \end{bmatrix}
+    \]
+    We see that we end up with the same resulting vector $\mathbf{\lambda'}$. We conclude that the conjugation of $\rho$ under $R_z(\theta)$ has the equivalent effect to rotating the Bloch vector by $\theta$ about the z-axis, and hence the effect of $R_n(\theta)$ on one qubit state is to rotate it by an angle $\theta$ about $\hat{\mathbf{n}}$.
+\end{example}
+
+\begin{example}
+    Show that $XYX=-Y$ and use this to prove that $XR_y(\theta)X=R_y(-\theta)$.
+
+    For the first, claim we use that $XY=-YX$ and $X^2=I$ to obtain that
+    \[
+    XYX=-YXX=-YI=-Y
+    \]
+    Using this, we have that:
+    \begin{align*}
+    XR_y(\theta)X&=X\left(\cos\left(\frac{\theta}{2}\right)I-\iota\sin\left(\frac{\theta}{2}\right)Y\right)X\\
+    &=\cos\left(\frac{\theta}{2}\right)XIX-\iota \sin\left(\frac{\theta}{2}\right)XYX\\
+    &=\cos\left(\frac{\theta}{2}\right) I+\iota \sin\left(\frac{\theta}{2}\right)Y\\
+    &=\cos\left(-\frac{\theta}{2}\right)I-\iota \sin\left(-\frac{\theta}{2}\right)Y\\
+    &=R_y(-\theta)
+    \end{align*}
+\end{example}
+
+\begin{example}
+    An arbitrary single qubit unitary operator can be written in the form
+    \[
+    U=exp(\iota \alpha)R_n(\theta)
+    \]
+    for some real numbers $\alpha$ and $\theta$, and a real three-dimensional unit vector $\hat{n}$.
+    \begin{enumerate}
+        \item Prove this fact.
+        \item Find values for $\alpha$,$\theta$, and $\hat{n}$ giving the Hadamard gate $H$.
+        \item Find values for $\alpha,\theta$ and $\hat{n}$ giving the phase gate
+        \[
+        S=\begin{bmatrix} 1 & 0 \\ 0 & \iota \end{bmatrix}
+        \]
+    \end{enumerate}
+    \begin{enumerate}
+        \item By definition, for any unitary operator $U$ we have that $U^{\dagger}U=I$, so for any state vector $\braket{\psi|\psi}=\bra{\psi}U^{\dagger}U\ket{\psi}$. Therefore, all unitary Us are norm-preserving, and hence for a single qubit correspond to some reflection/rotation in 3-dimensional space (up to a global phase factor). Hence, we can write $U=exp(\iota \alpha)R_n(\theta)$ for some $\hat{n}$ (rotation axis), $\theta$ (rotation angle) and $\alpha$(global phase).
+        \item Using the fact that $H=\frac{X+Z}{\sqrt{2}}$, and that modulo factor of $\iota$ that $X/Z$ correspond to rotations $R_x(\pi)$ and $R_z(\pi)$, we find that:
+        \begin{align*}
+            H=\frac{\iota R_x(\pi)+\iota R_z(\pi)}{\sqrt{2}}&=\iota\left(\frac{2\cos{\frac{\pi}{2}}I-\iota \sin\frac{\pi}{2}X-\iota 
+            \sin\frac{\pi}{2} Z}{\sqrt{2}}\right)\\
+            &=\iota \left(\cos\left(\frac{\pi}{2}\right)I-\iota \sin\left(\frac{\pi}{2}\right)\left(\frac{1}{\sqrt{2}}X+0Y+\frac{1}{\sqrt{2}}Z\right)\right)
+        \end{align*}
+        Note that in the second eqality we use that $\cos\left(\frac{\pi}{2}\right)=0$ and hence $\frac{2}{\sqrt{2}}\cos\left(\frac{\pi}{2}\right)=\cos\left(\frac{\pi}{2}\right)$. From the last expression, we can read off using the definition of $R_n(\theta)$ that $n=\left(\frac{1}{\sqrt{2}},0,\frac{1}{\sqrt{2}}\right)$,$\theta=\pi$, and $\alpha=\frac{\pi}{2}$.
+        \item We observe that:
+        \[
+        R_x\left(\frac{\pi}{2}\right)=\begin{bmatrix} e^{-\iota \pi/4} & 0 \\ 0 & e^{\iota \pi/4} \end{bmatrix}=e^{-\iota \pi/4}\begin{bmatrix} 1 & 0 \\ 0 & \iota \end{bmatrix}
+        \]
+        Hence:
+        \[
+        S=e^{\iota \pi/4}R_z\left(\frac{\pi}{2}\right)
+        \]
+        from which we obtain that $\hat{n}=\hat{z}=(0,0,1),\theta=\frac{\pi}{2}$, and $\alpha=\frac{\pi}{4}$.
+    \end{enumerate}
+    note that one can just use the definition:
+    \[
+    R_x(\theta)=exp(-\iota \theta \hat{n}\cdot \sigma/2)=\cos\left(\frac{\theta}{2}\right)I-\iota \sin\left(\frac{\theta}{2}\right)(n_xX+n_yY+n_zZ)
+    \]
+    and the fact that $H=(X+Z/\sqrt{2}$, to arrive at $\cos\left(\frac{\theta}{2}\right)=0,n_z=n_z=\frac{1}{\sqrt{2}},n_y=0$.
+\end{example}
 
 
 \section{Multi-Qubit Gates}
-Quantum Pauli gates and hadmard gate are Unitary and Hermitian, and all the other single qubit gate are Unitary, hence, reversible.
+Quantum Pauli gates and hadamard gate are Unitary and Hermitian, and all the other single qubit gate are Unitary, hence, reversible.
 In general, we can generalise any single qubit gate to multi-qubit gate.
 Note that since all the gates can be in general represented as Unitary Matrices, thus the number of 
 qubits in input = number of qubits in output always. Multi-Qubit gates act on multiple qubits at once thus the matrices are of
@@ -7139,6 +7372,31 @@ Then, in the final measurement we measure the first n qubits and if the function
 Thus, we can determine whether the function is constant or balanced with just one query to the Oracle. This is an exponential speedup over the classical algorithm which requires $2^{n-1}+1$ queries to determine whether the function is constant or balanced.
 Thus, the time complexity of this algorithm is $\mathcal{O}(1)$ i.e. constant time complexity. Hence, an exponential speedup over the classical algorithm.
 
+In summary, the algorithm is given as follows:
+\begin{algorithm}
+    \caption{Deutsch-Jozsa Algorithm}
+    \begin{algorithmic}[1]
+    \State \textbf{Input:} A black box $U_f$ which performs the transformation $\ket{x}\ket{y}\rightarrow \ket{x}\ket{y \oplus f(x)}$, for $x \in \{0,\ldots,2^n-1\}$ and $f(x) \in \{0,1\}$ and $f(x) \in \{0,1\}$. It is promised that $f(x)$ is either constant for all values of $x$, o else $f(x)$ is balanced, that is, equal to $1$ for exactly half of all the possible $x$, and $0$ for the other half.
+    \State \textbf{Output:} $0$ is and only if $f$ is constant.
+    \State \textbf{Runtime: } One evaluation of $U_f$. Always succeeds.
+    \State \textbf{Initialize:} $\ket{0^n}\ket{1}$
+    \State Create superposition using Hadamard gates
+   \[
+   \rightarrow \frac{1}{\sqrt{2^n}} \sum_{x=0}^{2^n-1} \ket{x} \left(\frac{\ket{0}-\ket{1}}{\sqrt{2}}\right)
+   \]
+    \State Calculate function $f$ using $U_f$
+    \[
+    \rightarrow \sum_x (-1)^{f(x)}\ket{x}\left(\frac{\ket{0}-\ket{1}}{\sqrt{2}}\right)
+    \]
+    \State Perform Hadamard transform
+    \[
+    \rightarrow \sum_z \sum_x \frac{(-1)^{x \cdot z +f(x)} \ket{z}}{\sqrt{2^n}} \left(\frac{\ket{0}-\ket{1}}{\sqrt{2}}\right)
+    \]
+    \State Measure to obtain the final output $\ket{z}$
+    \State \textbf{return} $z$ of the measured state
+    \end{algorithmic}
+\end{algorithm}
+
 \section{Implementation using Qiskit}
 \subsection{Background}
 Usage estimate: 4 seconds on ibm\_brisbane(NOTE; This is an estimate only. Your runtime may vary)\\
@@ -7472,6 +7730,8 @@ plot_histogram(dist_const_0)
     \label{fig:deutsch_3q_oracle}
 \end{figure}
 \end{enumerate}
+
+\chapter{Bernstein-Vazirani Algorithm}
 
 \chapter{Simon's Algorithm}
 This problem is another one of the completely artificial problems, but now the advantage of quantum over probabilistic is quite significant: a linear  number of queries will be needed by the quantum algorithm whereas an exponential number will be needed for any classical probabilistic algorithm. Also, although the problem is artificial, it is surprisingly close to a very natural and important real-world problem as we will see. Also the quantum algorithm for this problem introduces some powerful techniques in a simple form. It's interesting for the following two reasons.
@@ -7854,9 +8114,6 @@ Simon's problem is a black-box problem that was specially designed to be very ha
 But Simon's problem doesn't immediately look like a problem that one would care about in the real world. When Simon's work first came out, people were wondering what to make of it.Although it provided a very strong classical vs quantum query cost separation, it looked like a contrived problem.Moreover, a contrived black-box problem, which is not even a conventional computing problem, involving input data.
 
 This may be one's first impression, but there's actually more to it than that. Look again at the Simon property: for all $x$, $f(x)=f(x\oplus s)$. This is kind of like a periodicity property of a function, which would be written as: for all $x$, $f(x)=f(x+s)$. And periodic functions arise in may contexts. We'll soon see that variation of Simon's problem in this direction are very fruitful.
-
-
-\chapter{Bernstein-Vazirani Algorithm}
 
 \chapter{Number-Theoretic Problems}
 We now understand the topic with which it is concerned: The computational number theory.
@@ -8849,7 +9106,8 @@ when restricted to the interval $[0,1)$). In order to understand this consider t
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.75\linewidth]{../images/cosplot.png}
-    \label{fig:coslpot}
+    \caption{cosine plot}
+    \label{fig:cosplot}
 \end{figure}
 For a value of $p(1)$, two value of $\theta$ correspond to it.One value of $\theta>1/2$ and one value of $\theta<1/2$, Thus, upon running the circuit multiple times we get an approximate value of $p(1)$. But for a value of $p(1)$ there are two values of $\theta$ satisfying the equation. ($\theta>1/2$ and $\phi<1/2$). Thus, we cannot determine exactly which $\theta$ it is using Real Hadamard test. Hence, we use Imaginary Hadamard Test. To do this, we can use the circuit in figure \ref{Hadamardtest1}
 by replacing $S^{\dagger}$ with $S$, so that the success probability of measuring 1 in the computational basis is
@@ -8860,6 +9118,7 @@ The corresponding graph is as shown in the figure \ref{fig:sinplot}.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.75\linewidth]{../images/sinplot.png}
+    \caption{sine plot}
     \label{fig:sinplot}
 \end{figure}
 Thus, upon running the circuit a few times we get an approximate value of $p(1)$. Now clearly from the figure we can see that if
@@ -8885,8 +9144,7 @@ For $p\neq 0$ or $p\neq 1$ the number of samples required i.e.e the number of ci
 \section{Kitaev's Method - for Quantum Phase Estimation}
 \subsection{Idea of the Algorithm}
 The number of measurements needed to estimate $\theta$ to precision $\epsilon$ is $\mathcal{O}(1/\epsilon^2)$.
-A quadratic improvement in precision (i.e.$\mathcal{O}(1/\epsilon)$) can be achieved by means of the quantum phase estimation
-using Kitaev's method.
+A quadratic improvement in precision (i.e.$\mathcal{O}(1/\epsilon)$) can be achieved by means of the quantum phase estimation using Kitaev's method.
 Assuming that the eigen value can be represented using d bits i.e.,
 \[
 \theta = (.\theta_{d-1}...\theta_0) 
@@ -9007,6 +9265,7 @@ Consider $\theta=\theta_4\theta_3\theta_2\theta_1\theta_0=0.11111$. Here, $d=5$.
             $2$ & $0.111$ & $\{0.111\}$\\
             \hline
         \end{tabular}
+        \caption{Results}
         \label{tab:qpe_exp}
     \end{table}
     \item Start from $j=d-3=2$. We have exact bits value $\alpha_j=0.\theta_2theta_1\theta_0=0.111$ and only one choice of $\beta_j=0.111$.
@@ -9473,6 +9732,11 @@ The fact that every $a \in \mathbb{Z}_N^*$ indeed has a well-defined order follo
 a^{\varphi(N)}\equiv 1 \quad \text{ (mod N)}
 \]
 for any integers $a$ and $N\geq 2$ with $gcd(a,N)=1$. It turns out that the order of any element $a \in \mathbb{Z}_N^*$ is always a divisor of $\phi(N)$.
+
+\chapter{Shor's Algorithm}
+\begin{definition}
+    Given a number $N$ which is a composite number. We are required to find the prime factors of the number $N$.
+\end{definition}
 
 
 \chapter{Grover's Search Algorithm}
@@ -10221,30 +10485,1003 @@ The result upon measurement is as shown in the figure \ref{fig:grover_results}
 \end{figure}
 \end{enumerate}
 
+\chapter{Trotter based Hamiltonian Simulation}
+Thus, far we have viewed the dynamics of quantum systems from the perspective of unitary transformations: apart from measurement, the only way a quantum state (i.e. a vector of amplitudes) can change is by multiplication with a unitary matrix, for instance a 2-qubit gate tensored with identities on other qubits. but which unitary will actually occur in a given physical system? This is determined by the Hamiltonian of the system, which is the observable $H$ corresponding to the total energy in the system. The expectation value $\braket{\psi|H|\psi}$. Typically,this total energy is the sum of several different terms, corresponding to kinetic energy, potential energy etc. Also typically, it is the sum of many local terms that each act on only a few of the particles (qubits) of the system, for example if all interaction are between pairs of particles. One can think of the Hamiltonian $H$ as describing the physical characteristics of the system. They do determine the evolution of the state in time i.e. the state $\ket{\psi(t)}$ as a function of the time parameter $t$, given an initial state $\ket{\psi(0)}$.
+
+Trotterization in quantum mechanics is an important theoretical concepts in handling the exponential of non commutative operators. In this communication, we give a mathematical formulation of the trotter Product formula, and apply it to basic examples in which the utility of trotterization is evident.
+
+\section{Introduction}
+One of the major goals of quantum mechanics is finding solutions, called wavefunctions/eigenfunctions, to the time-independent Schrodinger wave equation. For a given time-independent Hamiltonian operator $\hat{H}$ on a Hilbert space $\mathcal{H}$, the Schrodinger equation is given by
+\[
+\hat{H}\ket{\psi}=E\ket{\psi}
+\]
+where $\ket{\psi}\in\mathcal{H}$ is an eigenfunction and $E\in\mathbb{R}$ is an energy eigenvalue. Alone, this equation only yields the energy values and the stationary states of the physical system. To get the time-dependent eigenvector one needs the unitary operator $U(t)$:
+\[
+U(t)=e^{-\iota\hat{H}t/\hbar}
+\]
+\[
+\ket{\psi(t)}=U(t)\ket{\psi}=e^{-\iota\hat{H}t/\hbar}\ket{\psi}
+\]
+where $\hbar=\frac{h}{2\pi}$ is Planck's reduced constant.
+
+In practice, it can be hard to compute this operator exponential, so let us focus on the simplest example: When the (finite-dimensional in this case) Hamiltonian operator $\hat{H}$ is given by the diagonal matrix
+\[
+\hat{H}=\begin{pmatrix} E_1 & 0 & \ldots & 0 \\ 0 & E_2 & \ldots & 0 \\ \vdots & \vdots & \ddots & \vdots \\
+0 & 0 & \ldots & E_n \end{pmatrix}
+\]
+Substituting this in to equation, the eigenfunctions are given by the standard basis
+\[
+\ket{\psi_1} = \begin{pmatrix} 1 \\ 0 \\ \vdots \\ 0 \end{pmatrix}, \ket{\psi_2}=\begin{pmatrix} 0 \\ 1 \\ \vdots \\ 0 \end{pmatrix}, \ldots, \ket{\psi_n}=\begin{pmatrix} 0 \\ 0 \\ \vdots \\ 1 \end{pmatrix}
+\]
+with corresponding eigenvalues $E_1,\ldots,E_n$, respectively. From this, an arbitrary stationary state $\ket{\psi}$ of the entire quantum state is simply a complex $(c_i\in\mathbb{C})$ linear combination:
+\[
+\ket{\psi}=\sum_{i=1}^n c_i\ket{\psi_i}, \sum_{i=1}^n |c_i|^2 =1 
+\]
+This is the time-independent solution. In general $H$ may itself change with $t$, but for simplicity we will only consider here the case where $H$ is time-independent. To get the solution $\ket{\psi(t)}$, we simply need to compute $U(t)$. This is made easy by the fact that the exponential of a diagonal matrix is just the diagonal matrix of element exponentials, Concretely,
+\[
+U(t)=exp\begin{pmatrix} - \iota E_1t/\hbar & 0 & \ldots & 0 \\
+0 & -\iota E_2 t/\hbar & \ldots & 0 \\ \vdots & \vdots & \ddots & \vdots \\ 0 & 0 & \ldots & -\iota E_nt/\hbar \end{pmatrix}
+\]
+\[
+=\begin{pmatrix} e^{-\iota E_1t/\hbar} & 0 & \ldots & 0 \\
+0 & e^{-\iota E_2 t/\hbar} & \ldots & 0 \\ \vdots & \vdots & \ddots & \vdots \\ 0 & 0 & \ldots & e^{-\iota E_nt/\hbar} \end{pmatrix}
+\]
+Therefore, the time-dependent state $\ket{\psi(t)}$ is give by
+\begin{align*}
+\ket{\psi(t)}&=U(t)\ket{\psi}\\
+&=\begin{pmatrix} e^{-\iota E_1t/\hbar} & 0 & \ldots & 0 \\
+0 & e^{-\iota E_2 t/\hbar} & \ldots & 0 \\ \vdots & \vdots & \ddots & \vdots \\ 0 & 0 & \ldots & e^{-\iota E_nt/\hbar} \end{pmatrix}\left(\sum_{i=1}^n c_i\ket{\psi_i}\right)\\
+&=\sum_{i=1}^n c_i e^{-\iota E_it/\hbar}\ket{\psi_i}
+\end{align*}
+This calculation was simple because the Hamiltonian $\hat{H}$ was diagonal, but for the general case we need to use the series definition of exponentiation. Given a (potential infinite dimensional) self-adjoint (Hermitian) operator $S$ defined on $\mathcal{H}$, its exponential is defined by
+\[
+e^S=\sum_{n=0}^{\infty} \frac{S^n}{n!}
+\]
+When $S$ is a finite-dimensional simply diagonalizing the matrix is sufficient to compute $e^S$, and therefore solve the eigenvalue problem. However, when $S$ is infinite dimensional, the problem becomes much more complicated. To help reduce this complexity, we an considering decomposing an operator into a sum.
+
+If we have another self adjoint operator $T$ defined on $\mathcal{H}$ such that $[S,T]=0(i.e. ST=TS)$, then the exponential of the sum splits:
+\[
+e^{S+T}\xi = e^Se^T \xi \quad \forall \xi \in \mathcal{H}
+\]
+We can actually prove this in a relatively straight-forward manner from the definition of the operator exponential by applying the binomial theorem:
+\begin{align*}
+e^{S+T}&=\sum_{n=0}^{\infty} \frac{(S+T)^n}{n!}\\
+&=\sum_{n=0}^{\infty} \sum_{k=0}^n \frac{1}{n!} ^nC_k S^{n-k}T^k\\
+&=\sum_{n=0}^{\infty} \sum_{k=0}^n \frac{1}{n!} \frac{n!}{(n-k)!k!} S^{n-k}T^k\\
+&=\sum_{n=0}^{\infty}\sum_{k=0}^n \frac{1}{(n-k)!k!}S^{n-k}T^k
+\end{align*}
+With this result, notice that every possible product of $S^m$ with $T^n$ occurs for $m,n \in \mathbb{Z}^+ \cap \{0\}$. Thus, rewrite the sum as follows:
+\begin{align*}
+\sum_{n=0}^{\infty} \sum_{k=0}^n \frac{1}{(n-k)!k!}S^{n-k}T^k &=\sum_{n=0}^{\infty} \sum_{m=0}^{\infty} \frac{1}{m!n!}S^mT^n\\
+&=\left(\sum_{m=0}^{\infty} \frac{1}{m!}S^m\right)\left(\sum_{n=0}^{\infty} \frac{1}{n!} T^n \right)\\
+&=e^S e^T
+\end{align*}
+In the case where $S$ and $T$ do not commute, this argument fails because the Binomial Theorem no longer applies. It seems like there is no way to generalize this argument for the noncommutative case. For example, in the binomial expansion of $(S+T)^3$ with $[S,T]\neq 0$, $STS\neq S^2T$, and so it's impossible to collect terms on the left and right sides overall sum. A somewhat surprising result called the Trotter Product Formula is needed for noncommutative operators, which in a strong sense approximates the above splitting of the exponential. This is what we explore for the remainder of this section.
+
+Now, we shall also see the extension of this proof where $H$ can be decomposed onto a sum of L Hamiltonainas such that they commute. In other words 
+\begin{theorem}
+    Show that $e^{-\iota \hat{H}t}=e^{-\iota \hat{H}_1t}e^{-\iota H_2t}\ldots e^{-\iota \hat{H}_L t}$ if $[\hat{H}_i,\hat{H_j}]=0$ where each $\hat{H}_i=\hat{H}_i^{\dagger}$ i.e. are Hermitian.
+\end{theorem}
+\begin{proof}
+    For any local Hamiltonian $\hat{H}=\sum_{l=1}^L\hat{H}_l$ which consists of $L$ Hermitian terms $\hat{H}_l=\hat{H}_l^{\dagger}$, we are required to prove that the evolution under these Hamiltonian can be decomposed into the product of evolution of local terms if only these terms commute with each other.
+    For
+    \[
+    \hat{H}=\sum_{l=1}^L \hat{H}_l
+    \]
+    we are required to prove that $e^{-\iota \hat{H}t}=e^{-\iota \hat{H}_1 t}e^{-\iota \hat{H}_2t}\ldots e^{-\iota \hat{H}_Lt}$.
+    Without the loss of generality we can prove the above statement for the Hamiltonian consisting of two local terms i.e. $e^{-\iota (\hat{H}_1 +\hat{H}_2 t)}=e^{-\iota \hat{H}_1t}e^{-\iota \hat{H}_2t}$, where $\hat{H}=\hat{H}_1+\hat{H}_2$. Using the formula for Maclaurian series
+    \[
+    e^x=\sum_{n=0}^{\infty}\frac{x^n}{n!}=1+x+\frac{x^2}{2!}+\frac{x^3}{3!}+\ldots
+    \]
+    Thus,
+    \begin{align*}
+    e^{-\iota (\hat{H}_1 +\hat{H}_2 t)}=e^{-\iota \hat{H}_1t}e^{-\iota \hat{H}_2t}=\sum_{n=0}^{\infty}\frac{(-\iota t\hat{H}_1-\iota t\hat{H}_2)^n}{n!}
+    \end{align*}
+    Then applying the Binomial formula $(x+y)^n=\sum_{k=0}^n \frac{n!}{k!(n-k)!}x^{n-k}y^k$. Note that if $\hat{H}_1\hat{H}_2\neq \hat{H}_2\hat{H}_1$ then in $(\hat{H}_1+\hat{H}_2)^3 \implies \hat{H}_1^2\hat{H}_2 \neq \hat{H}_1\hat{H}_2\hat{H}_1$, i.e. the case when $\hat{H}_1$ and $\hat{H}_2$ do not commute, the Binomial formula is not applicable as reasoned and it is impossible to group them. For our proof since we assume that they commute and using the Binomial formula we get,
+    \[
+    =\sum_{n=0}^{\infty} \frac{1}{n!} \sum_{k=0}^n \frac{n!}{k!(n-k)!} (-\iota t\hat{H}_1)^{n-k}(-\iota t\hat{H}_2)^k
+    \]
+    Upon simplifying we get,
+    \[
+    =sum_{n=0}^{\infty}\sum_{k=0}^n \frac{(-\iota t\hat{H}_1)^{n-k}}{(n-k)!}\frac{(-\iota t\hat{H}_2)^k}{k!}
+    \]
+    Note that the inner sum for each n are as follows
+    \begin{align*}
+        n=0 &\implies \frac{(-\iota t\hat{H}_1)^0}{0!}\frac{(-\iota t\hat{H}_2)^0}{0!}\\
+        n=1 &\implies \frac{(-\iota t\hat{H}_1)^1}{1!}\frac{(-\iota t\hat{H}_2)^0}{0!}+\frac{(-\iota t \hat{H}_1)^0}{0!}\frac{(-\iota t \hat{H}_2)^1}{1!}\\
+        n=2 &\implies \frac{(-\iota t\hat{H}_1)^2}{2!}\frac{(-\iota t\hat{H}_2)^0}{0!}+\frac{(-\iota t\hat{H}_1)^1}{1!}\frac{(-\iota t\hat{H}_2)^1}{1!}+\frac{(-\iota t \hat{H}_1)^0}{0!}\frac{(-\iota t \hat{H}_2)^2}{2!}\\
+        &\frac{(-\iota t\hat{H}_2)^0}{0!}\left(\frac{(-\iota t \hat{H}_1)^0}{0!} + \frac{(-\iota t \hat{H}_1)^1}{1!}+\frac{(-\iota t \hat{H}_1)^2}{2!}+\ldots \right) +\\
+        &\frac{(-\iota t \hat{H}_1)^1}{1!}\left(\frac{(-\iota t \hat{H}_1)^0}{0!}+\frac{(-\iota t \hat{H}_1)^1}{1!}+\frac{(-\iota t \hat{H}_1)^2}{2!}+\ldots \right) + \\
+        & \frac{(-\iota t \hat{H}_2)^2}{2!}\left(\frac{(-\iota t \hat{H}_1)^0}{0!}+\frac{(-\iota t \hat{H}_1)^1}{1!}+\frac{(-\iota t \hat{H}_1)^2}{2!} +\ldots \right)+\ldots
+    \end{align*}
+    This expression can thus be further simplifies as a multiplication of two independent sums as
+    \[
+    =\sum_{q=0}^{\infty} \sum_{r=0}^{\infty} \frac{(-\iota t\hat{H}_1)^q}{q!}\frac{(-\iota t \hat{H}_2)^r}{r!}=\left(\sum_{q=0}^{\infty} \frac{(-\iota t \hat{H}_1)^q}{q!} \right)\left(\frac{(-\iota t \hat{H}_2)^r}{r!}\right)=e^{-\iota \hat{H}_1t }e^{-\iota \hat{H}_2 t}
+    \]
+\end{proof}
+\section{Hamiltonian Simulation}
+Quantum systems are described by Hamiltonians where $\hat{H}=\text{Kinetic Energy}+\text{Potential Energy}$. For n qubits $\hat{H}$ is of dimension $2^n \times 2^n$ and $\ket{\psi}$ is of dimension $2^n \times 1$. Thus, the Schrodinger equation
+\[
+\iota \hbar \frac{\partial}{\partial t} \ket{\psi}=\hat{H}(t)\ket{\psi}
+\]
+is exponential to solve on a classical computer. Thus, as Feynman said Simulating Physics with Computers and Quantum computers are Feynman's universal quantum simulators (Seth lloyd). They can calculate evolution of Quantum System Efficiently by doing it in Polynomial time and memory resources in size of target systems. For example, 50 qubits = $2^{50}$ complex numbers. Even if we consider a float 32 bit precision for each part i.e. 32 bits or Real part and 32 bits for Imaginary part for each complex number. We would still have $8 \times 2^{50}$ bytes which is equal to $\approx 9 PB$ of memory equivalent to modern day RAM of supercomputers. 
 
 
+Simulating dynamics of Quantum systems such as Ising model, Hubbard Model is one of the practical applications of Quantum Computers. Solutions to these models gives many bulk properties such as dielectric constants, connectivity, magnetic susceptibility of materials and many more. For simulation of atoms, molecules and other biochemical systems we generally require calculation of ground state energy of large systems, study of dynamical behavior of an ensemble of molecules and complex behaviour such as protein folding.
 
+In areas like quantum chemistry (i.e. ,the study of properties of molecules and their interaction) and material sciences, it is often important to figure out how a quantum system will evolve from some given initial state, for instance a basis state,. It is also very important in chemistry to be able to find out global properties of a given hamiltonian like its lowest energy, a.k.a, ground state energy. Unfortunately this problem seems to be hard to solve (in fact it is so-called QMA hard) even for a quantum computer, even for the special case of 2-local Hamiltonians. This is typically hard to do on a classical computers, since the number of parameters (amplitudes) is exponential in the number of particles. However, a quantum computer is like a universal quantum system, and should be able to efficiently simulate every efficient quantum process, in the same way that a classical Turing machine can efficiently simulate other (classical) physical processes. We will see that it is actually possible to classical simulate quantum computers (and hence quantum systems more generally) with a polynomial amount of space, but out best methods still use an exponential amount of time. If factoring a large integer is a hard problem for classical computers (which is widely believed), then Shor's efficient quantum factoring algorithm implies that it is impossible to simulate a quantum computer in polynomial time on a classical computer. In fact, this was the main reason why Feynman invented quantum computers: a controllable quantum system that can be used to simulate other quantum systems. In order to realize that idea, we need methods to efficiently implement the unitary evolution that is induced by a given Hamiltonian. In other words, we need methods to implement $U=e^{-\iota Ht}$ as a quantum circuit of gates (say, up to some small error $\epsilon$), and to apply this to a given initial state $\ket{\psi}$. This is known as the problem of ``Hamiltonian Simulation". If n-qubit Unitary $\tilde{U}$ (e.g. a quantum circuit with not too many gates) is meant to approximate n-qubit unitary $U$, then we can measure the error by the operator norm of their difference $\|U-\tilde{U}\|=\max_{\psi} \|U\ket{\psi}-\tilde{U}\ket{\psi}\|$. However, we will also see simulation methods that allow some auxiliary qubits, say a of them, which start in the state $\ket{0^a}$ and should end in something close to state $\ket{0^a}$. In this case $\tilde{U}$ acts on more qubits than $U$, so we cannot use the operator norm of their difference, instead we can measure the error on the subspace of $(n+a)$ qubit states where the last a qubits are $\ket{0}$:$\max_{\psi} \|(U\ket{\psi})\ket{0^a} - \tilde{U}(\ket{\psi}\ket{0^a})\|$. This way of measuring error still allows you to analyze a sequence of approximate unitaries using triangle inequality in a way that errors add up at most linearly.
 
+\subsection{Evolution of a Closed Quantum System}
+Consider the Time-dependent Schrodinger Equation
+\[
+\iota \hbar \frac{\partial}{\partial t}\ket{\psi}=\hat{H}(t)\ket{\psi}
+\]
+where $\hbar$ is the reduced Planck's constant. When the Hamiltonian $\hat{H}$ is constant (does not depend on time) we call it Time independent Hamiltonian and in that case the solution of the Schrodinger's equation is given as
+\[
+\ket{\psi(t)}=e^{-\iota \hat{H}t}\ket{\psi(0)}
+\]
+From this, given a time, we can calculate the state of the system by exponentiating the Hamiltonian. It is generally difficult to exponentiate a Hamiltonian as it may be sparse but exponentially large. Note that $e^{-\iota \hat{H}t}$ is a Unitary matrix.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-\chapter{Shor's Algorithm}
-\begin{definition}
-    Given a number $N$ which is a composite number. We are required to find the prime factors of the number $N$.
+\section{The Problem Definition}
+The Hamiltonian simulation problem with a time-independent Hamiltonian, or the Hamiltonian simulation problem for short is the following problem: 
+\begin{definition}Given an initial state $\ket{\psi_0}$ and a Hamiltonian $H$, evaluate the quantum state at time $t$ according to $\ket{\phi(t)}=e^{\iota t H}\ket{\psi_0}$. 
 \end{definition}
+Thus, the goal is to find a sequeunce of computational gates that implement time evolution such that the spectral norm
+\[
+\|U-e^{-\iota \hat{H} t}\|_2\leq \epsilon
+\]
+recall that $\|A\|_2 =\sqrt{\lambda_{max}(A^{\dagger}A)}=\sigma_{max}$.
+
+Hamiltonian simulation is of immense importance in characterizing quantum dynamics for a diverse range of systems and situations in quantum physics, chemistry and materials science. Simulation of one quantum Hamiltonian by another quantum system was also one of the motivations of Feynman's 1982 proposal for design of quantum computers. We have also seen that Hamiltonian simulation appears as a quantum subroutine in numerous other quantum algorithms such as QPE and its various applications.
+
+The Hamiltonian simulation problem can also be viewed as a linear ODE:
+\[
+\partial_t\psi(t)=-\iota H\psi(t), \quad \psi(0)=\psi_0
+\]
+However, thanks to the unitary operator $e^{-\iota t H}$ for any $t$, we do not need to store the full history of the quantum states, and can instead focus on the quantum state at time $t$ of interest.
+
+Following conceptualization of a universal quantum simulator using a Trotter decomposition of time evolution operator $e^{-\iota t H}$, many new quantum algorithms for Hamiltonian simulation have been proposed. This chapter focuses on the Trotter based Hamiltonian simulation methods (also called the product formula).
+
+\section{Trotter Splitting}
+It is generally difficult to exponentiate a Hamiltonian. In a lot of models, the Hamiltonian can be written as a liner combination of local terms (each term acts only on a part of the total system).
+\[
+\hat{H}=\sum_{l=1}^L \hat{H}_l
+\]
+A k-local Hamiltonian is defined as a Hamiltonian $\hat{H}$ acting on n qubits such that each $\hat{H}_l$ acts non-trivially on atmost k qubits ($k\leq n)$ instead of n qubits. Most Hamiltonains that occur in nature are k-local. Assuming that each local term $\hat{H}_l$ is Hermitian i.e. $\hat{H}_l^{\dagger} = \hat{H}_l$ and can be directly exponentiated. We can present its evolution as a quantum circuit and run it on a quantum computer as 
+\[
+e^{-\iota \hat{H}t}=e^{-\iota \hat{H}_1 t}e^{-\iota \hat{H}_2t}\ldots e^{-\iota \hat{H}_Lt}
+\]
+if and only if they commute $[H_i,H_j]=0$ for all $i,j$. The commuting makes it possible to decompose the evolution of the total Hamiltonian into the product of the local term evolutions. Since each exponent can be represented as a quantum circuit, the Hamiltonian simulation problem is solved for the whole system.
+
+In general case when local terms do not commute Trotterization is used.
+Consider the Hamiltonian simulation problem $H=H_1+H_2$, where $e^{-\iota H_1 \Delta t}$ and $e^{-\iota H_2 \Delta t}$ can be efficiently computed at least for some $\Delta t$. In general $[H_1,H_2]\neq 0$, and the splitting of the evolution of $H_1,H_2$ needs to be implemented via the Lie product formula
+\[
+e^{-\iota t H}=\lim_{L\rightarrow \infty} \left(e^{- \iota \frac{t}{L}H_1} e^{-\iota \frac{t}{L}H_2}\right)^L
+\]
+When taking L to be a finite number, and let $\Delta t = t/L$, this gives the simplest first order Trotter method with
+\[
+\|e^{-\iota \Delta t H}-e^{-\iota \Delta tH_1} e^{-\iota \Delta tH_2}\|=\mathcal{O}(\Delta t^2)
+\]
+Trotter product formula gives a limit when exponentiation is possible even for not commuting parts. This is represented by many names in the literature as Lie-Product formula, Product formula, Trotter's formula, Trotter product formula, Trotter-Suzuki decomposition, Suzuki-Trotter expansion, Splitting method. It was actually given by Sophus Lie (1875), the later on rediscovered by Hale trotter (1959) and further used by Masuo Suzuki (1976). The formula is
+\[
+e^{A+B}=\lim_{n\rightarrow \infty} \left(e^{\frac{A}{n}} e^{\frac{B}{n}} \right)^n
+\]
+for unbounded linear operators $A,B$. This is called the Lie-Trotter formula.The proof is as follows:
+\begin{proof}
+    Let $A,B$ be Hamiltonian operators and
+    $t\in\mathbb{R}$. Recall
+    \begin{align*}
+        e^x &=\sum_{n=0}^{\infty} \frac{x^n}{n!}=1+x+\frac{x^2}{2!}+\frac{x^3}{3!}+\ldots\\
+        e^{\iota A\frac{t}{n}}&=I+\frac{1}{n}\iota At + O(1/n^2)\\
+        \implies e^{\iota At/n}e^{\iota Bt/n}&=\left(I+\frac{\iota At}{n}\right)\left(I+\frac{\iota Bt}{n}\right)+O(1/n^2)\\
+        &=I+\frac{\iota At}{n}+\frac{\iota Bt}{n} - \frac{ABt}{n^2}+O(1/n^2)\\
+        &=I+\frac{1}{n}\iota(A+B)+O(1/n^2)\\
+        \implies \left(e^{\iota At/n}e^{\iota Bt/n}\right)^n &=\left(I+\frac{\iota(A+B)t}{n}\right)^n
+    \end{align*}
+    Using the Binomial formula for $(x+y)^n=\sum_{k=0}^n \frac{n!}{(n-k)!k!}x^{n-k}y^k$
+    \[
+        =\sum_{k=0}^n=\frac{n!}{(n-k)!k!}\frac{1}{n^k}(\iota (A+B)t)^k
+    \]
+    Now,
+    \begin{align*}
+    \lim_{n\rightarrow \infty} \frac{n!}{(n-k)!k!}\frac{1}{n^k} &=\lim_{n\rightarrow \infty}\frac{1}{k!}\frac{n(n-1)\ldots (n-k-1)}{n^k}\\
+    &=\lim_{n\rightarrow \infty} \frac{1}{k!}\left(1-\frac{1}{n}\right)\left(1-\frac{2}{n}\right)\ldots \left(1-\frac{k-1}{n}\right)\\
+    &\approx \frac{1}{k!}\left(1+O(1/n)\right)\\
+    \end{align*}
+    Hence, upon substituting the result in the given equation, we get,
+    \begin{align*}
+    &=\lim_{n\rightarrow \infty}\sum_{k=0}^n \frac{1}{k!} \left(1+O(1/n)\right)(\iota (A+B)t)^k\\
+    &=\sum_{k=0}^n \frac{(\iota(A+B)t)^k}{k!} + O(1/n)=e^{\iota (A+B)t}\\
+    \lim_{n\rightarrow \infty} \left(e^{\iota At/n} e^{\iota Bt/n}\right)^n &=e^{\iota (A+B)t}
+    \end{align*}
+\end{proof}
+We can thus apply this formula to the k-local Hamiltonians even when they do not commute with each other.
+\[
+e^{-\iota \sum_{l=1}^L \hat{H}_l t}=\lim_{n\rightarrow \infty}\left( \prod_{e=1}^L e^{-\iota \hat{H}_l \frac{t}{n}}\right)^n
+\]
+Note that this formula involves infinity so we need to truncate the series when implementing this formula on a quantum computer. It is this truncation that introduces error in the simulation
+\[
+e^{-\iota \sum_{l=1}^L \hat{H}_l t}\approx \left(\prod_{l=1}^L e^{-\iota \hat{H}_l\frac{t}{n}}\right)^n
+\]
+This truncation and application of Suzuki-trotter formula to Hamiltonian simulation problem is known as Trotterization and its widely used to simulate non-commuting Hamiltonians on Quantum Computers. When the local terms of the hamiltonians commute the identity is exact.
+Therefore to perform Hamiltonian simulation to time t, the error is
+\[
+\|e^{-\iota t H}-\left(e^{-\iota \frac{t}{L}H_1} e^{-\iota \frac{t}{L}H_2}\right)^L\| = \mathcal{O}(\Delta t^2L)=\mathcal{O}\left(\frac{t^2}{L}\right)
+\]
+Note that the error term is actually $O(\|H_1\|\|H_2\|t^2/n)$.
+So to reach precision $\epsilon$ in the operator norm, we need
+\[
+L=\mathcal{O}(t^2\epsilon^{-1})
+\]
+Thus, the number of trotter steps is $L$, and is chosen such that the simultion error reaches the desired value.
+This can be improved to the second order Trotter method (also called the symmetric trotter splitting or Strang splitting)
+\[
+\|e^{-\iota \Delta t H}-e^{-\iota \Delta t/2 H_2}e^{-\iota \Delta tH_1}e^{-\iota \Delta t/2H_2}\|=\l=\mathcal{O}(\Delta t^3)
+\]
+Following a similar analysis to the first order method, we find that to reach precision $\epsilon$ we need
+\[
+L=\mathcal{O}(t^{\frac{3}{2}}\epsilon^{-1/2})
+\]
+Higher order Trotter methods are also available, such as the p-th order Suzuki formula. The local truncation error is $(\Delta t)^{p+1}$. therefore to reach precision $\epsilon$, we need
+\[
+L=\mathcal{O}(t^{\frac{p+1}{p}}\epsilon^{-1/p})
+\]
+This is often written as $L=\mathcal{O}(t^{1+o(1)}\epsilon^{-o(1)})$  as $p\rightarrow \infty$.
+\begin{example}
+Say Hamiltonian $\hat{H}$ we want to simulate is a sum of two Pauli matrices $\hat{H}=\hat{X}+\hat{Z}$ which acts on a single qubit. Note that it is small enough to do an exact simulation and compare it with a simulation using trotterization for different no. of Trotter steps. The matrix is simultaneous rotation around X and Z axis of the Bloch sphere. Recall that because the Pauli X and Pauli Z do not commute i.e. $[X,Z]=2\iota Y$, thus $e^{-\iota Ht}=e^{-\iota (X+Z)t}\neq e^{-\iota Xt}e^{-\iota Zt}$. Thus, we use trotterization. Say we use first-order trotterization as follows:
+\[
+e^{-\iota Ht}=\left(e^{-\iota X\frac{t}{n}}e^{-\iota Z \frac{t}{n}}\right)^n
+\]
+We, thus evolve the Hamiltonian repeatedly by switching between evolving $X$ and $Z$ each for a small period of time. Thus, the next step is to represent each product in Trotter's formula as a quantum circuit. In this case it is simple because evolution can be represented exactly using Rotations around $X$ and $Z$ axis. Recall,
+\[
+e^{-\iota \frac{\theta}{2} X}=R_x(\theta)=\begin{pmatrix} \cos (\theta/2) & -\iota \sin(\theta/2) \\ -\iota \sin(\theta/2) & \cos (\theta/2) \end{pmatrix}
+\]
+and
+\[
+e^{-\iota \frac{\theta}{2} Z}=R_Z(\theta)=\begin{pmatrix} e^{-\iota \frac{\theta}{2}} & 0 \\ 0 & e^{\iota \frac{\theta}{2}} \end{pmatrix}
+\]
+Rotation angle then encodes the evolution. Putting $\theta=\frac{2t}{n}$, we get,
+\[
+R_x(\frac{2t}{n})=e^{-\iota \frac{t}{n} X}=\begin{pmatrix} \cos (\frac{t}{n}) & -\iota \sin (\frac{t}{n}) \\ -\iota \sin(\frac{t}{n}) & \cos (\frac{t}{n}) \end{pmatrix} \quad R_Z(\frac{2t}{n}) =e^{-\iota \frac{t}{n} Z}=\begin{pmatrix} e^{-\iota \frac{t}{n}} & 0 \\ 0 & e^{-\iota \frac{t}{n}} \end{pmatrix}
+\]
+The more the terms are commuting between each other, the more precise the simulation is. The 1st order formula is good for short time intervals. Note that we did not require any ancilla bits.
+\end{example}
+
+
+\begin{example}
+    (Simulating transverse field Ising model). For the one dimensional transverse filed Ising model (TFIM) with nearest neighbor interaction, wince all Pauli-$Z_i$ operators commute, we have
+    \[
+    e^{-\iota tH_1}:=e^{\iota t}\sum_{i=1}^{n-1} Z_iZ_{i+1} = \Pi_{i=1}^{n-1} e^{\iota t Z_i Z_{i+1}}
+    \]
+    Each $e^{\iota t Z_i Z_{i+1}}$ is a rotation involving only the qubits $i,j$, and the splitting has no error. Similarly
+    \[
+    e^{-\iota t H_2}:=e^{d\sum_)iX_i}= \Pi_i e^{\iota t g X_i}
+    \]
+    and each $e^{\iota t g X_i}$ can be implemented independently without error.
+\end{example}
+
+
+
+\begin{example}
+    (Particle in a Potential). Let $H=-\Delta_r + V(\mathbf{r})=H_1+H_2$ be the Hamiltonian of a particle in a potential field $V(\mathbf{r})$, where $\mathbf{r} \in \Omega = [0,1]^d$ with periodic boundary conditions. After discretization using Fourier modes, $e^{\iota H_1 t}$ can be efficiently performed by diagonalizing $H_1$ in the Fourier space, and $e^{\iota H_2t}$ can be efficiently performed since $V(\mathbf{r})$ is diagonal in the real space.
+\end{example}
+\section{Evolution of Hamiltonian formed by Pauli Operators: Quantum circuits and exact simulation}
+Evolution generated by some non-local Hamiltonians can be simulated exactly. Such a possibility occurs when a hamiltonian consists of Tensor product of Pauli operators. Examples of such Hamiltonians are $\hat{H}=\hat{X},\hat{H}=\hat{Z}_1\otimes \hat{Z}_2, \hat{H}=\hat{X}_1\otimes \hat{Y}_2\otimes \hat{Z}_3$. In total any Hamiltonian of the form:
+\[
+\hat{H}=\otimes_{k=1}^n \sigma-{\alpha k}^k
+\]
+We will now see how to construct a quantum circuit a Quantum circuit to simulate a Hamiltonian consists of an arbitrary tensor product of Pauli operators.
+\subsection{One-qubit Hamiltonians}
+In other words, when the Hamiltonians is formed by one of the Pauli operators ($\hat{H}=\{X,Y,Z,I\})$. In this case, the evolution operator is just the corresponding rotation Operators.
+\[
+U=e^{-\iota \hat{H}t}
+\]
+\begin{align*}
+    R_x(\theta)&=e^{-iota \frac{\theta}{2}\hat{X}}=\cos \frac{\theta}{2} \hat{I}-\iota \sin \frac{\theta}{2}\hat{Y}=\begin{pmatrix} \cos \frac{\theta}{2} & -\iota \sin \frac{\theta}{2} \\ -\iota \sin \frac{\theta}{2} & \cos \frac{\theta}{2} \end{pmatrix}\\
+    R_Y(\theta)&=e^{-iota \frac{\theta}{2}\hat{Y}}=\cos \frac{\theta}{2} \hat{I}- \iota \sin \frac{\theta}{2}\hat{Y}=\begin{pmatrix} \cos \frac{\theta}{2} & \sin \frac{\theta}{2} \\ \sin \frac{\theta}{2} & \cos \frac{\theta}{2} \end{pmatrix}\\
+    R_Z(\theta)&=e^{-iota \frac{\theta}{2}\hat{Z}}=\cos \frac{\theta}{2} \hat{I}-\iota \sin \frac{\theta}{2}\hat{Z}=\begin{pmatrix} e^{-\iota \frac{\theta}{2}} & 0 \\ 0 & e^{\iota \frac{\theta}{2}} \end{pmatrix}
+\end{align*}
+\subsection{Two-qubit Hamiltonians}
+Now consider the situation when the Hamiltonian consists of Pauli operators applied to two qubits. Say $\hat{H}=\hat{Z}_1 \otimes \hat{Z}_2$. Here, the subscript denotes the qubit it acts on. The Hamiltonian is as follows:
+\[
+\hat{Z}_1\otimes \hat{Z}_2=\begin{pmatrix} 1 & 0 \\ 0 & -1 \end{pmatrix} \otimes \begin{pmatrix} 1 & 0 \\ 0 & -1 \end{pmatrix}=\begin{pmatrix} 1 & 0 & 0 & 0 \\ 0 & -1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & -1 \end{pmatrix}
+\]
+Note that the square of this matrix is an Identity matrix. Therefore, to calculate the evolution operator of a given Hamiltonian we can use the formula for the decomposition of the matrix exponential.
+\[
+U=e^{-\iota (\hat{Z}_1\otimes \hat{Z}_2) t}=\cos t \hat{I}_1\otimes \hat{I}_2 -\iota \sin t \hat{Z}_1 \otimes \hat{Z}_2
+\]
+\[
+=\begin{pmatrix} \cos t -\iota \sin t & 0 & 0 & 0 \\ 0& \cos t+\iota \sin t & 0 & 0 \\ 0 & 0 & \cos t+\iota \sin t & 0 \\ 0 & 0 & 0 & \cos t-\iota \sin t \end{pmatrix}
+\]
+using the exponential notation of the colex number, we get,
+\[
+=\begin{pmatrix} e^{-\iota t} & 0& 0 & 0 \\ 0& e^{\iota t} & 0 & 0 \\ 0& 0 & e^{\iota t} & 0 \\ 0 & 0 & 0 & e^{-\iota t} \end{pmatrix}
+\]
+\[
+\hat{R}_{ZZ}(\theta)=e^{-\iota \frac{\theta}{2} \hat{Z}_1 \otimes \hat{Z}_2}=\begin{pmatrix} e^{-\iota \frac{\theta}{2}} & 0 & 0 & 0 \\ 0 & e^{\iota \frac{\theta}{2}} & 0 & 0 \\ 0 & 0 & e^{\iota \frac{\theta}{2}} & 0 \\ 0 & 0& 0 & e^{-\iota \frac{\theta}{2}} \end{pmatrix}
+\]
+Thus, we have an operator called $R_{ZZ}$ in the literature and appears in the QAOA algorithm. Our goal is to construct a quantum circuit that implements this operator. To do this, we first look at how the $R_{ZZ}$ operator acts on a state with normalized coefficients.
+$\ket{\psi} = \alpha\ket{00}+\beta\ket{01}+\gamma\ket{10}+\delta \ket{11}$. For $\hat{H}=\hat{Z}_1 \otimes \hat{Z}_2$
+\[
+R_{ZZ}\ket{\psi}=\begin{pmatrix} e^{-\iota \frac{\theta}{2}} & 0 & 0 & 0 \\ 0 & e^{\iota \frac{\theta}{2}} & 0 & 0 \\ 0 & 0 & e^{\iota \frac{\theta}{2}} & 0 \\ 0 & 0& 0 & e^{-\iota \frac{\theta}{2}} \end{pmatrix}\begin{pmatrix} \alpha \\ \beta \\ \gamma \\ \delta \end{pmatrix} = \begin{pmatrix} \alpha e^{-\iota \frac{\theta}{2}} \\ \beta e^{\iota \frac{\theta}{2}} \\ \gamma e^{\iota \frac{\theta}{2}} \\ \delta e^{-\iota \frac{\theta}{2}}\end{pmatrix}
+\]
+\[
+=\alpha e^{-\iota \frac{\theta}{2}}\ket{00}+\beta e^{\iota \frac{\theta}{2}}\ket{01}+\gamma e^{\iota \frac{\theta}{2}}\ket{10} +\delta e^{-\iota \frac{\theta}{2}}\ket{11}
+\]
+Now, taking the Global phase factor, we get,
+\[
+=e^{-\iota \frac{\theta}{2}} [\alpha\ket{00}+\beta e^{\iota \theta}\ket{01}+\gamma e^{\iota \theta} + \delta \ket{11}]
+\]
+Thus, we can see that the action of the $R_ZZ$ i.e. the Hamiltonian $\hat{H}=\hat{Z}_1\otimes \hat{Z}_2$ is a simultaneous rotation of the two qubits around Z axis. From the result we just received one can see that the phase shift applied to the system is $e^{-\iota \frac{\theta}{2}}$ if the parity of qubits in the computational basis is even i.e. both the qubits are either zero or one. Other wise the phase shift should be $e^{\iota \frac{\theta}{2}}$. Thus, for the simple simulation of the ZZ Hamiltonain, we need to do the parity check and then apply a phase shift conditioned on the parity and then compute.
+\section{How to simulate any Hamiltonian}
+The following are the steps to simulate any Hamiltonian. Sometimes this approach may not be optimal but it works for most of the models of interest.
+
+Assume that the Hamiltonian simulation will be performed on a universal quantum computer with a gate based model of computation.
+\begin{enumerate}
+    \item Define a model Hamiltonian of the system which we want to simulate.
+    \[
+    U=e^{-\iota \hat{H}t}
+    \]
+    \item Write the target Hamiltonian $\hat{H}$ in terms of Pauli matrices. the mathematical properties of qubits are those of spin-1/2 systems. Therefore in order to be simulated on a qubit based architecture any target Hamiltonian for example, if you want to simulate spin 1 system has to be mapped into an equivalent Hamiltonian of interacting spin half operators. Efficient mappings are known for large variety of cases ranging from spin more than half fermionic and bosonic systems. Since any hamiltonian is a matrix it can be decomposed into linear combination of products of Pauli operators.
+    \[
+    \hat{H}=\begin{bmatrix} a_{11}& \ldots & a_{1m} \\ \vdots & \ddots & \vdots \\ a_{m1} & \ldots & a_{mm} \end{bmatrix}
+    \]
+    We known that,
+    \[
+    \hat{H}=\sum_{l=1}^L \hat{H}_l
+    \]
+    Thus, we can write
+    \[
+    \hat{H}_l=c_l \hat{A}_l
+    \]
+    Here, $\hat{A}_l$ is a tensor product of Pauli operators as
+    \[
+    \hat{A}_l = \otimes_{k=1}^n \sigma_{\alpha k}^{kl}
+    \]
+    and $c_l=\dfrac{Tr(\hat{A}_l \hat{H})}{2^n}$ are the expansion coefficients for all the possible combinations from the Pauli operators. In this way you can find the decomposition of the matrix into a linear combination of the power operators using the commands in Qiskit. Remember the Quantum Simulation will be efficient whenever the Hamiltonian is the sum of local terms. This is not a limitation in many practical cases because most of the physical processes are inherently local in nature. Sometime local hamiltonians get mapped into non-local ones for example when Jordan Wegner transformation is applied.
+    \item Trotterisation: If $[\hat{H}_i,\hat{H}_j]=\hat{H}_i\hat{H}_j-\hat{H}_j\hat{H}_i=0$ then
+    \[
+    e^{-\iota \hat{H}t}=e^{-\iota \hat{H}_1 t} \ldots e^{-\iota \hat{H}_L t}
+    \]
+    else
+    \[
+    \hat{U}(t)=e^{-\iota \sum_{l=1}^L \hat{H}_lt}=\left(\prod_{l=1}^L e^{-\iota \hat{H}_l\frac{t}{n}}\right)^n + O(\frac{t^2}{n})
+    \]
+    \item Translate each $e^{-\iota \hat{H}_lt}$ into a quantum circuit. Each local term in this case can be simulated exactly.
+    \item Initial State and Measurements: It is optional. Sometimes you may need to add initial state preparation at the beginning of the circuit and the appropriate set of measurements at the end to recover the expectation values of the observable quantities. We can get the expectation value of the observable using hadamard test.
+\end{enumerate}
+\section{Commutator type error bound}
+In this section we try to refine the error bounds in the equation by evaluating the preconstant explicitly. For simplicity we focus only on the first order Trotter formula. The trotter propagator $\tilde{U}(t)=e^{-\iota tH_1}e^{-\iota tH_2}$ satisfies the equation
+\begin{align*}
+\iota \partial_t\tilde{U}(t)&=e^{-\iota tH_1}e^{-\iota tH_2}+e^{-\iota tH_1}H_2e^{-\iota tH_2}\\
+&=(H_1+H_2)e^{-\iota tH_1}e^{-\iota tH_2}+e^{-\iota t H_1}H_2e^{-\iota tH_2}-H_2e^{-\iota t H_1}e^{-\iota t H_2}\\
+&=H\tilde{U}(t)+[e^{-\iota t H_1},H_2]e^{-\iota t H_2}
+\end{align*}
+with initial condition $\tilde{U}(0)=I$. By Duhamel's principle, and let $U(t)=e^{-\iota tH}$, we have
+\[
+\tilde{U}(t)=U(t)-\iota \int_0^t e^{-\iota H(t-s)}[e^{-\iota sH_1},H_2]e^{-\iota sH_2} ds
+\]
+So we have
+\[
+\|\tilde{U}(t)-U(t)\|\leq \int_0^t \|e^{-\iota s H_1},H_2\|ds
+\]
+Now consider $G(t)=[e^{-\iota t H_1},H_2]e^{\iota t H_1}=e^{-\iota tH_1}H_2e^{\iota t H_1}-H_2$, which satisfies $G(0)=0$ and
+\[
+\iota \partial_tG(t)=e^{-\iota t H_1} [H_1,H_2]e^{+\iota t H_1}
+\]
+Hence,
+\[
+\|[e^{-\iota t H_1},H_2]\|=\|G(t)\|\leq t\|[H_1,H_2]\|
+\]
+Plugging this back to Equation we have
+\[
+\|\tilde{U}9T)-U(t)\|\leq \int_0^t s\|[H_1,H_2]\|ds \leq \frac{t^2}{2}\|[H_1,H_2]\|\leq t^2\nu^2
+\]
+In the last equality, we have used the relation $\|[H_1,H_2]\| \leq 2\nu^2$ with $\nu = \max\{\|H_1\|,\|H_2\|\}$. Therefore equation can be replaced by a sharper inequality
+\[
+\|e^{-\iota \Delta tH}-e^{-\iota \Delta t H_1}e^{-\Delta tH_2}\|\leq \frac{\Delta t^2}{2} \|[H_1,H_2]\|\leq (\Delta t)^2\nu^2
+\]
+Here the first inequality is called the commutator norm error estimate, and the second inequality the operator norm error estimate.
+
+For the transverse field Ising model with nearest neighbor interaction, we have $\|H_1\|,\|H_2\|=\mathcal{O}(n)$, and hence $\nu^2=\mathcal{O}(n^2)$. On the other hand, since $[Z_iZ_j,X_k]\neq 0$ only if $k=i$ or $k=j$, the commutator bound satisfies $\|H_1,H_2]\|=\mathcal{O}(n)$. therefore to reach precision $\epsilon$, the scaling of the total number of time steps $L$ with respect to the system size is $\mathcal{O}(n^2/\epsilon$ according to the estimate based on the operator norm, but is only $\mathcal{O}(n/\epsilon)$ according to that based on the commutator norm.
+
+For the particle in a potential, for simplicity consider $d=1$ and the domain $\Omega=[0,1]$ is discretized using a uniform grid of size $N$. For smooth and bounded potential, we have $\|H_1\|=\mathcal{O}(N^2)$, and $\|V\|=\mathcal{O}(1)$. therefore the operator norm bound gives $\nu^2=\mathcal{O}(N^4)$. This is too pessimistic. Reexamining the second inequality of the equation shows that in this case, the error bound should be $\mathcal{O}((\Delta t)^2\nu)$ instead of $(\Delta t)^2 \nu^2$. So according to the operator norm error estimate, w have $L=\mathcal{O}(N^2/\epsilon)$. On the other hand, in the continuous space, for any smooth function $\psi(r)$, we have
+\[
+[H_1,H_2]\psi=\left[-\frac{d^2}{dr^2},V\right]\psi=-V''\psi-V'\psi'
+\]
+So
+\[
+\|H_1,H_2]\psi\|\leq \\V''\|+\|V'\|\|\psi'\|=\mathcal{O}(N)
+\]
+here we have used that $\|V'\|=\|V''\|=\mathcal{O}(1)$, and $\|\psi'\|=\mathcal{O}(N)$ in the worst case scenario. therefore $\|[H_1,H_2]\|=\mathcal{O}(N)$, and we obtain a significantly improved estimate $L=\mathcal{O}(N/\epsilon)$ according to the commutator norm.
+
+The commutator scaling of the trotter error is an important feature of the method. there are papers for analysis of the second order Trotter method, and for the analysis of the commutator scaling of high order trotter methods.
+
+\begin{remark}
+    (vector norm bound). The Hamiltonian simulation problem of interest in practice often concerns the solution with particular types of initial conditions, instead of arbitrary initial conditions. Therefore the operator norm bound in the equation can still be too loose. Taking the initial condition into account, we readily obtain
+    \[
+    \|e^{-\iota |delta tH}\psi(0)-e^{\-iota \Delta tH_1}e^{-\iota \delta tH_2}\psi(0)\|\leq \frac{\Delta t^2}{2}\max_{0\leq s \leq \Delta t} \|[H_1,H_2]\psi(s)\|
+    \]
+    For the example of the particle in a potential, we have
+    \[
+    \max_{0\leq s\leq \Delta t} \|[H_1,H_2]\psi(s)\|\leq \|V''\|+\|V'\| \max_{0\leq s \leq \Delta t} \|\psi'(s)\|
+    \]
+    Therefore, if we are given the a priori knowledge that $\max_{0\leq s \leq t} \|\psi'(s)\|=\mathcal{O}(1)$, we may even have $L=\mathcal{O}(\epsilon^{-1})$, i.e., the number of time steps is independent of $N$.
+\end{remark}
+
+\begin{example}
+    Consider the Hamiltonian simulation problem for $H=H_1+H_2+H_3$. Show that the first order Trotter formula
+    \[
+    \tilde{U}(t)=e^{-\iota t H_1}e^{-\iota t H_2}e^{-\iota t H_3}
+    \]
+    has a commutator type error bound.
+\end{example}
+\begin{example}
+    Consider the time-independent Hamiltonian simulation problem for the following controlled Hamiltonian
+    \[
+    H(t)=a(t)H_1+b(t)H_2
+    \]
+    where $a(t)$ and $b(t)$ are smooth functions bounded together will all derivatives. We focus on the following trotter type splitting, defined as
+    \[
+    \tilde{U}(t):=\tilde{U}(t_n,t_{n-1})\ldots \tilde{U}(t-1,t_0), \quad \tilde{U}(t_{j+1},t_j)=e^{-\iota \Delta ta(t_j)H_1}e^{-\iota \Delta tb(t_j)H_2}
+    \]
+    where the intervals $[t)j,t_{j+1}]$ are equidistant and of length $\Delta t$ on the interval $[0,t]$ with $t_n=t$. Show that this method has first-order accuracy, but does not exhibit a commutator type error bound in general.
+\end{example}
+
+
+
+
+
+
+\chapter{Block Encoding}
+In order to perform matrix computations, we must first address the problem of the input model: how to get access to information in matrix $A\in \mathbb{C}^{N \times N} (N=2^n)$ which is generally a non-unitary matrix, into the quantum computer? One possible input model is given via the unitary $e^{\iota \tau A}$ (if A is not Hermitian, in some scenarios we an consider its Hermitian version via the dilation method).
+
+Many standard Linear algebra problems can be solved on a quantum computer using recently developed quantum linear algebra problems that make use of block encodings and quantum eigenvalue/ singular value transformations. 
+
+A block encoding embeds a properly scaled matrix of interest $A$ in a larger Unitary transformation $U$ that can be decomposed into a product of simpler unitaries and implemented efficiently on a quantum computer. Although, quantum algorithms can potentially achieve exponential speedup in solving linear algebra problems compared to the best classical algorithm, such gain in efficiency ultimately hinges on our ability to construct an efficient quantum circuit for the block encoding of $A$, which is difficult in general, and not trivial even for well structured sparse matrices. In this chapter, we talk about how efficient quantum circuits can be explicitly construct for some well structured spare matrices and discuss a few examples and strategies used in these constructions.
+\section{Introduction}
+In recent years, a new class of quantum algorithms have been developed to solve standard linear algebra problems on quantum computers. These algorithms use the technique of block encoding, to embed a properly scaled matrix $A$ of interest in a larger unitary matrix $U_A$ to a carefully prepared initial state and performing measurements on a subset of qubits. furthermore, if $A$ is Hermitian, by using the technique of the quantum eigenvalue transformation, one can block encode a certain matrix polynomial $p(A)$ by another unitary $U_{p(A)}$ efficiently using $U_A$ as the building block. This procedure can be generalized to non-Hermitian matrices $A$ using a technique called singular value transformation. The larger unitary $U_{p(A)}$ can be decomposed onto a product of simpler unitaries consisting of $2\times 2$ single qubit unitaries, multi-qubit controlled-NOTs, $U_A$ and its Hermitian conjugate. Because approximate solutions to many large-scale linear algebra problems such as linear system of equations, least squares problems and eigenvalue problems (produced by iterative methods) can often be expressed as $p(A)v_0$ for some initial vector $v_0$ for some initial vector $v_0$, the possibility to block encode $p(A)$ will enable us to solve these problems on a quantum computer that perform unitary transformations. 
+
+In order to implement this quantum linear algebra algorithms, we need to further express the block encoding matrix $U_A$ as a product of simpler unitaries i.e. we need ot express $U_A$ as an efficient quantum circuit. Although it is suggested that such a quantum circuit can be constructed in theoryf for certain sparse matrices, the proposed construction relies on the availability of ``oracle" that can efficiently block encode both the nonzero structure of $A$ and numerical values of the nonzero matrix elements. However, for a general sparse matrix $A$, finding these ``oracles" is entirely non-trivial. Even for spare matrices that have a well defined non-zero structure and a small set of nonzero matrix elements, encoding the structure and matrix elements by an efficient quantum circuit is not an easy task.
+
+In this chapter, we provide a few accessible examples on how to explicitly construct efficient quantum circuits for some well structured spare matrices. In particular, some general strategies for writing down the oracles for the non-zero structure and non-zero matrix elements of those matrices. In addition we will also provide circuit diagrams and how these circuits can be easily constructed using Python Qiskit. 
+
+The block encoding of $A$ is not unique. We will show a few different encoding schemes and the corresponding quantum circuits. For a sparse matrix $A$ that has at most $s$ nonzero elements per column, which we refer to as an s-sparse matrix, the general strategies we use to construct a quantum circuit actually block encodes $A/s$. For many applications, the extra scaling factor does not introduce significant issues. 
+\section{The Problem}
+\begin{definition} \textbf{(Hamiltonian Simulation)} Let $H$ be a Hamiltonian made up of $m$ Pauli terms, meaning that
+\[
+H=\sum_{a=1}^m \lambda_a E_a \text{ where $E_a$ is a tensor product of Pauli matrices}
+\]
+Find an algorithm implementing a Unitary close to $e{-iota Ht}$, so that $\|U-e^{\iota Ht}\|\leq \epsilon$. 
+\end{definition}
+Original solutions proceeded by using Trotter approximations: for r large enough,
+\[
+e^{-\iota Ht}\approx (e^{-\iota E_1t/r} e^{-\iota E_2t/r } \ldots e^{-\iota E_mt/r })^r
+\]
+However, this solution is far from optimal, notably because implementing this approximation, requires $poly(1/\epsilon)$ gate complexity. Improved algorithms eventually developed into the framework below presented. This framework proceeds by:
+\begin{enumerate}
+    \item Defining a type of quantum circuit called a ``block-encoding"
+    \item Showing that, given $\lambda_a$ and $E_a$, we can construct an efficient block-encoding of $H$.
+    \item Showing that we can get a block-encoding of (an approximation of) $e^{-\iota Ht}$ with few uses of the block-encoding to $H$.
+    \item Using this block-encoding to apply our approximation to a state.
+\end{enumerate}
+A more general input model, as will be discussed in this chapter is called "block encoding". Of course, if A is a dense matrix without obvious structures, any input model will be very expensive (e.g. exponential in n) to implement. Therefore a commonly assumed input model is s-sparse there are at most s nonzero entries in each row/column of the matrix. Furthermore, we have an efficient procedure to get access to the location, as well as the value of the nonzero entries. This in general can again be a difficult task given that the number of nonzero entries can still be exponential in n for a sparse matrix. Some dense matrices may also be efficiently block encoded on quantum computers. This chapter will illustrate the block encoding procedure via a number of detailed examples.
+
+\section{Query model for matrix entries}
+The query model for sparse matrices is based on certain quantum oracles. In some scenarios, these quantum oracles can be implemented all the way to the elementary gate level. Throughout the discussion we assume $A$ is an n-qubit, square matrix, and 
+\[
+\|A\|_{max}=\max_{ij}|A_{ij}|<1
+\]
+If the $\|A\|_{max}\geq 1$, we can simply consider the rescaled matrix $\tilde{A}/\alpha$ for some $\alpha>\|A\|_{max}$. To query the entries of a matrix, the desired oracle takes the following general form
+\[
+O_A\ket{0}\ket{i}\ket{j}=\left(A_{ij}\ket{0}+\sqrt{1-|A_{ij}|^2}\ket{1}\right)\ket{i}\ket{j}
+\]
+In other words, given $i,j\in[N]$ and a signal bit $0$, $O_A$ performs a controlled rotation (controlling on i,j) of the signal bit, which encodes the information in terms of amplitude of $\ket{0}$.
+
+However, the classical information in A is usually not stored natively in terms of such an oracle $O_A$. Sometimes it is more natural to assume that there is an oracle
+\[
+\tilde{O}_A\ket{0^{d'}}\ket{i}\ket{j}=\ket{\tilde{A}_{ij}}\ket{i}\ket{j}
+\]
+where $\tilde{A}_{ij}$ is a d'-bit fixed point representation of $A_{ij}$, and the value of $\tilde{A}_{ij}$ is either computed on the fly with a quantum computer, or obtained through an external database. In either case, the implementation of $\tilde{O}_A$ may be challenging, and we will only consider the query complexity with respect to this oracle.
+
+Using classical arithmetic operations, we can convert this oracle into an oracle
+\[
+{O'}_A\ket{0^d}\ket{i}\ket{j}=\ket{\tilde{\theta}_{ij}}\ket{i}\ket{j}
+\]
+where $0\leq \tilde{\theta}_{ij}<1$, and $\tilde{\theta}_{ij}$ is a d-bit representation of $\theta_{ij}=arccos(A_{ij})/\pi$. This step may require some additional work registers not shown here.
+
+Now using the controlled rotation, the information of $\tilde{A}_{ij}$, $\tilde{\theta}_{ij}$ has now been transferred to the phase of the signal bit. We should then perform uncomputation and free the work work register storing such intermediate information $\tilde{A}_{ij}$, $\tilde{\theta}_{ij}$. The procedure is as follows:
+\begin{align*}
+\ket{0}\ket{0^d}\ket{i}\ket{j}&\xrightarrow{O'_A}\ket{0}\ket{\tilde{\theta}_{ij}}\ket{i}\ket{j}\\
+&\xrightarrow{CR}\left(A_{ij}\ket{0}+\sqrt{1-|A_{ij}|^2}\ket{1}\right)\ket{\tilde{\theta}_{ij}}\ket{i}\ket{j}\\
+&\xrightarrow{(O'_A)^{-1}}\left(A_{ij}\ket{0}+\sqrt{1-|A_{ij}|^2x}\ket{1}\right)ket{0^d}\ket{i}\ket{j}
+\end{align*}
+From now on, we will always assume that the matrix entries of A can be queried using the phase oracle $O_A$ or its variants.
+
+\section{Block Encoding}
+Block encoding is a technique for embedding a properly scaled nonunitary matrix $A \in \mathbb{C}^{N\times N}$ into a unitary matrix $U_A$. \textbf{Note that a properly scaled $A$, we mean that $A$ is scaled to satisfy $\|A\|_2=\sigma_{max} \leq 1$. Without such a scaling, a block encoding of $A$ may not exist because the singular values of any submatrix blocks of a unitary matrix must be bounded by $1$}. Furthermore, if there are some constraints on the type of unitary er can construct e.g. the type of quantum gates available on a quantum computer, we many be able to find $U_A$ that block encodes $A$ exactly. In this chapter, we assume that $A$ has already been properly scaled, and there is no constraints on the quantum gates we can use to construct a quantum circuit representation of the unitary matrix $U_A$.
+The simplest example of block encoding is the following: assume we can find a (n+1)qubit unitary U (i.e. $U\in\mathbb{C}^{2N \times 2N}$ such that
+\[
+U_A=\begin{bmatrix}A & * \\ * & * \end{bmatrix}
+\]
+here * means that the corresponding entries are irrelevant (yet to be determined), then for any n-qubit quantum state $\ket{b}$, we can consider the state
+\[
+\ket{0,b}=\ket{0}\ket{b}=\begin{bmatrix}b \\ 0 \end{bmatrix}
+\]
+and
+\[
+U_A\ket{0,b}=\begin{bmatrix}Ab\\ * \end{bmatrix}=\ket{0}A\ket{b}+\ket{\perp}
+\]
+Here the unnormalized state $\ket{\perp}$ can be written as $\ket{1}\ket{\psi}$ for some unnormalized state $\ket{\psi}$, that is irrelevant to the computation of $A\ket{b}$. In particular, it satisfies the orthogonality relation.
+\[
+(\bra{0}\otimes I_n)\ket{\perp}=0
+\]
+in order to obtain $A\ket{b}$, we need to ensure measure the qubit 0 and only keep the state if it returns 0. This can be summarised into the following quantum circuit as shown in the figure \ref{fig:blockencodingcircuit}.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{../images/blockencodingcircuit.png}
+    \caption{Circuit for Block Encoding A using one Ancilla qubit}
+    \label{fig:blockencodingcircuit}
+\end{figure}
+Note that the output state is normalized after the measurement takes place. The success probability of obtaining 0 from the measurement can be computed as
+\[
+p(0)=\|A\ket{b}\|^2=\braket{b|A^{\dagger}A\ket{b}}
+\]
+So the missing information of norm $\|A\ket{b}\|$ can be recovered via the success probability $p(0)$ if needed. We find that the success probability is only determined by $A\ket{b}$, and is independent of other irrelevant components of $U_A$.
+
+Note that we may not need to restrict the matrix $U_A$ to be a $(n+1)$-qubit  matrix. if we can find any (n+m)-qubit matrix $U_A$ so that
+
+\[
+U_A=\begin{bmatrix} A & * & \ldots & * \\
+* & * & \ldots & * \\
+\vdots & \vdots & \vdots & \vdots \\
+* & * & \ldots & * \end{bmatrix}
+\]
+Here each $*$ stands for an n-qubit matrix, and there are $2^m$ block rows/columns in $U_A$. The relation above can be written compactly using the braket notation as
+\[
+A=(\bra{0^m}\otimes I_n)U_A(\ket{0^m}\otimes I_n)
+\]
+since $\bra{0^m}\otimes I_n$ will be a block row vector with Identity matrix (of size $2^n \times 2^n$) at the first entry and 0 everywhere else. Similarly, $\ket{0^m} \otimes I_n$ will be a block column vector with Identity matrix at the first entry and 0 everywhere else. Thus, the above expression can be thought of as being simplified to
+\[
+\bra{0^m}\otimes I_n=\begin{bmatrix} 1 & 0 & \ldots & 0\end{bmatrix} \otimes \begin{bmatrix} 1 & 0 & \ldots & 0 \\ 0 & 1 & \ldots & 0 \\ \vdots & \vdots & \ddots & 0 \\ 0 & 0 & \ldots & 1 \end{bmatrix}=\begin{bmatrix} I_n & 0 & 0 & \ldots & 0 \end{bmatrix}
+\]
+where $I_n$ is the n-qubit identity matrix of size $2^n\times 2^n$ and $0$ indicates block matrices of size $2^n \times 2^n$ with all entries 0. Thus, $\bra{0^m}\otimes I_n$ is a matrix of size $2^n \times 2^{n+m}$. Similarly for $\ket{0^m} \otimes I_n$, we get,
+\[
+\ket{0^m}\otimes I_n=\begin{bmatrix} 1 \\ 0 \\ \vdots \\ 0\end{bmatrix} \otimes \begin{bmatrix} 1 & 0 & \ldots & 0 \\ 0 & 1 & \ldots & 0 \\ \vdots & \vdots & \ddots & 0 \\ 0 & 0 & \ldots & 1 \end{bmatrix}=\begin{bmatrix} I_n \\ 0 \\ 0 \\ \vdots \\ 0 \end{bmatrix}
+\]
+Thus, on putting it all together we get,
+\[
+(\bra{0^m}\otimes I_n)U_A(\ket{0^m}\otimes I_n)=\begin{bmatrix} I_n & 0 & 0 & \ldots & 0 \end{bmatrix}U_A\begin{bmatrix} I_n \\ 0 \\ 0 \\ \vdots \\ 0 \end{bmatrix}=A
+\]
+A necessary condition for the existence of $U_A$ is $\|A\| \leq 1$. (Note: $\|A\|_{max}\leq 1$ does not guarantee that $\|A\|\leq 1$). However, if we can find sufficiently large $\alpha$ and $U_A$ so that
+\[
+A/\alpha = (\bra{0^m}\otimes I_n)U_A(\ket{0^m}\otimes I_n)
+\]
+Measuring the m ancilla qubits and given that all m-qubits return 0, we still obtain the normalized state $\frac{A\ket{b}}{\|A\ket{b}\|}$.
+The number $\alpha$ is hidden in the success probability:
+\[
+p(0^m)=\frac{1}{\alpha^2}\|A\ket{b}\|^2=\frac{1}{\alpha^2}\braket{b|A^{\dagger}A\ket{b}}
+\]
+So if $\alpha$ is chosen to be too large, the probability of obtaining all $0$s from the measurement can be vanishingly small.
+
+\begin{example}
+    To give an example of block encoding, let us consider a $1 \times 1$ matrix $A=\alpha$ , where $0<\alpha<1$. In this extremely simple case, a block encoding of $A$ can be constructed as
+    \[
+    U_A=\begin{bmatrix} \alpha & \sqrt{1-\alpha^2} \\ 
+    \sqrt{1-\alpha^2} & -\alpha \end{bmatrix}
+    \]
+    or
+    \[
+    U_A =\begin{bmatrix} \alpha & -\sqrt{1\alpha^2} \\ 
+    \sqrt{1-\alpha^2} & \alpha \end{bmatrix}
+    \]
+    Although this type of block encoding can be extended to a properly scaled matrix $A$ of a larger dimension to yield
+    \[
+    U_A =\begin{bmatrix} A & (I-A^{\dagger}A)^{1/2} \\ (I-A^{\dagger}A)^{1/2} & -A \end{bmatrix}
+    \]
+    or
+    \[
+    \begin{bmatrix} A & -(I-A^{\dagger}A)^{1/2} \\ 
+    (I-A^{\dagger}A)^{1/2} & A \end{bmatrix}
+    \]
+    this approach is not practical because it requires computing the square root of $A^{\dagger}A$, which requires computing and diagonalizing $A^{\dagger}A$. In general, there is no efficient algorithm to perform these operations on a quantum computer using $\mathcal{O}(poly(n))$ quantum gates.
+\end{example}
+\begin{example}
+    A more practical scheme that does not require computing the square root of $A$ can be illustrated by the following real symmetric $2 \times 2$ example. Let
+    \[
+    A=\begin{bmatrix} \alpha_1 & \alpha_2 \\ 
+    \alpha_2 & \alpha_1 \end{bmatrix}
+    \]
+    where $|\alpha_1|,|\alpha_2|\leq 1$. It can be verified that the matrix
+    \[
+    U_A =\frac{1}{2}\begin{bmatrix} U_{\alpha} & -U_{\beta} \\ U_{\beta} & U_{\alpha} \end{bmatrix}
+    \]
+    is a block encoding of $A/2$, where
+    \[
+    U_{\alpha} = \begin{bmatrix} \alpha_1 & \alpha_2 & \alpha_1 & -\alpha_2 \\ 
+    \alpha_2 & \alpha_1 & -\alpha_2 & \alpha_1 \\
+    \alpha_1 & -\alpha_2 & \alpha_1 & \alpha_2 \\
+    -\alpha_2 & \alpha_1 & \alpha_2 & \alpha _2 \end{bmatrix}
+    \]
+    and
+    \[
+    U_{\beta} = \begin{bmatrix} \beta_1 & \beta_2 & \beta_1 & -\beta_2 \\
+    \beta_2 & \beta_1 & -\beta_2 & \beta_1 \\ 
+    \beta_1 & -\beta_2 & \beta_1 & \beta_2 \\
+    \beta_1 & -\beta_2 & \beta_1 & \beta_2 \\
+    -\beta_2 & \beta_1 & \beta_2 & \beta_1 \end{bmatrix}
+    \]
+    with $\beta_1 =\sqrt{1-\alpha_1^2}$ and $\beta_2 =\sqrt{1-\alpha_2^2}$. To implement this unitary on a quantum computer, we must further decompose $U_A$ as a product of simpler unitaries and construct a quantum circuit with a limited number of quantum gates. This method of block encoding cannot be easily generalized to matrices of larger dimensions. However, for special matrices with special structures ,e.g. sparse matrices, it is possible to develop some general block encoding strategies which we will discuss in the next section.
+\end{example}
+Finally, it can be difficult to find $U_A$ to encode $A$ exactly. This is not a problem, since it is sufficient if we can find $U_A$ to block encode $A$ upto some error $\epsilon$. We are now ready to give the definition of block encoding.
+
+\begin{definition}
+    (Block encoding) Given an n-qubit matrix $A$ ($N=2^n$), if we can find $\alpha,\epsilon \in \mathbb{R}_+$, and an $(m+n)$-qubit unitary matrix $U_A$ so that
+    \[
+    \|A-\alpha(\bra{0^m}\otimes I_n)U_A(\ket{0^m}\otimes I_n)\|\leq \epsilon
+    \]
+    then $U_A$ is called an $(\alpha,m,\epsilon)$-block encoding of $A$. When the block encoding is exact with $\epsilon=0$, $U_A$ is called an $(\alpha,m)$-block encoding of $A$. The set of all $(\alpha,m,\epsilon)$-block-encoding of $A$ is denoted by $BE_{\alpha,m}(A,\epsilon)$, and we define $BE_{\alpha,m}A=BE(A,0)$.
+\end{definition}
+Here, $m$ is the number of ancilla bits used to blcoke encode $A$.
+
+Assume we know each matrix element of the n-qubit matrix $A_{ij}$, and we are given an (n+m)-qubit unitary $U_A$. In order to verify that $U_A \in BE_{1,m}(A)$ we only need to verify that
+\[
+\bra{0^m}\bra{i}U_A\ket{0^m}\ket{j}=A_{ij}
+\]
+Here, $\ket{0^m}\ket{j}$ will be a column vector of size $(2^m \times 1 \otimes  2^n \times 1= 2^{m+n} \times 1)$ which will be 1 in the jth row and 0 everywhere else. Similar arguments can be used for establishing $\bra{0^m}\bra{i}$ which will be a row vector with 1 in the ith column entry and 0 everywhere else. Thus, upon multiplying the matrices it will pick the $i,j$ th entry of the matrix $U_A$ which will be $A_{ij}$. $U_A$ applied to the vector $\ket{0^m,b}$ can be obtained via the superposition principle.
+
+Therefore we may first evaluate the state $U_A\ket{0^m,j}$, and perform inner product with $\ket{0^m,i}$ and verify the resulting the inner product is $A_{ij}$. We will also use the following technique frequently. Assume $U_A=U_BU_C$, and then
+\[
+\braket{0^m,i|U_A\ket{0^m,j}}=\braket{0^m,i|U_BU_C\ket{0^m,j}}=(U^{\dagger}_B\ket{0^m,i})^{\dagger}(U_C\ket{0^m,j})
+\]
+So we can evaluate the states $U^{\dagger}_B\ket{0^m,i},U_C\ket{0^mj}$ independently, and then verify the inner product is $A_{ij}$. Such a calculation amounts to running the circuit shown in fig \ref{fig:generalblockencoding}, and if the ancilla qubits are measured to be $0^m$, the system qubits return the normalized state $\sum_iA_{ij}\ket{i}/\|\sum_iA_{ij}\ket{i}\|$.
+\begin{figure}
+    \centering
+    \includegraphics[width=1\linewidth]{../images/generalblockencoding.png}
+    \caption{Circuit for general block encoding of A}
+    \label{fig:generalblockencoding}
+\end{figure}
+\begin{example}
+    ((1,1)-block-encoding in general). For any n-qubit matrix A with $\|A\|_2\leq 1$, the singular value decomposition (SVD) of A is denoted by $W\Sigma V^{\dagger}$, where all singular values in the diagonal matrix $\Sigma$ belong to $[0,1]$. Then we may construct an (n+1)-qubit unitary matrix
+    \begin{align*}
+    U_A&=\begin{bmatrix} W & 0 \\ 0 & I_n\end{bmatrix} \begin{bmatrix}\Sigma & \sqrt{I_n-\Sigma^2} \\ \sqrt{I_n-\Sigma^2} & -\Sigma \end{bmatrix} \begin{bmatrix} V^{\dagger} & 0 \\ 0 & I_n\end{bmatrix}\\
+    &=\begin{bmatrix} A & W\sqrt{I_n-\Sigma^2} \\ \sqrt{I_n-\Sigma^2}V^{\dagger} & -\Sigma \end{bmatrix}
+    \end{align*}
+    which is a $(1,1)$-block-encoding of $A$.
+\end{example}
+
+\begin{example}
+    (Random circuit block encoded matrix). In some scenarios, we may want to construct a psuedo-random non-unitary matrix on quantum computers. Note that it would be highly inefficient if we first generate a dense psuedo-random matrix A classically and then feed it into the quantum computer using e.g. quantum-random-access memory (QRAM). Instead we would like to work with matrices that are inherently easy to generate on quantum computers. This inspires the random circuit based block encoding matrix (RACBEM) model. Instead of first identifying $A$ and then finding its block encoding $U_A$, we reverse this thought process: we first identify a unitary $U_A$ that is easy to implement on a quantum computer, and then ask which matrix can be block encoded by $U_A$.
+\end{example}
+This example shows that in principle, any matrix $A$ with $\|A\|_2\leq 1$ can be accessed via a $(1,1,0)-block-encoding.$ In other words, $A$ can be block encoded by an $(n+1)$-qubit random unitary $U_A$, and $U_A$ can be constructed using only one-qubit unitaries and CNOT gates. The layout of the two-qubit operations can be designed to be compatible with the coupling map of the hardware.
+
+\begin{example}
+    (Block encoding of a diagonal matrix). As a special case, let us consider the block encoding of a diagonal matrix. Since the row and column indices are the same, we may simplify the oracle into
+    \[
+    O_A\ket{0}\ket{i}=\left(A_{ii}\ket{0}+\sqrt{1-|A_{ii}|^2} \ket{1}\right)\ket{i}
+    \]
+    In the case when the oracle $\tilde{O}_A$ is used, we may assume accordingly
+    \[
+    \tilde{O}_A\ket{0^{d'}}\ket{i}=\ket{\tilde{A}_{ii}}\ket{i}
+    \]
+    Let $U_A=O_A$. Direct calculation shows that for any $i,j\in[N]$,
+    \[
+    \bra{0}\braket{i|U_A|0}\ket{j}=A_{ii}\delta_{ij}
+    \]
+    This proves that $U_A\in BE_{1,1}(A)$i.e., $U_A$ is a $(1,1)$-block-encoding of the diagonal matrix $A$.
+\end{example}
+
+\section{Block Encoding of s-sparse matrix}
+We now give a few examples of block encodings of more general structured sparse matrices. 
+\begin{example}
+    Recall that real symmetric $2\times 2$ matrix example. If we define $\phi_1=\cos^{-1}(\alpha_1)+\cos^{-1}(\alpha_2)$ and $\phi_2=\cos^{-1}(\alpha_1)-\cos^{-1}(\alpha_2)$, then we can verify that the block encoding for the $2 \times 2$ matrix can be factored as a product of simple unitaries i.e.
+    \[
+    U_A=U_6U_5U_4U_3U_2U_1U_0
+    \]
+    where $U_0=U_6=I_2 \otimes H \otimes I_2$, $U_1=R_1 \otimes I_2 \otimes I_2, U_2=U_4=(I_2 \otimes E_0 + X \otimes E_1) \otimes I_2, U_3 =R_2 \otimes I_2 \otimes I_2$, and $U_5=I_2 \otimes (E_0 \otimes I_2 + E_1 \otimes X)$. Here, $H, X$ are the Hadamard and Pauli-X gates, $R_1=R_y(\phi_1)$, $R_2 =R_y(\phi_2)$ are the rotation matrices along y axis. and $E_0,E_1$ are the projectors. The quantum circuit associated with the factorization is given in figure \ref{fig:qcrealsymA}.
+\begin{figure}
+    \centering
+    \includegraphics[width=0.75\linewidth]{../images/QCRealsymA.png}
+    \caption{A quantum circuit for the block encoding of a $2 \times 2$ symmetric matrix $A$}
+    \label{fig:qcrealsymA}
+\end{figure}
+Note that in this case, the quantum circuit requires 2 ancilla qubits in addition to the $n=1$ system qubit required to match the dimension of $A$, which is $N=2^n$. As a result the unitary that block encodes the $2 \times 2$ matrix $A$ is of dimension $2^3$.
+\end{example}
+
+It is possible to develop a general scheme to construct a block encoding and the corresponding quantum circuit for well structured matrices. In particular, when $A$ is sparse with a structured sparsity pattern and the nonzero matrix elements can also be well characterized, an efficient block encoding circuit for $A$ can be constructed.
+
+We start from a 1-sparse matrix, i.e., there is only one nonzero entry in each row or column of the matrix. This means that for each $j\in[N]$, there is a unique $c(j)\in[N]$ such that $A_{c(j),j}\neq 0$, and the mapping c is a permutation. Then there exists a unitary $O_c$ such that
+\[
+O_c\ket{j}=\ket{c(j)}
+\]
+The implementation of $O_c$ may require the usage of some work registers that are omitted here. We also have
+\[
+O^{\dagger}_c\ket{c(j)}=\ket{j}
+\]
+We assume the matrix entry $A_{c(j),j}$ can be queried via
+\[
+O_A\ket{0}\ket{j}=\left(A_{c(j),j}\ket{0}+\sqrt{1-|A_{c(j),j}|^2}\ket{1}\right)\ket{j}
+\]
+Now we construct $U_A=(I\otimes O_c)O_A$, (tensor product of two unitary matrices is unitary) and compute
+\[
+\bra{i}\bra{0}U_A\ket{0}\ket{j}=\bra{0}\bra{i}\left(A_{c(j),j}\ket{0}+\sqrt{1-|A_{c(j),j}|^2}\ket{1}\right)\ket{c(j)}=A_{c(j),j}\delta_{i,c(j)}
+\]
+This proves that $U_A\in BE_{1,1}(A)$.
+
+
+\begin{theorem}
+    Let $c(j,l)$ be a function that gives the row index of the $lth$ (among a list of s) non-zero matrix elements in the jth column of an s-sparse matrix $A \in\mathbb{C}^{Ntimes N}$ with $N=2^n$, where $s=2^m$. If there exists a unitary $O_x$ such that
+    \[
+    O_c\ket{l}\ket{j}=\ket{l}\ket{c(j,l)}
+    \]
+    and a unitary $O_A$ such that
+    \[
+    O_A\ket{0}\ket{l}\ket{j}=(A_{c(j,l),j}\ket{0}+\sqrt{1-|A_{c(j,l),j}|^2}\ket{1})\ket{l}\ket{j}
+    \]
+    then 
+    \[
+    U_a =(I_2 \otimes D_s \otimes I_N)(I_s \otimes O_c)(I_s \otimes D_s \otimes I_N)
+    \]
+    block encodes $A/s$. Here $D_s$ is called a diffusion operator and is defined as 
+    \[
+    D=H \otimes H \otimes \ldots \otimes H=H^{\otimes m}
+    \]
+\end{theorem}
+\begin{proof}
+    Note that applying $D_s$ to $\ket{0^m}$ yields
+    \[
+    D_s\ket{0^m}=\frac{1}{\sqrt{s}}\sum_{l=0}^{s-1} \ket{l}
+    \]
+    where $\{\ket{l}\}$ forms the computational basis in the Hilbert space defined by the $m$ qubits. Our goal is to show that $\bra{0}\bra{0^m}\bra{i}U_A\ket{0}\ket{0^m}\ket{j}=A_{ij}/s$. In order to compute the inner product $\bra{0}\bra{0^m}\bra{i}U_a\ket{0}\ket{0^m}\ket{j}$, we apply $D_s,O_A,O_c$ to $\ket{0}\ket{0^m}\ket{j}$ successively as illustrated below
+    \begin{align*}
+        \ket{0}\ket{0^m}\ket{j} &\xrightarrow{I_2 \otimes D_s \otimes I_N} \frac{1}{\sqrt{s}} \sum_{l\in[s]}\ket{0}\ket{l}\ket{j}\\
+        &\xrightarrow{O_A} \frac{1}{\sqrt{s}}\sum_{l\in [s]}(A_{c(j,l),j}\ket{0}+\sqrt{1-|A_{c(j,l)}|^2}\ket{1})\ket{l}\ket{j}\\
+        &\xrightarrow{I_2 \otimes O_c} \frac{1}{\sqrt{s}}\sum_{l\in[s]}(A_{c(j,l),j}\ket{0}+\sqrt{1-|A_{c(j,l),j}|^2}\ket{1})\ket{l}\ket{c(j,l)}
+    \end{align*}
+    where $[s]$ denotes the set of integers $\{0,1,\ldots,s-1\}$. Instead of multiplying the leftmost factor $I_2 \otimes D_s \otimes I_N$ (note that $D_s$ is Hermitian) to the last line we apply if to $\ket{0}\ket{0^m}\ket{i}$ to obtain
+    \[
+    \ket{0}\ket{0^m}\ket{i}\xrightarrow{I_2 \otimes D_s \otimes I_N} \frac{1}{\sqrt{s}}\sum_{l' \in [s]} \ket{0}\ket{l'}\ket{i}
+    \]
+    Finally, taking the inner product between the two results in 
+    \[
+    \bra{0}\bra{0^m}\bra{i}U_a \ket{0}\ket{0^m}\ket{j}=\frac{1}{s}\sum_l A_{c(j,l),j}\delta_{i,c(j,l)} =\frac{1}{s}A_{ij}
+    \]
+\end{proof}
+
+The quantum circuit associated with the block encoding is as shown in figure \ref{fig:sparseblockencoding}. Note that the implementation of this block encoding requires $m+1$ ancilla qubits in addition to n system qubits. In order to turn this into an efficient quantum circuit, we need to further decompose the $O_c$ and $O_A$ unitaries into a sequence of quantum gates, which may not be straightforward. In the circuit shown in figure \ref{fig:qcrealsymA}, $O_A$ is decomposed as $O_A=U_4U_3U_2U_1$ and $O_C$ is simply $U_5$. We will now show how these decompositions are constructed systematically.
+
+Although it may be possible to construct a set of controlled quantum gates to achieve $O_c$ and $O_A$ oracles for a specific pair of $j$ and $l$. This approach will not yield an efficient quantum circuit because the total number of quantum gates in the circuit will be of the order of $\mathcal{O}(N)$, which is exponential with respect to $n$. Our goal is to construct a circuit that has a gate complexity of $poly(n)$ i.e. a polynomial in $n$, at least for certain sparse and/or structured matrices with well defined sparsity patterns.
+
+Note that $O_c$ is unitary, and thus we must have $O_C^{\dagger}\ket{l}\ket{c(j,l)}=\ket{l}\ket{j}$. This means that for each index $i=c(j,l)$ we can recover the column index $j$ given the value of $l$. This assumption is ofcourse somewhat restrictive, but it covers important cases such as banded matrices. We remark that it can generally be more difficult to explicitly construct quantum circuits for $O_C$ in these more general query models.
+
+
+\begin{example}
+    \textbf{Real Symmetric $2 \times 2$ matrix} We revisit the matrix considered previously once more. and view it is an s-sparse matrix with $s=2$ even though it is dense. Therefore we can still use the recipe given in the theorem to construct a block encoding of $A/2$. We will show how explicit circuits for $O_c$ and $O_A$ can be constructed.
+
+    \begin{enumerate}
+        \item \textbf{The $O_C$ circuit:} Since the second column is a down or upshift of the first one, the function $c(j,l)$m which defines the 0-based row index of the lth nonzero element in the jth column can be defined by
+        \[
+        c(j,l)=j+l \text{ mod } 2
+        \]
+        for $j,l=\{0,1\}$. After enumerating all possible combinations of $(l,j)$ input pairs and their corresponding $(l,c(j,l))$ output pairs as shown in the table \ref{tab:ocex}, we see that $O_c$ can simply be implemented as a CNOT gate as shown in the figure \ref{fig:ocex}.
+
+        \begin{figure}
+            \centering
+            \includegraphics[width=0.5\linewidth]{../images/Ocexa.png}
+            \caption{$O_c$ circuit}
+            \label{fig:ocex}
+        \end{figure}
+        \begin{table}
+            \centering
+            \begin{tabular}{|c|c|c|c|}
+            \hline
+                $l$ & $j$ & $l$ & $c(j,l)$ \\
+                \hline
+                 0 & 0 & 0 & 0\\
+                 1 & 0 & 1 & 1\\
+                 0 & 1 & 0 & 1\\
+                 1 & 0 & 1 & 0 \\
+                 \hline
+            \end{tabular}
+            \caption{All possible output pairs $(l,c(j,l))$ for all possible combinations of $(l,j$}
+            \label{tab:ocex}
+        \end{table}
+        \item \textbf{The $O_A$ circuit: } The basic strategy to construct a circuit for $O_A$ defined is to use the controlled rotations to place numerical values at proper locations in $U_A$. Because the matrix $A$ has at most two unique matrix elements. We need two controlled rotations. In general, we need to condition the application of these rotations on the values of $j$ and $l$. However, since the values of $\alpha_1$ and $\alpha_2$ depend solely on $l$, control is only required on the qubit that takes $\ket{l}$ as the input. We apply the rotation $R_u(\theta_1)$ with $\theta_1=2\cos^{-1}(\alpha_1)$ when $l=0$, and $R_y(\theta_2)$ with $\theta_2=\cos^{-1}(\alpha_2)$ when $l=1$. These controlled rotations are combined to yield the following $O_A$ circuit in figure \ref{fig:oaexa}.
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.5\linewidth]{../images/Oaexa.png}
+            \caption{Implementation of $O_A$ circuit}
+            \label{fig:oaexa}
+        \end{figure}
+        Note that the last qubit is not used in this $O_A$ circuit.
+
+        ON some quantum hardware it is preferable to use single qubit rotation and CNOT gates in place of controlled rotation gates. These are sometimes referred to as uniformly controlled rotations. In figure \ref{fig:uniformcontrolledrotations},we show how the controlled rotations used in $Q_A$ circuit can be replaced by an equivalent set of uniformly controlled gates.
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\linewidth]{../images/oacirc_ex.png}
+    \caption{$O_A$ circuit for uniformly controlled rotations}
+    \label{fig:uniformcontrolledrotations}
+\end{figure}
+        To see that right hand side is identical to the left hand, we observe first that, if the second qubit is in the $\ket{0}$ state, the circuit on the left applies $R_y(\theta_1)$ to the first qubit. In the circuit on the right, $R_y(\phi_2)R_y(\phi_1)$ is applied to the first qubit in this case. These two operations are identical when $\theta_1=\phi_1+\phi_2$. Secondly, if the second qubit is in the $\ket{1}$ state, the left circuit applies $R_y(\theta_2)$ to the first qubit, while the right circuit applied the gate sequence $XR_Y(\phi_2)XR_Y(\phi_2)$. It follows from the identity $XR_y(\theta)X=R_Y(-\theta)$ that these operations are equivalent if $\theta_2=\phi_1-\phi_2$.
+        \item The complete circuit: Finally, we substitute circuits, together with $D_s=H$ into the figure \ref{fig:sparseblockencoding} and obtain the complete block encoding quantum circuit for the matrix. Note that this circuit is identical to the one we have already introduced in figure \ref{fig:qcrealsymA}.
+    \end{enumerate}
+\end{example}
+
+\subsection{Banded Circulant Matrix}
+For a more general s-sparse matrix, WLOG we assume each row and column ha exactly s nonzero entries (otherwise we can always treat some zero entries as nonzeros). For each column j, the row index for the lth nonzero entry is denoted by $c(j,l)=c_{j,l}$. For simplicity, we assume hat there exists a unitary $O_c$ such that
+\[
+O_c\ket{l}\ket{j}=\ket{l}\ket{c(j,l)}
+\]
+Here we assume $s=2^{p}$ and the first register is an $p$-qubit register. A necessary condition for this model is that $O_C$ is reversible, i.e., we can have $O_c^{\dagger}\ket{l}\ket{c(j,l)}=\ket{l}\ket{j}$. This means that for each row index $i=c(j,l)$, we can recover the column index $j$ given the value of $l$. This can be satisfied e.g.
+\[
+c(j,l)=j+l-l_0 \quad (mod N)
+\]
+where $l_0$ is a fixed number. This corresponds to a banded matrix. This assumption is ofcourse somewhat restrictive. We shall discuss more general query models.
+
+Corresponding to the equation, the matrix entries can be queried via
+\[
+O_A\ket{0}\ket{l}\ket{j}=\left(A_{c(j,l),j}\ket{0}+\sqrt{1-|A_{c(j,l),j}|^2}\ket{1}\right) \ket{l}\ket{j}
+\]
+
+In order to construct a unitary that encodes all row indices at the same time ,we define $D=H^{\otimes p}$ (sometimes called a diffusion operator, which is a term originated from Grover's search) satisfying
+\[
+D\ket{0^p}=\frac{1}{\sqrt{p}}\sum_{l\in[p]}\ket{l}
+\]
+Consider $U_A$ given by the circuit in figure \ref{fig:sparseblockencoding}. The measurement means that to obtain $A\ket{b}$, the ancilla register should return the value 0.
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\linewidth]{../images/sparseblockencoding.png}
+    \caption{Quantum circuit for block encoding an s-sparse matrix}
+    \label{fig:sparseblockencoding}
+\end{figure}
+\begin{proposition}
+    The circuit given in figure \ref{fig:sparseblockencoding} defines $U_A \in BE_{s,s+1}(A)$.
+\end{proposition}
+\begin{proof}
+    We call $\ket{0}\ket{0^p}\ket{j}$ the source state, and $\ket{0}\ket{0^p}\ket{i}$ the target state. In order to compute the inner product $\bra{0}\bra{0^s}\bra{i}U_A\ket{0}\ket{0^p}\ket{i}$, we apply $D,O_A,O_C$ to the source state accordingly as
+    \begin{align*}
+    \ket{0}\ket{0^p}\ket{j}&\xrightarrow{D}\frac{1}{\sqrt{s}}\sum_{l\in[s]}\ket{0}\ket{l}\ket{j}\\
+    &\xrightarrow{O_A}\frac{1}{\sqrt{s}}\sum_{l\in[s]}\left(A_{c(j,l),j}\ket{0}+\sqrt{1-|A_{c(j,l),j}|^2}\ket{1}\right)\ket{l}\ket{j}\\
+    &\xrightarrow{O_C}\frac{1}{\sqrt{s}\sum_{l\in[s]}}\left(A_{c(j,l),j}\ket{0}+\sqrt{1-|A_{c(j,l),j}|^2}\ket{1}\right)\ket{l}\ket{c(j,l)}
+    \end{align*}
+    Since we are only interested in the final state when all ancilla qubits are the 0 state, we may apply $D$ to the target state $\ket{0}\ket{0^p}\ket{i}$ as (note that D is Hermitian)
+    \[
+    \ket{0}\ket{0^p}\ket{i}\xrightarrow{D}\frac{1}{\sqrt{s}}\sum_{l'\in[s]}\ket{0}\ket{l'}\ket{i}
+    \]
+    Hence the inner product
+    \[
+    \bra{0}\bra{0^p}\bra{i}U_A\ket{0}\ket{0^p}\ket{j}=\frac{1}{s}\sum_l A_{c(j,l),j}\delta_{i,c(j,l)}=\frac{1}{s}A_{ij}
+    \]
+\end{proof}
+
+\section{Hermitian Block Encoding}
+So far we have considered general s-sparse matrices. Note that if A is Hermitian matrix, its $(\alpha,m,\epsilon)$-block-encoding $U_A$ does not need to be Hermitian. Even if $\epsilon=0$, we only have that the upper-left n-qubit block of $U_A$ is Hermitian. For instance, even the block encoding of a Hermitian diagonal matrix may not be Hermitian. On the other hand,there are cases when $U^{\dagger}_A=U_A$ is indeed a Hermitian matrix, and hence the definition:
+\begin{definition}
+    (Hermitian Block Encoding). Let $U_A$ be an $(\alpha,m,\epsilon)$-block-encoding of A. If $U_A$ is also Hermitian, then it is called an $(\alpha,m,\epsilon)$-Hermitian-block-encoding of A. When $\epsilon=0$, it is called an $(\alpha,m)$-Hermitian-block-encoding. The set of all $(\alpha,m,\epsilon)$-Hermitian-block-encoding of A is denoted by $HBE_{\alpha,m}(A,\epsilon)$, and we define $HBE_{\alpha,m}(A)=HBE(A,0)$.
+\end{definition}
+The Hermitian block encoding provides the simplest scenario of the qubitization process.
+
+\section{Query models for general sparse matrices}
+If we query the oracle, the assumption that for each $l$ the value of $c(j,l)$ is unique for all $j$ seems unnatural for constructing general sparse matrices. So we consider an alternative method for construct the block encoding of a general sparse matrix as below.
+
+Again without loss of generality we assume that each row/column has at most $p=2^s$ non zero entires, and that we have access to the following two (2n)-qubit oracles.
+\[
+O_r\ket{l}\ket{i}=\ket{r(i,l)}\ket{i}
+\]
+\[
+O_c\ket{l}\ket{j}=\ket{c(j,l)}\ket{j}
+\]
+Here $r(i,l)$,$c(j,l)$ gives the l-th nonzero entry in the i-th row and j-th column, respectively. It should be noted that although the index $l\in[p]$, we should expand it into an n-qubit state (e.g. let $l$ take the last $s$ qubits of the n-qubit register following the binary representation of integers). The reason for such an expansion, and that we need two oracles$O_c,O_r$ will be seen shortly.
+
+Similar to the discussion before, we need a diffusion operator satisfying
+\[
+D\ket{0^n}=\frac{1}{\sqrt{s}}\sum_{l\in[p]}\ket{l}
+\]
+This can be implemented using Hadamard gates as
+\[
+D=I_{n-s}\otimes H^{\otimes s}
+\]
+We assume that the matrix entries are queried using the following oracle using controlled rotations
+\[
+O_A\ket{i}\ket{j}=\left(A_{ij}\ket{0}+\sqrt{1-|A_{ij}|^2}\ket{1}\right)\ket{i}\ket{j}
+\]
+where the rotation is controlled by both row and column indices. However, if $A_{ij}=0$ for some $i,j$, the rotation can be arbitrary, as there will be no contribution due to the usage of $O_r,O_c$.
+\begin{proposition}
+    The circuit shown in figure \ref{fig:generalsparseencoding} defines $U_A\in BE_{s,n+1}(A)$.
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.7\linewidth]{../images/generalsparseencoding.png}
+        \caption{Quantum circuit for block encoding of general sparse matrices}
+        \label{fig:generalsparseencoding}
+    \end{figure}
+\end{proposition}
+\begin{proof}
+    We apply the first four gate sets to the source state
+    \begin{align*}
+    \ket{0}\ket{0^n}\ket{j}&\xrightarrow{D}\xrightarrow{O_c}\xrightarrow{O_A}\frac{1}{\sqrt{p}}\sum_{l\in[p]}\left(A_{c(j,l),j}\ket{0}+\sqrt{1-|A_{c(j,l),j}|^2}\ket{1}\right)\ket{c(j,l)}\ket{j}\\
+    &\xrightarrow{SWAP}\frac{1}{\sqrt{p}}\sum_{l\in[p]}\left(A_{c(j,l),j}\ket{0}+\sqrt{1-|A_{c(j,l),j}|^2}\ket{1}\right)\ket{j}\ket{c(j,l)}
+    \end{align*}
+    we then apply $D$ and $O_r$ to the target state
+    \[
+    \ket{0}\ket{0^n}\ket{i}\xrightarrow{D}\xrightarrow{O_r}\frac{1}{\sqrt{p}}\sum_{l'\in[p]}\ket{0}\ket{r(i,l')}\ket{i}
+    \]
+    Then the inner product gives
+    \begin{align*}
+    \bra{0}\bra{0^n}\braket{i|U_A|0}\ket{0^n}\ket{j}&=\frac{1}{p}\sum_{l,l'}A_{c(j,l),j}\delta_{i,c(j,l)}\delta_r(j,l'),j\\
+    &=\frac{1}{p}\sum_lA_{c(j,l),j}\delta_{i,c(j,l)}=\frac{1}{s}A_{ij}
+    \end{align*}
+    Here we have used that there exists a unique $l$ such that $i=c(j,l)$, and a unique $l'$ such that $j=r(i,l')$.
+\end{proof}
+
+We remark that the quantum circuit in figure \ref{fig:generalsparseencoding} is essentially the construct, which gives a $(s,n+3)$-block-encoding. The construct above slightly simplifies the procedure and saves two extra qubits (used to marke whether $l\geq s$).
+
+Next we consider the Hermitian block encoding of a s-sparse Hermitian matrix. Since $A$ is Hermitian, we only need one oracle to query the location of th nonzero entries.
+\[
+O_c\ket{l}\ket{j}=\ket{c(j,l)}\ket{j}
+\]
+Here $c(j,l)$ gives the $l$-th nonzero entry in the $j$-th column. It can also be interpreted as the $l$-th nonzero entry in the ith column. Again the first register needs to be interpreted as an n-qubit register. The diffusion operator is the same as in the equation.
+
+Unlike all discussions before, we introduce two signal qubits and a quantum state in the computational basis take the form $\ket{a}\ket{i}\ket{b}\ket{j}$, where $a,b\in\{0,1\,i,j\in[N]$. In other words, we may view $\ket{a}\ket{i}$ as the first register, and $\ket{b}\ket{j}$ as the second register. The $(n+1)$-qubit SWAP gate is defined as
+\[
+SWAP\ket{a}\ket{i}\ket{b}\ket{j}=\ket{b}\ket{j}\ket{a}\ket{i}
+\]
+To query matrix entries, we need access to the square root of $A_{ij}$ as (note that act on the second single-qubit register)
+\[
+O_A\ket{i}\ket{0}\ket{j}=\ket{i}\left(A_{ij}\ket{0}+\sqrt{1-|A_{ij}|}\ket{1}\right)\ket{j}
+\]
+The square root operation is well defined if $A_{ij}\geq0$ for all entries. If $A$ has negative (or complex) entries, we first write $A_{ij}=|A_{ij}e^{\iota \theta_{ij}},\theta_{ij}\in[0,2\pi)$, and the square root is uniquely defined as $\sqrt{A_{ij}}=\sqrt{|A_{ij}|}e^{\iota\theta_{ij}/2}$.
+
+\begin{proposition}
+    Figure \ref{fig:hermitianblockencoding} defines $U_A\in HBE_{s,n+2}(A)$.
+\end{proposition}
+\begin{proof}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.75\linewidth]{../images/hermitianblockencoding.png}
+        \caption{Quantum circuit for Hermitian Block encoding of a general Hermitian matrix}
+        \label{fig:hermitianblockencoding}
+    \end{figure}
+    Apply the first four gate sets to the source state gives
+    \begin{align*}
+    \ket{0}\ket{0^n}\ket{0}\ket{j}&\xrightarrow{D}\xrightarrow{O_c}\xrightarrow{O_A}\frac{1}{\sqrt{s}}\sum_{l\in[s]}\ket{0}\ket{c(j,l)}\left(\sqrt{A_{c(j,l),j}}\ket{0}sqrt{1-|A_{c(j,l),j}}\ket{1}\right)\ket{j}\\
+    &\xrightarrow{SWAP}\frac{1}{\sqrt{s}}\sum_{l\in[s]}\left(\sqrt{A_{c(i,l'),i}}\ket{0}+\sqrt{1-|A_{c(i,l'),i}|}\ket{1}\right)\ket{i}
+    \end{align*}
+    Apply the last three gate sets to the target state
+    \[
+    \ket{0}\ket{0^n}\ket{0}\ket{i}\xrightarrow{D}\xrightarrow{O_c}\xrightarrow{O_A}\frac{1}{\sqrt{s}}\sum_{l\in[s]}\ket{0}\ket{c(i,l')}\left(\sqrt{A_{c(i,l'),i}}\ket{0}+\sqrt{1-|A_{c(i,l
+    '}|}\ket{1}\right)\ket{i}
+    \]
+    Finally, take the inner product as
+    \begin{align*}
+    \bra{0}\bra{0^n}\bra{0}\bra{i}U_A\ket{0}\ket{0^n}\ket{0}\ket{j}& \\
+    &=\frac{1}{s}\sum_{l,l'}\sqrt{A_{c(j,l'),j}}\sqrt{A^*_{c(i,l'),i}}\delta_{i,c(j,l)}\delta_{c(i,l'),j}\\
+    &=\frac{1}{s}\sqrt{A_{ij}A^*_{ji}}\sum_{l,l'}\delta_{i,c(j,l)}\delta_{c(i,l'),j}=\frac{1}{s}A_{ij}
+    \end{align*}
+    In this equality, we have used that $A$ is Hermitian: $A_{ij}=A^*_{ji}$, and there exists a unique $l$ such that $i=c(j,l)$, as well as a unique $l'$ such that $j=c(i,l')$.
+
+    The quantum circuit in figure \ref{fig:hermitianblockencoding} is essentially construction in. The relation will quantum walks will be discussed further.
+    
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 \chapter{The HHL Algorithm}
 \section{Introduction}
@@ -11012,481 +12249,61 @@ Note that
 \[
 \|B\|\leq \|I+B^{\dagger}B\|\leq 1+(1+\Delta t\|A\|)^2\leq 5
 \]
-\chapter{Trotter based Hamiltonian Simulation}
-\section{The Problem Definition}
-The Hamiltonian simulation problem with a time-independent Hamiltonian, or the Hamiltonian simulation problem for short is the following problem: 
-\begin{definition}Given an initial state $\ket{\psi_0}$ and a Hamiltonian $H$, evaluate the quantum state at time $t$ according to $\ket{\phi(t)}=e^{\iota t H}\ket{\psi_0}$. 
-\end{definition}
-Hamiltonian simulation is of immense importance in characterizing quantum dynamics for a diverse range of systems and situations in quantum physics, chemistry and materials science. Simulation of one quantum Hamiltonian by another quantum system was also one of the motivations of Feynman's 1982 proposal for design of quantum computers. We have also seen that Hamiltonian simulation appears as a quantum subroutine in numerous other quantum algorithms such as QPE and its various applications.
 
-The Hamiltonian simulation problem can also be viewed as a linear ODE:
+\chapter{Matrix functions of Hermitian Matrices}
+Let $A$ be an n-qubit Hermitian matrix. Then $A$ has the eigenvalue decomposition
 \[
-\partial_t\psi(t)=-\iota H\psi(t), \quad \psi(0)=\psi_0
+A=V\Lambda V^{\dagger}
 \]
-However, thanks to the unitary operator $e^{-\iota t H}$ for any $t$, we do not need to store the full history of the quantum states, and can instead focus on the quantum state at time $t$ of interest.
-
-Following conceptualization of a universal quantum simulator using a Trotter decomposition of time evolution operator $e^{-\iota t H}$, many new quantum algorithms for Hamiltonian simulation have been proposed. This chapter focuses on the Trotter based Hamiltonian simulation methods (also called the product formula).
-
-\section{Trotter Splitting}
-Consider the Hamiltonian simulation problem $H=H_1+H_2$, where $e^{-\iota H_1 \Delta t}$ and $e^{-\iota H_2 \Delta t}$ can be efficiently computed at least for some $\Delta t$. IN general $[H_1,H_2]\neq 0$, and the splitting of the evolution of $H_1,H_2$ needs to be implemented via the Lie product formula
-\[
-e^{-\iota t H}=\lim_{L\rightarrow \infty} \left(e^{- \iota \frac{t}{L}H_1} e^{-\iota \frac{t}{L}H_2}\right)^L
-\]
-When taking L to be a finite number, and let $\Delta t = t/L$, this gives the simplest first order Trotter method with
-\[
-\|e^{-\iota \Delta t H}-e^{-\iota \Delta tH_1} e^{-\iota \Delta tH_2}\|=\mathcal{O}(\Delta t^2)
-\]
-Therefore to perform Hamiltonian simulation to time t, the error is
-\[
-\|e^{-\iota t H}-\left(e^{-\iota \frac{t}{L}H_1} e^{-\iota \frac{t}{L}H_2}\right)^L\| = \mathcal{O}(\Delta t^2L)=\mathcal{O}\left(\frac{t^2}{L}\right)
-\]
-So to reach precision $\epsilon$ in the operator norm, we need
-\[
-L=\mathcal{O}(t^2\epsilon^{-1})
-\]
-This can be improved to the second order Trotter method (also called the symmetric trotter splitting or Strang splitting)
-\[
-\| e^{-\iota \Delta t H}-e^{-\iota \Delta t/2 H_2}e^{-\iota \Delta tH_1}e^{-\iota \Delta t/2H_2}\|=\l=\mathcal{O}(\Delta t^3)
-\]
-Following a similar analysis to the first order method, we find that to reach precision $\epsilon$ we need
-\[
-L=\mathcal{O}(t^{\frac{3}{2}}\epsilon^{-1/2})
-\]
-Higher order Trotter methods are also available, such as the p-th order Suzuki formula. The local truncation error is $(\Delta t)^{p+1}$. therefore to reach precision $\epsilon$, we need
-\[
-L=\mathcal{O}(t^{\frac{p+1}{p}}\epsilon^{-1/p})
-\]
-This is often written as $L=\mathcal{O}(t^{1+o(1)}\epsilon^{-o(1)})$  as $p\rightarrow \infty$.
-
-\begin{example}
-    (Simulating transverse field Ising model). For the one dimensional transverse filed Ising model (TFIM) with nearest neighbor interaction, wince all Pauli-$Z_i$ operators commute, we have
-    \[
-    e^{-\iota tH_1}:=e^{\iota t}\sum_{i=1}^{n-1} Z_iZ_{i+1} = \Pi_{i=1}^{n-1} e^{\iota t Z_i Z_{i+1}}
-    \]
-    Each $e^{\iota t Z_i Z_{i+1}}$ is a rotation involving only the qubits $i,j$, and the splitting has no error. Similarly
-    \[
-    e^{-\iota t H_2}:=e^{d\sum_)iX_i}= \Pi_i e^{\iota t g X_i}
-    \]
-    and each $e^{\iota t g X_i}$ can be implemented independently without error.
-\end{example}
-\begin{example}
-    (Particle in a Potential). Let $H=-\Delta_r + V(\mathbf{r})=H_1+H_2$ be the Hamiltonian of a particle in a potential field $V(\mathbf{r})$, where $\mathbf{r} \in \Omega = [0,1]^d$ with periodic boundary conditions. After discretization using Fourier modes, $e^{\iota H_1 t}$ can be efficiently performed by diagonalizing $H_1$ in the Fourier space, and $e^{\iota H_2t}$ can be efficiently performed since $V(\mathbf{r})$ is diagonal in the real space.
-\end{example}
-
-\section{Commutator type error bound}
-In this section we try to refine the error bounds in the equation by evaluating the preconstant explicitly. For simplicity we focus only on the first order Trotter formula. The trotter propagator $\tilde{U}(t)=e^{-\iota tH_1}e^{-\iota tH_2}$ satisfies the equation
-\begin{align*}
-\iota \partial_t\tilde{U}(t)&=e^{-\iota tH_1}e^{-\iota tH_2}+e^{-\iota tH_1}H_2e^{-\iota tH_2}\\
-&=(H_1+H_2)e^{-\iota tH_1}e^{-\iota tH_2}+e^{-\iota t H_1}H_2e^{-\iota tH_2}-H_2e^{-\iota t H_1}e^{-\iota t H_2}\\
-&=H\tilde{U}(t)+[e^{-\iota t H_1},H_2]e^{-\iota t H_2}
-\end{align*}
-with initial condition $\tilde{U}(0)=I$. By Duhamel's principle, and let $U(t)=e^{-\iota tH}$, we have
-\[
-\tilde{U}(t)=U(t)-\iota \int_0^t e^{-\iota H(t-s)}[e^{-\iota sH_1},H_2]e^{-\iota sH_2} ds
-\]
-So we have
-\[
-\|\tilde{U}(t)-U(t)\|\leq \int_0^t \|e^{-\iota s H_1},H_2\|ds
-\]
-Now consider $G(t)=[e^{-\iota t H_1},H_2]e^{\iota t H_1}=e^{-\iota tH_1}H_2e^{\iota t H_1}-H_2$, which satisfies $G(0)=0$ and
-\[
-\iota \partial_tG(t)=e^{-\iota t H_1} [H_1,H_2]e^{+\iota t H_1}
-\]
-Hence,
-\[
-\|[e^{-\iota t H_1},H_2]\|=\|G(t)\|\leq t\|[H_1,H_2]\|
-\]
-Plugging this back to Equation we have
-\[
-\|\tilde{U}9T)-U(t)\|\leq \int_0^t s\|[H_1,H_2]\|ds \leq \frac{t^2}{2}\|[H_1,H_2]\|\leq t^2\nu^2
-\]
-In the last equality, we have used the relation $\|[H_1,H_2]\| \leq 2\nu^2$ with $\nu = \max\{\|H_1\|,\|H_2\|\}$. Therefore equation can be replaced by a sharper inequality
-\[
-\|e^{-\iota \Delta tH}-e^{-\iota \Delta t H_1}e^{-\Delta tH_2}\|\leq \frac{\Delta t^2}{2} \|[H_1,H_2]\|\leq (\Delta t)^2\nu^2
-\]
-Here the first inequality is called the commutator norm error estimate, and the second inequality the operator norm error estimate.
-
-For the transverse field Ising model with nearest neighbor interaction, we have $\|H_1\|,\|H_2\|=\mathcal{O}(n)$, and hence $\nu^2=\mathcal{O}(n^2)$. On the other hand, since $[Z_iZ_j,X_k]\neq 0$ only if $k=i$ or $k=j$, the commutator bound satisfies $\|H_1,H_2]\|=\mathcal{O}(n)$. therefore to reach precision $\epsilon$, the scaling of the total number of time steps $L$ with respect to the system size is $\mathcal{O}(n^2/\epsilon$ according to the estimate based on the operator norm, but is only $\mathcal{O}(n/\epsilon)$ according to that based on the commutator norm.
-
-For the particle in a potential, for simplicity consider $d=1$ and the domain $\Omega=[0,1]$ is discretized using a uniform grid of size $N$. For smooth and bounded potential, we have $\|H_1\|=\mathcal{O}(N^2)$, and $\|V\|=\mathcal{O}(1)$. therefore the operator norm bound gives $\nu^2=\mathcal{O}(N^4)$. This is too pessimistic. Reexamining the second inequality of the equation shows that in this case, the error bound should be $\mathcal{O}((\Delta t)^2\nu)$ instead of $(\Delta t)^2 \nu^2$. So according to the operator norm error estimate, w have $L=\mathcal{O}(N^2/\epsilon)$. On the other hand, in the continuous space, for any smooth function $\psi(r)$, we have
-\[
-[H_1,H_2]\psi=\left[-\frac{d^2}{dr^2},V\right]\psi=-V''\psi-V'\psi'
-\]
-So
-\[
-\|H_1,H_2]\psi\|\leq \\V''\|+\|V'\|\|\psi'\|=\mathcal{O}(N)
-\]
-here we have used that $\|V'\|=\|V''\|=\mathcal{O}(1)$, and $\|\psi'\|=\mathcal{O}(N)$ in the worst case scenario. therefore $\|[H_1,H_2]\|=\mathcal{O}(N)$, and we obtain a significantly improved estimate $L=\mathcal{O}(N/\epsilon)$ according to the commutator norm.
-
-The commutator scaling of the trotter error is an important feature of the method. there are papers for analysis of the second order Trotter method, and for the analysis of the commutator scaling of high order trotter methods.
-
-\begin{remark}
-    (vector norm bound). The Hamiltonian simulation problem of interest in practice often concerns the solution with particular types of initial conditions, instead of arbitrary initial conditions. Therefore the operator norm bound in the equation can still be too loose. Taking the initial condition into account, we readily obtain
-    \[
-    \|e^{-\iota |delta tH}\psi(0)-e^{\-iota \Delta tH_1}e^{-\iota \delta tH_2}\psi(0)\|\leq \frac{\Delta t^2}{2}\max_{0\leq s \leq \Delta t} \|[H_1,H_2]\psi(s)\|
-    \]
-    For the example of the particle in a potential, we have
-    \[
-    \max_{0\leq s\leq \Delta t} \|[H_1,H_2]\psi(s)\|\leq \|V''\|+\|V'\| \max_{0\leq s \leq \Delta t} \|\psi'(s)\|
-    \]
-    Therefore, if we are given the a priori knowledge that $\max_{0\leq s \leq t} \|\psi'(s)\|=\mathcal{O}(1)$, we may even have $L=\mathcal{O}(\epsilon^{-1})$, i.e., the number of time steps is independent of $N$.
-\end{remark}
-
-\begin{example}
-    Consider the Hamiltonian simulation problem for $H=H_1+H_2+H_3$. Show that the first order Trotter formula
-    \[
-    \tilde{U}(t)=e^{-\iota t H_1}e^{-\iota t H_2}e^{-\iota t H_3}
-    \]
-    has a commutator type error bound.
-\end{example}
-\begin{example}
-    Consider the time-independent Hamiltonian simulation problem for the following controlled Hamiltonian
-    \[
-    H(t)=a(t)H_1+b(t)H_2
-    \]
-    where $a(t)$ and $b(t)$ are smooth functions bounded together will all derivatives. We focus on the following trotter type splitting, defined as
-    \[
-    \tilde{U}(t):=\tilde{U}(t_n,t_{n-1})\ldots \tilde{U}(t-1,t_0), \quad \tilde{U}(t_{j+1},t_j)=e^{-\iota \Delta ta(t_j)H_1}e^{-\iota \Delta tb(t_j)H_2}
-    \]
-    where the intervals $[t)j,t_{j+1}]$ are equidistant and of length $\Delta t$ on the interval $[0,t]$ with $t_n=t$. Show that this method has first-order accuracy, but does not exhibit a commutator type error bound in general.
-\end{example}
-
-
-
-
-
-
-\chapter{Block Encoding}
-In order to perform matrix computations, we must first address the problem of the input model: how to get access to information in matrix $A\in \mathbb{C}^{N \times N} (N=2^n)$ which is generally a non-unitary matrix, into the quantum computer? One possible input model is given via the unitary $e^{\iota \tau A}$ (if A is not Hermitian, in some scenarios we an consider its Hermitian version via the dilation method).
-
-A more general input model, as will be discussed in this chapter is called "block encoding". Of course, if A is a dense matrix without obvious structures, any input model will be very expensive (e.g. exponential in n) to implement. Therefore a commonly assumed input model is s-sparse there are at most s nonzero entries in each row/column of the matrix. Furthermore, we have an efficient procedure to get access to the location, as well as the value of the nonzero entries. This in general can again be a difficult task given that the number of nonzero entries can still be exponential in n for a sparse matrix. Some dense matrices may also be efficiently block encoded on quantum computers. This chapter will illustrate the block encoding procedure via a number of detailed examples.
-
-\section{Query model for matrix entries}
-The query model for sparse matrices is based on certain quantum oracles. In some scenarios, these quantum oracles can be implemented all the way to the elementary gate level. Throughout the discussion we assume $A$ is an n-qubit, square matrix, and 
-\[
-\|A\|_{max}=\max_{ij}|A_{ij}|<1
-\]
-If the $\|A\|_{max}\geq 1$, we can simply consider the rescaled matrix $\tilde{A}/\alpha$ for some $\alpha>\|A\|_{max}$. To query the entries of a matrix, the desired oracle takes the following general form
-\[
-O_A\ket{0}\ket{i}\ket{j}=\left(A_{ij}\ket{0}+\sqrt{1-|A_{ij}|^2}\ket{1}\right)\ket{i}\ket{j}
-\]
-In other words, given $i,j\in[N]$ and a signal bit $0$, $O_A$ performs a controlled rotation (controlling on i,j) of the signal bit, which encodes the information in terms of amplitude of $\ket{0}$.
-
-However, the classical information in A is usually not stored natively in terms of such an oracle $O_A$. Sometimes it is more natural to assume that there is an oracle
-\[
-\tilde{O}_A\ket{0^{d'}}\ket{i}\ket{j}=\ket{\tilde{A}_{ij}}\ket{i}\ket{j}
-\]
-where $\tilde{A}_{ij}$ is a d'-bit fixed point representation of $A_{ij}$, and the value of $\tilde{A}_{ij}$ is either computed on the fly with a quantum computer, or obtained through an external database. In either case, the implementation of $\tilde{O}_A$ may be challenging, and we will only consider the query complexity with respect to this oracle.
-
-Using classical arithmetic operations, we can convert this oracle into an oracle
-\[
-{O'}_A\ket{0^d}\ket{i}\ket{j}=\ket{\tilde{\theta}_{ij}}\ket{i}\ket{j}
-\]
-where $0\leq \tilde{\theta}_{ij}<1$, and $\tilde{\theta}_{ij}$ is a d-bit representation of $\theta_{ij}=arccos(A_{ij})/\pi$. This step may require some additional work registers not shown here.
-
-Now using the controlled rotation, the information of $\tilde{A}_{ij}$, $\tilde{\theta}_{ij}$ has now been transferred to the phase of the signal bit. We should then perform uncomputation and free the work work register storing such intermediate information $\tilde{A}_{ij}$, $\tilde{\theta}_{ij}$. The procedure is as follows:
-\begin{align*}
-\ket{0}\ket{0^d}\ket{i}\ket{j}&\xrightarrow{O'_A}\ket{0}\ket{\tilde{\theta}_{ij}}\ket{i}\ket{j}\\
-&\xrightarrow{CR}\left(A_{ij}\ket{0}+\sqrt{1-|A_{ij}|^2}\ket{1}\right)\ket{\tilde{\theta}_{ij}}\ket{i}\ket{j}\\
-&\xrightarrow{(O'_A)^{-1}}\left(A_{ij}\ket{0}+\sqrt{1-|A_{ij}|^2x}\ket{1}\right)ket{0^d}\ket{i}\ket{j}
-\end{align*}
-From now on, we will always assume that the matrix entries of A can be queried using the phase oracle $O_A$ or its variants.
-
-\section{Block Encoding}
-The simplest example of block encoding is the following: assume we can find a (n+1)qubit unitary U (i.e. $U\in\mathbb{C}^{2N \times 2N}$ such that
-\[
-U_A=\begin{bmatrix}A & * \\ * & * \end{bmatrix}
-\]
-here * means that the corresponding entries are irrelevant, then for any n-qubit quantum state $\ket{b}$, we can consider the state
-\[
-\ket{0,b}=\ket{0}\ket{b}=\begin{bmatrix}b \\ 0 \end{bmatrix}
-\]
-and
-\[
-U_A\ket{0,b}=\begin{bmatrix}Ab\\ * \end{bmatrix}=\ket{0}A\ket{b}+\ket{\perp}
-\]
-Here the unnormalized state $\ket{\perp}$ can be written as $\ket{1}\ket{\psi}$ for some unnormalized state $\ket{\psi}$, that is irrelevant to the computation of $A\ket{b}$. In particular, it satisfies the orthogonality relation.
-\[
-(\bra{0}\otimes I_n)\ket{\perp}=0
-\]
-in order to obtain $A\ket{b}$, we need to ensure measure the qubit 0 and only keep the state if it returns 0. This can be summarised into the following quantum circuit as shown in the figure \ref{fig:blockencodingcircuit}.
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=1\linewidth]{../images/blockencodingcircuit.png}
-    \caption{Circuit for Block Encoding A using one Ancilla qubit}
-    \label{fig:blockencodingcircuit}
-\end{figure}
-Note that the output state is normalized after the measurement takes place. The success probability of obtaining 0 from the measurement can be computed as
-\[
-p(0)=\|A\ket{b}\|^2=\braket{b|A^{\dagger}A\ket{b}}
-\]
-So the missing information of norm $\|A\ket{b}\|$ can be recovered via the success probability $p(0)$ if needed. We find that the success probability is only determined by $A\ket{b}$, and is independent of other irrelevant components of $U_A$.
-
-Note that we may not need to restrict the matrix $U_A$ to be a $(n+1)$-qubit  matrix. if we can find any (n+m)-qubit matrix $U_A$ so that
-
-\[
-U_A=\begin{bmatrix} A & * & \ldots & * \\
-* & * & \ldots & * \\
-\vdots & \vdots & \vdots & \vdots \\
-* & * & \ldots & * \end{bmatrix}
-\]
-Here each $*$ stands for an n-qubit matrix, and there are $2^m$ block rows/columns in $U_A$. The relation above can be written compactly using the braket notation as
-\[
-A=(\bra{0^m}\otimes I_n)U_A(\ket{0^m}\otimes I_n)
-\]
-since $\bra{0^m}\otimes I_n$ will be a block row vector with Identity matrix (of size $2^n \times 2^n$) at the first entry and 0 everywhere else. Similarly, $\ket{0^m} \otimes I_n$ will be a block column vector with Identity matrix at the first entry and 0 everywhere else. Thus, the above expression can be thought of as being simplified to
-\[
-\bra{0^m}\otimes I_n=\begin{bmatrix} 1 & 0 & \ldots & 0\end{bmatrix} \otimes \begin{bmatrix} 1 & 0 & \ldots & 0 \\ 0 & 1 & \ldots & 0 \\ \vdots & \vdots & \ddots & 0 \\ 0 & 0 & \ldots & 1 \end{bmatrix}=\begin{bmatrix} I_n & 0 & 0 & \ldots & 0 \end{bmatrix}
-\]
-where $I_n$ is the n-qubit identity matrix of size $2^n\times 2^n$ and $0$ indicates block matrices of size $2^n \times 2^n$ with all entries 0. Thus, $\bra{0^m}\otimes I_n$ is a matrix of size $2^n \times 2^{n+m}$. Similarly for $\ket{0^m} \otimes I_n$, we get,
-\[
-\ket{0^m}\otimes I_n=\begin{bmatrix} 1 \\ 0 \\ \vdots \\ 0\end{bmatrix} \otimes \begin{bmatrix} 1 & 0 & \ldots & 0 \\ 0 & 1 & \ldots & 0 \\ \vdots & \vdots & \ddots & 0 \\ 0 & 0 & \ldots & 1 \end{bmatrix}=\begin{bmatrix} I_n \\ 0 \\ 0 \\ \vdots \\ 0 \end{bmatrix}
-\]
-Thus, on putting it all together we get,
-\[
-(\bra{0^m}\otimes I_n)U_A(\ket{0^m}\otimes I_n)=\begin{bmatrix} I_n & 0 & 0 & \ldots & 0 \end{bmatrix}U_A\begin{bmatrix} I_n \\ 0 \\ 0 \\ \vdots \\ 0 \end{bmatrix}=A
-\]
-A necessary condition for the existence of $U_A$ is $\|A\| \leq 1$. (Note: $\|A\|_{max}\leq 1$ does not guarantee that $\|A\|\leq 1$). However, if we can find sufficiently large $\alpha$ and $U_A$ so that
-\[
-A/\alpha = (\bra{0^m}\otimes I_n)U_A(\ket{0^m}\otimes I_n)
-\]
-Measuring the m ancilla qubits and given that all m-qubits return 0, we still obtain the normalized state $\frac{A\ket{b}}{\|A\ket{b}\|}$.
-The number $\alpha$ is hidden in the success probability:
-\[
-p(0^m)=\frac{1}{\alpha^2}\|A\ket{b}\|^2=\frac{1}{\alpha^2}\braket{b|A^{\dagger}A\ket{b}}
-\]
-So if $\alpha$ is chosen to be too large, the probability of obtaining all $0$s from the measurement can be vanishingly small.
-
-Finally, it can be difficult to fins $U_A$ to encode $A$ exactly. This is not a problem, since it is sufficient if we can find $U_A$ to block encode $A$ upto some error $\epsilon$. We are now ready to give the definition of block encoding.
-
+Here $\Lambda=diag(\{\lambda_i\})$ is a diagonal matrix, and $\lambda_0\leq \ldots,\lambda_{N-1}$. Let the scalar function $f$ be well defined on all $\lambda_i$'s. then the matrix function $f(A)$ can be defined on the eigendecomposition:
 \begin{definition}
-    (Block encoding) Given an n-qubit matrix $A$, if we can find $\alpha,\epsilon \in \mathbb{R}_+$, and an $(m+n)$-qubit unitary matrix $U_A$ so that
+    \textbf{(Matrix functions of Hermitian matrices)} Let $A \in mathbb{C}^{N \times N}$ be a Hermitian matrix with eigenvalue decomposition $V\Lambda V^{\dagger}$. Let $f:\mathbb{R} \rightarrow \mathbb{C}^{N \times N}$ be a scalar function such that $f(\lambda_i)$ is defined for all $i\in[N]$. The matrix function is defined as
     \[
-    \|A-\alpha(\bra{0^m}\otimes I_n)U_A(\ket{0^m}\otimes I_n)\|\leq \epsilon
+    f(A)=Vf(\Lambda)V^{\dagger}
     \]
-    then $U_A$ is called an $(\alpha,m,\epsilon)$-block encoding of $A$. When the block encoding is exact with $\epsilon=0$, $U_A$ is called an $(\alpha,m)$-block encoding of $A$. The set of all $(\alpha,m,\epsilon)$-block-encoding of $A$ is denoted by $BE_{\alpha,m}(A,\epsilon)$, and we define $BE_{\alpha,m}A=BE(A,0)$.
+    where 
+    \[
+    f(\Lambda)=diag(f(\lambda_0),f(\lambda_1),\ldots,f(\lambda_{N-1}))
+    \]
 \end{definition}
 
-Assume we know each matrix element of the n-qubit matrix $A_{ij}$, and we are given an (n+m)-qubit unitary $U_A$. In order to verify that $U_A \in BE_{1,m}(A)$ we only need to verify that
-\[
-\bra{0^m}\bra{i}U_A\ket{0^m}\ket{j}=A_{ij}
-\]
-Here, $\ket{0^m}\ket{j}$ will be a column vector of size $(2^m \times 1 \otimes  2^n \times 1= 2^{m+n} \times 1)$ which will be 1 in the jth row and 0 everywhere else. Similar arguments can be used for establishing $\bra{0^m}\bra{i}$ which will be a row vector with 1 in the ith column entry and 0 everywhere else. Thus, upon multiplying the matrices it will pick the $i,j$ th entry of the matrix $U_A$ which will be $A_{ij}$. $U_A$ applied to the vector $\ket{0^m,b}$ can be obtained via the superposition principle.
+This chapter introduces an efficient quantum circuit to compute $f(A)\ket{b}$ for any state $\ket{b}$. Throughout the discussion we assume $A$ is queried in the block encoding model denoted by $U_A$. For simplicity we assume that there is no error in the block encoding, i.e., $U_A \in BE_{\alpha,m} (A)$, and without the loss of generality we can take $\alpha=1$.
 
-Therefore we may first evaluate the state $U_A\ket{0^m,j}$, and perform inner product with $\ket{0^m,i}$ and verify the resulting the inner product is $A_{ij}$. We will also use the following technique frequently. Assume $U_A=U_BU_C$, and then
-\[
-\braket{0^m,i|U_A\ket{0^m,j}}=\braket{0^m,i|U_BU_C\ket{0^m,j}}=(U^{\dagger}_B\ket{0^m,i})^{\dagger}(U_C\ket{0^m,j})
-\]
-So we can evaluate the states $U^{\dagger}_B\ket{0^m,i},U_C\ket{0^mj}$ independently, and then verify the inner product is $A_{ij}$. Such a calculation amounts to running the circuit shown in fig \ref{fig:generalblockencoding}, and if the ancilla qubits are measured to be $0^m$, the system qubits return the normalized state $\sum_iA_{ij}\ket{i}/\|\sum_iA_{ij}\ket{i}\|$.
-\begin{figure}
-    \centering
-    \includegraphics[width=1\linewidth]{../images/generalblockencoding.png}
-    \caption{Circuit for general block encoding of A}
-    \label{fig:generalblockencoding}
-\end{figure}
-\begin{example}
-    ((1,1)-block-encoding in general). For any n-qubit matrix A with $\|A\|_2\leq 1$, the singular value decomposition (SVD) of A is denoted by $W\Sigma V^{\dagger}$, where all singular values in the diagonal matrix $\Sigma$ belong to $[0,1]$. Then we may construct an (n+1)-qubit unitary matrix
-    \begin{align*}
-    U_A&=\begin{bmatrix} W & 0 \\ 0 & I_n\end{bmatrix} \begin{bmatrix}\Sigma & \sqrt{I_n-\Sigma^2} \\ \sqrt{I_n-\Sigma^2} & -\Sigma \end{bmatrix} \begin{bmatrix} V^{\dagger} & 0 \\ 0 & I_n\end{bmatrix}\\
-    &=\begin{bmatrix} A & W\sqrt{I_n-\Sigma^2} \\ \sqrt{I_n-\Sigma^2}V^{\dagger} & -\Sigma \end{bmatrix}
-    \end{align*}
-    which is a $(1,1)$-block-encoding of $A$.
-\end{example}
+Many tasks in scientific computation can be expressed in terms of matrix functions. Here are a few examples:
+\begin{itemize}
+    \item Hamiltonian simulation: $f(A)=e^{\iota At}$
+    \item Gibbs state preparation: $f(A)=e^{-\iota \beta A}$
+    \item Solving linear systems of equation $f(A)=A^{-1}$
+    \item Eigenstate filtering $f(A)=\mathbb{1}_{(-\infty,0)}(A-\mu I)$
+\end{itemize}
+A key technique for representing matrix functions is called qubitization.
 
-\begin{example}
-    (Random circuit block encoded matrix). In some scenarios, we may want to construct a psuedo-random non-unitary matrix on quantum computers. Note that it would be highly inefficient if we first generate a dense psuedo-random matrix A classically and then feed it into the quantum computer using e.g. quantum-random-access memory (QRAM). Instead we would like to work with matrices that are inherently easy to generate on quantum computers. This inspires the random circuit based block encoding matrix (RACBEM) model. Instead of first identifying $A$ and then finding its block encoding $U_A$, we reverse this thought process: we first identify a unitary $U_A$ that is easy to implement on a quantum computer, and then ask which matrix can be block encoded by $U_A$.
-\end{example}
-This example shows that in principle, any matrix $A$ with $\|A\|_2\leq 1$ can be accessed via a $(1,1,0)-block-encoding.$ In other words, $A$ can be block encoded by an $(n+1)$-qubit random unitary $U_A$, and $U_A$ can be constructed using only one-qubit unitaries and CNOT gates. The layout of the two-qubit operations can be designed to be compatible with the coupling map of the hardware.
 
-\begin{example}
-    (Block encoding of a diagonal matrix). As a special case, let us consider the block encoding of a diagonal matrix. Since the row and column indices are the same, we may simplify the oracle into
-    \[
-    O_A\ket{0}\ket{i}=\left(A_{ii}\ket{0}+\sqrt{1-|A_{ii}|^2} \ket{1}\right)\ket{i}
-    \]
-    In the case when the oracle $\tilde{O}_A$ is used, we may assume accordingly
-    \[
-    \tilde{O}_A\ket{0^{d'}}\ket{i}=\ket{\tilde{A}_{ii}}\ket{i}
-    \]
-    Let $U_A=O_A$. Direct calculation shows that for any $i,j\in[N]$,
-    \[
-    \bra{0}\braket{i|U_A|0}\ket{j}=A_{ii}\delta_{ij}
-    \]
-    This proves that $U_A\in BE_{1,1}(A)$i.e., $U_A$ is a $(1,1)$-block-encoding of the diagonal matrix $A$.
-\end{example}
+\section{Qubitization of Hermitian matrices with Hermitian block encoding}
+We first introduce some heuristic idea behind qubitization. For any $-1<\lambda \leq 1$, we can consider a $2\times 2$ rotation matrix,
+\[
+O(\lambda) =\begin{pmatrix} \lambda & -\sqrt{1-\lambda^2} \\ \sqrt{1-\lambda^2} & \lambda \end{pmatrix} = \begin{pmatrix} \cos \theta & - \sin \theta \\ \sin \theta & \cos \theta \end{pmatrix}
+\]
+where we have performed the change of variable $\lambda=\cos \theta$ with $0\leq \theta < \pi$
 
-\section{Block Encoding of s-sparse matrix}
-We now give a few examples of block encodings of more general sparse matrices. We start from a 1-sparse matrix, i.e., there is only one nonzero entry in each row or column of the matrix. This means that for each $j\in[N]$, there is a unique $c(j)\in[N]$ such that $A_{c(j),j}\neq 0$, and the mapping c is a permutation. Then there exists a unitary $O_c$ such that
+Now direct computations show that
 \[
-O_c\ket{j}=\ket{c(j)}
-\]
-The implementation of $O_c$ may require the usage of some work registers that are omitted here. We also have
-\[
-O^{\dagger}_c\ket{c(j)}=\ket{j}
-\]
-We assume the matrix entry $A_{c(j),j}$ can be queried via
-\[
-O_A\ket{0}\ket{j}=\left(A_{c(j),j}\ket{0}+\sqrt{1-|A_{c(j),j}|^2}\ket{1}\right)\ket{j}
-\]
-Now we construct $U_A=(I\otimes O_c)O_A$, (tensor product of two unitary matrices is unitary) and compute
-\[
-\bra{i}\bra{0}U_A\ket{0}\ket{j}=\bra{0}\bra{i}\left(A_{c(j),j}\ket{0}+\sqrt{1-|A_{c(j),j}|^2}\ket{1}\right)\ket{c(j)}=A_{c(j),j}\delta_{i,c(j)}
-\]
-This proves that $U_A\in BE_{1,1}(A)$.
-
-For a more general s-sparse matrix, WLOG we assume each row and column ha exactly s nonzero entries (otherwise we can always treat some zero entries as nonzeros). For each column j, the row index for the lth nonzero entry is denoted by $c(j,l)=c_{j,l}$. For simplicity, we assume hat there exists a unitary $O_c$ such that
-\[
-O_c\ket{l}\ket{j}=\ket{l}\ket{c(j,l)}
-\]
-Here we assume $s=2^{p}$ and the first register is an $p$-qubit register. A necessary condition for this model is that $O_C$ is reversible, i.e., we can have $O_c^{\dagger}\ket{l}\ket{c(j,l)}=\ket{l}\ket{j}$. This means that for each row index $i=c(j,l)$, we can recover the column index $j$ given the value of $l$. This can be satisfied e.g.
-\[
-c(j,l)=j+l-l_0 \quad (mod N)
-\]
-where $l_0$ is a fixed number. This corresponds to a banded matrix. This assumption is ofcourse somewhat restrictive. We shall discuss more general query models.
-
-Corresponding to the equation, the matrix entries can be queried via
-\[
-O_A\ket{0}\ket{l}\ket{j}=\left(A_{c(j,l),j}\ket{0}+\sqrt{1-|A_{c(j,l),j}|^2}\ket{1}\right) \ket{l}\ket{j}
+O^k(\lambda)=\begin{pmatrix} \cos (k\theta) & -\sin (k \theta) \\ \sin (k\theta) & \cos (k\theta) \end{pmatrix}
 \]
 
-In order to construct a unitary that encodes all row indices at the same time ,we define $D=H^{\otimes p}$ (sometimes called a diffusion operator, which is a term originated from Grover's search) satisfying
-\[
-D\ket{0^p}=\frac{1}{\sqrt{p}}\sum_{l\in[p]}\ket{l}
-\]
-Consider $U_A$ given by the circuit in figure \ref{fig:sparseblockencoding}. The measurement means that to obtain $A\ket{b}$, the ancilla register should return the value 0.
-\begin{figure}
-    \centering
-    \includegraphics[width=0.5\linewidth]{../images/sparseblockencoding.png}
-    \caption{Quantum circuit for block encoding an s-sparse matrix}
-    \label{fig:sparseblockencoding}
-\end{figure}
-\begin{proposition}
-    The circuit given in figure \ref{fig:sparseblockencoding} defines $U_A \in BE_{s,s+1}(A)$.
-\end{proposition}
-\begin{proof}
-    We call $\ket{0}\ket{0^p}\ket{j}$ the source state, and $\ket{0}\ket{0^p}\ket{i}$ the target state. In order to compute the inner product $\bra{0}\bra{0^s}\bra{i}U_A\ket{0}\ket{0^p}\ket{i}$, we apply $D,O_A,O_C$ to the source state accordingly as
-    \begin{align*}
-    \ket{0}\ket{0^p}\ket{j}&\xrightarrow{D}\frac{1}{\sqrt{s}}\sum_{l\in[s]}\ket{0}\ket{l}\ket{j}\\
-    &\xrightarrow{O_A}\frac{1}{\sqrt{s}}\sum_{l\in[s]}\left(A_{c(j,l),j}\ket{0}+\sqrt{1-|A_{c(j,l),j}|^2}\ket{1}\right)\ket{l}\ket{j}\\
-    &\xrightarrow{O_C}\frac{1}{\sqrt{s}\sum_{l\in[s]}}\left(A_{c(j,l),j}\ket{0}+\sqrt{1-|A_{c(j,l),j}|^2}\ket{1}\right)\ket{l}\ket{c(j,l)}
-    \end{align*}
-    Since we are only interested in the final state when all ancilla qubits are the 0 state, we may apply $D$ to the target state $\ket{0}\ket{0^p}\ket{i}$ as (note that D is Hermitian)
-    \[
-    \ket{0}\ket{0^p}\ket{i}\xrightarrow{D}\frac{1}{\sqrt{s}}\sum_{l'\in[s]}\ket{0}\ket{l'}\ket{i}
-    \]
-    Hence the inner product
-    \[
-    \bra{0}\bra{0^p}\bra{i}U_A\ket{0}\ket{0^p}\ket{j}=\frac{1}{s}\sum_l A_{c(j,l),j}\delta_{i,c(j,l)}=\frac{1}{s}A_{ij}
-    \]
-\end{proof}
 
-\section{Hermitian Block Encoding}
-So far we have considered general s-sparse matrices. Note that if A is Hermitian matrix, its $(\alpha,m,\epsilon)$-block-encoding $U_A$ does not need to be Hermitian. Even if $\epsilon=0$, we only have that the upper-left n-qubit block of $U_A$ is Hermitian. For instance, even the block encoding of a Hermitian diagonal matrix may not be Hermitian. On the other hand,there are cases when $U^{\dagger}_A=U_A$ is indeed a Hermitian matrix, and hence the definition:
-\begin{definition}
-    (Hermitian Block Encoding). Let $U_A$ be an $(\alpha,m,\epsilon)$-block-encoding of A. If $U_A$ is also Hermitian, then it is called an $(\alpha,m,\epsilon)$-Hermitian-block-encoding of A. When $\epsilon=0$, it is called an $(\alpha,m)$-Hermitian-block-encoding. The set of all $(\alpha,m,\epsilon)$-Hermitian-block-encoding of A is denoted by $HBE_{\alpha,m}(A,\epsilon)$, and we define $HBE_{\alpha,m}(A)=HBE(A,0)$.
-\end{definition}
-The Hermitian block encoding provides the simplest scenario of the qubitization process.
 
-\section{Query models for general sparse matrices}
-If we query the oracle, the assumption that for each $l$ the value of $c(j,l)$ is unique for all $j$ seems unnatural for constructing general sparse matrices. So we consider an alternative method for construct the block encoding of a general sparse matrix as below.
 
-Again without loss of generality we assume that each row/column has at most $p=2^s$ non zero entires, and that we have access to the following two (2n)-qubit oracles.
-\[
-O_r\ket{l}\ket{i}=\ket{r(i,l)}\ket{i}
-\]
-\[
-O_c\ket{l}\ket{j}=\ket{c(j,l)}\ket{j}
-\]
-Here $r(i,l)$,$c(j,l)$ gives the l-th nonzero entry in the i-th row and j-th column, respectively. It should be noted that although the index $l\in[p]$, we should expand it into an n-qubit state (e.g. let $l$ take the last $s$ qubits of the n-qubit register following the binary representation of integers). The reason for such an expansion, and that we need two oracles$O_c,O_r$ will be seen shortly.
 
-Similar to the discussion before, we need a diffusion operator satisfying
-\[
-D\ket{0^n}=\frac{1}{\sqrt{s}}\sum_{l\in[p]}\ket{l}
-\]
-This can be implemented using Hadamard gates as
-\[
-D=I_{n-s}\otimes H^{\otimes s}
-\]
-We assume that the matrix entries are queried using the following oracle using controlled rotations
-\[
-O_A\ket{i}\ket{j}=\left(A_{ij}\ket{0}+\sqrt{1-|A_{ij}|^2}\ket{1}\right)\ket{i}\ket{j}
-\]
-where the rotation is controlled by both row and column indices. However, if $A_{ij}=0$ for some $i,j$, the rotation can be arbitrary, as there will be no contribution due to the usage of $O_r,O_c$.
-\begin{proposition}
-    The circuit shown in figure \ref{fig:generalsparseencoding} defines $U_A\in BE_{s,n+1}(A)$.
-    \begin{figure}
-        \centering
-        \includegraphics[width=0.7\linewidth]{../images/generalsparseencoding.png}
-        \caption{Quantum circuit for block encoding of general sparse matrices}
-        \label{fig:generalsparseencoding}
-    \end{figure}
-\end{proposition}
-\begin{proof}
-    We apply the first four gate sets to the source state
-    \begin{align*}
-    \ket{0}\ket{0^n}\ket{j}&\xrightarrow{D}\xrightarrow{O_c}\xrightarrow{O_A}\frac{1}{\sqrt{p}}\sum_{l\in[p]}\left(A_{c(j,l),j}\ket{0}+\sqrt{1-|A_{c(j,l),j}|^2}\ket{1}\right)\ket{c(j,l)}\ket{j}\\
-    &\xrightarrow{SWAP}\frac{1}{\sqrt{p}}\sum_{l\in[p]}\left(A_{c(j,l),j}\ket{0}+\sqrt{1-|A_{c(j,l),j}|^2}\ket{1}\right)\ket{j}\ket{c(j,l)}
-    \end{align*}
-    we then apply $D$ and $O_r$ to the target state
-    \[
-    \ket{0}\ket{0^n}\ket{i}\xrightarrow{D}\xrightarrow{O_r}\frac{1}{\sqrt{p}}\sum_{l'\in[p]}\ket{0}\ket{r(i,l')}\ket{i}
-    \]
-    Then the inner product gives
-    \begin{align*}
-    \bra{0}\bra{0^n}\braket{i|U_A|0}\ket{0^n}\ket{j}&=\frac{1}{p}\sum_{l,l'}A_{c(j,l),j}\delta_{i,c(j,l)}\delta_r(j,l'),j\\
-    &=\frac{1}{p}\sum_lA_{c(j,l),j}\delta_{i,c(j,l)}=\frac{1}{s}A_{ij}
-    \end{align*}
-    Here we have used that there exists a unique $l$ such that $i=c(j,l)$, and a unique $l'$ such that $j=r(i,l')$.
-\end{proof}
 
-We remark that the quantum circuit in figure \ref{fig:generalsparseencoding} is essentially the construct, which gives a $(s,n+3)$-block-encoding. The construct above slightly simplifies the procedure and saves two extra qubits (used to marke whether $l\geq s$).
 
-Next we consider the Hermitian block encoding of a s-sparse Hermitian matrix. Since $A$ is Hermitian, we only need one oracle to query the location of th nonzero entries.
-\[
-O_c\ket{l}\ket{j}=\ket{c(j,l)}\ket{j}
-\]
-Here $c(j,l)$ gives the $l$-th nonzero entry in the $j$-th column. It can also be interpreted as the $l$-th nonzero entry in the ith column. Again the first register needs to be interpreted as an n-qubit register. The diffusion operator is the same as in the equation.
 
-Unlike all discussions before, we introduce two signal qubits and a quantum state in the computational basis take the form $\ket{a}\ket{i}\ket{b}\ket{j}$, where $a,b\in\{0,1\,i,j\in[N]$. In other words, we may view $\ket{a}\ket{i}$ as the first register, and $\ket{b}\ket{j}$ as the second register. The $(n+1)$-qubit SWAP gate is defined as
-\[
-SWAP\ket{a}\ket{i}\ket{b}\ket{j}=\ket{b}\ket{j}\ket{a}\ket{i}
-\]
-To query matrix entries, we need access to the square root of $A_{ij}$ as (note that act on the second single-qubit register)
-\[
-O_A\ket{i}\ket{0}\ket{j}=\ket{i}\left(A_{ij}\ket{0}+\sqrt{1-|A_{ij}|}\ket{1}\right)\ket{j}
-\]
-The square root operation is well defined if $A_{ij}\geq0$ for all entries. If $A$ has negative (or complex) entries, we first write $A_{ij}=|A_{ij}e^{\iota \theta_{ij}},\theta_{ij}\in[0,2\pi)$, and the square root is uniquely defined as $\sqrt{A_{ij}}=\sqrt{|A_{ij}|}e^{\iota\theta_{ij}/2}$.
 
-\begin{proposition}
-    Figure \ref{fig:hermitianblockencoding} defines $U_A\in HBE_{s,n+2}(A)$.
-\end{proposition}
-\begin{proof}
-    \begin{figure}
-        \centering
-        \includegraphics[width=0.75\linewidth]{../images/hermitianblockencoding.png}
-        \caption{Quantum circuit for Hermitian Block encoding of a general Hermitian matrix}
-        \label{fig:hermitianblockencoding}
-    \end{figure}
-    Apply the first four gate sets to the source state gives
-    \begin{align*}
-    \ket{0}\ket{0^n}\ket{0}\ket{j}&\xrightarrow{D}\xrightarrow{O_c}\xrightarrow{O_A}\frac{1}{\sqrt{s}}\sum_{l\in[s]}\ket{0}\ket{c(j,l)}\left(\sqrt{A_{c(j,l),j}}\ket{0}sqrt{1-|A_{c(j,l),j}}\ket{1}\right)\ket{j}\\
-    &\xrightarrow{SWAP}\frac{1}{\sqrt{s}}\sum_{l\in[s]}\left(\sqrt{A_{c(i,l'),i}}\ket{0}+\sqrt{1-|A_{c(i,l'),i}|}\ket{1}\right)\ket{i}
-    \end{align*}
-    Apply the last three gate sets to the target state
-    \[
-    \ket{0}\ket{0^n}\ket{0}\ket{i}\xrightarrow{D}\xrightarrow{O_c}\xrightarrow{O_A}\frac{1}{\sqrt{s}}\sum_{l\in[s]}\ket{0}\ket{c(i,l')}\left(\sqrt{A_{c(i,l'),i}}\ket{0}+\sqrt{1-|A_{c(i,l
-    '}|}\ket{1}\right)\ket{i}
-    \]
-    Finally, take the inner product as
-    \begin{align*}
-    \bra{0}\bra{0^n}\bra{0}\bra{i}U_A\ket{0}\ket{0^n}\ket{0}\ket{j}& \\
-    &=\frac{1}{s}\sum_{l,l'}\sqrt{A_{c(j,l'),j}}\sqrt{A^*_{c(i,l'),i}}\delta_{i,c(j,l)}\delta_{c(i,l'),j}\\
-    &=\frac{1}{s}\sqrt{A_{ij}A^*_{ji}}\sum_{l,l'}\delta_{i,c(j,l)}\delta_{c(i,l'),j}=\frac{1}{s}A_{ij}
-    \end{align*}
-    In this equality, we have used that $A$ is Hermitian: $A_{ij}=A^*_{ji}$, and there exists a unique $l$ such that $i=c(j,l)$, as well as a unique $l'$ such that $j=c(i,l')$.
 
-    The quantum circuit in figure \ref{fig:hermitianblockencoding} is essentially construction in. The relation will quantum walks will be discussed further.
-    
-\end{proof}
+
+
+
+
 
 \chapter{Eigenvalue Problems}
 Eigenvalue problems are particularly interesting in scientific computing, because the best algorithms for finding eigenvalues are powerful, yet particularly far from obvious. Here, we review the mathematics of eigenvalues and eigenvectors.
@@ -11497,7 +12314,87 @@ Ax=\lambda x
 \]
 The idea here is that the action of a matrix $A$ on a subspace $S$ of $\mathbb{C}^m$ may sometimes mimic scalar multiplication. When this happens, the special subspace is called an eigenspace, and any nonzero $x \in S$ is an eigenvector.
 
-The set of all the eigenvalues of a maatrix $A$ is the spectrum of $A$, a subsect of $\mathbb{C}$ denoted by $\Lambda(A)$.
+The set of all the eigenvalues of a matrix $A$ is the spectrum of $A$, a subset of $\mathbb{C}$ denoted by $\Lambda(A)$.
+
+\chapter{Imaginary Time Evolution}
+The accurate computation of Hamiltonian ground and excited states on quantum computers stands to impact many problems in the physical and computer sciences, quantum simulation to machine learning., Given the challenges posed in constructing large-scale quantum computers, these tasks should be carried out in a resource-efficient way. 
+
+\textbf{Existing techniques based on phase estimation or variation algorithms display potential disadvantages: phase estimation requires deep circuits with ancillae, that are hard to execute reliably without error correction, while variational algorithms, while flexible with respect to circuit depth, entail additional high-dimensional classical optimization.} Here, we introduce the quantum imaginary time evolution, which is an analogue of classical algorithms for finding ground and excited states. Compared with their classical counterparts, they require exponentially less space and time per iteration, and can be implemented without deep circuits or high-dimensional optimization. 
+
+An important application for a quantum computer is to compute the ground state $\psi$ of a Hamiltonian $\hat{H}$ which arises in problems like electronic structure of molecules and materials as well as in more general optimization problems. \textbf{Efficient ground state determination cannot be guaranteed for all Hamiltonians, as this is a QMA-hard problem. Several heuristic quantum algorithms have been proposed including adiabatic state preparation with quantum phase estimation, and quantum classical variational algorithms, such as the quantum approximate optimization algorithm,and variational quantum eigensolver. These algorithms have certain disadvantages, in the context of near-term quantum computing architectures with limited quantum resources. For example, Phase estimation produces nearly exact eigenstate, but appears impractical without error correction, while variational algorithm though somewhat robust to coherent errors, are limited in accuracy by a fixed ansatz, and involve high-dimensional noisy classical optimizations.} 
+
+In classical simulations, different strategies are employed to numerically determine nearly exact ground states. One popular approach is imaginary time evolution, which expresses the ground state as the long-time limit of the imaginary time Schrodinger equation 
+\begin{align*}
+-\frac{\partial \ket{\Phi(\beta)}}{\partial \beta} &= \hat{H}\ket{\Phi(\beta)}\\
+\ket{\Phi(\beta)}&=e^{-\beta\hat{H}}\ket{\Phi(\beta)}\\
+\ket{\Psi}&=\lim_{\beta \rightarrow \infty} \frac{\ket{\Phi(\beta)}}{\|\ket{\Phi(\beta)}}
+\end{align*}
+
+Unlike variational algorithms with a fixed ansatz, imaginary time evolution always converges to the ground state, as distinguished from imaginary time ansatz optimization. \textbf{For an $N$-qubit Hamiltonian, the classical complexity of imaginary time evolution and Lanczos algorithm scales as $exp(O(N))$ in space and time. Exponential space comes from storing $\Phi(\beta)$ or the Lanczos vector, while exponential time comes from the cost of Hamiltonian multiplication of $\hat{H}\ket{\Phi}$, as well as, in principle though not in practice, the N-dependence of the number of propagation steps or Lanczos algorithm. Thus it is natural to consider quantum versions of these algorithms that can overcome the exponential bottlenecks.}
+
+Here, we describe the Quantum Imginary Time Evolution (QITE) to determine ground states and excited states on a quantum computer. under the assumptions of finite correlation length, these methods rigorously use exponentially reduced space and time per propagation step or iteration, compared with their direct classical counterparts. Even when such assumptions do not hold, the inexact versions of the QITE remain valid heuristics that can be applied within a limited computational budget, and offers advantages over existing ground-state quantum algorithms, as they do not use deep circuits and converge to their solutions without non linear optimization. 
+
+\textbf{A crucial common component is the efficient implementation of the non-Hermitian operation of an imaginary time step $e^{-\Delta \tau \hat{H}}$ (for small $\Delta tau$) assuming a finite correlation length in the state. Non-Hermitian operations are not natural on a quantum computer and are usually achieved using ancillae and postselection, but we describe how to implement imaginary time evolution on a given state without these resources. The lack of ancillae and complex circuits makes the algorithms potentially suitable for near-term quantum architectures. }
+
+\subsection{The Classical Imaginary Time Evolution}
+Let's start with the usual time evolution in quantum mechanics to set the scene. It is governed by Schrodinger's equation (limiting the discussion to 1D for simplicity, it is trivial to extend the argument to higher dimensions):
+\[
+\iota \hbar \frac{\partial \psi(x,t)}{\partial t}=\hat{H}\psi(x,t)
+\]
+When the hamiltonian is time independent (i.e. when the potential is time independent), then it is straight forward to solve the above equation to find the time dependence of $\psi(x,t)$. What you need to do is first solve the Eigenvalue equation for the Hamiltonian:
+\[
+\hat{H}\psi_n(x)=E_n\psi_n(x)
+\]
+where $\psi_n(x)$ are the eigenstates and $E_n$ the energy eigenvalues. Second, you need to expand the wave function at an initial time (say $t=0$) in terms of the energy of the eigenstates:
+\[
+\psi(x,0)=\sum_n c_n(0)\psi_n(x)
+\]
+where $c_n(0)=\braket{\psi_n(x)|\psi(x,0)}$ are the expansion coefficients that you can find by calculating the overlap between $\psi(x,0)$ and the energy basis eigenstates. Recall that the solution to the given Schrodinger equation is 
+\[
+\psi(x,t)=e^{-\iota\frac{\hat{H}}{\hbar}t}\psi(x,0)
+\]
+Now recall that the Hamiltonian is Hermitian and hence $e^{-\iota \frac{\hat{H}}{\hbar} t}$ where is Unitary. Thus, $H$ has spectral decomposition (since its a normal(Hermitian) matrix with orthogonal eigenvectors and real eigenvalues) as $H=Q\Lambda Q^{\dagger}$ where $Q$ is the matrix with orthogonal eigenvectors and $\Lambda$ is a diagonal matrix with real eigenvalue of $H$ (a Hermitian matrix) along the diagonal. Thus, the value of $e^{-\iota \frac{\hat{H}}{\hbar} t}=Qe^{-\iota \Lambda \frac{t}{\hbar}}Q^{\dagger}$. Substituting this into the equation we get,
+\[
+\psi(x,t)=Qe^{-\iota \Lambda \frac{t}{\hbar}}Q^{\dagger}\psi(x,0)
+\]
+Now, since, we can write the initial state $\psi(x,0)$ as $\psi(x,0)=\sum_n c_n(0)\psi_n(x)$.
+Third, the wave function at a later time $t$ is given by:
+\begin{align*}
+\psi(x,t)&=Qe^{-\iota \Lambda \frac{t}{\hbar}}Q^{\dagger}\sum_n c_n(0)\psi_n(x)\\
+&=\sum_n c_n(0)Qe^{-\iota \Lambda \frac{t}{\hbar}}Q^{\dagger}\psi_n(x)\\
+&=\sum_n c_n(0) e^{-\iota \frac{E_n}{\hbar} t}\psi_n(x)
+\end{align*}
+The time dependence is such that each energy eigen states $\psi_n(x)$ ``oscillates" at a frequency proposition to the corresponding eigen value $E_n/\hbar$.
+
+Next, going back, let's consider a change of variables $\tau=\iota t$. You can thing of $\tau$ as ``imaginary time". Applying this change of variables to the Schrodinger equation we obtain:
+\[
+-\hbar\frac{\partial \psi(x,\tau)}{\partial \tau}=\hat{H}\psi(x,\tau)
+\]
+Agina, as $hat{H}$ is time independent, the dependence on $\tau$ can be solved in the same way in which the dependence on $t$ was solved above, and we obtain:
+\[
+\psi(x,\tau)=\sum_n c_n(0)e^{-\frac{E_n}{\hbar} \tau} \psi_n(x)
+\]
+You can now see that the function $\psi(x,\tau)$ at imaginary time $\tau$ is no longer obtained by an ``oscillating" superposition of energy eigen states, but instead by an ``exponentially decaying" superposition of energy eigen states. Furthermore, the exponential decay rate is proportional to $\frac{E_n}{\hbar}$.
+
+What have we accomplished by making this variable change from $t$ to $\tau$? Consider the limit of large $tau$:
+\[
+\psi(x,\tau >>1) \approx c_0(0)e^{-\frac{E_0}{\hbar} \tau}\psi_0(x)
+\]
+In this limit, the ground state $n=0$ is ``projected out" pf the initial state, because the corresponding exponential decay is the slowest one. Therefore, by evolving system in ``imaginary time", we can obtain the ground state of the Hamiltonian $\psi_0(x)$ as the long imaginary time limit.
+
+This will only work if when you expand the initial state in terms of energy eigenstates, there is some contribution by ground state. If not, the long imaginary time evolution will instead lead to the lowest energy state present in the initial expansion.
+
+An area in which imaginary time evolution is used is in one of the most accurate computational methods to solve the Schrodinger equation for solids, diffusion quantum Monte Carlo. In this method, the imaginary time Schrodinger equation is solve stochastically as a diffusion equation, and the ground state of the system is projected out.
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -11603,7 +12500,7 @@ C_{n-10} & C_{n-11} & \ldots & C_{n-1n-1}
 \end{align*}
 This is called \textbf{Generalised Eigenvalue Equation (GEEV)} which can be compactly written as $HC=SCE$, where $H$ and $S$ denote the Hamiltonian and overlap matrices, respectively, whose entries are
 \[
-H_{\alpha\beta}=\braket{v_{\alpha}|\hat{H}|v_{beta}}: \quad S_{\alpha\beta}=\braket{v_{\alpha}|v_{\beta}}
+H_{\alpha\beta}=\braket{v_{\alpha}|\hat{H}|v_{\beta}}; \quad S_{\alpha\beta}=\braket{v_{\alpha}|v_{\beta}}
 \]
 
 \begin{importantnote}
@@ -11630,7 +12527,7 @@ Classically, estimating the ground state energy of a quantum system is believed 
 Some of the typical assumptions are finding an initial guess state that has $\Omega(1/poly(n))$ overlap with sufficiently low-yin energy states (for n qubits), finding a gapped adiabatic path from an efficiently solvable Hamiltonian to the target Hamiltonian, optimizing variational quantum circuit, or assuming bounded correlation strength.
 
 \subsection{Idea of the Algorithm}
-The quantum subspace expansion (QSE) method constructs a variational subspace spanned by a set of states $\{\ket{v_\beta}\}_{\beta=0}^{n-1}$. Hamiltonian eigenstates are approximated by a linear combination of basis states, $\ket{\psi_{\mu}}=\sum_{\beta} C_{\beta\mu}\ket{v_[\alpha}$. To obtain expansion coefficients $C_{\beta\mu}$, one computes matrix elements $S_{\alpha\beta}=\braket{v_{\alpha}|v_\beta}$ and $H_{\alpha\beta}=\braket{v_{\alpha}|\hat{H}|v_{\beta}}$ in the chosen basis and solves the GEEV $HC=SCE$. Within QSE, a quantum device is used to compute the matrix elements $H_{\alpha\beta}$ and $S_{\alpha\beta}$, and a classical computer to solve the GEEV and obtain approximate eigenpairs $\{E_{\mu},\ket{\psi_{\mu}}$. The quantum circuits required to compute $H_{\alpha\beta}$ and $S_{\alpha\beta}$ depend on the choice of the basis $\ket{v_{\alpha}}_{\alpha=0}^{n-1}$.
+The quantum subspace expansion (QSE) method constructs a variational subspace spanned by a set of states $\{\ket{v_\beta}\}_{\beta=0}^{n-1}$. Hamiltonian eigenstates are approximated by a linear combination of basis states, $\ket{\psi_{\mu}}=\sum_{\beta} C_{\beta\mu}\ket{v_{\alpha}}$. To obtain expansion coefficients $C_{\beta\mu}$, one computes matrix elements $S_{\alpha\beta}=\braket{v_{\alpha}|v_\beta}$ and $H_{\alpha\beta}=\braket{v_{\alpha}|\hat{H}|v_{\beta}}$ in the chosen basis and solves the GEEV $HC=SCE$. Within QSE, a quantum device is used to compute the matrix elements $H_{\alpha\beta}$ and $S_{\alpha\beta}$, and a classical computer to solve the GEEV and obtain approximate eigenpairs $\{E_{\mu},\ket{\psi_{\mu}}$. The quantum circuits required to compute $H_{\alpha\beta}$ and $S_{\alpha\beta}$ depend on the choice of the basis $\ket{v_{\alpha}}_{\alpha=0}^{n-1}$.
 
 \subsection{Difference between QSE and VQE}
 The main advantage of QSE (and other subspace methods) over the well-established variational quantum eigensolver (VQE) is that QSE does not require a non-linear parameter optimisation, which is an NP-hard problem, as part of the eigen value approximation. While both QSE and VQE employ quantum and classical computers in synergy, the nature of their interaction is profoundly different: in VQE, each update of the quantum circuit parameters requires a new call of the quantum computer in just one call. Furthermore, QSE circuits can be naturally parallelised over multiple quantum computers (or groups of qubits within a quantum computer). A limitation of QSE is that the eigen states $\ket{\psi_{\mu}}$ are never actually stored on a quantum device, so computing properties after a QSE calculation generally requires additional measurements.
@@ -11743,7 +12640,7 @@ Associated with this \textbf{orthogonal polynomial}
 
 
 \chapter{Variational Algorithms}
-To write Variational algorithms:near-term hybrid quantum-classical algorithms that are ideal candidates to achieve quantum advantage. 
+To write Variational algorithms: near-term hybrid quantum-classical algorithms that are ideal candidates to achieve quantum advantage. 
 The aim of this section is to learn:
 \begin{itemize}
     \item each step in variational algorithm design workflow
@@ -11791,7 +12688,7 @@ where $N$ is the dimensionality of the space of state, $\lambda_k$ is the k-th e
 \begin{align*}
 \braket{\psi|\hat{\mathcal{H}}|\psi}&=\braket{\psi|\left(\sum_{k=0}^{N-1}\lambda_k\ket{\phi_k}\bra{k}\right)|\psi}\\
 &=\sum_{k=0}^{N-1}\lambda_k\braket{\psi|\phi_k}\braket{\phi_k|\psi}\\
-&=\sum-{k=0}^{N-1}\lambda_k|\braket{\psi|\phi_k}|^2
+&=\sum_{k=0}^{N-1}\lambda_k|\braket{\psi|\phi_k}|^2
 \end{align*}
 If we take into account that $\lambda_0\leq\lambda_k, \forall k$, we have:
 \begin{align*}
@@ -11808,7 +12705,7 @@ the above argument applies to any valid (normalized) quantum state $\ket{\psi}$,
 \[
 \min_{\vec{\theta}}C(\vec{\theta}) = \min_{\vec{\theta}} \braket{\psi(\vec{\theta}|\hat{\mathcal{H}}|\psi(\vec{\theta})}\geq \lambda_0
 \]
-The minimum value of $C(\vec{\theta})$ will be the closest that one can get to $lambda_0$ using the parameterized state $\ket{\psi(\vec{\theta})}$, and equality will only be reached it there exists a parameter vector $\vec{\theta^*}$ such that $\ket{\vec{\theta^*}}=\ket{\phi_0}$
+The minimum value of $C(\vec{\theta})$ will be the closest that one can get to $\lambda_0$ using the parameterized state $\ket{\psi(\vec{\theta})}$, and equality will only be reached it there exists a parameter vector $\vec{\theta^*}$ such that $\ket{\vec{\theta^*}}=\ket{\phi_0}$
 
 \subsection{Variational theorem of Quantum Mechanics}
 If the (normalized) state $\ket{\psi}$ of a quantum system depends on a parameter vector $\vec{\theta}$, then the optimal approximation of the ground state (i.e. the eigen state $\ket{\phi_0}$ with the minimum value $\lambda_0$) is the one that minimizes the expectation value of the Hamiltonian $\hat{\mathcal{H}}$:
@@ -11849,14 +12746,14 @@ qc.draw("mpl")
 This outputs the following circuit:
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.5\linewidth]{../images/ref_state_dia.png}
+    \includegraphics[width=0.25\linewidth]{../images/ref_state_dia.png}
     \caption{Classical Reference State Circuit}
     \label{fig:ref_state_classical}
 \end{figure}
 \subsection{Quantum Reference State}
 Suppose you aim to start with a more complex state that involves superposition and/or entanglement such as $\frac{1}{\sqrt{2}}(\ket{100}+\ket{111})$.
 
-To obtain this state from $ket{000}$, one approach is to use a hadmadrd gate on qubit $0 (H_0)$, a CNOTE(CX) gate with qubit 0 as the control qubit and qubit 1 as the target qubit ($CNOT_{01}$), and finally an X gate applied to qubit 2 ($X_2$).
+To obtain this state from $ket{000}$, one approach is to use a hadamard gate on qubit $0 (H_0)$, a CNOT(CX) gate with qubit 0 as the control qubit and qubit 1 as the target qubit ($CNOT_{01}$), and finally an X gate applied to qubit 2 ($X_2$).
 
 In this scenario, our unitary operator is $U_R=X_2CNOT_{01}H_0\ket{000}$, and our reference state is $\ket{\rho}=\frac{1}{\sqrt{2}}(\ket{100}+\ket{111}$.
 \begin{lstlisting}[language=Python]
@@ -11865,7 +12762,7 @@ qc.h(0)
 qc.cx(0,1)
 qc.x(2)
 
-qc.draw("mpl")
+qc.draw(``mpl")
 \end{lstlisting}
 This outputs the following circuit:
 \begin{figure}[H]
@@ -12968,8 +13865,8 @@ plt.show()
 With this lesson, you learned how to create a cost function:
 \begin{itemize}
     \item Create a cost function
-    \item How to leverage Qiskti Runtime primitves to mitigate and suppression noise
-    \item how to detfine a measurement strategy to optimize speed vs accuracy
+    \item How to leverage Qiskit Runtime primitives to mitigate and suppression noise
+    \item how to define a measurement strategy to optimize speed vs accuracy
 \end{itemize}
 Here's high-level variational workload:
 \begin{figure}[H]
@@ -12986,6 +13883,277 @@ print(qiskit_ibm_runtime.version.get_version_info())
 \begin{lstlisting}
 1.2.0
 0.28.0
+\end{lstlisting}
+
+\section{Optimization Loops}
+Now we will see how to use an optimizer to iteratively explore the parameterized quantum states of our ansatz:
+\begin{itemize}
+    \item Bootstrap an optimization loop
+    \item understand trade-offs while using local and global optimizers
+    \item Explore barren plateaus and how to avoid them
+\end{itemize}
+At a high level, optimizers are central to exploring our search space. the optimizer uses cost function evaluations to select the next set of parameters in a variational loop, and repeats the process until it reaches a stable state. At this stage, an optimal set of parameter values $\vec{\theta}^*$ is returned.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{../images/Opti_loops_vqe.png}
+\end{figure}
+\subsection{Local and Global Optimizers}
+We will dirst setup our problem before exploring each optimizer class:
+\begin{lstlisting}[language=Python]
+from qiskit import QuantumCircuit
+from qiskit.quantum_info import SparsePauliOp
+from qiskit.circuit.library import TwoLocal
+import numpy as np
+
+theta_list = (2 * np.pi * np.random.rand(1, 8)).tolist()
+observable = SparsePauliOp.from_list([("XX", 1), ("YY", -3)])
+
+reference_circuit = QuantumCircuit(2)
+reference_circuit.x(0)
+
+variational_form = TwoLocal(
+    2,
+    rotation_blocks=["rz", "ry"],
+    entanglement_blocks="cx",
+    entanglement="linear",
+    reps=1,
+)
+ansatz = reference_circuit.compose(variational_form)
+
+ansatz.decompose().draw('mpl')
+\end{lstlisting}
+
+
+
+
+\section{Variational Quantum Eigensolver}
+Usage Estimate: 73 minutes on ibm\_kyiv or 28 minutes on ibm\_manila. (NOTE:This is an estimate only. Your runtime may vary.)
+\subsection{Background}
+Variational quantum algorithms are promising candidate hybrid-quantum algorithms for observing quantum computational utility on noisy near-term devices. Variational algorithms are characterized by the use of classical optimization algorithm to iteratively update a parameterized trial solution, or ``ansatz". Chief among these methods is the Variational Quantum Eigensolver (VQE) that aims to solve for the ground state of a given Hamiltonian represented as a linear combination of Pauli terms, with an ansatz circuit where the number of parameters to optimize over is polynomial in number of qubits. Given that the size of the full solution vector is exponential in the number of qubits, successful minimization using VQE requires, in general, additional problem-specific information to define the structure of the ansatz circuit.
+
+Executing a VQE algorithm requires the following components:
+\begin{enumerate}
+    \item Hamiltonian and ansatz (problem specification)
+    \item Qiskit Runtime estimator
+    \item Classical Optimizer
+\end{enumerate}
+Although the Hamiltonian and ansatz require domain spcific knowledge to construct, these details are immaterial to the Runtime, and we execute a wide class of VQE problems in the same manner.
+
+\subsection{Requirements}
+Before starting this tutorial, ensure that you have the following installed:
+\begin{itemize}
+    \item Qiskit SDK 1.0 or later, with visualization support (pip install `qiskit[visulaization]'
+    \item Qiskit Runtime (pip install qiskit-ibm-runtime) 0.22 or later
+    \item SciPy(python -m pip install scipy)
+\end{itemize}
+\subsection{Setup}
+Here we import the tools needed for a VQE experiment.
+\begin{lstlisting}[language=Python]
+# General imports
+import numpy as np
+
+# Pre-defined ansatz circuit and operator class for Hamiltonian
+from qiskit.circuit.library import EfficientSU2
+from qiskit.quantum_info import SparsePauliOp
+
+# SciPy minimizer routine
+from scipy.optimize import minimize
+
+# Plotting functions
+import matplotlib.pyplot as plt
+\end{lstlisting}
+No output produced
+\begin{lstlisting}[language=Python]
+# runtime imports
+from qiskit_ibm_runtime import QiskitRuntimeService, Session
+from qiskit_ibm_runtime import EstimatorV2 as Estimator
+
+# To run on hardware, select the backend with the fewest number of jobs in the queue
+service = QiskitRuntimeService(channel="ibm_quantum")
+backend = service.least_busy(operational=True, simulator=False)
+\end{lstlisting}
+\subsubsection{Step1: Map classical inputs to a quantum problem}
+Although the problem instance in question for the VQE algorithm can come from a variety of domains, the form for execution through Qiskit Runtime is the same. Qiskit provides a convenience class for expressing hamiltonians in Pauli form, and a collection of widely used ansatz circuits in the qiskit.circuit.library.
+
+this example Hamiltonian is derived from a quantum chemistry problem.
+\begin{lstlisting}[language=Python]
+hamiltonian = SparsePauliOp.from_list(
+    [("YZ", 0.3980), ("ZI", -0.3980), ("ZZ", -0.0113), ("XX", 0.1810)]
+)
+\end{lstlisting}
+Our choice of ansatz is the EfficientSU2 that, by default, linearly entangles qubits, making it ideal for quantum hardware with limited connectivity.
+\begin{lstlisting}[language=Python]
+ansatz = EfficientSU2(hamiltonian.num_qubits)
+ansatz.decompose().draw("mpl", style="iqp")
+\end{lstlisting}
+Output:
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{../images/VQE_ansatz.png}
+\end{figure}
+
+From the previous figure we see that our ansatz circuit is defined by a vector of parameters, $\theta_i$, witht the total number given by:
+\begin{lstlisting}[language=Python]
+num_params = ansatz.num_parameters
+num_params
+\end{lstlisting}
+Output:
+\begin{lstlisting}
+16
+\end{lstlisting}
+\subsubsection{Step2: Optimize problem for quantum execution}
+To reduce the total job execution time, Qiskit primitives only accept circuits (ansatz) and observables (Hamiltonian) that conform to the instructions and connectivity supported by the target system (referred to as instruction set architecutre (ISA)circuits and observables).
+
+\subsubsection{ISA circuit}
+Schedule a series of qiskit.transpiler passes to optimize the circuit for a selected backend and make it compatible with the backend's ISA. This can be easily done with a preset pass manager from qiskit.transpiler and its optimization\_level parameter.
+
+The lowest optimization level does the minimum needed to get the circuit running on the device; it maps the circuit qubits to the device qubits and ads swap gates to allow all two-qubit operations. The highest optimization level is much smarter and uses lots of tricks to reduce the overall gate count. Since multi-qubit gates have high error rates and qubits decohere over time, the shorter circuits shoudl give better results.
+
+\begin{lstlisting}[language=Python]
+from qiskit.transpiler.preset_passmanagers import generate_preset_pass_manager
+
+target = backend.target
+pm = generate_preset_pass_manager(target=target, optimization_level=3)
+
+ansatz_isa = pm.run(ansatz)
+\end{lstlisting}
+No Output produced
+\begin{lstlisting}
+ansatz_isa.draw(output="mpl", idle_wires=False, style="iqp")
+\end{lstlisting}
+Output:
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{../images/VQE_optimized_ansatz.png}
+\end{figure}
+
+\subsubsection{ISA observable}
+Transform the Hamiltonian to make it backend-compatible before running jobs with Runtime Esimtaor V2. Perform the transformation by using the apply\_layout metho of SparsePauliOp object.
+
+\begin{lstlisting}[language=Python]
+hamiltonian_isa = hamiltonian.apply_layout(layout=ansatz_isa.layout)
+\end{lstlisting}
+
+\subsubsection{Step 3: Execute using Qiskit Primitives}
+Like many classical optimization problems, the solution to a VQE problem can be formulated as a minimization of a scalar cost function. By definition, VQE looks to find the ground state solution to a Hamiltonian by optimizing the ansatz circuit parameters to minimize the expectation value (energy) of the Hamiltonian. With the Qiskit Runtime Estimator directly taking a Hamiltonian and parameterized ansatz, and returing the necessary energy, the cost function for a VQE isntance is quite simple.
+
+Note that run() method of Qiskit Runtime Estimator V2 takes an iterable fo primitve unified blocs (PUBs). Each PUB is an iterable in the format (circuit, observables, parameter\_values: Optional, precision: Optional)
+\begin{lstlisting}[language=Python]
+def cost_func(params, ansatz, hamiltonian, estimator):
+    """Return estimate of energy from estimator
+
+    Parameters:
+        params (ndarray): Array of ansatz parameters
+        ansatz (QuantumCircuit): Parameterized ansatz circuit
+        hamiltonian (SparsePauliOp): Operator representation of Hamiltonian
+        estimator (EstimatorV2): Estimator primitive instance
+        cost_history_dict: Dictionary for storing intermediate results
+
+    Returns:
+        float: Energy estimate
+    """
+    pub = (ansatz, [hamiltonian], [params])
+    result = estimator.run(pubs=[pub]).result()
+    energy = result[0].data.evs[0]
+
+    cost_history_dict["iters"] += 1
+    cost_history_dict["prev_vector"] = params
+    cost_history_dict["cost_history"].append(energy)
+    print(f"Iters. done: {cost_history_dict['iters']} [Current cost: {energy}]")
+
+    return energy
+\end{lstlisting}
+Note that, in addition to the array of optimization parameters that must be the first argument, we use additional arguments to pass the terms needed in the cost function, such as the cost\_history\_dict. This dictionary stores the current vector at each iteration, for example in case you need to restart the routine due to failure, and also returns the current iteration number and average time per iteration.
+\begin{lstlisting}[language=Python]
+cost_history_dict = {
+    "prev_vector": None,
+    "iters": 0,
+    "cost_history": [],
+}
+\end{lstlisting}
+We can now use a classical optimizer of our choice to minimize the cost function. Here, we use the COBYLA routine from SciPy through the minimize function. Note that when running on real quantum hardware, the choice of optimizer is important, as not all optimizers handle noisy cost function landscapes equally well. 
+
+To begin the routine, specify a random initial set of parameters:
+\begin{lstlisting}[language=Python]
+x0 = 2 * np.pi * np.random.random(num_params)
+\end{lstlisting}
+\begin{lstlisting}[language=Python]
+x0
+\end{lstlisting}
+Output:
+\begin{lstlisting}
+array([4.41731016, 3.07910816, 2.24090817, 4.49109315, 1.55032543,
+       3.80189756, 1.28634468, 2.38155768, 0.72212296, 3.15156603,
+       5.16945739, 3.10289414, 3.05826307, 0.24272269, 2.06257592,
+       5.23229471])
+\end{lstlisting}
+Because we are sending a large number of jobs that we would like to execute together, we use a Session to execute all the generated circuits in one block. Here args is the standard SciPy way to supply the additional parameters needed by the cost function.
+\begin{lstlisting}[language=Python]
+with Session(backend=backend) as session:
+    estimator = Estimator(session=session)
+    estimator.options.default_shots = 10000
+
+    res = minimize(
+        cost_func,
+        x0,
+        args=(ansatz_isa, hamiltonian_isa, estimator),
+        method="cobyla",
+    )
+\end{lstlisting}
+As the terminus of this routing we have a result in the standard SciPy OptimizeResult format. From this we see that it took nfev number of cost function evaluations to obtain the solution vector of parameter angles (x) that, when plugged into the ansatz circuit, yield the approximate ground state solution we were looking for.
+\begin{lstlisting}[language=Python]
+res
+\end{lstlisting}
+Output:
+\begin{lstlisting}
+message: Optimization terminated successfully.
+ success: True
+  status: 1
+     fun: -0.634701203143904
+       x: [ 2.581e+00  4.153e-01 ...  1.070e+00  3.123e+00]
+    nfev: 146
+   maxcv: 0.0
+\end{lstlisting}
+\subsubsection{Step 4: Post-process, return result in classical format}
+If the procedure terminates correctly, then the prev\_vector and iters values in our cost\_history\_dict dictionary should be equal to the solution vector and total number of function evaluation, respectively. This is easy to verify:
+\begin{lstlisting}[language=Python]
+all(cost_history_dict["prev_vector"] == res.x)
+\end{lstlisting}
+Output:
+\begin{lstlisting}
+False
+\end{lstlisting}
+We can also now view the progress toward convergence as monitored by the cost history at each iteration:
+\begin{lstlisting}[language=Python]
+fig, ax = plt.subplots()
+ax.plot(range(cost_history_dict["iters"]), cost_history_dict["cost_history"])
+ax.set_xlabel("Iterations")
+ax.set_ylabel("Cost")
+plt.draw()
+\end{lstlisting}
+Output:
+\begin{figure}
+    \centering
+    \includegraphics[width=0.75\linewidth]{../images/VQE_results.png}
+\end{figure}
+\begin{lstlisting}[language=Python]
+import qiskit_ibm_runtime
+
+qiskit_ibm_runtime.version.get_version_info()
+\end{lstlisting}
+Output:
+\begin{lstlisting}
+'0.28.0'    
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python]
+import qiskit
+
+qiskit.version.get_version_info()
+\end{lstlisting}
+Output:
+\begin{lstlisting}
+'1.2.0'    
 \end{lstlisting}
 
 % Part 2: Quantum Information
@@ -13417,6 +14585,15 @@ It is not obvious that the reduced density operator for system $A$ is in any sen
     \rho=\ket{\psi}\bra{\psi} = 
     \]
 \end{example}
+
+\chapter{Quantum Noise and Quantum Error Correction}
+
+
+
+
+
+
+
 \appendix  % Start the appendices
 
 \chapter{Linear Algebra and Calculus Prerequisites}
@@ -14782,17 +15959,6 @@ Thus, the exponential of the Hermitian operator A will be given as:
     \log(X)=\begin{bmatrix} \frac{\log(7)}{2} & \frac{\log(7)}{2} \\ \frac{\log(7)}{2} & \frac{\log(7)}{2} \end{bmatrix}
     \]
 \end{example}
-Exponential of matrices generally arise in Quantum mechanics in the form of solution to Schrodinger equation when the matrix $H$ is constant. Schrodinger equation is given as
-\[
-\iota \hbar\frac{\partial}{\partial t}\ket{\psi}=\hat{H}\ket{\psi}
-\]
-with the initial condition at $t=0$ as $\ket{\psi(0)}$.
-In the case, when the Hamiltonian $\hat{H}$ is a constant matrix, the above equation can be simplified to
-\begin{align*}
-\frac{\partial}{\partial t}\ket{\psi(t)}&=- \frac{\iota\hat{H}}{\hbar}\ket{\psi}\\
-\ket{\psi(t)}&=\int_0^t - \frac{\iota\hat{H}}{\hbar}\ket{\psi} dt\\
-\ket{\psi(t)}&=e^{-\iota \hat{H}t/\hbar }\ket{\psi(0)}
-\end{align*}
 Some results:
 \begin{itemize}
     \item $e^{A^{\dagger}}=(e^A)^{\dagger}$\\
@@ -14969,58 +16135,6 @@ where $\sigma_{max}$ and $\sigma_{min}$ are the maximum and minimum singular val
 \kappa(A)=\dfrac{|\lambda_{max}(A)|}{|\lambda_{min}(A)|}
 \]
 Note that here $\lambda_{max}$ and $\lambda_{min}$ are in the absolute sense.
-
-\subsection{Overview of Iterative Methods}
-These methods dominate the large-scale computations. The importance of iterative algorithms in linear algebra stems from the fact that non-iterative or direct algorithms for general matrices require $\mathcal{O}(m^3)$ computations. It is very high when $m$ is large, and in the relative sense that since the input to most matrix problem involves only $\mathcal{O}(m^2)$ inputs. Large matrices arise indirectly in the discretization of differential or integral equations. For very very large m, it is an approximation to $\infty$.  They have some kind of structure, and ways have been found to exploit this structure in more and more contexts. The most obvious structure that a large matrix may have is sparsity i.,e. preponderance of zero entries. For example, a finite difference discretization of the partial differential equation may lead to a matrix of dimension $m=10^5$ with only $\nu =10$ nonzero entries per row. This kind of structure is readily exploited by the iterative methods we shall discuss. 
-
-For these algorithms we use a matrix in the form of a black box. Given input $x$, it outputs $Ax$. Some iterative algorithm may require the computation of $A^*x$. The iterative algorithm requires nothing more than the ability to determine $Ax$ for any x, which in a computer program will be effected by a procedure whose internal workings need be of no concern to the designer of the iterative algorithm. For the example of a sparse matrix $A$, it is easy to design a procedure to compute $Ax$ in only $\mathcal{O}(\nu m)$ rather than $\mathcal{O}(m^2)$ operations. most recently, it has become apparent that other kinds of matrix structure may also be exploitable, even though the matrices involved are dense. For example, the solution of integral equations by numerical methods typically leads to dense matrix problems; in engineering these are called boundary element or panel methods. The coefficients have a deal of regularity in them. All this is in marked contrast to the algorithms of direct linear algebra, such as Gaussian or Householder triangularization, which explicitly manipulate matrix entries so as to introduce zeros, but in the process generally destroy sparsity. Sparsity has been the kind of structure exploited most often in iterative matrix computations.
-
-\subsubsection{Krylov Subspaces}
-The idea is of projecting an $m-$ dimensional problem into a lower-dimensional Krylov subspace. Given a matrix $A$ and a vector $b$, the associated Krylov sequence is the set of vectors $b,Ab,A^2b,A^3b,\ldots$, which can be computed by the black box in the form $b,Ab,A(Ab),A(A(Ab)),\ldots$. The corresponding Krylov subspaces are the spaces spanned by successively larger group of these vectors. 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-\subsection{Conclusions}
-\textbf{
-\begin{itemize}
-    \item A Normal operators ($AA^{\dagger}=A^{\dagger}A$) are always unitarily 
-    diagonizable (i.e. $A=U^{\dagger}DU$ where U is a Unitary matrix whose columns 
-    are orthonormal eigen vectors and D is a diagonal
-    matrix made up of eigen values of the matrix $A$.) Thus, any normal matrix has orthogonal (linearly independent)
-    eigen vectors (n is the dimension of the matrix).
-    \item Hermitian matrix and Unitary matrix are special cases of Normal operators. Thus, the Hermitian matrix is unitarily diagonizable and 
-    has real eigen values and n orthogonal linearly independent eigen vectors. The Unitary matrix is also unitarily diagonizable and has complex 
-    eigen values of unit modulus and n orthogonal linearly independent eigen vectors. Since bith the Hermitian and Unitary matrices are unitarily diagonizable since they are normal,
-    thus both of them have spectral decomposition. Thus both Unitary and Hermitian matrix can be written as 
-    a sum of orthogonal projection operators onto the eigenspaces of the matrix as shown:
-    \[ M=\sum_{i=1}^n \lambda_i \ket{\lambda_i}\bra{\lambda_i} = \sum_{i=1}^n \lambda_i \mathbb{P}_i \]
-    where $\lambda_i$ are the eigen values of M and $\ket{\lambda_i}$ are the eigen vectors of M. Here, $\mathbb{P}_i = \ket{\lambda_i}\bra{\lambda_i}$ 
-    are the orthogonal projection operators onto the eigenspaces of M.
-    \item If two matrices commute then they have the same eigen vectors (note that the eigen values could be same but still the matrix would have the n linearly independent eigen vectors).
-    Let, $AB=BA$ then,
-    \[ A\ket{v}=\lambda\ket{v} \]
-    \[\implies BA\ket{v}=\lambda B\ket{v}\]
-    \[ \implies AB\ket{v}=\lambda B\ket{v} \quad \text{(Since AB=BA)}\]
-    Let $B\ket{v}=\ket{u}$ then,
-    \[ A\ket{u}=\lambda\ket{u} \]
-    Thus $\ket{u}$ is an eigen vector of A. Thus, $\ket{u}=B\ket{v}$ is an eigen vector of A corresponding to $\lambda$ (assuming no degeneracy).
-    Thus, $B\ket{v}=p\ket{v}$. Thus, $\ket{v}$ is an eigen vector of B with the eigen value correspoding to p.
-\end{itemize}
-}
 
 \section{Tensor Products}
 It is a method for combining two vector spaces to obtain a new larger vector space. 
@@ -15385,6 +16499,17 @@ Using, this we can also write:
 
 
 \section{Calculus}
+Exponential of matrices generally arise in Quantum mechanics in the form of solution to Schrodinger equation when the matrix $H$ is constant. Schrodinger equation is given as
+\[
+\iota \hbar\frac{\partial}{\partial t}\ket{\psi}=\hat{H}\ket{\psi}
+\]
+with the initial condition at $t=0$ as $\ket{\psi(0)}$.
+In the case, when the Hamiltonian $\hat{H}$ is a constant matrix, the above equation can be simplified to
+\begin{align*}
+\frac{\partial}{\partial t}\ket{\psi(t)}&=- \frac{\iota\hat{H}}{\hbar}\ket{\psi}\\
+\ket{\psi(t)}&=\int_0^t - \frac{\iota\hat{H}}{\hbar}\ket{\psi} dt\\
+\ket{\psi(t)}&=e^{-\iota \hat{H}t/\hbar }\ket{\psi(0)}
+\end{align*}
 
 
 
@@ -15772,20 +16897,20 @@ Qiskit Runtime is designed to use additional classical and quantum computer reso
 Qiskit Runtime also includes three types of execution modes for running you quantum program on IBM hardware: Job, Session, and Batch, each of which have different use cases and implications for the quantum job queue. A Job is single query to a primitive that can be run over a specified number of shots. \href{https://docs.quantum.ibm.com/guides/sessions}{Sessions} allow you to efficiently run multiple jobs in iterative workloads on quantum computers. \href{https://docs.quantum.ibm.com/guides/run-jobs-batch}{Batch} mode allows you to submit all your jobs at once for parallel processing.
 
 \subsubsection{Is Qiskit Runtime open-source?}
-The short answer is, not all of it.  The Qiskit Runtime service software that handles the technicalities of running your quantum program on IBM Quantum device (includeing any error mitigation and suppression) is not open-source. However, the Qiskit Runtime client (the interface for users to access the Qiskit Runtime service), the Qiskit SDK running on the server side, and some of the software used for error mitigation, are open-source. To get involved with Qiskit open-source efforts, visit the GitHub organization at \href{https://github.com/Qiskit}{github.com/Qiskit} and \href{https://github.com/Qiskit-Extensions/}{github.com/Qiskit-Extensions}.
+The short answer is, not all of it.  The Qiskit Runtime service software that handles the technicalities of running your quantum program on IBM Quantum device (including any error mitigation and suppression) is not open-source. However, the Qiskit Runtime client (the interface for users to access the Qiskit Runtime service), the Qiskit SDK running on the server side, and some of the software used for error mitigation, are open-source. To get involved with Qiskit open-source efforts, visit the GitHub organization at \href{https://github.com/Qiskit}{github.com/Qiskit} and \href{https://github.com/Qiskit-Extensions/}{github.com/Qiskit-Extensions}.
 
 \subsection{Qiskit Serverless}
-Creating utility-scale quantum applications generally requires a variety of computer resource requirements. Premium users can use Qiskit Serverless (package name qiskit-serverless) to easily submit quantum wrokflows for remote, managed execution. See more information \href{https://docs.quantum.ibm.com/guides/qiskit-serverless}{here} about how to use this collection of tools.
+Creating utility-scale quantum applications generally requires a variety of computer resource requirements. Premium users can use Qiskit Serverless (package name qiskit-serverless) to easily submit quantum workflows for remote, managed execution. See more information \href{https://docs.quantum.ibm.com/guides/qiskit-serverless}{here} about how to use this collection of tools.
 
-\subsection{Qiskti Transpiler as a Service}
+\subsection{Qiskit Transpiler as a Service}
 The Qiskit transpiler service (package name \href{https://pypi.org/project/qiskit-transpiler-service/}{qiskit-transpiler service}) is a new experimental service that provides remote transpilation capabilities on the cloud to IBM Quantum Premium Plan users. In addition to the local Qiskit SDK transpiler capabilities, your transpilation tasks can benefit from both IBM Quantum cloud resources and AI-powered transpiler passes using this service. To learn more about how to integrate cloud-based transpilation into your Qiskit workflow you can \href{https://docs.quantum.ibm.com/guides/qiskit-transpiler-service}{check out the documentation}.
 
 \subsection{The Qiskit ecosystem}
-Beyond Qiskit there are many open-source projects that use the "Qiskit" name but are not part of Qiskit itself; rather, theuy interface with Qiskit and can provide valuable additional functionality to supplement the core Qiskit workflow. Some of these projects are mintained by IBM Quantum teams, whereas others are supported by the broader open-source community. The Qiskit SDK is designed in a modular, extensible way to make it easy for developers to create projects like these that extend its capabilities.
+Beyond Qiskit there are many open-source projects that use the "Qiskit" name but are not part of Qiskit itself; rather, they interface with Qiskit and can provide valuable additional functionality to supplement the core Qiskit workflow. Some of these projects are maintained by IBM Quantum teams, whereas others are supported by the broader open-source community. The Qiskit SDK is designed in a modular, extensible way to make it easy for developers to create projects like these that extend its capabilities.
 Some popular projects in the Qiskit ecosystem include:
 \begin{itemize}
     \item Qiskit (qiskit-aer) - a package for quantum computing simulators with realistic noise models. It provides interfaces to run quantum circuits with or without noise using multiple different simulation methods. Maintained by IBM Quantum.
-    \item qBraid SDK (qbraid) - a platform-agnostic quantum runtime framework for both quantum software and hardware providers, designed to streamline the full lifecycle management of quantum jobs- from defining program specifications to job submission through to the post-prcoessing and visualization of results. Maintained by qBraid.
+    \item qBraid SDK (qbraid) - a platform-agnostic quantum runtime framework for both quantum software and hardware providers, designed to streamline the full life cycle management of quantum jobs- from defining program specifications to job submission through to the post-prcoessing and visualization of results. Maintained by qBraid.
     \item mthree (mthree) - a package for implementing M3(Matrix-free Measurement Mitigation), a measurement mitigation technique that solves for corrected measurement probabilities using a dimensionality reduction step followed by either direct LU factorization or a preconditioned iterative method that nominally converges $\mathcal{O}(1)$ steps, and can be computed in parallel. Maintained by IBM Quantum.
 \end{itemize}
 You can find a catalog of projects in the \href{https://qiskit.github.io/ecosystem/}{Qiskit ecosystem page}, as well as information about how to nominate your own project.
