@@ -1895,7 +1895,7 @@ $\ket{\psi}$ and it collapses to the classical state $\ket{j}$, the state of the
 Note that the probabilities of various measurement outcomes are exactly the same when we measure $\ket{\psi}$ or when we measure 
 the state $e^{\iota \theta}\ket{\psi}$. The term $e^{\iota \theta}$ is called the \textbf{global phase} and thus has no physical significance.
 
-Note that when the exprimentalist and their experimental apparatus observes the system, it is an external physical system in other words, and the interaction
+Note that when the experimentalist and their experimental apparatus observes the system, it is an external physical system in other words, and the interaction
 makes the quantum system no longer closed and thus not necessarily subject to the unitary evolution. Thus, more formally we can state the postulate as: \\
 \textbf{Quantum measurements are described by a collection $\{M_m\}$ of measurement operators.
 These are operators acting on the state space $\ket{\psi}$ being measured. The index m refers to the measurement outcomes 
@@ -7045,8 +7045,13 @@ Notice that $U$ acts non-trivially only on the states $\ket{000}$ and $\ket{111}
     \end{tabular}
 \end{table}
 
-From this we read off the required circuit, shown in figure \ref{}. The first two gates shuffle the states so that $\ket{000}$ gets swapped with $\ket{011}$. Next, the operation $\tilde{U}$ is applied to the first qubit of the states $\ket{011}$ and $\ket{111}$, conditional on the second and third qubits being in the state $\ket{11}$. Finally, we unshuffle the states, ensuring that $\ket{011}$ gest swapped back with the state $\ket{000}$.
-
+From this we read off the required circuit, shown in figure \ref{fig:circimple2level}. The first two gates shuffle the states so that $\ket{000}$ gets swapped with $\ket{011}$. Next, the operation $\tilde{U}$ is applied to the first qubit of the states $\ket{011}$ and $\ket{111}$, conditional on the second and third qubits being in the state $\ket{11}$. Finally, we unshuffle the states, ensuring that $\ket{011}$ gest swapped back with the state $\ket{000}$.
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.75\linewidth]{../images/circuitimp2level.png}
+    \caption{Circuit implementing the two-level unitary operation defined}
+    \label{fig:circimple2level}
+\end{figure}
 Returning to the general case, we see that implementing the two-level unitary operation $U$ requires at most $2(n-1)$ controlled operations to swap $\ket{g_1}$ with $\ket{g_{m-1}}$ and then back again. Each of these controlled operations can be realized using $mathcal{O}(n)$ single qubit and CNOT gates; the controlled-$\tilde{U}$ operation also requires $\mathcal{O}(n)$ gates. Thus, implementing $U$ requires $\mathcal{O}(n^2)$ single qubit and CNOT gates. We saw in the previous section that an arbitrary unitary matrix on the $2^n$ dimensional state space of $n$ qubits may be written as a product of $\mathcal{O}(2^{2n})=\mathcal{O}(4^n)$ two-level unitary operations. Combining these results, we see that an arbitrary unitary operation on $n$ qubits can be implemented using a circuit containing $\mathcal{O}(n^24^n)$ single qubit and CNOT gates. Obviously, this construction does not provide terribly efficient quantum circuits!! However, we will later see that this construction dis close to optimal in the sense that there are unitary operations that require an exponential number of gates to implement. Thus, to find fast quantum algorithm we will clearly need a different approach than is taken in the universality construction. 
 
 \begin{example}
@@ -13157,7 +13162,7 @@ In this section we will prove that grover's algorithm is optimal in terms of the
     \]
     The difference between the state in the two equations is only in the amplitude of $\ket{r}$, which is negated. So at stage 2 the Euclidean distance between the states of the two circuits is $|\alpha_{r,i}-(-\alpha_{r,i})|=2|\alpha_{r,i}|$.
 
-    Now let's look at what the rest of the two circuits in figure \ref{} do. The remaining steps for each circuit are the same unitary operation. Since unitary operations preserve Euclidean distances, this means that
+    Now let's look at what the rest of the two circuits in figure \ref{fig:circuitqueryopt} do. The remaining steps for each circuit are the same unitary operation. Since unitary operations preserve Euclidean distances, this means that
     \[
     \|\ket{\psi_i^r}-\ket{\psi_{i-1}^r}\|=2|\alpha_{i,r}|
     \]
