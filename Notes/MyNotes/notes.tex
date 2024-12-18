@@ -12241,7 +12241,22 @@ which is easy to verify by noting that $\sum_{l=0}^{r-1}e^{2\pi\iota lx/r}=r$ fo
 \chapter{Hidden Subgroup problem}
 One of the general application of the quantum Fourier transform are general problem known as the hidden subgroup problem. We will now describe an efficient quantum algorithm for solving it. This problem, which encompasses all known `exponentially fast' application of the quantum Fourier transform, can be thought of as a generalization of the task of finding the unknown period of a periodic function, in a context where the structure of the domain and range of the function may be very intricate.
 
-\chapter{Amplitude Estimation}
+\chapter{Amplitude Amplification and Estimation}
+
+\section{Amplitude Amplification}
+Given a quantum subroutine that succeeds with a probability less than $1$, amplitude amplification can be used to boost the success probability to $1$ by making repeated calls to the subroutine and to a unitary that determines if the subroutine has succeeded. Amplitude amplification can be viewed as a generalization of Grover's search algorithm and offers a quadratic speedup over classical methods in many instances.
+
+We are given an initial state $\ket{\psi_0}$, a target state $\ket{\psi_g}$ that we can mark (i.e. the ability to reflect about the state) and a unitary $U$ (and its inverse $U^{\dagger}$) such that
+\[
+U\ket{\psi_0}=\ket{\psi}=a\ket{\psi_g}+b\ket{\psi_b}
+\]
+where $\ket{\psi_b}$ is a state to orthogonal to the target state. In other words, $|a|^2$ is the probability of success of applying $U$ and measuring $\ket{\psi_g}$. In addition, we are given the ability to implement the reflection operation around the initial state $R_{\psi_0}=I-2\ket{\psi_0}\bra{\psi_0}$ and an operation that, when restricted to the subspace spanned by $\{\ket{\psi_g},\ket{\psi_b}\}$, acts as the reflection around the target state $R_{\psi_0}=I-2\ket{\psi_g}\bra{\psi_g}$.
+
+
+
+
+
+\section{Amplitude Estimation}
 Let $\ket{\psi_0}$ be prepared by an oracle $U_{\psi_0}$ i.e., $U_{\psi_0}\ket{0^n}=\ket{\psi_0}$. We have the knowledge that 
 \[
 \ket{\psi_0}=\sqrt{p_0}\ket{\psi_{good}} + \sqrt{1-p_0} \ket{\psi_{bad}}
@@ -13247,6 +13262,75 @@ Another application of quantum counting is to find a solution to a search proble
 
 
 \section{Amplitude Amplification}
+Grover's algorithm is not restricted to the problem of unstructured search. One immediate application is called amplitude amplification (AA), which is used ubiquitously as a subroutine to achieve quadratic speedups.
+
+Let $\ket{\psi_0}$ be prepared by an oracle $U_{\psi_0}$ i.e. $U_{\psi_0}=\ket{0^n}=\ket{\psi_0}$. We have the knowledge that
+\[
+\ket{\psi_0}=\sqrt{p_0} \ket{\psi_{good}} + \sqrt{1-p_0}\ket{\psi_{bad}}
+\]
+and $p_0<<1$. Here $\ket{\psi_{bad}}$ is an orthogonal state to the desired state $\ket{\psi_{good}}$. We cannot get access to $\ket{\psi_{good}}$ directly, but would like to obtain a state that has a large overlap with $\ket{\psi_{good}}$ i.e., amplify the amplitude of $\ket{\psi_{good}}$.
+
+In the problem of unstructured search $\ket{\psi_{good}}=\ket{x_0}$, and $p_0=1/N$. Although we do not have access to the answer $\ket{x_0}$, we assume access to the reflection oracle $R_{x_0}$. Here we also assume access to the reflection oracle
+\[
+R_{good} = 1-2\ket{\psi_{good}}\bra{\psi_{good}}
+\]
+From $U_{\psi_0}$, we can construct the reflection with respect to the initial state
+\[
+R_{\psi_0}=2\ket{\psi_0}\bra{\psi_0} - I=U_{\psi_0}(2\ket{0^n}\bra{0^n}-I)U_{\psi_0}^{\dagger}
+\]
+via the $n$-qubti controlled-$X$ gate. So following exactly the same proceudre as the unstructured search problem, we can construct the Grover iterate
+\[
+G=R_{\psi_0}R_{good}
+\]
+Applying $G^k$ to $\ket{\psi_0}$ for some $k=\mathcal{O}(1/\sqrt{p_0})$, we obtain a state that has $\Omega(1)$ overlap with $\ket{\psi_{good}}$.
+
+\begin{example}
+    \textbf{(Reflection with respect to signal qubits)} One common scenario is that the implementation of $U_{\psi_0}$ requires $m$ ancilla qubits (also called signal qubits) i.e.,
+    \[
+    U_{\psi_0}\ket{0^m}\ket{0^n} = \sqrt{p_0}\ket{0^m}\ket{\psi_0}+\sqrt{1-p_0}\ket{\perp}
+    \]
+    where $\ket{\perp}$ is some orthogonal state satisfying
+    \[
+    (\Pi \otimes I_n)\ket{\perp}=0; \quad \Pi=\ket{0^m}\bra{0^m}
+    \]
+    Therefore
+    \[
+    \ket{\psi_{good}}=\ket{0^m}\ket{\psi_0}
+    \]
+    This setting is special since the ``good" state can be verified by measuring the ancilla qubits after applying $U_{\psi_0}$, and post-select the outcome $0^m$. In particular, the expected number of measurements needed to obtain $\ket{\psi_{good}}$ is $1/p_0$.
+
+    In order to employ the AA procedure, we first note that the reflection operator can be simplified as
+    \[
+    R_{good} = (1-2\ket{0^m}\bra{0^m})\otimes I_n = (I-2\Pi)\otimes I_n
+    \]
+    This is because $\ket{\psi_{good}}$ can be entirely identified by measuring the ancilla qubits. Meanwhile
+    \[
+    R_{\psi_0}= U_{\psi_0} (2\ket{0^{m+n}}\bra{0^{m+n}}-I)U_{\psi_0}^{\dagger}
+    \]
+    Let $G=R_{\psi_0}R_{good}$, and applying $G^k$ to $\ket{\psi_0}$ for some $k=\mathcal{O}(1/\sqrt{p_0})$ times, we obtain a state that has $\Omega(1)$ overall with $\ket{\psi_{good}}$. This achieves the desired quadratic speedup.
+\end{example}
+
+\begin{example}
+    \textbf{(Amplitude Damping)} Assuming access to an oracle, where $p_0$ is large, we can easily dampen the amplitude to any number $\alpha\leq \sqrt{p_0}$. 
+
+    We introduce an additional signal qubit. Then,
+    \[
+    (I\otimes U_{\psi_0})\ket{0}\ket{0^m}\ket{0^n}=\ket{0}(\sqrt{p_0}\ket{0^m}\ket{\psi_0}+\sqrt{1-p_0}\ket{\perp})
+    \]
+    Define a single qubit rotation operation as
+    \[
+    R_{\theta}\ket{0}=\cos \theta\ket{0} + \sin \theta \ket{1}
+    \]
+    and we have
+    \begin{align*}
+        &(R_{\theta}\otimes I_{m+n})(I\otimes U_{\psi_0})\ket{0}\ket{0^m}\ket{0^n}\\
+        &=\cos\theta \ket{0}(\sqrt{p_0}\ket{0^m}\ket{\psi_0} + \sqrt{1-p_0}\ket{\perp'})+\sin\theta\ket{1}(\sqrt{p_0}\ket{0^m}\ket{\psi_0}+\sqrt{1-p_0}\ket{\perp'})\\
+        &=\sqrt{p_0}\cos\theta\ket{0}\ket{0^m}\ket{\psi_0}+\sqrt{1-p_0\cos^2\theta}\ket{\perp'}
+    \end{align*}
+    Here ($\ket{0^{m+1}}\bra{0^{m+1}}\otimes I_n)\ket{\perp'}=0.$ We only need to choose $\sqrt{p_0}\cos\theta=\alpha$.
+\end{example}
+
+
 \section{Applications of Grover's Algorithm}
 \subsection{Application: Satisfiability}
 
@@ -14214,17 +14298,41 @@ The commutator scaling of the trotter error is an important feature of the metho
 \end{example}
 
 
+\chapter{Loading classical data}
+The end-to-end quantum applications covered in this document have classical inputs and classical outputs, in the sense that the problem is specified by some set of classical data, and the solution to the problem should be a different set of classical data. In some cases, the input data is relatively small, and loading it into the algorithm does not contribute significantly to the cost of the algorithm. In other cases for example, ``big data" problems within the areas of machine learning and finance - the dominant costs, both for classical and quantum algorithms, can be related to how the algorithms load and manipulate this large quantity of input data. Consequently, the availability of quantum speedups for these problems if often dependent on the ability to quickly and coherently access this data. The true cost of this access is the source of significant subtlety in many end-to-end quantum algorithms.
 
+\section{Quantum random access memory}
+Quantum random access memory (QRAM) is a construction that enables coherent access to classical data, such that multiple different elements in a classical database can be read in superposition. The ability to access large, unstructured classical data sets in this way is crucial to the speedup of certain quantum algorithms (for example, quantum machine learning based on quantum linear algebra). QRAM is commonly invoked in such cases as a way to circumvent data-input bottlenecks, i.e., situations where loading data could limit the end-to-end runtime of an algorithm. It remains an open question, however, whether a large-scale QRAM will ever be practical, casting doubt on quantum speedups that rely on QRAM. Note that, while here we focus on the more common use case of loading classical data with QRAM, certain QRAM architectures can be adapted to also load quantum data.
 
+Consider a length $N$, unstructured classical data vector $x$, and denote the $i$th entry as $x_i$. Let the number of bits of $x_i$ be denoted by $d$ and let $D=2^d$. Given an input quantum state $\ket{\psi}=\sum_{i=0}^{N-1} \sum_{j=0}^{D-1}\alpha_{ij}\ket{i}_A\ket{j}_B$, QRAM is defined as a unitary operation $Q$ with the action,
+\[
+Q\ket{\psi}=Q\sum_{i=0}^{N-1}\sum_{j=0}^{D-1}\alpha_{ij}\ket{i}_A\ket{j}_B=\sum_{i=0}^{N-1}\sum_{j=0}^{D-1}\alpha_{ij}\ket{i}_A\ket{j\oplus x_i}_B
+\]
+Here, $A$ is a $\log_2 (N)$ -qubit register, and $B$ is a $d$-qubit register. Note that the unitary $Q$ can also be understood as an oracle (or a black box) providing access to $x$, as $Q(\sum_i\alpha_i\ket{i}\ket{0})=\sum_i\alpha_i\ket{i}\ket{x_i}$.
+
+Let $T_Q$ denote the time it takes to implement the operation $Q$, where $T_Q$ can be measured in circuit depth, total gate cost, $T$ gate cost, etc.., depending on the context. Algorithms that rely on QRAM to claim exponential speedups over their classical counterparts frequently assume $T_Q=polylog(N)$.
+
+\subsection{Resource cost}
+The QRAM operation $Q$ can be implemented as a quantum circuit that uses $\mathcal{O}(N)$ ancillary qubits and $\mathcal{O}(N)$ gates. Assuming gates acting on disjoint qubits can be parallelized, the depth of the circuit is only $T_Q=\mathcal{O}(\log (N))$. Explciit circuits can be found in e.g. The number of ancillary qubits can be reduced at teh price of increased circuit depth; circuit implementing $Q$ can be construcuted using $\mathcal{O}(N/M)$ ancillary qubits and depth $\mathcal{O}(M\log (N))$, where $M\in [1,N]$ see example
 
 
 \chapter{Block Encoding}
+\section{Motivation}
+In quantum algorithms, the quantum gates that are applied to quantum states are necessarily unitary operations. However, one often needs to apply a linear transformation to some encoded data that is not represented by a unitary operator, and furthermore one generally needs coherent access to these non-unitary transformations. how can we encode such a non-unitary transformation within a unitary operator? Block-encoding works by embedding the desired linear operator as a suitably normalized block within a larger unitary matrix, such that the full encoding is a unitary operator, and the desired linear operator is given by restricting the unitary to an easily recognizable subspace. To be useful for quantum algorithms, this block encoding must also be realized by some specific quantum circuit acting on the main register and additional ancilla qubits.
+
+Block-encodings are ubiquitous within quantum algorithms, they have both benefits and drawbacks. They are easy to work with, since one can efficiently perform manipulations of block encodings, such as taking products or convex combinations. On the other hand, this improved working efficiency comes at the cost of having more limited access. For example, if a matrix is stored in classical random access memory, the matrix entries can be explicitly accessed with a single query to the memory, whereas if one only has access to a block-encoding of the matrix, estimating a matrix entry to precision $\epsilon$ requires $\mathcal{O}(1/\epsilon)$ uses of the block-encoding unitary in general (by using amplitude estimation subroutine).
+
+Block-encodings also provide a layer of abstraction that assists in the design and analysis of quantum algorithms. One can simply assume access to a block-encoding and count the number of times it is applied. To run, the algorithm, it is necessary to choose a method for implementing the block-encoding. There are many ways of constructing block-encodings that could be suited to the structure of the input. For instance, there are efficient block-encoding strategies for density matrices, positive operator-values measures (POVMs), Gram matrices, sparse-access matrices, matrices that are stored in quantum data structures, structured matrices, and operators given as a linear combination of unitaries (with a known implementation). We discuss these constructions below. For unstructured, dense matrices, the strategy from Gram matrices can be instantiated using state-preparation and quantum random access memory (QRAM) as subroutines.
+
+
+\section{Introduction}
+
 In order to perform matrix computations, we must first address the problem of the input model: how to get access to information in matrix $A\in \mathbb{C}^{N \times N} (N=2^n)$ which is generally a non-unitary matrix, into the quantum computer? One possible input model is given via the unitary $e^{\iota \tau A}$ (if A is not Hermitian, in some scenarios we an consider its Hermitian version via the dilation method).
 
 Many standard Linear algebra problems can be solved on a quantum computer using recently developed quantum linear algebra problems that make use of block encodings and quantum eigenvalue/ singular value transformations. 
 
 A block encoding embeds a properly scaled matrix of interest $A$ in a larger Unitary transformation $U$ that can be decomposed into a product of simpler unitaries and implemented efficiently on a quantum computer. Although, quantum algorithms can potentially achieve exponential speedup in solving linear algebra problems compared to the best classical algorithm, such gain in efficiency ultimately hinges on our ability to construct an efficient quantum circuit for the block encoding of $A$, which is difficult in general, and not trivial even for well structured sparse matrices. In this chapter, we talk about how efficient quantum circuits can be explicitly construct for some well structured spare matrices and discuss a few examples and strategies used in these constructions.
-\section{Introduction}
+
 In recent years, a new class of quantum algorithms have been developed to solve standard linear algebra problems on quantum computers. These algorithms use the technique of block encoding, to embed a properly scaled matrix $A$ of interest in a larger unitary matrix $U_A$ to a carefully prepared initial state and performing measurements on a subset of qubits. furthermore, if $A$ is Hermitian, by using the technique of the quantum eigenvalue transformation, one can block encode a certain matrix polynomial $p(A)$ by another unitary $U_{p(A)}$ efficiently using $U_A$ as the building block. This procedure can be generalized to non-Hermitian matrices $A$ using a technique called singular value transformation. The larger unitary $U_{p(A)}$ can be decomposed onto a product of simpler unitaries consisting of $2\times 2$ single qubit unitaries, multi-qubit controlled-NOTs, $U_A$ and its Hermitian conjugate. Because approximate solutions to many large-scale linear algebra problems such as linear system of equations, least squares problems and eigenvalue problems (produced by iterative methods) can often be expressed as $p(A)v_0$ for some initial vector $v_0$ for some initial vector $v_0$, the possibility to block encode $p(A)$ will enable us to solve these problems on a quantum computer that perform unitary transformations. 
 
 In order to implement this quantum linear algebra algorithms, we need to further express the block encoding matrix $U_A$ as a product of simpler unitaries i.e. we need ot express $U_A$ as an efficient quantum circuit. Although it is suggested that such a quantum circuit can be constructed in theoryf for certain sparse matrices, the proposed construction relies on the availability of ``oracle" that can efficiently block encode both the nonzero structure of $A$ and numerical values of the nonzero matrix elements. However, for a general sparse matrix $A$, finding these ``oracles" is entirely non-trivial. Even for spare matrices that have a well defined non-zero structure and a small set of nonzero matrix elements, encoding the structure and matrix elements by an efficient quantum circuit is not an easy task.
@@ -16609,7 +16717,7 @@ where $H$ is the Hamiltonian, and $f_1,f_2,\ldots,f_d$ are linearly independent 
 \[
 HC=SCE
 \]
-where $H_{\alpha\beta}=\bra{\phi_{\alpha}}H\ket{\phi_{\beta}}$ and $S_{\alpha\beta}=\braket{\phi_{\alpha}|\phi_\beta}$. Let $E_{min}$ be the minimum eigenvalue of the generalised eigenvalue problme. The error in the ground state energy is 
+where $H_{\alpha\beta}=\bra{\phi_{\alpha}}H\ket{\phi_{\beta}}$ and $S_{\alpha\beta}=\braket{\phi_{\alpha}|\phi_\beta}$. Let $E_{min}$ be the minimum eigenvalue of the generalised eigenvalue problem. The error in the ground state energy is 
 \[
 \epsilon_k=E_{min}-E_g
 \]
@@ -16746,32 +16854,32 @@ Variational algorithms include several modular components that can be combined a
 A common goal of variational algorithms is to find the quantum state with the lowest or highest eigenvalue of a certain observable. A key insight we'll use is the variation theorem of quantum mechanics. before going into its full statement, let us explore some of the mathematical intuition behind it.
 
 \subsection{Mathematical intuition for energy and ground state}
-In quantum mechanics, energy comes in the form of a quantum observable usually referred to as the \textit{Hamiltonian}, which we'll denote by $\hat{\mathcal{H}}$. let us consider its spectral decomposition:
+In quantum mechanics, energy comes in the form of a quantum observable usually referred to as the \textit{Hamiltonian} (Hermitian matrix), which we'll denote by $\hat{\mathcal{H}}$. let us consider its spectral decomposition:
 \[
 \hat{\mathcal{H}}=\sum_{k=0}^{N-1} \lambda_k\ket{\phi_k}\bra{\phi_k}
 \]
-where $N$ is the dimensionality of the space of state, $\lambda_k$ is the k-th eigenvalue or, physically, the k-th energy level, and $\ket{\phi_k}$ is the corresponding eigen state: $\hat{\mathcal{H}}\ket{\phi_k}=\lambda_k\ket{\phi_k}$, the expected energy of a system in the (normalized) state $ket{\psi}$ will be:
+where $N$ is the dimensionality of the space of state, $\lambda_k$ is the k-th eigenvalue or, physically, the k-th energy level, and $\ket{\phi_k}$ is the corresponding eigen state: $\hat{\mathcal{H}}\ket{\phi_k}=\lambda_k\ket{\phi_k}$, the expected energy of a system in the (normalized) state $\ket{\psi}$ will be:
 \begin{align*}
 \braket{\psi|\hat{\mathcal{H}}|\psi}&=\braket{\psi|\left(\sum_{k=0}^{N-1}\lambda_k\ket{\phi_k}\bra{k}\right)|\psi}\\
 &=\sum_{k=0}^{N-1}\lambda_k\braket{\psi|\phi_k}\braket{\phi_k|\psi}\\
-&=\sum_{k=0}^{N-1}\lambda_k|\braket{\psi|\phi_k}|^2
+&=\sum_{k=0}^{N-1}\lambda_k|\braket{\phi_k|\psi}|^2
 \end{align*}
 If we take into account that $\lambda_0\leq\lambda_k, \forall k$, we have:
 \begin{align*}
-    \braket{\psi|\hat{\mathcal{H}}|\psi}&=\sum_{k=0}^{N-1}|\braket{\psi|\phi_k}|^2\\
-    &\geq \sum_{k=0}^{N-1} \lambda_0|\braket{\psi|\phi_k}|^2\\
-    &=\lambda_0\sum_{k=0}^{N-1}|\braket{\psi|\phi_k}|^2\\
+    \braket{\psi|\hat{\mathcal{H}}|\psi}&=\sum_{k=0}^{N-1}\lambda_k|\braket{\phi_k|\psi}|^2\\
+    &\geq \sum_{k=0}^{N-1} \lambda_0|\braket{\phi_k|\psi}|^2\\
+    &=\lambda_0\sum_{k=0}^{N-1}|\braket{\phi_k|\psi}|^2\\
     &=\lambda_0
 \end{align*}
 Since $\{\ket{\phi_k}\}_{k=0}^{N-1}$ is an orthonormal basis, the probability of measuring $\ket{\phi_k}$ is $p_k=|\braket{\psi|\phi_k}|^2$, and the sum of all the probabilities is such that $\sum_{k=0}^{N-1}|\braket{\psi|\phi_k}|^2=\sum_{k=0}^{N-1}p_k=1$. In short, the expected energy of any system is higher than the lowest energy or ground state energy:
 \[
-\braket{\psi|\hat{\mathcal{H}}\psi}\geq \lambda_0
+\braket{\psi|\hat{\mathcal{H}}|\psi}\geq \lambda_0
 \]
 the above argument applies to any valid (normalized) quantum state $\ket{\psi}$, so it is perfectly possible to consider parameterized state $\ket{\psi(\vec{\theta})}$ that depends on a parameter vector $\vec{\theta}$. This is where the "variational" part comes into play. If we consider a cost function given by $C(\vec{\theta}):=\braket{\psi(\vec{\theta})|\hat{\mathcal{H}}|\psi(\vec{\theta})}$ and we want to minimize it, the minimum will always satisfy:
 \[
 \min_{\vec{\theta}}C(\vec{\theta}) = \min_{\vec{\theta}} \braket{\psi(\vec{\theta}|\hat{\mathcal{H}}|\psi(\vec{\theta})}\geq \lambda_0
 \]
-The minimum value of $C(\vec{\theta})$ will be the closest that one can get to $\lambda_0$ using the parameterized state $\ket{\psi(\vec{\theta})}$, and equality will only be reached it there exists a parameter vector $\vec{\theta^*}$ such that $\ket{\vec{\theta^*}}=\ket{\phi_0}$
+The minimum value of $C(\vec{\theta})$ will be the closest that one can get to $\lambda_0$ using the parameterized state $\ket{\psi(\vec{\theta})}$, and equality will only be reached it there exists a parameter vector $\vec{\theta^*}$ such that $\ket{\psi(\vec{\theta^*})}=\ket{\phi_0}$
 
 \subsection{Variational theorem of Quantum Mechanics}
 If the (normalized) state $\ket{\psi}$ of a quantum system depends on a parameter vector $\vec{\theta}$, then the optimal approximation of the ground state (i.e. the eigen state $\ket{\phi_0}$ with the minimum value $\lambda_0$) is the one that minimizes the expectation value of the Hamiltonian $\hat{\mathcal{H}}$:
@@ -16819,7 +16927,7 @@ This outputs the following circuit:
 \subsection{Quantum Reference State}
 Suppose you aim to start with a more complex state that involves superposition and/or entanglement such as $\frac{1}{\sqrt{2}}(\ket{100}+\ket{111})$.
 
-To obtain this state from $ket{000}$, one approach is to use a hadamard gate on qubit $0 (H_0)$, a CNOT(CX) gate with qubit 0 as the control qubit and qubit 1 as the target qubit ($CNOT_{01}$), and finally an X gate applied to qubit 2 ($X_2$).
+To obtain this state from $\ket{000}$, one approach is to use a hadamard gate on qubit $0 (H_0)$, a CNOT(CX) gate with qubit 0 as the control qubit and qubit 1 as the target qubit ($CNOT_{01}$), and finally an X gate applied to qubit 2 ($X_2$).
 
 In this scenario, our unitary operator is $U_R=X_2CNOT_{01}H_0\ket{000}$, and our reference state is $\ket{\rho}=\frac{1}{\sqrt{2}}(\ket{100}+\ket{111}$.
 \begin{lstlisting}[language=Python]
@@ -16830,10 +16938,10 @@ qc.x(2)
 
 qc.draw(``mpl")
 \end{lstlisting}
-This outputs the following circuit:
+This outputs the following circuit \ref{fig:ref_state_quantum}:
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.5\linewidth]{../images/ref_state_quantum.png}
+    \includegraphics[width=0.25\linewidth]{../images/ref_state_quantum.png}
     \caption{Quantum Reference State}
     \label{fig:ref_state_quantum}
 \end{figure}
@@ -16861,7 +16969,7 @@ This outputs the following circuit:
 
 \subsection{Application Specific Reference States}
 \subsubsection{Quantum Machine Learning}
-In the context of a variational quantum classifie (VQC), the training data is encoded into a quantum state with a parameterized circuit known as a feature map, where each parameter value represents a data point from the training dataset. The ZZFeatureMap is a type of parameterized circuit that can be utilized to pass our data point(x) to this feature map.
+In the context of a variational quantum classifier (VQC), the training data is encoded into a quantum state with a parameterized circuit known as a feature map, where each parameter value represents a data point from the training dataset. The ZZFeatureMap is a type of parameterized circuit that can be utilized to pass our data point(x) to this feature map.
 
 \begin{lstlisting}[language=Python]
 from qiskit.circuit.library import ZZFeatureMap
@@ -16935,7 +17043,7 @@ This outputs the following circuits:
     \label{fig:param_ex2}
 \end{figure}
 \subsection{Variational Form and Ansatz}
-To iteratively optimize from a reference state $\ket{\rho}$ to a target state $\ket{\psi(\vec{\theta})}$, we need to define a variational form $U_V(\vec{\theta})$ that represents a collection of parameterized state for out variational algorithm to explore:
+To iteratively optimize from a reference state $\ket{\rho}$ to a target state $\ket{\psi(\vec{\theta})}$, we need to define a variational form $U_V(\vec{\theta})$ that represents a collection of parameterized state for our variational algorithm to explore:
 \begin{align*}
     \ket{0}\xrightarrow{U_R} U_R\ket{0}&=\ket{\rho}\xrightarrow{U_V(\vec{\theta}}U_A(\vec{\theta}\ket{0}\\
     &=U_V(\vec{\theta})U_R\ket{0}\\
@@ -16944,9 +17052,10 @@ To iteratively optimize from a reference state $\ket{\rho}$ to a target state $\
 \end{align*}
 Note that the parameterized state depends on both the reference state $\ket{\rho}$, which does not depends on any parameters, and the variational form $U_V(\vec{\theta})$, which always depends on parameters. We refer to the combination of these two halves as an ansatz: $U_A(\vec{\theta}):=U_V(\vec{\theta})U_R$.
 
-As we construct our ansatz to represent a collection of parameterized states for our variational algorithm to explore, we realize an important issue: dimenisonality. an n-qubit system (i.e., Hilbert space) ha a vast number of distinct quantum states in the configuration space. We would require an unwieldy number of parameters to fully explore it. Quantitatively, its dimensionality is $D=2^{2n}$. To make matters worse, the runtime complexity of sarch algorithms, and others alike, grows exponentially with this dimensionality, a phenomenon often referred to in the literature as the curse of dimensionality.
+Now, we have to construct an ansatz which represents a collection of parameterized states based on the different values of parameter vectors $\vec{\theta}$ we wish to explore thus, creating a collection of parameterized quantum states $\ket{\psi(\vec{\theta})}$ to find the minima of the cost function $C(\vec{\theta})=\bra{\psi(\vec{\theta})}|H|\ket{\psi(\vec{\theta})}$.
+As we construct our ansatz to represent a collection of parameterized states for our variational algorithm to explore, we realize an important issue: dimensionality. An n-qubit system (i.e., Hilbert space) ha a vast number of distinct quantum states in the configuration space. We would require an unwieldy number of parameters to fully explore it. Quantitatively, its dimensionality is $D=2^{2n}$ because of the $2^n$-complex entries of the $n$-dimensional Hilbert space requiring two real numbers each. To make matters worse, the runtime complexity of search algorithms, and others alike, grows exponentially with this dimensionality, a phenomenon often referred to in the literature as the curse of dimensionality.
 
-To counter this setback, it is common practice to impose some reasonable constraints on the variational form such that only the most relevant states are explore. Finding an efficient truncated ansatz is an active area of research, but we'll cover two common designs.
+To counter this setback, it is common practice to impose some reasonable constraints on the variational form such that only the most relevant states are explored. Finding an efficient truncated ansatz is an active area of research, but we'll cover two common designs.
 \subsubsection{Heuristic ansatze and trade-offs}
 If you do not have any information about your particular problem that can help restrict the dimensionality, you can try any arbitrary family of parameterized circuits with fewer than $2^{2n}$. However, there are some trade-offs to consider:
 \begin{itemize}
@@ -17234,7 +17343,7 @@ aux_circuits[1].draw('mpl')
     \centering
     \includegraphics[width=0.5\linewidth]{../images/aux_circ2.png}
 \end{figure}
-We can not carry out the computation manually using Sampler and check the results on Estimator:
+We can now carry out the computation manually using Sampler and check the results on Estimator:
 
 \begin{lstlisting}[language=Python]
 from qiskit.primitives import StatevectorSampler, StatevectorEstimator
@@ -17325,7 +17434,7 @@ Since we do not know the eigenvalue or eigenstate of the target observable $\hat
 This implies that the expected value can be rewritten as:
 \begin{align*}
     \braket{\psi|\hat{H}\psi}&=\braket{\psi|V^{\dagger}\Lambda V|\psi}\\
-    &=\braket{\psi|V^{\dagger}\left(\sum_{j=0}^{2^n-1}\ket{j}\bra{j}\right)\Lambda\left(\sum_{k=0}^{2^n-1} \ket{k}\bra{k}\right)N\psi}\\
+    &=\braket{\psi|V^{\dagger}\left(\sum_{j=0}^{2^n-1}\ket{j}\bra{j}\right)\Lambda\left(\sum_{k=0}^{2^n-1} \ket{k}\bra{k}\right)V|\psi}\\
     &=\sum_{j=0}^{2^n-1}\sum_{k=0}^{2^n-1} \braket{\psi|V^{\dagger}|j}\braket{j|\Lambda|k}\braket{k|V|\psi}\\
     &=\sum_{j=0}^{2^n-1} \braket{\psi|V^{\dagger}|j}\braket{j|\Lambda|j}\braket{j|V|\psi}\\
     &=\sum_{j=0}^{2^n-1}|\braket{j|V|\psi}|^2\lambda_j
@@ -17344,19 +17453,21 @@ Here the Operators that can be used:
 
 \begin{table}[ht]
     \centering
-    \begin{tabular}{|c|c|c|}
+    \resizebox{\textwidth}{!}{
+    \begin{tabular}{|c|c|c|c|}
     \hline
-        Operator & $\sigma$ & $V$\\
+        Operator & $\sigma$ & $V$ & $\Lambda$\\
         \hline
-        I & $\sigma_0=\begin{pmatrix} 1 & 0 \\ 0 & 1 \end{pmatrix}$ & $V_0=I$\\
+        I & $\sigma_0=\begin{pmatrix} 1 & 0 \\ 0 & 1 \end{pmatrix}$ & $V_0=I$ & $\Lambda_0=I=\begin{pmatrix} 1 & 0 \\ 0 & 1 \end{pmatrix}$\\
         \hline
-        X & $\sigma_1=\begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix}$ & $V_1=H=\frac{1}{\sqrt{2}}\begin{pmatrix} 1 & 1 \\ 1 & -1 \end{pmatrix}$\\
+        X & $\sigma_1=\begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix}$ & $V_1=H=\frac{1}{\sqrt{2}}\begin{pmatrix} 1 & 1 \\ 1 & -1 \end{pmatrix}$ & $\Lambda_1 = \sigma_3=\begin{pmatrix} 1 & 0 \\ 0 & -1 \end{pmatrix}$\\
         \hline
-        Y & $\sigma_2=\begin{pmatrix} 0 & -\iota \\ \iota & 0 \end{pmatrix}$ &$V_2=HS^{\dagger}=\frac{1}{\sqrt{2}}\begin{pmatrix} 1 & 1 \\ 1 & -1 \end{pmatrix}\begin{pmatrix} 1 & 0 \\ 0 & -\iota \end{pmatrix}=\frac{1}{\sqrt{2}}\begin{pmatrix} 1 & -\iota \\ 1 & \iota \end{pmatrix}$\\
+        Y & $\sigma_2=\begin{pmatrix} 0 & -\iota \\ \iota & 0 \end{pmatrix}$ &$V_2=HS^{\dagger}=\frac{1}{\sqrt{2}}\begin{pmatrix} 1 & 1 \\ 1 & -1 \end{pmatrix}\begin{pmatrix} 1 & 0 \\ 0 & -\iota \end{pmatrix}=\frac{1}{\sqrt{2}}\begin{pmatrix} 1 & -\iota \\ 1 & \iota \end{pmatrix}$ & $\Lambda_2 = \sigma_3=\begin{pmatrix} 1 & 0 \\ 0 & -1 \end{pmatrix}$\\
         \hline
-        Z & $\sigma_3=\begin{pmatrix} 1 & 0 \\ 0 &-1 \end{pmatrix} $& $V_3=I$\\
+        Z & $\sigma_3=\begin{pmatrix} 1 & 0 \\ 0 &-1 \end{pmatrix} $& $V_3=I$ & $\Lambda_3=\sigma_3\begin{pmatrix} 1 & 0 \\ 0 & -1 \end{pmatrix}$\\
         \hline
     \end{tabular}
+    }
     \caption{Operators that can be used}
     \label{tab:operators_used}
 \end{table}
@@ -17370,7 +17481,7 @@ where $k=\sum_{l=0}^{n-1}4^lk_l\equiv k_{n-1}\ldots k_0$ for $k_{n-1},\ldots, k_
 \braket{\psi|\hat{H}|\psi}&=\sum_{k=0}^{4^n-1}w_k\sum_{j=0}^{2^n-1} |\braket{j|V_k|\psi}|^2 \braket{j|\Lambda_k|j}\\
 &=\sum_{k=0}^{4^n-1}w_k\sum_{j=0}^{2^n-1}p_{kj}\lambda_{kj}
 \end{align*}
-where $V_k=V_{k_{n-1}} \otimes \ldots \otimes V_{k_0}$ and $\Lambda_k:=\Lambda_{k_{n-1}} \otimes \ldots \otimes \Lambda_{k_0}$, such that: $\hat{P}_k=V^{\dagger}\Lambda_kV_k$.
+where $V_k=V_{k_{n-1}} \otimes \ldots \otimes V_{k_0}$ and $\Lambda_k:=\Lambda_{k_{n-1}} \otimes \ldots \otimes \Lambda_{k_0}$, such that: $\hat{P}_k=V_k^{\dagger}\Lambda_kV_k$.
 
 \subsection{Cost functions}
 In general, cost functions are used to describe the goal of a problem and how well a trial state is performing with respect to that goal. This definition can be applied to various examples in chemistry, machine learning, finance, optimization, and so on.
@@ -17964,7 +18075,7 @@ At a high level, optimizers are central to exploring our search space. the optim
     \includegraphics[width=0.75\linewidth]{../images/Opti_loops_vqe.png}
 \end{figure}
 \subsection{Local and Global Optimizers}
-We will dirst setup our problem before exploring each optimizer class:
+We will first setup our problem before exploring each optimizer class:
 \begin{lstlisting}[language=Python]
 from qiskit import QuantumCircuit
 from qiskit.quantum_info import SparsePauliOp
@@ -17988,12 +18099,236 @@ ansatz = reference_circuit.compose(variational_form)
 
 ansatz.decompose().draw('mpl')
 \end{lstlisting}
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=1\linewidth]{../images/ansatz_oplopps.png}
+\end{figure}
+\begin{lstlisting}[language=Python]
+def cost_func_vqe(params, ansatz, hamiltonian, estimator):
+"""Return estimate of energy from estimator
+
+Parameters:
+    params (ndarray): Array of ansatz parameters
+    ansatz (QuantumCircuit): Parameterized ansatz circuit
+    hamiltonian (SparsePauliOp): Operator representation of Hamiltonian
+    estimator (Estimator): Estimator primitive instance
+
+Returns:
+    float: Energy estimate
+"""
+pub = (ansatz, hamiltonian, params)
+cost = estimator.run([pub]).result()[0].data.evs
+return cost
+\end{lstlisting}
+\begin{lstlisting}[language=Python]
+from qiskit.primitives import StatevectorEstimator
+estimator = StatevectorEstimator()
+\end{lstlisting}
 
 
+
+\subsubsection{Local Optimizers}
+Local optimizers search for a point that minimizes the cost function starting at an initial point(s) $C(\vec{\theta}_0)$ and move to different points based on what they observe in the region they are currently evaluation on successive iterations. This implies that the convergence of these algorithms  will usually be fast, but can be heavily dependent on the initial point. Local optimizers are unable to see beyond the region where they are evaluating and can be especially vulnerable to local minima, reporting convergence when they find one and ignoring other states with more favorable evaluations.
+
+\begin{lstlisting}[language=Python]
+# SciPy minimizer routine
+from scipy.optimize import minimize
+
+x0 = np.ones(8)
+
+result = minimize(cost_func_vqe, x0, args=(ansatz, observable, estimator), method="SLSQP")
+
+result
+\end{lstlisting}
+\begin{lstlisting}
+message: Optimization terminated successfully
+ success: True
+  status: 0
+     fun: -3.99999999645274
+       x: [ 1.000e+00  1.000e+00 -1.571e+00 -4.556e-05 -1.207e+00
+           -1.935e+00  4.079e-01 -4.079e-01]
+     nit: 12
+     jac: [ 1.192e-07  2.980e-08 -7.959e-04  2.543e-04  1.381e-03
+            1.381e-03  5.431e-04  5.431e-04]
+    nfev: 112
+    njev: 12
+\end{lstlisting}
+
+\subsubsection{Global Optimizers}
+Global optimizers search for the point that minimizes the cost function over several regions of its domain (i.e. non-local), evaluating it iteratively (i.e. at iteration $i$) over a set of parameters vectors $\Theta_i = \vec{\theta}_{i,j}|\in \mathcal{J}_{opt}^i$ determined by the optimizer. This makes them less susceptible to local minima and somewhat independent of initialization, but also significantly slower to converge to a proposed solution.
+
+\subsubsection{Bootstrapping Optimization}
+Bootstrapping, or setting the initial value for parameters $\vec{\theta}$ based on a prior optimization, can help our optimizer converge on a solution faster. we refer to this as the initial point $\vec{\theta}_0$, and $\ket{\psi(\vec{\theta}_0)}=U_V(\vec{\theta}_0)\ket{\rho}$ as the initial state. This initial state differs from our reference state $\ket{\rho}$, as the former focuses on initial parameters set during our optimization loop, while the latter focuses on using known ``reference"solutions> They may coincide if $U_V(\vec{\theta}_0)=I$ (i.e.,the Identity operation).
+
+When local optimizers converge to non-optimal local minima, we can try bootstrapping the optimization globally and refine the convergence locally. While this requires setting up two variational workloads, it allows the optimizer to find a more optimal solution than the local optimizer alone.
+
+\subsection{Gradient-Based and Gradient-Free Optimizers}
+\subsubsection{Gradient-Based}
+Four our cost function $C(\vec{\theta})$, if we have access to the gradient of the function $\vec{\nabla}C(\vec{\theta})$ starting from a initial point, the simplest way to minimize the function is to update the parameters towards the direction of steepest descent of the function. That is, we update the parameters as $\vec{\theta}_{n+1}=\vec{\theta}_n-\eta \vec{\nabla}C(\vec{\theta})$, where $\eta$ is the learning rate - a small, positive hyperparameter that controls the size of the update. We continue doing this until we converge to a local minimum of the cost function, $C(\vec{\theta}^*)$. 
+
+We can use this cost function and an optimizer to calculate optimal parameters.
+\begin{lstlisting}[language=Python]
+# SciPy minimizer routine
+from scipy.optimize import minimize
+
+x0 = np.ones(8)
+
+result = minimize(cost_func_vqe, x0, args=(ansatz, observable, estimator), method="BFGS")
+
+result
+\end{lstlisting}
+\begin{lstlisting}
+ message: Optimization terminated successfully.
+  success: True
+   status: 0
+      fun: -3.999999999999782
+        x: [ 1.000e+00  1.000e+00  1.571e+00  2.785e-07  2.009e-01
+            -2.009e-01  6.342e-01 -6.342e-01]
+      nit: 14
+      jac: [ 5.960e-08 -2.980e-08  8.941e-07  1.013e-06  2.086e-07
+             1.490e-07  5.960e-08  5.960e-08]
+ hess_inv: [[ 1.000e+00 -2.999e-08 ... -7.780e-05 -6.011e-05]
+            [-2.999e-08  1.000e+00 ... -3.475e-06 -7.574e-07]
+            ...
+            [-7.780e-05 -3.475e-06 ...  7.242e-01 -2.603e-01]
+            [-6.011e-05 -7.574e-07 ... -2.603e-01  8.180e-01]]
+     nfev: 144
+     njev: 16
+\end{lstlisting}
+The main advantage of this type of optimization are the convergence speed, which can be very slow, and there is no guarantee to achieve the optimal solution.
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.75\linewidth]{../images/vqe_grad-based.png}
+\end{figure}
+\subsubsection{Gradient-Free}
+Gradient-free optimization algorithms do not require gradient information and can be useful in situations where computing the gradient is difficult, expensive or too noisy. They also tend to be more robust in finding global optima, whereas gradient based methods tend to converge to local optima. We'll explore a few instance where a gradient-free optimizer can help avoid barren plateaus. However, gradient-free methods require higher computational resources, especially for problems with high-dimensional search spaces.
+
+Here's an example that uses COBYLA optimizer instead:
+\begin{lstlisting}[language=Python]
+# SciPy minimizer routine
+from scipy.optimize import minimize
+
+x0 = np.ones(8)
+
+result = minimize(cost_func_vqe, x0, args=(ansatz, observable, estimator), method="COBYLA")
+
+result
+\end{lstlisting}
+\begin{lstlisting}
+message: Optimization terminated successfully.
+ success: True
+  status: 1
+     fun: -3.9999999832448676
+       x: [ 1.687e+00  1.250e+00  1.571e+00  3.142e+00  1.469e+00
+           -1.672e+00  1.556e+00  1.585e+00]
+    nfev: 126
+   maxcv: 0.0
+\end{lstlisting}
+\subsection{Barren Plateaus}
+In fact, the cost landscape can be quite complicated, as shown by the hills and valleys in the example below. The optimization method navigates us around the cost landscape, search for the minimum, as shown by the black points and lines. We can see two of the three searches end up in a local minimum of the landscape, rather than a global one.
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=1\linewidth]{../images/vqe_barrenplatuea.png}
+\end{figure}
+Regardless of the type of optimization method used, if the cost landscape is relatively flat, it can be challenging for the method to determine the appropriate direction to search. This scenario is referred to as a barren plateaus, where the cost landscape becomes progressively flatter (and thus more challenging to determine the direction of the minimum). For a broad range of parameterized quantum circuits, the probability that the gradient along any reasonable direction is non-zero to some fixed precision decreases exponentially as the number of qubits increases.
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=1\linewidth]{../images/vqe_barrenplateaus.png}
+\end{figure}
+Wile this ares is still under active research, we have a few recommendations to improve optimization performance: 
+\begin{itemize}
+    \item \textbf{Bootstrapping}  can help the optimization loop avoid getting stuck in a parameter space where the gradient is small.
+    \item \textbf{Experimenting with hardware-efficient ansatz}: Since we're using a noisy quantum system as a black box oracle, the quality of those evaluations can affect the optimzier's performance. Using hardware-efficient ansatz, such as EfficientSU2, may avoid producing exponentially small gradients.
+    \item \textbf{Experimenting with error suppression and error mitigation}: the Qiskit Runtime primitives provide a simple interface to experiment with various optimization\_level and resilience\_setting respectively. This can be reduced the impact of noise and make the optimization process more efficient.
+    \item \textbf{Experimenting with gradient-free optimizers:} Unlike gradient-based optimization algorithms, optimizers such as COBYLA do not rely on gradient information to optimize the parameters and are therefore less likely to be affected by the barren plateau.
+\end{itemize}
+\subsection{Summary}
+With this lesson, you learned how to define your optimization loop:
+\begin{itemize}
+    \item Bootstrap an optimization loop
+    \item Understand trade-offs while using local and global optimizers
+    \item Explore barren plateaus and how to avoid them
+\end{itemize}
+Our high level variational workload is complete:
+
+Next, we'll explore specific variational algorithms with this framework in mind.
+
+\section{Instances and Extensions}
+This chapter will cover several quantum variational algorithms, including:
+\begin{itemize}
+    \item Variational Quantum Eigensolver (VQE)
+    \item Subspace Search VQE (SSVQE)
+    \item Variational Quantum Deflation (VQD)
+    \item Quantum Sampling Regression
+\end{itemize}
+By, using these algorithms, we will learn about several design ideas that can be incorporated into custom variational algorithms, such as weights, penalties, oversampling and undersampling. We encourage you to experiment wit these concepts and share your findings with the community.
+
+The Qiskit patterns framework applies to all these algorithms - but we will explicitly call out the steps only in the first example.
+
+\subsection{Variational Quantum eigensolver (VQE)}
+VQE is one of the most widely used variational quantum algorithms, setting up a template for other algorithms to build upon.\\
+\textbf{Step 1:} Map classical inputs to a quantum problem
+
+VQE's theoretical layout is simple:
+\begin{itemize}
+    \item Prepare reference operators $U_R$
+    \item We start from the state $\ket{0}$ and go to the reference state $\ket{\rho}$
+    \item Apply the variational form $U_V(\vec{\theta}_{ij})$ to create an ansatz $U_A(\vec{\theta}_{ij})$
+    \item We go from the state $\ket{\rho}$ to $U_V(\vec{\theta}_{ij})\ket{\rho}=\ket{\psi(\vec{\theta}_{ij})}$
+    \item Bootstrap at $i=0$ if we have a similar problem (typically found via classical simulation or sampling)
+    \item Each optimizer will be bootstrapped differently, resulting in an initial set of parameter vectors $\Theta_0=\vec{\theta}_{0,j}|j\in \mathcal{J}_{opt}^{0}$ (e.g., from an initial point $\vec{\theta}_{0}$).
+    \item Evaluate the cost function $C(\vec{\theta}_{i,j})=\bra{\psi(\vec{\theta})}\hat{H}\ket{\psi(\vec{\theta})}$ for all prepared states on a quantum computer.
+    \item Use a classical optimizer to select the next set of parameters $\Theta_{i+1}$.
+    \item Repeat the process until convergence is reached.
+\end{itemize}
+This is a simple classical optimization loop where we evaluate the cost function. Some optimizers may require multiple evaluations to calculate a gradient, determine the next iteration, or assess convergence.
+
+Here's the example for the following observable:
+\[
+\hat{O}_1 = 2II - 2XX + 3YY-3ZZ
+\]
+We can use this cost function to calculate the optimal parameters
+
+\textbf{Step2: Optimize problems for quantum execution}
+We will select the least-busy backend, and import the necessary components from the qiskit\_ibm\_runtime.
+
+We will transpile the circuit using the preset pass manager with optimization level 3, and we will apply the corresponding layout to the observable.
+\\
+\textbf{Step3: Execute using Qiskit Runtime Primitives}
+We are now ready to run our calculation on IBM Quantum hardware. Because the cost function minimization is highly iterative, we will start at a Runtime session. This way we only have to wait in a queue once. Once the job begins running, each iteration with updates to parameters will run immediately.
+\\
+\textbf{Step4: Post-process, return in classical format}
+We can see that the minimization routine successfully terminated, meaning we reached the default tolerance of the COBYLA classical optimizer. If we require a more precise result, we can specify a smaller tolerance. This may indeed be the case, since the result was several percent off compared to the result obtained by the simulator above.
+
+The value of $x$ obtained is the current best guess for the parameters that minimize the cost function. If iterating to obtain a higher precision, those values should be used in place of the $x0$ initially used (a vector of ones).
+
+Finally, we note that the function was evaluated $96$ times in the process of optimization. That might be different from the number of optimization steps, since some optimizers require multiple function evaluations in a single step, such as when estimating a gradient.
+
+\subsection{Subspace Search VQE (SSVQE)}
+SSVQE is a variant of VQE that allows obtaining the first $k$ eigenvalues of an observable $\hat{H}$ with eigenvalues $\{\lambda_0 ,\lambda_1,\ldots ,\lambda_{N-1}\}$, where $N\geq k$. Without loss of generality, we assume that $\lambda_0<\lambda_1<\ldots <\lambda_{N-1}$, SSVQE introduces a new idea by adding weights to help prioritize optimizing for the term with the largest weight.
+
+To implement this algorithm, we need $k$ mutually orthogonal reference states $\{\ket{\rho_j}\}_{j=0}^{k-1}$, meaning $\braket{\rho_j|\rho_l}=\delta_{jl}$ for $j,l<k$. These states can be constructed using Pauli operators. The cost function of this algorithm is then:
+\begin{align*}
+    C(\vec{\theta})&=\sum_{j=0}^{k-1} w_j \bra{\rho_j}U_V^{\dagger}(\vec{\theta}) \hat{H}U_V(\vec{\theta})\ket{\rho_j}\\
+    &=\sum_{j=0}^{k-1}w_j \bra{\psi_j(\vec{\theta})}\hat{H}\ket{\psi_j(\vec{\theta})}
+\end{align*}
+where $w_j$ is an arbitrary positive number such that if $j<l<k$ then $w_j > w_l$, and $U_V(\vec{\theta})$ is the user-defined variational form.
+
+The SSVQE algorithm relies on the fact that eigenstates corresponding to different eigenvalues are mutually orthogonal. Specifically, the inner product of $U_V(\vec{\theta})\ket{\rho_j}$ and $U_V(\vec{\theta})\ket{\rho_l}$ can be expressed as:
+\begin{align*}
+    \bra{\rho_j}U_V^{\dagger}(\vec{\theta})U_V(\vec{\theta})\ket{\rho_l}&=\bra{\rho_j}I\ket{\rho_l}\\
+    &=\braket{\rho_j|\rho_l}\\
+    &=\delta_{jl}
+\end{align*}
+The first equality holds because $U_V(\vec{\theta})$ is a quantum operator and is therefore unitary. The last equality holds because of the orthogonality of the reference states $\ket{\rho_j}$. The fact that orthogonality is preserved through unitary transformation is deeply related to the principle of conservation of information, as expressed in quantum information science. Under the view, non -unitary transformations represent processes where information is either lost or injected.
+
+Weights $w_j$ help ensure that all the states are eigenstates. If the weights are sufficiently different, the term with the largest weight $(i.e., w_0)$ will be given priority during optimization over the others. As a result, the resulting state $U_v(\vec{\theta})\ket{\rho_0}$ will become the eigenstate corresponding to $\lambda_0$. Because $\{U_V(\vec{\theta})\ket{\rho_j}\}_{j=0}^{k-1}$ are mutually orthogonal, the remaining states will be orthogonal to it and, therefore, contained in the subspace corresponding to the eigenvalues $\{\lambda_1,\ldots,\lambda_{N-1}\}$.
+
+Applying the same argument to the rest of the terms, the next priority would then be the term with weight $w_1$, so $U_V(\vec{\theta})\ket{\rho_l}$ would be the eigenstate corresponding to $\lambda_1$, and the other terms would be contained in the eigenspace of $\{\lambda_2,\ldots,\lambda_{N-1}\}$
 
 
 \section{Variational Quantum Eigensolver}
-Usage Estimate: 73 minutes on ibm\_kyiv or 28 minutes on ibm\_manila. (NOTE:This is an estimate only. Your runtime may vary.)
+Usage Estimate: 73 minutes on ibmion \_kyiv or 28 minutes on ibm\_manila. (NOTE:This is an estimate only. Your runtime may vary.)
 \subsection{Background}
 Variational quantum algorithms are promising candidate hybrid-quantum algorithms for observing quantum computational utility on noisy near-term devices. Variational algorithms are characterized by the use of classical optimization algorithm to iteratively update a parameterized trial solution, or ``ansatz". Chief among these methods is the Variational Quantum Eigensolver (VQE) that aims to solve for the ground state of a given Hamiltonian represented as a linear combination of Pauli terms, with an ansatz circuit where the number of parameters to optimize over is polynomial in number of qubits. Given that the size of the full solution vector is exponential in the number of qubits, successful minimization using VQE requires, in general, additional problem-specific information to define the structure of the ansatz circuit.
 
