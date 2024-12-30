@@ -12273,7 +12273,7 @@ Its two eigenstates are
 \]
 with the eigenvalues $e^{\pm\theta}$, respectively.
 
-Therefore the problem of estimation $\theta$ can be solved with out phase estimation with an imperfect initial state. Note that
+Therefore the problem of estimation $\theta$ can be solved with phase estimation with an imperfect initial state. Note that
 \[
 |\braket{\psi_0|\psi_{+}}|^2=\frac{1}{2}\left|\sin \frac{\theta}{2} + \iota \cos\frac{\theta}{2} \right|^2 =\frac{1}{2}=|\braket{\psi_0|\psi_{-}}|^2
 \]
@@ -12281,8 +12281,46 @@ Consider a QPE circuit with $t$ ancilla qubits and query $G$ for $T=2^t$ times. 
 \[
 t=d+\lceil\log \delta^{-1}\rceil
 \]
-be the number of ancilla qubits with $\epsilon'=2^{-d}$. Then QPE obtains an estimate denoted by $\tilde{\theta}$, which approximates $\theta$ to precision $\epsilon'$ wiht success probability $1-\delta$. Note that $p_0=\sin^2\frac{\theta}{2}$, and
+be the number of ancilla qubits with $\epsilon'=2^{-d}$. Then QPE obtains an estimate denoted by $\tilde{\theta}$, which approximates $\theta$ to precision $\epsilon'$ with success probability $1-\delta$. Note that $p_0=\sin^2\frac{\theta}{2}$, and
+\begin{align*}
+    &\sin^2 \frac{\tilde{\theta}}{2} - \sin^2 \frac{\theta}{2}\\
+    &=\sin^2\frac{\tilde{\theta}-\theta}{2}\cos^2\frac{\theta}{2}+\cos^2\frac{\tilde{\theta}-\theta}{2}\sin^2\frac{\theta}{2}+2\sin\frac{\theta}{2}\cos\frac{\theta}{2}\sin\frac{\tilde{\theta}-\theta}{2}\cos\frac{\tilde{\theta}-\theta}{2}-\sin^2\frac{\theta}{2}\\
+    &=\sin\frac{\theta}{2}\cos\frac{\theta}{2}\sin(\tilde{\theta}-\theta)+\left(1-2\sin^2\frac{\theta}{2}\right)\sin^2\frac{\tilde{\theta}-\theta}{2}
+\end{align*}
+Using the fact that $|\sin(\tilde{\theta}-\theta)|\leq |\tilde{\theta}-\theta|\leq \epsilon'$, we have
+\[
+|\tilde{p}-p|\leq \sqrt{p_0(1-p_0)}\epsilon' +(1-2p_0)\frac{\epsilon'^2}{4}
+\]
+Let $\epsilon'$ be sufficiently small. Now if $p_0(1-p_0)=\Omega(1)$, we can choose $\epsilon'=\mathcal{O}(\epsilon)$, and the total complexity of QPE is $\mathcal{O}(\epsilon^{-1})$.
 
+If $p_0$ is small, then we should estimate $p_0$ to multiplicative accuracy $\epsilon$ instead. Use
+\[
+|\tilde{p}-p|\approx \sqrt{p_0}\epsilon' <p_0\epsilon
+\]
+we have $\epsilon'=\sqrt{p_0}\epsilon$. Therefore the runtime of QPE is $\mathcal{O}(p_0^{-\frac{1}{2}}\epsilon^{-1})$. If $p_0$ is to be estimated to precision $\epsilon'$ using Monte Carlo methods, the number of samples needed would be $\mathcal{N}=\mathcal{O}(p_0^{-1}\epsilon^{-2})$.
+
+So, the amplitude estimation method achieves quadratic speedup in the total complexity, by the circuit depths is increased to $\mathcal{O}(\epsilon'^{-1}\delta^{-1})$.
+
+\begin{example}
+    \textbf{(Amplitude estimation to accelerate hadamard test)} Consider the circuit for the Hadamard test to estimate $Re\bra{\psi}U\ket{\psi}$. Let the initial state $\ket{\psi}$ be prepared by a unitary $U_{\psi}$, then the following combined circuit \ref{fig:acc_hadtest}.
+    \begin{figure}[ht]
+        \centering
+        \includegraphics[width=1\linewidth]{../images/Acc_hadamardtest.png}
+        \caption{Accelerated Hadamard Test}
+        \label{fig:acc_hadtest}
+    \end{figure}
+    maps $\ket{0}\ket{0^n}$ to
+    \[
+    \ket{\psi_0}=\frac{1}{2}\ket{0}(\ket{\psi}+U\ket{\psi})+\frac{1}{2}\ket{1}(\ket{\psi}-U\ket{\psi})=\sqrt{p_0}\ket{\psi_{good}}+\sqrt{1-p_0}\ket{\psi_{bad}}
+    \]
+    and the goal is to estimate $p_0$. This also gives the implementation of the reflector $R_{\psi_0}$.
+
+    Note that $R_{good}$ can be implemented by simply reflecting against the signal qubit, i.e., 
+    \[
+    R_{good} =(I-2\ket{0}\bra{0})\otimes I_n = -Z\otimes I_n
+    \]
+    Then we can run QPE to the Grover unitary $G=R_{\psi_0}R_{good}$ to estimate $p(0)$, and the circuit depth is $\mathcal{O}(\epsilon^{-1})$.
+\end{example}
 \chapter{Grover's Search Algorithm}
 It is the second most famous quantum algorithm after Shor's algorithm. It doesn't prove exponential speed up, but only a quadratic speedup, yet it is much more widely applicable than Shor's algorithm.
 
@@ -13333,9 +13371,13 @@ Applying $G^k$ to $\ket{\psi_0}$ for some $k=\mathcal{O}(1/\sqrt{p_0})$, we obta
 
 \section{Applications of Grover's Algorithm}
 \subsection{Application: Satisfiability}
+Grover's algorithm has many applications: basically any classical algorithm that has some search component can be improved using Grover's algorithm as a subroutine. This includes many basic computer applications such as finding shortest paths and minimum spanning trees, various other graph algorithms, etc..
 
+We can also use it to speed up the computation of NP-complete problems, albeit only quadratically, not exponentially. As an example, consider the satisfiability problem: we are given a Boolean function $\phi(i_1,\ldots,i_n)$ and want to know if it has a satisfying assignment, i.e., a setting of the bits $i_1,\ldots,i_n$ that makes $\phi(i_1,\ldots,i_n)=1$. A classical brute-force search along all $2^n$ possible assignments takes time roughly $2^n$.
 
+To find a satisfying assignment faster, we define the $N=2^n$-bit input to Grover's algorithm by $x_i=\phi(i)$, where $i\in\{0,1\}^n$. For a given assignment $i=i_1,\ldots i_n$ it is easy to compute $\phi(i)$ classically in polynomial time. We can write that computation as a reversible circuit (using only Toffoli gates), corresponding to a unitary $U_{\phi}$ that maps $\ket{i,0,0}\rightarrow \ket{i,\phi(i),w_i}$, where the third register holds some classical workspace the computation might have needed. To apply grover we need an oracle that puts the answer in the phase and doesn't leave workspace around (as that could mess up the interference effects. Define $O_{x,\pm}\ket{i}=(-1)^{x_i}\ket{i}$; here we did not explicitly write the workspace qubits, which start and end in $\ket{0}$. Now we can run Grover and find a satisfying assignment with high probability if there is one, using a number of elementary operations that is $\sqrt{2^n}$ times some polynomial factor.
 
+If brute-force search is basically the best thing we can do classically to solve some particular NP-hard problem, then that computation can be sped up quadratically on a quantum computer using Grover search like above. However, there are also NP-hard problems where we know algorithms that still run in exponential time, but that are much faster than brute-force search. For example, consider the famous Travelling Salesman Problem (TSP): given an $n$-vertex graph with weights (distances) on the edges, find the shortest tour in this graph that visits every node exactly once. Since there are $(n-1)!$ many different tours, classical brute-force search would take time $(n-1)!$ times some polynomial is $n$. Grover's algorithm could speed this up quadratically. However, there are much more clever classical algorithms for TSP. In particular, Bellman-Held-Karp dynamic programming algorithm solves TSP in time $2^n$, times a polynomial in $n$. This algorithm is much faster than $O(\sqrt{n!})$ (which is roughly $(n/e)^{n/2}$), and is not amenable to a straightforward speed-up using Grover. Nevertheless, it turns out quantum computers can still solve TSP polynomially faster than the best known classical algorithms, albeit in a much more complicated way than by just applying Grover.\cite{ambainis2018quantumspeedupsexponentialtimedynamic}.
 
 \subsection{Speeding up the solutions of NP-complete problems}
 Quantum searching may be used to speed up the solution to the problems in the complexity class NP. We already saw, how factoring can be sped up here, we illustrate how quantum search can be applied to assist the solution of the Hamiltonian cycle problem (HC). Recall that a Hamiltonian cycle of a graph is a simple cycle which visits every vertex of the graph. The HC problem is to determine where a given graph has a Hamiltonian cycle or not. This problem belongs to the class of NP-complete problems, widely believed (but not yet proved) to be intractable on a classical computer. A simple algorithm to solve HC is to perform a search through all possible orderings of the vertices:
@@ -14313,11 +14355,20 @@ Here, $A$ is a $\log_2 (N)$ -qubit register, and $B$ is a $d$-qubit register. No
 Let $T_Q$ denote the time it takes to implement the operation $Q$, where $T_Q$ can be measured in circuit depth, total gate cost, $T$ gate cost, etc.., depending on the context. Algorithms that rely on QRAM to claim exponential speedups over their classical counterparts frequently assume $T_Q=polylog(N)$.
 
 \subsection{Resource cost}
-The QRAM operation $Q$ can be implemented as a quantum circuit that uses $\mathcal{O}(N)$ ancillary qubits and $\mathcal{O}(N)$ gates. Assuming gates acting on disjoint qubits can be parallelized, the depth of the circuit is only $T_Q=\mathcal{O}(\log (N))$. Explciit circuits can be found in e.g. The number of ancillary qubits can be reduced at teh price of increased circuit depth; circuit implementing $Q$ can be construcuted using $\mathcal{O}(N/M)$ ancillary qubits and depth $\mathcal{O}(M\log (N))$, where $M\in [1,N]$ see example
+The QRAM operation $Q$ can be implemented as a quantum circuit that uses $\mathcal{O}(N)$ ancillary qubits and $\mathcal{O}(N)$ gates. Assuming gates acting on disjoint qubits can be parallelized, the depth of the circuit is only $T_Q=\mathcal{O}(\log (N))$. Explciit circuits can be found in e.g. The number of ancillary qubits can be reduced at teh price of increased circuit depth; circuit implementing $Q$ can be constructed using $\mathcal{O}(N/M)$ ancillary qubits and depth $\mathcal{O}(M\log (N))$, where $M\in [1,N]$ see example
+
+\part{Quantum Linear Algebra}
+At a high level of abstraction, quantum computers compose unitary matrices, and do so with classically unparalleled efficiency. This hints at quantum speedup for linear algebra tasks. However, often one needs to work with large non-unitary matrices thus, for performing general linear algebra tasks we often wish to embed certain non-unitary matrices into unitary matrices represented by efficient quantum circuits, and then apply them to quantum states, and take their sums or products, or implement more general matrix functions. these tasks are collectively referred to as ``quantum linear algebra", the building blocks are discussed in this section>
+
+The techniques described in this section evolved over the past decades and converged to the presented unified framework within several distinct research threads. Block-encodings emerged as a natural approach for embedding non-unitary matrices in quantum circuits, inspired by approaches based on purification, dilation (that is, representing an incoherent state or operation as a coherent one with the help of an ancillary system for example, Stinespring representation or Stinespring dilation), and post-selection. Quantum signal processing (QSP) was discovered as a by product of the characterization of single single-qubit pulse sequences used in nuclear magnetic resonance, for synthesizing polynomial transformations applicable to a ``signal parameter" encoded as a matrix element of a single-qubit rotation matrix. Meanwhile, it was extensively studied how matrix functions could be synthesized  using the linear combination of unitaries techniques based on matrix exponentials implemented by Hamiltonian simulation, or Chebyshev polynomials of operators implemented via quantum walk techniques. Such matrix exponentials or Chebyshev polynomials can be implemented, e.g, via qubitization of a block-encoded operator. In parallel to progress on advanced amplitude amplification techniques, it was recognized that QSP can be ``lifted" for applying polynomial transformation to the eigenvalues of the quantum walk operators (such as those implemented by Qubitization), and thus for implementing a rich family of matrix functions, immediately yielding an optimal algorithm for time independent Hamiltonian simulation. The concepts of qubitization and QSP were later generalized and unified into the framework of quantum singular value transformation, providing generalizations and more efficient implementations of a number of existing quantum algorithms and leading to the discovery of several new algorithms.
 
 
 \chapter{Block Encoding}
 \section{Motivation}
+In this section we describe a generic toolbox for implementing matrix calculations on a quantum computer in an operational way, representing the vectors as quantum states. The matrix arithmetic methodology proposed carries out all calculations in an operational way , such that the matrices are represented by blocks of unitary operators of the quantum system, thereby can in principle result in exponential speedups-in terms of the dimension of the matrices.
+
+Here the results are in an intuitively structured way. First we define how to represent arbitrary matrices as blocks of unitaries, and show how to efficiently encode various matrices this way.
+
 In quantum algorithms, the quantum gates that are applied to quantum states are necessarily unitary operations. However, one often needs to apply a linear transformation to some encoded data that is not represented by a unitary operator, and furthermore one generally needs coherent access to these non-unitary transformations. how can we encode such a non-unitary transformation within a unitary operator? Block-encoding works by embedding the desired linear operator as a suitably normalized block within a larger unitary matrix, such that the full encoding is a unitary operator, and the desired linear operator is given by restricting the unitary to an easily recognizable subspace. To be useful for quantum algorithms, this block encoding must also be realized by some specific quantum circuit acting on the main register and additional ancilla qubits.
 
 Block-encodings are ubiquitous within quantum algorithms, they have both benefits and drawbacks. They are easy to work with, since one can efficiently perform manipulations of block encodings, such as taking products or convex combinations. On the other hand, this improved working efficiency comes at the cost of having more limited access. For example, if a matrix is stored in classical random access memory, the matrix entries can be explicitly accessed with a single query to the memory, whereas if one only has access to a block-encoding of the matrix, estimating a matrix entry to precision $\epsilon$ requires $\mathcal{O}(1/\epsilon)$ uses of the block-encoding unitary in general (by using amplitude estimation subroutine).
@@ -14335,31 +14386,11 @@ A block encoding embeds a properly scaled matrix of interest $A$ in a larger Uni
 
 In recent years, a new class of quantum algorithms have been developed to solve standard linear algebra problems on quantum computers. These algorithms use the technique of block encoding, to embed a properly scaled matrix $A$ of interest in a larger unitary matrix $U_A$ to a carefully prepared initial state and performing measurements on a subset of qubits. furthermore, if $A$ is Hermitian, by using the technique of the quantum eigenvalue transformation, one can block encode a certain matrix polynomial $p(A)$ by another unitary $U_{p(A)}$ efficiently using $U_A$ as the building block. This procedure can be generalized to non-Hermitian matrices $A$ using a technique called singular value transformation. The larger unitary $U_{p(A)}$ can be decomposed onto a product of simpler unitaries consisting of $2\times 2$ single qubit unitaries, multi-qubit controlled-NOTs, $U_A$ and its Hermitian conjugate. Because approximate solutions to many large-scale linear algebra problems such as linear system of equations, least squares problems and eigenvalue problems (produced by iterative methods) can often be expressed as $p(A)v_0$ for some initial vector $v_0$ for some initial vector $v_0$, the possibility to block encode $p(A)$ will enable us to solve these problems on a quantum computer that perform unitary transformations. 
 
-In order to implement this quantum linear algebra algorithms, we need to further express the block encoding matrix $U_A$ as a product of simpler unitaries i.e. we need ot express $U_A$ as an efficient quantum circuit. Although it is suggested that such a quantum circuit can be constructed in theoryf for certain sparse matrices, the proposed construction relies on the availability of ``oracle" that can efficiently block encode both the nonzero structure of $A$ and numerical values of the nonzero matrix elements. However, for a general sparse matrix $A$, finding these ``oracles" is entirely non-trivial. Even for spare matrices that have a well defined non-zero structure and a small set of nonzero matrix elements, encoding the structure and matrix elements by an efficient quantum circuit is not an easy task.
+In order to implement this quantum linear algebra algorithms, we need to further express the block encoding matrix $U_A$ as a product of simpler unitaries i.e. we need ot express $U_A$ as an efficient quantum circuit. Although it is suggested that such a quantum circuit can be constructed in theory for certain sparse matrices, the proposed construction relies on the availability of ``oracle" that can efficiently block encode both the nonzero structure of $A$ and numerical values of the nonzero matrix elements. However, for a general sparse matrix $A$, finding these ``oracles" is entirely non-trivial. Even for spare matrices that have a well defined non-zero structure and a small set of nonzero matrix elements, encoding the structure and matrix elements by an efficient quantum circuit is not an easy task.
 
 In this chapter, we provide a few accessible examples on how to explicitly construct efficient quantum circuits for some well structured spare matrices. In particular, some general strategies for writing down the oracles for the non-zero structure and non-zero matrix elements of those matrices. In addition we will also provide circuit diagrams and how these circuits can be easily constructed using Python Qiskit. 
 
 The block encoding of $A$ is not unique. We will show a few different encoding schemes and the corresponding quantum circuits. For a sparse matrix $A$ that has at most $s$ nonzero elements per column, which we refer to as an s-sparse matrix, the general strategies we use to construct a quantum circuit actually block encodes $A/s$. For many applications, the extra scaling factor does not introduce significant issues. 
-\section{The Problem}
-\begin{definition} \textbf{(Hamiltonian Simulation)} Let $H$ be a Hamiltonian made up of $m$ Pauli terms, meaning that
-\[
-H=\sum_{a=1}^m \lambda_a E_a \text{ where $E_a$ is a tensor product of Pauli matrices}
-\]
-Find an algorithm implementing a Unitary close to $e{-iota Ht}$, so that $\|U-e^{\iota Ht}\|\leq \epsilon$. 
-\end{definition}
-Original solutions proceeded by using Trotter approximations: for r large enough,
-\[
-e^{-\iota Ht}\approx (e^{-\iota E_1t/r} e^{-\iota E_2t/r } \ldots e^{-\iota E_mt/r })^r
-\]
-However, this solution is far from optimal, notably because implementing this approximation, requires $poly(1/\epsilon)$ gate complexity. Improved algorithms eventually developed into the framework below presented. This framework proceeds by:
-\begin{enumerate}
-    \item Defining a type of quantum circuit called a ``block-encoding"
-    \item Showing that, given $\lambda_a$ and $E_a$, we can construct an efficient block-encoding of $H$.
-    \item Showing that we can get a block-encoding of (an approximation of) $e^{-\iota Ht}$ with few uses of the block-encoding to $H$.
-    \item Using this block-encoding to apply our approximation to a state.
-\end{enumerate}
-A more general input model, as will be discussed in this chapter is called "block encoding". Of course, if A is a dense matrix without obvious structures, any input model will be very expensive (e.g. exponential in n) to implement. Therefore a commonly assumed input model is s-sparse there are at most s nonzero entries in each row/column of the matrix. Furthermore, we have an efficient procedure to get access to the location, as well as the value of the nonzero entries. This in general can again be a difficult task given that the number of nonzero entries can still be exponential in n for a sparse matrix. Some dense matrices may also be efficiently block encoded on quantum computers. This chapter will illustrate the block encoding procedure via a number of detailed examples.
-
 \section{Query model for matrix entries}
 The query model for sparse matrices is based on certain quantum oracles. In some scenarios, these quantum oracles can be implemented all the way to the elementary gate level. Throughout the discussion we assume $A$ is an n-qubit, square matrix, and 
 \[
@@ -14392,7 +14423,7 @@ Now using the controlled rotation, the information of $\tilde{A}_{ij}$, $\tilde{
 From now on, we will always assume that the matrix entries of A can be queried using the phase oracle $O_A$ or its variants.
 
 \section{Block Encoding}
-Block encoding is a technique for embedding a properly scaled nonunitary matrix $A \in \mathbb{C}^{N\times N}$ into a unitary matrix $U_A$. \textbf{Note that a properly scaled $A$, we mean that $A$ is scaled to satisfy $\|A\|_2=\sigma_{max} \leq 1$. Without such a scaling, a block encoding of $A$ may not exist because the singular values of any submatrix blocks of a unitary matrix must be bounded by $1$}. Furthermore, if there are some constraints on the type of unitary er can construct e.g. the type of quantum gates available on a quantum computer, we many be able to find $U_A$ that block encodes $A$ exactly. In this chapter, we assume that $A$ has already been properly scaled, and there is no constraints on the quantum gates we can use to construct a quantum circuit representation of the unitary matrix $U_A$.
+Block encoding is a technique for embedding a properly scaled nonunitary matrix $A \in \mathbb{C}^{N\times N}$ into a unitary matrix $U_A$. \textbf{Note that a properly scaled $A$, we mean that $A$ is scaled to satisfy $\|A\|_2=\sigma_{max} \leq 1$. Without such a scaling, a block encoding of $A$ may not exist because the singular values of any submatrix blocks of a unitary matrix must be bounded by $1$}. Furthermore, if there are some constraints on the type of unitary it can construct e.g. the type of quantum gates available on a quantum computer, we may not be able to find $U_A$ that block encodes $A$ exactly. In this chapter, we assume that $A$ has already been properly scaled, and there is no constraints on the quantum gates we can use to construct a quantum circuit representation of the unitary matrix $U_A$.
 The simplest example of block encoding is the following: assume we can find a (n+1)qubit unitary U (i.e. $U\in\mathbb{C}^{2N \times 2N}$ such that
 \[
 U_A=\begin{bmatrix}A & * \\ * & * \end{bmatrix}
@@ -14403,9 +14434,9 @@ here * means that the corresponding entries are irrelevant (yet to be determined
 \]
 and
 \[
-U_A\ket{0,b}=\begin{bmatrix}Ab\\ * \end{bmatrix}=\ket{0}A\ket{b}+\ket{\perp}
+U_A\ket{0,b}=\begin{bmatrix}Ab\\ * \end{bmatrix}=\ket{0}A\ket{b}+\ket{1}\ket{*}
 \]
-Here the unnormalized state $\ket{\perp}$ can be written as $\ket{1}\ket{\psi}$ for some unnormalized state $\ket{\psi}$, that is irrelevant to the computation of $A\ket{b}$. In particular, it satisfies the orthogonality relation.
+Here the unnormalized state $\ket{\perp}=\ket{1}\ket{*}$ can be written as $\ket{1}\ket{\psi}$ for some unnormalized state $\ket{\psi}$, that is irrelevant to the computation of $A\ket{b}$. In particular, it satisfies the orthogonality relation.
 \[
 (\bra{0}\otimes I_n)\ket{\perp}=0
 \]
@@ -14446,7 +14477,7 @@ Thus, on putting it all together we get,
 \[
 (\bra{0^m}\otimes I_n)U_A(\ket{0^m}\otimes I_n)=\begin{bmatrix} I_n & 0 & 0 & \ldots & 0 \end{bmatrix}U_A\begin{bmatrix} I_n \\ 0 \\ 0 \\ \vdots \\ 0 \end{bmatrix}=A
 \]
-A necessary condition for the existence of $U_A$ is $\|A\| \leq 1$. (Note: $\|A\|_{max}\leq 1$ does not guarantee that $\|A\|\leq 1$). However, if we can find sufficiently large $\alpha$ and $U_A$ so that
+The above expression can be thought of as simply picking the first $n$ columns of $U_A$ and then the first $n$ rows of $A$. A necessary condition for the existence of $U_A$ is $\|A\| \leq 1$. (Note: $\|A\|_{max}\leq 1$ does not guarantee that $\|A\|\leq 1$). However, if we can find sufficiently large $\alpha$ and $U_A$ so that
 \[
 A/\alpha = (\bra{0^m}\otimes I_n)U_A(\ket{0^m}\otimes I_n)
 \]
@@ -14456,6 +14487,18 @@ The number $\alpha$ is hidden in the success probability:
 p(0^m)=\frac{1}{\alpha^2}\|A\ket{b}\|^2=\frac{1}{\alpha^2}\braket{b|A^{\dagger}A\ket{b}}
 \]
 So if $\alpha$ is chosen to be too large, the probability of obtaining all $0$s from the measurement can be vanishingly small.
+
+Our goal is to build a Unitary operator that gives coherent access to an $M \times M$ matrix $A$ (we will later relax the assumption that $A$ is square), with normalization $\alpha\geq \|A\|$, where $\|A\|$ denotes the spectral norm of $A$, As the name suggests, block encoding is a way of encoding the matrix $A$ as a block in a larger unitary matrix:
+\[
+U_A = \begin{bmatrix} A/\alpha & * \\ * & * \end{bmatrix}
+\]
+More precisely, we say that the unitary $U_A$ is an $(\alpha,a,\epsilon)$-block-encoding of the matrix $A\in \mathbb{C}^{M\times M}$ if
+\[
+\|A-\alpha(\bra{0}^{\otimes a}\otimes I)U_A(\ket{0}^{\otimes a}\otimes I)\|\leq \epsilon
+\]
+where $a\in\mathbb{N}$ is the number of ancilla qubits used for embedding the block-encoded operator, and $\alpha,\epsilon\in\mathbb{R}_{+}$ define the normalization and error, respectively. Note that $\alpha\geq \|A\|-\epsilon$ is necessary for $U_A$ to be unitary. The definition above can be extended for general matrices, though additional embedding or padding may be needed (e.g., to make the matrix square).
+
+Once a block-encoding is constructed, it can be used in a quantum algorithm to apply the matrix $A$ to a quantum state by applying the unitary $U_A$ to the larger quantum system. The application of the block-encoding can be thought of as a probabilistic application of $A$: applying $U_A$ to $\ket{0}^{\otimes a}\ket{\psi}$ and post-selecting on the first register being in the state $\ket{0}^{\otimes a}$ gives an output state proportional to $A\ket{\psi}$ in the second register.
 
 \begin{example}
     To give an example of block encoding, let us consider a $1 \times 1$ matrix $A=\alpha$ , where $0<\alpha<1$. In this extremely simple case, a block encoding of $A$ can be constructed as
@@ -14478,6 +14521,25 @@ So if $\alpha$ is chosen to be too large, the probability of obtaining all $0$s 
     (I-A^{\dagger}A)^{1/2} & A \end{bmatrix}
     \]
     this approach is not practical because it requires computing the square root of $A^{\dagger}A$, which requires computing and diagonalizing $A^{\dagger}A$. In general, there is no efficient algorithm to perform these operations on a quantum computer using $\mathcal{O}(poly(n))$ quantum gates.
+\end{example}
+\begin{example}
+Let $H$ be a Hamiltonian made up of $m$ Pauli terms, meaning that
+\[
+H=\sum_{a=1}^m \lambda_a E_a \text{ where $E_a$ is a tensor product of Pauli matrices}
+\]
+Find an algorithm implementing a Unitary close to $e^{-\iota Ht}$, so that $\|U-e^{\iota Ht}\|\leq \epsilon$.
+Original solutions proceeded by using Trotter approximations: for r large enough,
+\[
+e^{-\iota Ht}\approx (e^{-\iota E_1t/r} e^{-\iota E_2t/r } \ldots e^{-\iota E_mt/r })^r
+\]
+However, this solution is far from optimal, notably because implementing this approximation, requires $poly(1/\epsilon)$ gate complexity. Improved algorithms eventually developed into the framework below presented. This framework proceeds by:
+\begin{enumerate}
+    \item Defining a type of quantum circuit called a ``block-encoding"
+    \item Showing that, given $\lambda_a$ and $E_a$, we can construct an efficient block-encoding of $H$.
+    \item Showing that we can get a block-encoding of (an approximation of) $e^{-\iota Ht}$ with few uses of the block-encoding to $H$.
+    \item Using this block-encoding to apply our approximation to a state.
+\end{enumerate}
+A more general input model, as will be discussed in this chapter is called "block encoding". Of course, if A is a dense matrix without obvious structures, any input model will be very expensive (e.g. exponential in n) to implement. Therefore a commonly assumed input model is s-sparse there are at most s nonzero entries in each row/column of the matrix. Furthermore, we have an efficient procedure to get access to the location, as well as the value of the nonzero entries. This in general can again be a difficult task given that the number of nonzero entries can still be exponential in n for a sparse matrix. Some dense matrices may also be efficiently block encoded on quantum computers. This chapter will illustrate the block encoding procedure via a number of detailed examples.
 \end{example}
 \begin{example}
     A more practical scheme that does not require computing the square root of $A$ can be illustrated by the following real symmetric $2 \times 2$ example. Let
@@ -14507,7 +14569,11 @@ So if $\alpha$ is chosen to be too large, the probability of obtaining all $0$s 
     with $\beta_1 =\sqrt{1-\alpha_1^2}$ and $\beta_2 =\sqrt{1-\alpha_2^2}$. To implement this unitary on a quantum computer, we must further decompose $U_A$ as a product of simpler unitaries and construct a quantum circuit with a limited number of quantum gates. This method of block encoding cannot be easily generalized to matrices of larger dimensions. However, for special matrices with special structures ,e.g. sparse matrices, it is possible to develop some general block encoding strategies which we will discuss in the next section.
 \end{example}
 Finally, it can be difficult to find $U_A$ to encode $A$ exactly. This is not a problem, since it is sufficient if we can find $U_A$ to block encode $A$ upto some error $\epsilon$. We are now ready to give the definition of block encoding.
-
+\subsection{The Definition}
+We introduce a definition of block encoding which we are going to work with. The main idea is rto represent a subnormalized matrix as the upper-left block of a unitary.
+\[
+U=\begin{bmatrix} A/\alpha & * \\ * & * \end{bmatrix} \implies A=\alpha(\bra{0}\otimes I)U(\ket{0}\otimes I)
+\]
 \begin{definition}
     (Block encoding) Given an n-qubit matrix $A$ ($N=2^n$), if we can find $\alpha,\epsilon \in \mathbb{R}_+$, and an $(m+n)$-qubit unitary matrix $U_A$ so that
     \[
@@ -14515,20 +14581,27 @@ Finally, it can be difficult to find $U_A$ to encode $A$ exactly. This is not a 
     \]
     then $U_A$ is called an $(\alpha,m,\epsilon)$-block encoding of $A$. When the block encoding is exact with $\epsilon=0$, $U_A$ is called an $(\alpha,m)$-block encoding of $A$. The set of all $(\alpha,m,\epsilon)$-block-encoding of $A$ is denoted by $BE_{\alpha,m}(A,\epsilon)$, and we define $BE_{\alpha,m}A=BE(A,0)$.
 \end{definition}
-Here, $m$ is the number of ancilla bits used to blcoke encode $A$.
+Here, $m$ is the number of ancilla bits used to block encode $A$.
+\begin{importantnote}
+    In addition to the definition of block-encoding, one can also define an asymmetric version as follows:
+    \[
+    \|A-\alpha(\bra{0}^{\otimes a}\otimes I)U_A(\ket{0}^{\otimes b}\otimes I)\|\leq \epsilon
+    \]
+    where $a$ may not equal $b$. In this case, $U_A$ can be considered to be an $(\alpha,(a,b),\epsilon)$-or an $(\alpha,max(a,b),\epsilon)$ block-encoding of $A$. This can be useful for block-encoding a non-square matrix.
+\end{importantnote}
 
 Assume we know each matrix element of the n-qubit matrix $A_{ij}$, and we are given an (n+m)-qubit unitary $U_A$. In order to verify that $U_A \in BE_{1,m}(A)$ we only need to verify that
 \[
 \bra{0^m}\bra{i}U_A\ket{0^m}\ket{j}=A_{ij}
 \]
-Here, $\ket{0^m}\ket{j}$ will be a column vector of size $(2^m \times 1 \otimes  2^n \times 1= 2^{m+n} \times 1)$ which will be 1 in the jth row and 0 everywhere else. Similar arguments can be used for establishing $\bra{0^m}\bra{i}$ which will be a row vector with 1 in the ith column entry and 0 everywhere else. Thus, upon multiplying the matrices it will pick the $i,j$ th entry of the matrix $U_A$ which will be $A_{ij}$. $U_A$ applied to the vector $\ket{0^m,b}$ can be obtained via the superposition principle.
+Here, $\ket{0^m}\ket{j}$ will be a column vector of size $(2^m \times 1 \otimes  2^n \times 1= 2^{m+n} \times 1)$ which will be 1 in the jth row and 0 everywhere else. Similar arguments can be used for establishing $\bra{0^m}\bra{i}$ which will be a row vector with 1 in the ith column entry and 0 everywhere else. Thus, upon multiplying the matrices, the $\ket{0^m}\ket{j}$ will pick the $j$th column of the matrix $U_A$ which will correspond to the $j$th column of the matrix $A$ and $\bra{0^m}\bra{i}$ will pick the $i$th row of $U_A$ which will correspond to the $i$th row of $A$, thus, it will pick the $i,j$ th entry of the matrix $U_A$ which will be $A_{ij}$. $U_A$ applied to the vector $\ket{0^m,b}$ can be obtained via the superposition principle.
 
 Therefore we may first evaluate the state $U_A\ket{0^m,j}$, and perform inner product with $\ket{0^m,i}$ and verify the resulting the inner product is $A_{ij}$. We will also use the following technique frequently. Assume $U_A=U_BU_C$, and then
 \[
 \braket{0^m,i|U_A\ket{0^m,j}}=\braket{0^m,i|U_BU_C\ket{0^m,j}}=(U^{\dagger}_B\ket{0^m,i})^{\dagger}(U_C\ket{0^m,j})
 \]
 So we can evaluate the states $U^{\dagger}_B\ket{0^m,i},U_C\ket{0^mj}$ independently, and then verify the inner product is $A_{ij}$. Such a calculation amounts to running the circuit shown in fig \ref{fig:generalblockencoding}, and if the ancilla qubits are measured to be $0^m$, the system qubits return the normalized state $\sum_iA_{ij}\ket{i}/\|\sum_iA_{ij}\ket{i}\|$.
-\begin{figure}
+\begin{figure}[ht]
     \centering
     \includegraphics[width=1\linewidth]{../images/generalblockencoding.png}
     \caption{Circuit for general block encoding of A}
@@ -14563,16 +14636,210 @@ This example shows that in principle, any matrix $A$ with $\|A\|_2\leq 1$ can be
     \]
     This proves that $U_A\in BE_{1,1}(A)$i.e., $U_A$ is a $(1,1)$-block-encoding of the diagonal matrix $A$.
 \end{example}
+There are several ways of implementing block-encodings based on the choice of matrix. In particular, we will now describe how to construct block-encodings of unitary matrices, density operators, POVM operators, sparse-access matrices, and matrices stored in a QROM (by QROM we mean quantum read-only memory, which stores classical data that can be accessed in superposition). Quantum matrix arithmetics carries out all calculations in an operational way, meaning that the matrices are represented by block-encodings in principle enabling exponential speedups in terms of the dimension of the matrices.
 
-\section{Block Encoding of s-sparse matrix}
-We now give a few examples of block encodings of more general structured sparse matrices. 
+Note that in all these cases since $\|U\|=1$ we necessarily have $\|A\|\leq \alpha+\epsilon$. Also note that using the above defintiion it seems that we can only represent square matrices of size $2^n \times 2^n$. However, this is not really a restriction. Suppose that $A\in\mathbb{C}^{n\times m}$, where $n,m\leq 2^s$. Then we can define an embedding matrices denoted by $A_e\in\mathbb{C}^{2^s\times 2^s}$ such that the top-left block of $A_e$ is $A$ and all other elements are zero. This embedding is a faithful representation of the matrices. Suppose that $A,B\in\mathbb{C}^{n\times m}$ are matrices, then $A_e+B_e=(A+B)_e$. Moreover, suppose $X\in\mathbb{C}^{m\times k}$ for some $k\leq 2^s$, then $A_e\cdot C_e=(A\cdot C)_e$.
+
+\section{Unitary Matrices - Trivial Block Encoding}
+Unitary matrices are $(1,0,0)$-block-encodings of themselves. Controlled unitaries (e.g. - CNOT) are essentially $(1,1,0)$-block encodings of the controlled operation.
+\begin{definition}
+    \textbf{(Trivial block-encoding)} A unitary matrix is a $(1,0,0)$-block encoding of itself.
+\end{definition}
+
+If we $\epsilon$-approximately implement a unitary $U$ using $a$ ancilla qubits via a unitary $\tilde{U}$ acting jointly on the system and the ancilla qubits, then $\tilde{U}$ is an $(1,a,\epsilon)$-block encoding of $U$. This is also a rather trivial encoding. Note that we make a slight distinction between ancilla qubits that are exactly returned to their original state after the computation and the ones that might pick up some error. The latter qubits we will treat as part of the encoding, and the former qubits we usually treat as purely ancillary qubits.
+
+Now we present some non-trivial ways for constructing block-encodings, which will serve as a toolbox for efficiently inputting and representing matrices for arithmetic computations on a quantum computer. We will denote by $I_w$ a $w$-qubit identity operator, and let $SWAP_w$ denote the swap operation of two $w$ qubit register. We denote by CNOT the controlled not gate that targets the first qubit. When clear from the context we use simply notation $\ket{0}$ to denote $\ket{0}^{\otimes w}$.
+
+\section{Block encoding of density operators}
+given an $s$-qubit density matrix $\rho$ and an $(a+s)$-qubit unitary $G$ that prepares a purification of $\rho$ as $G\ket{0}^{\otimes a}\ket{0}^{\otimes s}=\ket{\rho}$ (such that $tr_a\ket{\rho}\bra{\rho}=\rho$, where $tr_a$ denotes the trace over the first register), then the operator
+\[
+(G^{\dagger}\otimes I_s)(I_s\otimes SWAP_s)(G\otimes I_s)
+\]
+is a $(1,a+s,0)$-block encoding of the density matrix $\rho$, where $I_x$ denotes the identity operator on a register with $x$ qubits, and $SWAP_s$ denotes the operation that swaps two $s$ -qubit registers.
+\begin{lemma}
+    \textbf{(Block-encoding of density operators)} Suppose that $\rho$ is an $s$-qubit density operator and $G$ is an $(a+s)$-qubit unitary that on the $\ket{0}\ket{0}$ input state prepares a purification $\ket{0}\ket{0}\rightarrow \ket{\rho}$, such that $Tr_a \ket{\rho}\bra{\rho}=\rho$. Then $(G^{\dagger}\otimes I_s)(I_a\otimes SWAP_s)(G\otimes I_s)$ is a $(1,a+s,0)$-block encoding of $\rho$.
+\end{lemma}
+\begin{proof}
+    Let $r$ be the Schmidt-rank of $\rho$, let $\{\ket{\psi_k}:k\in[2^s]\}$ be an orthonormal basis, let $\{\ket{\phi_k}:k\in[r]\}$ be an orthonormal system and let $p \in [0,1]^{2^s}$ be such that $\ket{\rho}=\sum_{k=1}^r \sqrt{p_k}\ket{\phi_k}\ket{\psi_k}$ and $p_l=0$ for all $l\in[2^s] \notin [r]$. Then for all $i,j \in [2^s]$ we have that
+    \[
+        \bra{0}^{\otimes a+s}\bra{\psi_i}(G^{\dagger}\otimes I_s)(I_a)\otimes SWAP_s)(G^{\dagger}\otimes I_s)\ket{0}^{\otimes a+s}\ket{\psi_j}=
+    \]
+    \begin{align*}
+        &=\bra{\rho}\bra{\psi_i}(I_a\otimes SWAP_s)\ket{\rho}\ket{\psi_j}\\
+        &=\left(\sum_{k=1}^r \sqrt{p_k} \bra{\phi_k}\bra{\psi_k}\right)\bra{\psi_i}(I_a\otimes SWAP_s)\left(\sum_{l=1}^r\sqrt{p_l}\ket{\phi_l}\ket{\psi_l}\right) \ket{\psi_j}\\
+        &=\left(\sum_{k=1}^r \sqrt{p_k}\bra{\phi_k}\bra{\psi_k}\bra{\psi_i}\right) \left(\sum_{l=1}^r \sqrt{p_l}\ket{\phi_l}\ket{\psi_j}\ket{\psi_l}\right)\\
+        &=\sqrt{p_jp_i}\delta_{ij}\\
+        &=\bra{\psi_i}\rho\ket{\psi_j}
+    \end{align*}
+    Gilyen recently also showed that an implementation scheme for a POVM operator can also be easily transformed to block-encoding of the POVM operators. By an implementation scheme we mean a quantum circuit $u$ that given input $\rho$ and $a$ ancilla qubits, it sets a flat qubit to $0$ with probability $Tr[\rho M]$.
+\end{proof}
+
+\section{Block encoding of POVM operators}
+One can construct block-encodings of POVM operators, given access to a unitary that implements the POVM. Specifically, if $U$ is a unitary that implements the POVM $M$ to precision $\epsilon$ such that, for all $s$-qubit density operators $\rho$ we have
+\[
+|Tr(\rho M)-Tr[U(\ket{0}\bra{0}^{\otimes a}\otimes \rho)U^{\dagger}(\ket{0}\bra{0}\otimes I_{a+s-1}))]|\leq \epsilon
+\]
+then $(I_a\otimes U^{\dagger}(CNOT\otimes I_{a+s-1})(I_a\otimes U)$ is a $(1,1+a,\epsilon)$ bock encoding of $M$.
+\begin{lemma}
+    \textbf{(Block-encoding of POVM operators)} Suppose that $U$ is an $a+s$ qubit unitary, which implements a POVM operator $M$ with $\epsilon$-precision such that for all $s$-qubit density operator $\rho$.
+    \[
+    |Tr[\rho M]-Tr[U(\ket{0}\bra{0}^{\otimes a}\otimes \rho)U^{\dagger}(\ket{0}\bra{0}^{\otimes 1}\otimes I_{a+s-1})]|\leq \epsilon
+    \]
+    Then $(I_1\otimes U^{\dagger})(CNOT\otimes I_{a+s-1})(I_a\otimes U)$ is a $(1,1+a,\epsilon)$-block encoding of the matrix $M$.
+\end{lemma}
+\begin{proof}
+First observe that by the cyclicity of trace we have that
+\begin{align*}
+    Tr[U(\ket{0}\bra{0}^{\otimes a}\otimes \rho)U^{\dagger}(\ket{0}\bra{0}\otimes I_{a+s-1})] &=Tr[U(\ket{0}^{\otimes a}\otimes I)\rho(\bra{0}^{\otimes a}\otimes I)U^{\dagger}(\ket{0}\bra{0}\otimes I_{a+s-1})]\\
+    &=Tr[\rho(\bra{0}^{\otimes a}\otimes I)U^{\dagger}(\ket{0}\bra{0}\otimes I_{a+s-1})U(\ket{0}^{\otimes a}\otimes I)]
+\end{align*}
+Together, this implies that for all $\rho$ density operator
+\[
+|Tr[\rho(M-(\bra{0}^{\otimes a}\otimes I)U^{\dagger}(\ket{0}\bra{0}\otimes I_{a+s-1})U(\ket{0}^{\otimes a}\otimes I))]|\leq \epsilon
+\]
+which is equivalent to saying that $\|M-(\bra{0}^{\otimes a}\otimes I)(U^{\dagger}(\ket{0}\bra{0}\otimes I_{a+s-1})(I_a\otimes U)(\ket{0}^{\otimes 1+a}\otimes I)\|\leq \epsilon$. We can conclude by observing that
+\begin{align*}
+    (\bra{0}^{\otimes a}\otimes I)U^{\dagger}(\ket{0}\bra{0}\otimes I_{a+s-1}U(\ket{0}^{\otimes a}\otimes I)=
+\end{align*}
+\[
+=(\bra{0}^{\otimes 1+a}\otimes I)(I_a\otimes U^{\dagger})(CNOT\otimes I_{a+s-1})(I_1\otimes U)(\ket{0}^{\otimes 1+a}\otimes I)
+\]
+\end{proof}
+
+Now we turn to a more traditional way of constructing block-encoding via state preparation. This is a common technique for example to implement quantum walks. Note that we introduce the notation $[n]-1$ to denote the set $\{0,1,\ldots,n-1\}$.
+
+\section{Block-encoding of Gram matrices}
+One can implement a block-encoding of a Gram matrix using a pair of state preparation unitaries $U_L$ and $U_R$. In particular, the product
+\[
+U_A=U_L^{\dagger}U_R
+\]
+is a $(1,a,0)$-block-encoding of the Gram matrix $A$ whose entires are $A_{ij}=\braket{\psi_i|\phi_j}$, where 
+\[
+U_L\ket{0}^{\otimes a}\ket{i}=\ket{\psi_i}, \quad U_R\ket{0}^{\otimes a}\ket{j}=\ket{\phi_j}
+\]
+\begin{lemma}
+    \textbf{(Block encoding of gram matrices by state preparation unitaries)}. Let $U_l$ and $U_R$ be ``state preparation" unitaries acting on $a+s$ qubits preparing the vectors $\{\ket{\psi_i}:i\in [2^s]-1\}$, $\{\ket{\phi_j}:j\in[2^s]-1\}$ such that
+    \[
+    U_L:\ket{0}\ket{i}\rightarrow \ket{\psi_i}
+    \]
+    \[
+    U_R:\ket{0}\ket{j}\rightarrow \ket{\phi_j}
+    \]
+    Then $U=U_L^{\dagger}U_R$ is an $(1,a,0)$-block encoding of the Gram matrix $A$ such that $A_{ij}=\braket{\psi_i|\phi_j}$.
+\end{lemma}
+One can generalize the above strategy from Gram matrices to arbitrary matrices to produce $(\alpha,a,\epsilon)$-block encodings of general matrices $A$, where again $\alpha\geq \|A\|$.
+We now give a few examples of block encodings of more general structured sparse matrices. See block-encoding classical data for details.
+
+
+\section{Block Encoding of s-sparse matrix}\
+Sparse-access matrices: given a matrix $A\in\mathbb{C}^{2^w\times2^w}$ that is $s_r$-row sparse and $s_c$-columns sparse (meaning each row/column has at most $s_r$ or $s_c$ nonzero entries), then, defining $\|A\|_{max}=\max_{i,j} |A_{ij}|$, one can create a $(\sqrt{s_rs_c}\|A\|_{max},w+3,\epsilon)$-block-encoding of $A$ using oracles $O_r,O_c$, and $O_A$, defined below
+\[
+O_r:\ket{i}\ket{k}\rightarrow \ket{i}\ket{r_{ik}}\quad \forall i \in [2^w]-1,k\in[s_r]
+\]
+\[
+O_c:\ket{l}\ket{j}\rightarrow \ket{c_{lj}}\ket{j}, \quad \forall j \in [2^w]-1
+\]
+\[
+O_A:\ket{i}\ket{j}\ket{0}^{\otimes b}\rightarrow \ket{i}\ket{j}\ket{A_{ij}}\quad \forall i,j \in [2^w]-1
+\]
+In the above $r_{ij}$ is the index of the $j$th nonzero entry in the ith row of $A$ (or $j+2^w$ if there are less than $i$ non zero entries), and $c_{ij}$ is the index of the ith nonzero entry in the $j$th column of $A$ (or $i+2^w$ if there are less than $j$ nonzero entries), and $\ket{A_{ij}}$ is a $b$-bit binary encoding of the matrix element $A_{ij}$. To build the block-encoding, one needs one query to each of $O_r$ and $O_c$, and two queries of $O_A$. 
+
+\begin{lemma}
+    \textbf{(Block-encoding of sparse-access matrices)}. Let $A\in \mathbb{C}^{2^w\times 2^w}$ be a matrix that is $s_r$ row sparse and $s_c$-column sparse, and each element of $A$has absolute value at most $1$. Suppose that we have access to the following sparse-access oracles acting on two $(w+1)$ qubit registers.
+    \[
+    O_r:\ket{i}\ket{k}\rightarrow \ket{i}\ket{r_{ik}}\quad \forall i\in[2^w]-1,k\in[s_r]
+    \]
+    \[
+    O_c:\ket{l}\ket{j}\rightarrow \ket{c_{lj}}\ket{j}\quad \forall l \in [s_c],j\in[2^w]-1
+    \]
+    where $r_{ij}$ is the index for the $j$th non-zero entry of the $i$th row of $A$, or if there are less than $i$ nonzero entries than it is $j+2^w$, and similarly $c_{ij}$ is the index for the $i$th non-zero entry  of the $j$column of $A$, or if there are less than $j$ non zero entries, then it is $i+2^w$. Additionally assume that we have accesss to an oracle $O_A$ that returns the entries of $A$ in a binary description
+    \[
+    O_A:\ket{i}\ket{j}\ket{0}^{\otimes b}\rightarrow \ket{i}\ket{j}\ket{a_{ij}}\quad \forall i,j\in[2^w]-1
+    \]
+    where $a_{ij}$ is a $b$-bit binary description (for simplicity we assume here that the binary representation is exact) of the $ij$ matrix element of $A$. Then we can implement a $(\sqrt{s_rs_c},w+3,\epsilon)$ block-encoding of $A$ with a single use of $O_r$,$O_c$, two uses of $O_A$ and additionally using $O(w+\log^{2.5}\left(\frac{s_rs_c}{\epsilon}\right))$ one and two qubit gates while using $\mathcal{O}(b,\log^{2.5}\left(\frac{s_rs_c}{\epsilon}\right))$ ancilla qubits.
+\end{lemma}
+\begin{proof}
+    We proceed by constructing state preparation unitaries. We will work with $3$ registers the first of which is a single qubit register, and the other two registers have $(w+1)$ qubit unitary that implements the map $\ket{0}\rightarrow \sum_{k=1}^s \frac{\ket{k}}{\sqrt{s}}$, it is known that this operator $D_s$ can be implemented with $\mathcal{O}(2)$ quantum gates using $\mathcal{O}(1)$ ancilla qubits. Then we define the $2(w+1)$ qubit unitary $V_L=O_r(I_{w+2}\otimes D_{s_r})SWAP_{w+1}$ such that
+    \[
+    V_L:\ket{0}^{w+2}\ket{i}\rightarrow \sum_{k=1}^{s_r} \frac{\ket{i}\ket{r_{ik}}}{\sqrt{s_r}}\quad \forall i\in[2^w]-1
+    \]
+    We implement the operator $V_R=O_c(D_c\otimes I_{w+1})$ in a similar way acting as 
+    \[
+    V_R:\ket{0}^{w+2}\ket{j}\rightarrow \sum_{l=1}^{s_c}\frac{\ket{c_{lj}}\ket{j}}{\sqrt{s_c}}\quad \forall j \in [2^s]-1
+    \]
+    It is easy to see that the above unitaries are such that
+    \[
+    \bra{0}^{w+2}\bra{i}V_L^{\dagger}V_R\ket{0}^{w+2}\ket{j}=\frac{1}{\sqrt{s_rs_c}}\quad \text{if $a_{ij}\neq 0$ and $0$ otherwise}
+    \]
+    Now we define $U_L=I_1\otimes V_L$ and define $U_R$ as performing the unitary $I_a\otimes V_R$ followed by some extra computation. After performing $V_R$ we et a superposition of index pairs $\ket{i}\ket{j}$. Given an index pair $\ket{i}\ket{j}$ we query the matrix element $\ket{a_{ij}}$ using the oracle $O_A$. Then we do some elementary computations in order to implement a single qubit gate $\ket{0} \rightarrow a_{ij}\ket{0}+\sqrt{1-|a_{ij}|^2}\ket{1}$ on the first qubit, with precision $\mathcal{O}(poly(\frac{\epsilon}{s_rs_c}))$. This can be executed with the stated complexity. Finally we also need to uncompute everything which requires one more use of $O_A$. This way we get a good approximation of 
+    \[
+    U_R:\ket{0}^{w+3}\ket{j}\rightarrow \sum_{l=1}^{s_c}\frac{(a_{c_{lj}j}\ket{0}+\sqrt{1-|a_{c_{lj}j}}\ket{1})\ket{c_{lj}}\ket{j}}{\sqrt{s_c}}\quad \forall j\in[2^w]-1
+    \]
+    Note that in the above method the matrix gets subnormalized by a factor of $\frac{1}{\sqrt{s_rs_c}}$. If we would know that for example $\|A\|\leq \frac{1}{2}$, then we could amplify the block-encoding in order to remove this unwanted subnormalization using singular value amplification using block encoding roughly $\sqrt{s_rs_c}$ times. However, under some circumstances one can defeat the subnormalization more efficiently by doing an amplification at the level of state preparation unitaries using a technique called ``Uniform spectral gap amplification".
+\end{proof}
+
+\begin{lemma}
+    \textbf{(Preamplified block-encoding of sparse-access matrices)} Let $A\in\mathbb{C}^{2^w\times 2^w}$ be a matrix that is $s_r$ row sparse and $s_c$ columns sparse, and is given using the input oracles as defined before. let $a_i$ denote the $i$th row of $A$ and similarly $a_{j}$ the $j$th column. Let $q\in[0,2]$ and suppose that $n_r\in[1,s_r]$ is an upper bound on $\|a_i\||q^q$ and $n_c\in[1,s_c]$ is an upper bound on $\|a_.j\|_{2-q}^{2-q}$.
+
+    Let $m=max[\frac{s_r}{n_r},{s_c}{n_c}]$. Then we can implement a $)\sqrt{\frac{1}{2n_rn_c}},w+6,\epsilon)$-block encoding of $A$ with $\mathcal{O}(\sqrt{\frac{s_r}{n_r}}\log(\frac{s_rs_c}{\epsilon}))$ uses of $O_r$, $\mathcal{O}(\sqrt{\frac{s_c}{n_c}}\log (\frac{s_rs_c}{\epsilon}))$ uses of $O_c$, $\mathcal{O}(\sqrt{m}\log(\frac{s_rs_c}{\epsilon}))$ uses of $O_A$, and additionally using $\mathcal{O}(\sqrt{m}\log(\frac{s_rs_c}{\epsilon})+\log^{3.5}(\frac{s_rs_c}{\epsilon}))$ one and two qubit gates while using $\mathcal{O}(b,\log^{2.5}(\frac{s_rs_c}{\epsilon}))$ ancilla qubits.
+\end{lemma}
+\begin{proof}
+    The idea is very similar to the proof of previous lemma, we implement the unitaries $V_L,V_R$ the same way. However, we define $U_R,U_L$ slightly differently. using a similar method than in previous lemma we implement $\mathcal{O}(poly(\frac{\epsilon}{s_rs_c})$ approximations of the maps
+    \[
+    U_L:\ket{0}^{w+4}\ket{i}\rightarrow \sum_{k=1}^{s_r} \frac{(|a_{ir_{ik}}|^{\frac{q}{2}}\ket{0}+\sqrt{1-|a_Ir_{ik}|^q}\ket{1})\ket{0}\ket{i}\ket{r_{ik}}}{\sqrt{s_r}}\quad \forall i\in[2^w]-1
+    \]
+    \[
+    U_R:\ket{0}^{w+4}\ket{j}\rightarrow \sum_{l=1}^{s_c}\frac{\frac{a_{c_{lj}j}}{|a_{c_{lj}j}|}\ket{0}(|a_{c_{lj}j}|^{1-\frac{q}{2}}\ket{0}+\sqrt{1-|a_{c_{lj}j}|^{2-q}}\ket{1})\ket{c_{lj}}\ket{j}}{\sqrt{s_c}}\quad \forall j \in [2^w]-1
+    \]
+    It is easy to see that the above unitaries are such that
+    \[
+\bra{0}^{w+4}\bra{i}U_L^{\dagger}U_R\ket{0}^{w+4}\ket{j}=\frac{a_{ij}}{\sqrt{s_rs_c}}\quad \forall i,j \in [2^w]-1
+    \]
+    We can see that for all $i\in[2^w]-1$ the modified row vector $\sum_{k=1}^{s_r}\frac{|a_{ir_{ik}}|^{\frac{q}{2}}\ket{0}\ket{0}\ket{i}\ket{r_{ik}}}{\sqrt{s_r}}$ has squared norm at most $\frac{n_r}{s_r}$, and a similar $\frac{n_c}{s_c}$ upper bound holds for the squared norm of the modified column vector. Also observe that
+    \[
+    (\ket{0}\bra{0}\otimes I_{2w+3})U_L(\ket{0}\bra{0}^{w+4} \otimes I_2)=\sum_{j=0}^{2^w-1}\left(\sum_{k=1}^{s_r}\frac{|a_{ir_{ik}}|^{\frac{q}{2}}\ket{0}\ket{0}\ket{i}\ket{r_{ik}}}{\sqrt{s_r}}\right)\bra{0}^{w+4}\bra{j}
+    \]
+    which is a singular value decomposition with the singular values being the modified row norms. Therefore we can apply singular value amplification with amplification $\gamma_r=\sqrt{\frac{s_r}{\sqrt{2}n_r}}$ and precision $\mathcal{O}(poly\left(\frac{\epsilon}{s_rs_c}\right))$approximation of $\tilde{U_L}$ such that 
+    \[
+    (\bra{+}\otimes \ket{0}\bra{0}\otimes I_{2w+3})\tilde{U}_L (\ket{+}\otimes \ket{0}\bra{0}^{w+4}\otimes I_w)=\gamma_r \sum_{j=0}^{2^w-1}\left(\sum_{k=1}^{s_r}\frac{|a_{ir_{ik}}|^{\frac{q}{2}}\ket{0}\ket{0}\ket{i}\ket{r_{ik}}}{\sqrt{s_r}}\right)\bra{0}^{w+4}\bra{j}
+    \]
+    Similarly we apply singular value amplification with amplification $\gamma_c=\sqrt{\frac{s_c}{\sqrt{2}n_c}}$ and precision $\mathcal{O}(poly(\frac{\epsilon}{s_rs_c}))$ resulting in a $\mathcal{O}(poly(\frac{\epsilon}{s_rs_c}))$ approximation of $\tilde{U}_R$ such that
+    \[
+    \bra{++}\bra{0}^{w+4}\bra{i}\tilde{U}_L^{\dagger}\tilde{U}_R\ket{++}\ket{0}^{2+4}\ket{j}=\gamma_r\gamma_c \frac{a_{ij}}{\sqrt{s_rs_c}}=\frac{a_{ij}{\sqrt{2n_rn_c}}}\quad \forall i,j\in[2^w]-1
+    \]
+    Finally adding $4$ Hadamard gates we can change the $\ket{+}$ states above to $\ket{0}$ states, resulting in the $\left(\frac{1}{\sqrt{2n_rn_c}},w+6,\epsilon\right)$-block-encoding of $A$. The complexity statement follows similarly as in the previous proof, with extra observation that the singular value amplifications of $U_L$ and $U_R$ can be performed using degree $\mathcal{O}(\gamma_r \log(\frac{s_rs_c}{\epsilon}))$ and $\mathcal{O}(\gamma_c\log(\frac{s_rs_c}{\epsilon}))$ singular value transformations respectively.
+\end{proof}
+
+
+For $q\in[0,2]$ let us define $\mu_q(A)=\sqrt{n_q(A)n_{(2-q)}(A^T)}$, where $n_q(A)=\max_i\|a_i.\|_q^q$ is the qth power of the maximum $q$-norm of the rows of $A$. Let $A^{(q)}$ denote the matrix of the same dimensions as $A$, with (for complex values we define these non-integer powers using the principal value of the complex logarithm function) $A_{ij}^{(q)}=\sqrt{a_{ij}^q}$. 
+\begin{lemma}
+    \textbf{(Block-encodings of matrices stored in quantum data structures)} (here we assume that the data structures stores the matrices with sufficient precision. Let $A\in\mathbb{C}^{2^w\times 2^w}$.
+    \begin{enumerate}
+        \item fix $q\in[0,2]$. If $A^{(q)}$ and $(A^{(2-q)})^{\dagger}$ are both stored in quantum accessible data structures. then there exist unitaries $U_R$ and $U_L$ that can be implemented in time $\mathcal{O}(poly(w\log(1/\epsilon)))$ such that $U_R^{\dagger}U_L$ is a $(\mu_q(A),w+2,\epsilon)$ block-encoding of $A$.
+        \item On the other hand, if $A$ is stored in a quantum accessible data structure, then these exist unitaries $U_R$ and $U_L$ that can be implemented in time $\mathcal{O}(poly(w\log(e/\epsilon)))$ such that $U_R^{\dagger}U_L$ is an $(\|A\|_F,w+2,\epsilon)$-block -encoding of A.
+    \end{enumerate}
+\end{lemma}
+
+
+
+
+
+
+
+
+
+
+
+If, in addition to being sparse, the matrix also enjoys some additional structure, e.g. there are only a few distinct values that the matrix elements take, the complexity can be further improved. Finally, note that the sparsity dependence can be essentially quadratically improved to $(max(s_r,s_c))^{\frac{1}{2}+o(1)}$ using advanced Hamiltonian simulation techniques combined with taking the logarithm of unitaries, however the resulting subroutine may be impractical and comes with a worse precision dependence.
+
+
 \begin{example}
     Recall that real symmetric $2\times 2$ matrix example. If we define $\phi_1=\cos^{-1}(\alpha_1)+\cos^{-1}(\alpha_2)$ and $\phi_2=\cos^{-1}(\alpha_1)-\cos^{-1}(\alpha_2)$, then we can verify that the block encoding for the $2 \times 2$ matrix can be factored as a product of simple unitaries i.e.
     \[
     U_A=U_6U_5U_4U_3U_2U_1U_0
     \]
     where $U_0=U_6=I_2 \otimes H \otimes I_2$, $U_1=R_1 \otimes I_2 \otimes I_2, U_2=U_4=(I_2 \otimes E_0 + X \otimes E_1) \otimes I_2, U_3 =R_2 \otimes I_2 \otimes I_2$, and $U_5=I_2 \otimes (E_0 \otimes I_2 + E_1 \otimes X)$. Here, $H, X$ are the Hadamard and Pauli-X gates, $R_1=R_y(\phi_1)$, $R_2 =R_y(\phi_2)$ are the rotation matrices along y axis. and $E_0,E_1$ are the projectors. The quantum circuit associated with the factorization is given in figure \ref{fig:qcrealsymA}.
-\begin{figure}
+\begin{figure}[ht]
     \centering
     \includegraphics[width=0.75\linewidth]{../images/QCRealsymA.png}
     \caption{A quantum circuit for the block encoding of a $2 \times 2$ symmetric matrix $A$}
@@ -14853,14 +15120,325 @@ The square root operation is well defined if $A_{ij}\geq0$ for all entries. If $
     In this equality, we have used that $A$ is Hermitian: $A_{ij}=A^*_{ji}$, and there exists a unique $l$ such that $i=c(j,l)$, as well as a unique $l'$ such that $j=c(i,l')$.
 
     The quantum circuit in figure \ref{fig:hermitianblockencoding} is essentially construction in. The relation will quantum walks will be discussed further.
-    
 \end{proof}
 
 
+\section{Resource cost -gates and qubits}
+The complexity of block-encoding an operator depends on the type of data or operator being encoded and any underlying assumptions. For instance, unitaries are naturally block-encodings
+of themselves, and hence their resources requirements depend entirely on their circuit level implementation without any additional overhead for begin a ``block-encoding". By contrast, approaches that make use of state-preparation and QRAM to implement the block-encoding tend to have larger complexities, as those two subroutines typically dominate the resource requirements, as those two subroutines typically dominate the resource requirements. For example, the best-known circuit that implement block-encoding matrices of classical data for general, dense $N\times N$ matrices uses $\mathcal{O}(N\log (1/\epsilon))$ qubits to achieve minimum $T$-gate count (which also scales as $\mathcal{O}(N\log(1/\epsilon))$, or a larger $\mathcal{O}(N^2)$ $\mathcal{O}(N^2)$ number of qubits to achieve minimum $T$-gate depth (which scales as $\mathcal{O}(\log N +\log (1/\epsilon))$. In the sparse-access model, one can use $\mathcal{O}(w+\log^{2.5}(s_rs_c/\epsilon))$ one and two qubit gates, and $\mathcal{O}(b+\log^{2.5}(s_rs_c/\epsilon))$ ancilla qubits, in addition to the calls to the matrix entry $O_A$ and sparse access oracles $O_r$ and $O_c$, which must be implemented either by computing matrix entries "on the fly" or by using a QRAM primitive. Assuming appropriate binary representations of the numbers $A_{ij}$, the exponents of the above logarithms can be reduced to $1$ using some techniques.
+
+The value of block-encodings is not that it is always cheap to implement them (as it depends on the relevant cost metric and the data access model); rather, the concept of block-encodings is powerful because it allows a practitioner of quantum algorithms to study and optimize the block-encoding construction independently of how it is used within the larger algorithm.
+
+\begin{importantnote}
+    A block-encoded matrix $A$ must have norm $\|A||\leq 1$, or otherwise the matrix must first be normalized, and one must take care to keep track of normalization throughout the computation. In the definition of block-encodings shown above, the parameter $\alpha$ plays the role of normalizing $A$. Note that often above constructions are suboptimal in the sense that $\alpha>>\|A\|$, which can lead to increase complexity.
+
+    For a given desired block encoding, there can be several independent, yet equally valid implementations, and one can sometimes optimize for various resources when building the block-encoding. For example, many block-encoding strategies require a set in which some classical data is loaded into QRAM, but there are several ways of performing this data-loading step.
+
+    When using a block-encoding as part of a larger quantum algorithm, it is important to ensure that the overhead introduced by implementing a block-encoding will not outweigh any potential quantum speedups, as block-encoding can be very resource intensive.
+
+    the use of $\ket{0}^{\otimes a}$ as the ``signal" state is just one convention - we can use any ``signal" state, given a unitary to prepare it. One can also consider a more general definition as ``projected unitary encodings" which allows using an arbitrary subspace, rather than just a state-indexed block.
+\end{importantnote}
+
+\section{Example Use Cases}
+Block-encodings are ubiquitous in quantum algorithms, and they prevail in quantum algorithms that need coherent access to some linear operator or a method of implementing a no-unitary transformation on quantum data. Some specific examples:
+\begin{itemize}
+    \item We can manipulate block-encoded operators-for example, take convex or linear combinations, products ,tensor products, and other transformations of an input operator.
+    \item The combination of qubitization with quantum signal processing, or quantum singular value transformation can be used to realize algorithms by applying polynomial transformations to block-encoded matrices. Prominent examples are Hamiltonian simulation via qubitization, and matrix (psuedo) inversion that can be used for solving large linear system of equations or more generally least-squares regression problems.
+    \item Block-encoding can be used to provide coherent access to classical data in a quantum algorithm; for example, loading classical data into a quantum interior point method for portfolio optimization.
+\end{itemize}
 
 
 
 
+\chapter{Linear Combination of Unitaries}
+\section{Introduction}
+In practical applications, we are often not interested in constructing the Chebyshev Polynomial of $A$, but linear combination of Chebyshev polynomials. For instance, the matrix inversion problem can be solved by expanding $f(x)=x^{-1}$ using a linear combination of Chebyshev polynomials on the interval $[-1,-\kappa^{-1}] \cup [\kappa^{-1},1]$. Here we assume $\|A\|=1$ and $\|A\|\|A^{-1}\|$ is the condition number. One way to implement this is via a quantum primitive called the linear combination of unitaries.
+
+Let $T=\sum_{i=0}^{K-1} \alpha_i U_i$ be the linear combination of unitary matrices $U_i$. For simplicity let $K=2^{a}$, and $\alpha_i >0$ (Without loss of generality we can absorb the phase of $\alpha_i$ into the unitary $U_i$). Then
+\[
+U=\sum_{i \in [K]} \ket{i}\bra{i} \otimes U_i
+\]
+Let $V$ be a unitary operator satisfying
+\[
+V\ket{0^a} = \frac{1}{\sqrt{\|\alpha\|_1}} \sum_{i \in [K]} \sqrt{\alpha_i} \ket{i}
+\]
+and $V$ is called the prepare oracle. The 1-norm of the coefficients is given by
+\[
+\|\alpha\|_1 = \sum_{i} |\alpha_i|
+\]
+In the matrix form
+\[
+V=\frac{1}{\sqrt{\|\alpha\|_1}}\begin{bmatrix} \sqrt{\alpha_0} & \ldots & \ldots & \ldots \\
+\vdots & \ldots & \ddots & \ldots \\
+\sqrt{\alpha_{K-1}} & \ldots & \ldots & \ldots \end{bmatrix}
+\]
+where the first basis is $\ket{0^m}$, and all other basis functions are orthogonal to it. Then
+\[
+V^{\dagger} = \frac{1}{\sqrt{\|\alpha\|_1}} \begin{bmatrix} \sqrt{\alpha_0} & \ldots & \sqrt{\alpha_{K-1}} \\
+\ldots & \ldots & \ldots \\
+\vdots & \ddots & \ldots \\
+\ldots & \ldots & \ldots \end{bmatrix}
+\]
+Then $T$ can be implemented using the unitary given as follows (called the LCU lemma).
+\begin{lemma}
+    \textbf{(LCU)} Define $W=(V^{\dagger} \otimes I_n)U(V \otimes I_n)$, then for any $\ket{\psi}$,
+    \[
+    W\ket{0^a} \ket{\psi} = \frac{1}{\|\alpha\|_1} \ket{0^a}T\ket{\psi} + \ket{\tilde{\perp}}
+    \]
+    where $\ket{\tilde{\perp}}$ is an unnormalized state satisfying
+    \[
+    (\ket{0^a}\bra{0^a} \otimes I_n)\ket{\tilde{\perp}} = 0
+    \]
+    In other words, $W\in BE_{\|\alpha\|_1,a} (T)$
+\end{lemma}
+\begin{proof}
+    \begin{align*}
+    W\ket{0^a}\ket{\psi} &= (V^{\dagger} \otimes I_n)U(V\otimes I_n)\ket{0^a}\ket{\psi}\\
+    (V^{\dagger} \otimes I_n)U(V\otimes I_n)\ket{0^a}\ket{\psi}&= (V^{\dagger} \otimes I_n)U\frac{1}{\sqrt{\|\alpha\|_1}}\sum_{i} \sqrt{\alpha_i} \ket{i}\ket{\psi}\\
+    &=(V^{\dagger} \otimes I_n)\left(\sum_j \ket{j}\bra{j} \otimes U_j \right) \frac{1}{\sqrt{\|\alpha\|_1}}\sum_i \sqrt{\alpha_i}\ket{i}\ket{\psi}\\
+    &=(V^{\dagger} \otimes I_n) \left( \sum_j \sum_i \frac{\sqrt{\alpha_i}}{\sqrt{\|\alpha\|_1}} \ket{j}\braket{j|i} \otimes U_j\ket{\psi}\right)\\
+    &= (V^{\dagger} \otimes I_n) \left(\frac{1}{\sqrt{\|\alpha\|_1}}\sum_i {\sqrt{\alpha_i}} \ket{i} \otimes U_i\ket{\psi}\right)\\
+    &=\frac{1}{\sqrt{\|\alpha\|_1}}(V^{\dagger}\otimes I_n)\left(\sum_i \sqrt{\alpha_i} \ket{i} \otimes U_i\ket{\psi} \right)\\
+    &=\frac{1}{\sqrt{\|\alpha\|_1}}\left(\sum_i \sqrt{\alpha_i} V^{\dagger}\ket{i} \otimes U_i\ket{\psi}\right)\\
+    &=\frac{1}{\|\alpha\|_1} \left(\sum_i \sqrt{\alpha_i} \begin{bmatrix} \sqrt{\alpha_0} & \ldots & \sqrt{\alpha_{K-1}} \\
+\ldots & \ldots & \ldots \\
+\vdots & \ddots & \ldots \\
+\ldots & \ldots & \ldots \end{bmatrix} \ket{i} \otimes U_i\ket{\psi}\right)\\
+&=\frac{1}{\|\alpha\|_1}\left(\sqrt{\alpha_0}\begin{bmatrix} \sqrt{\alpha_0} \\ \ldots \\ \vdots \\ \ldots \end{bmatrix}  \otimes U_0\ket{\psi}+\ldots + \sqrt{\alpha_{K-1}} \begin{bmatrix}\sqrt{\alpha_{K-1}} \\ \ldots \\ \vdots \\ \ldots \end{bmatrix} \otimes U_{K-1}\ket{\psi}\right)\\
+&=\frac{1}{\|\alpha\|_1}\left(\sum_i \left(\begin{bmatrix} \alpha_i \\ 0 \\ \vdots \\ 0 \end{bmatrix} + \begin{bmatrix} 0 \\ \ldots \\ \vdots \\ \ldots \end{bmatrix}\right) \otimes U_i\ket{\psi} \right)\\
+&=\frac{1}{\|\alpha\|_1}\left(\sum_i \left(\begin{bmatrix} \alpha_i \\ 0 \\ \vdots \\ 0 \end{bmatrix} + \ket{\perp_i}\right) \otimes U_i\ket{\psi}\right)\\
+    \end{align*}
+
+    \begin{align*}
+        &=\frac{1}{\|\alpha\|_1}\left(\sum_i \left( \alpha_i\ket{0^a}+\ket{\perp_i}\right)\otimes U_i\ket{\psi}\right)\\
+        &=\frac{1}{\|\alpha\|_1}\left(\sum_i \alpha_i\ket{0^a} \otimes U_i\ket{\psi}+\ket{\perp_i}\otimes U_i\ket{\psi}\right)\\
+        &=\frac{1}{\|\alpha\|_1}\left(\sum_i \alpha_i\ket{0^a}U_i\ket{\psi} + \ket{\tilde{\perp}_i}\right)\\
+        &=\frac{1}{\|\alpha\|_1}\left(\sum_i \alpha_i\ket{0^a}U_i\ket{\psi} + \sum_i\ket{\tilde{\perp}_i}\right)\\
+        &=\frac{1}{\|\alpha\|_1}\left(\ket{0^a}\left(\sum_i\alpha_iU_i\right)\ket{\psi} + \ket{\tilde{\perp}}\right)\\
+        &=\frac{1}{\|\alpha\|_1}\ket{0^a}T\ket{\psi} + \ket{\tilde{\perp}}
+    \end{align*}
+    Thus, upon measuring the first register of $a$ qubits in $\ket{0}$ state will result in the second register being in the state $\frac{1}{\|\alpha\|_1}T\ket{\psi}$ state.
+\end{proof}
+
+The LCU lemma is a useful quantum primitive, as it states that the number of ancilla qubits needed only depends logarithmically on $K$, the number of terms in the linear combination. Hence it is possible to implement the linear combination of a very large number of terms efficiently. From a practical perspective, the select and prepare oracles uses multi-qubit controls, and can be difficult to implement.
+ If implemented directly, the number of multi-qubit controls again depends linearly on $K$ and is not desirable. Therefore an efficient implementation using LCU (in terms of the gate complexity) also requires additional structures in the prepare and select oracles. 
+ 
+ If we apply $W$ to $\ket{0^a\ket{\psi}}$ and measure the ancilla qubits, then the probability of obtaining the outcome $0^a$ in the ancilla qubits (and therefore obtaining the state $T \ket{\psi}/\|T\ket{\psi}\|$ in the system register) is $(\|T\ket{\psi}\|/\|\alpha\|_1)^2$. The expected number of repetition needed to succeed is $(\|\alpha\|_1/\|T\ket{\psi}\|)^2$. Now we demonstrate that using the amplitude amplification (AA), this number can be reduced to $\mathcal{O}(\|\alpha\|_1/T\ket{\psi}\|)$.
+
+\begin{remark} 
+\textbf{(Alternate construction of the prepare oracle)}. In some applications it may not be convenient to absorb the phase of $\alpha_i$ to the select oracle. In such a case, we may modify the prepare oracle instead. If $\alpha_i=r_ie^{\iota \theta_i}$ with $r_i>0,\theta_i \in [0,2\pi)$, we can define $\sqrt{\alpha_i} = \sqrt{r_i} e^{\iota \theta_i/2}$, and $V$ is defined as earlier. However instead of $V^{\dagger}$, we need to introduce
+\[
+\tilde{V} =\frac{1}{\sqrt{\|\alpha\|_1}} \begin{pmatrix} \sqrt{\alpha_0} & \ldots & \sqrt{\alpha_{K-1}} \\ 
+\ldots & \ldots & \ldots \\
+\vdots & \ddots & \vdots \\
+\ldots & \ldots & \ldots \end{pmatrix}
+\]
+Then following the same proof as earlier, we can show that $W=(\tilde{V}\otimes I_n)U(V\otimes I_n) \in BE_{\|\alpha\|_1,a}(T)$.
+\end{remark}
+\begin{remark}
+    \textbf{(Linear combination of non-unitaries)}. Using the block encoding technique, we may immediately obtain linear combination of general matrices that are not unitaries. However, with some abuse of notation, the term "LCU" will be used whether the terms to be combined are unitaries or not. In other words, the term ``linear combination of unitaries" should be loosely interpreted as ``Linear combination of things" (LCT) in many contexts.
+\end{remark}    
+
+For matrices given as linear combination of unitary operators (LCU), we can bloc-encode the matrix using the LCU technique. We provide a full description here. For $A=\sum_{i=1}^L c_iV_i$ with $V_i$ unitary, we define the oracles PREPARE (acting on $\lceil \log_2(L)\rceil$ ancilla qubits) and SELECT (acting on the ancilla and register qubits), and implement a $(\sum_i |c_i|,\lceil\log_2(L)\rceil,0)$-block-encoding of $A$, using $U=PREPARE^{\dagger}\cdot SELECT\cdot PREPARE$. The Hamiltonians of physical system can often be written as a linear combination of a moderate number of Pauli operators leading to a prevalence of this technique in quantum algorithms for chemistry and condensed matter physics.
+\section{Manipulating block-encodings}
+We use a simple but powerful method for implementing linear combination of unitary operators on a quantum computer. This technique can have exponentially improving the precision of Hamiltonian simulation. Later it was adapted for exponentially improving the precision of quantum linear equation solving. Here we present this method from the perspective of block-encoded matrices.
+
+Given one or more block encodings, we often want to form a single block-encoding of a product, tensor product, or linear combination of the individual block-encoded operators. this can be achieved as outlined below, using additional ancilla qubits.
+
+We will consider the case of two operators $A$ and $B$ with straightforward generalizations to additional operators. We are given an $(\alpha,a,\epsilon_a)$ block encoding $U_A$ of $A$, and a $(\beta,b,\epsilon_b)$ block-encoding $U_B$ of $B$. operators $A$ and $B$ act on system qubits $s$.
+
+First we define state preparation unitaries in order to conveniently state our result in the following lemma.
+\begin{definition}
+    \textbf{(State preparation pair)} Let $y\in\mathbb{C}^m$ and $\|y\|_a\leq \beta$, the pair of unitaries $(P_L,P_R)$ is called a $(\beta,b,\epsilon)$-state preparation pair if $P_L\ket{0}^{\otimes b}=\sum_{j=0}^{2^b-1}c_j\ket{j}$ and $P_R\ket{0}^{\otimes b}=\sum_{j=1}^{2^b-1}d_j\ket{j}$ such that $\sum_{j=0}^{m-1}|\beta(c_j^* d_j)-y_j|\leq\epsilon$ and for all $j\in m,\ldots,2^b-1$ we have $c_j^*d_j=0$.
+\end{definition}
+Now we show how to implement a block-encoding of block-encoded operators.
+
+\subsection{Products}
+
+In general if we want to take the product of two block encoded matrices we need to treat their ancilla qubits separately. In this case as the following lemma shows the errors simply add up and the block encoding does not introduce any additional errors.
+
+\begin{lemma}
+    \textbf{(Product of block-encoded matrices)}If $U$ is an $(\alpha,a,\delta)$-block-encoding of an $s$-qubit operator $A$, and $V$ is an $(\beta,b,\epsilon)$-block-encoding of an $s$-qubit operator $B$ then $(I_b\otimes U)(I_a\otimes V)$(where the identity operators act on each others ancilla qubits) is an $(\alpha\beta,a+b,\beta\delta)$ block-encoding of $AB$.
+\end{lemma}
+\begin{proof}
+    It is enough to show that for all $s$-qubit pure states $\ket{\phi},\ket{\psi}$ we have that 
+    \[
+    \bra{\phi}AB\ket{\psi}-\bra{\phi}(\bra{0}^{\otimes a}\otimes I)UV(\ket{0}^{\otimes a}\otimes I)\ket{\psi}|\leq \delta+\epsilon+2\sqrt{\delta\epsilon}
+    \]
+    Observe that
+    \begin{align*}
+        &\bra{\phi}(\bra{0}^{\otimes a}\otimes I)UV(\ket{0}^{\otimes a})\ket{\psi}\\
+        &=\bra{\phi}(\bra{0}^{\otimes a}\otimes I)U((\ket{0}\bra{0}^{\otimes a}\otimes I)+((I-\ket{0}\bra{0}^{\otimes a})\otimes I))+((I-\ket{0}\bra{0}^{\otimes a}\otimes I))V(\ket{0}^{\otimes a}\otimes I)\ket{\psi}\\
+        &=\bra{\phi}(\bra{0}^{\otimes a})U(\ket{0}^{\otimes a}\otimes I)(\bra{0}^{\otimes a}\otimes I)V(\ket{0}^{\otimes a}\otimes I)\ket{\psi}\\
+        &+\bra{\phi}(\bra{0}^{\otimes a}\otimes I)U((I-\ket{0}\bra{0}^{\otimes a})\otimes I)V(\ket{0}^{\otimes a}\otimes I)\ket{\psi}
+    \end{align*}
+    Now we can see that similarly, we have
+    \begin{align*}
+        &|\bra{\phi}AB\ket{\psi}-\bra{\phi}(\bra{0}^{\otimes a}\otimes I)(\bra{0}^{\otimes a}\otimes I)V(\ket{0}^{\otimes a}\otimes I)\ket{\psi}|\\
+        &=|\bra{\phi}(AB-(\bra{0}^{\otimes a}\otimes I)U(\ket{0}^{\otimes a}\otimes I)(\bra{0}^{\otimes a}\otimes I)V(\ket{0}^{\otimes a}\otimes I))\ket{\psi}\\
+        &\leq \|AB-(\bra{0}^{\otimes a}\otimes I)U(\ket{0}^{\otimes a}\otimes I)(\bra{0}^{\otimes a}\otimes I)V(\ket{0}^{\otimes a}\otimes I)\|\\
+        &\leq \delta +\epsilon
+    \end{align*}
+    Finally note that
+    \begin{align*}
+    &|\bra{\phi}(\bra{0}^{\otimes a}\otimes I)U(I-\ket{0}\bra{0}^{\otimes a})\otimes I)V(\ket{0}^{\otimes a}\otimes I)\ket{\psi}|\\
+    &=|\bra{\phi}(\bra{0}^{\otimes a}\otimes I)U((I-\ket{0}\bra{0}^{\otimes a})\otimes I)^2V(\ket{0}^{\otimes a}\otimes I)\ket{\psi}|\\
+    &\leq \|((I-\ket{0}\bra{0}^{\otimes a})\otimes I)U(\ket{0}^{\otimes a}\otimes I)\ket{\phi}\|\cdot \|((I-\ket{0}\bra{0}^{\otimes a})\otimes I)V(\ket{0}^{\otimes a}\otimes I)\ket{\psi}\|\\
+    &=\sqrt{1-\|(\ket{0}\bra{0}^{\otimes a}\otimes I)U(\ket{0}^{\otimes a}\otimes I)\ket{\phi}\|^2}\cdot \sqrt{1-\|\ket{0}\bra{0}^{\otimes a}\otimes I)V(\ket{0}^{\otimes a}\otimes I)V(\ket{0}^{\otimes a}\otimes I)\ket{\psi}\|^2}\\
+    &\leq \sqrt{1-(1-\delta)^2}\cdot \sqrt{1-(1-\epsilon)^2}\\
+    &\leq 2\sqrt{\delta \epsilon}
+    \end{align*}
+\end{proof}
+The following corollary suggest that if we multiply together multiple block-encoded unitaries, the error may grow super-linearly, but it increases at most quadratically with the number of factors in the product.
+
+\begin{corollary}
+\textbf{(Product of multiple block-encoded unitaries)} Suppose that $U_j$ is an $(1,a,\epsilon)$ block encoding of an $s$ qubit unitary operator $W_j$ for all $j\in[K]$. Then $\prod_{j=1}^K U_j$ is an $(1,a,4K^2\epsilon)$-block-encoding of $\prod_{j=1}^K W_j$.
+\end{corollary}
+\begin{proof}
+    First observe that for the product of two matrices we get the precision bound $4\epsilon$ by the above lemma. If $K=2^k$ for some $k\in\mathbb{N}$. Then we can apply the above observation in a recursive fashion in a binary tree structure, to get the yupper bound $4^k\epsilon$ on the precision, and observe that $4^k=K^2$.
+
+    If $2^{k-1}\leq K\leq 2^k$ we can just add identity operators so that we have $2^k$ matrices to multiple, which gives the precision bound $4^k\epsilon\leq 4^{1+\log_2 K}\epsilon =4K^2\epsilon$.
+\end{proof}
+
+
+The operator $U_{AB}=(I_b\otimes U_A)(U_B\otimes I_a)$ is an $(\alpha\beta,a+b,\alpha\epsilon_b+\beta\epsilon_a)$-block-encoding of $AB$, where $I_x$ denotes the identity operator on $x$ qubits. For example, if $a=b$, this construction uses twice as many ancilla qubits for block-encoding the product compared to the block-encoding of individual matrices. In fact we can assume without loss of generality that $a=b$ (by taking the max of the two) and improve the construction using the circuit in figure \ref{}.
+\begin{lemma}
+    \textbf{(Product of block-encoded matrices)}
+    If $U$ is an $(\alpha,a,\delta)$-block-encoding of an $s$ qubit operator $A$, and $V$ is an $(\beta,b,\epsilon)$-block-encoding of an $s$ qubit operator tthen $(I_b\otimes U)(I_a\otimes B)$ is an $(\alpha\beta,a+b,\alpha\epsilon+\beta\delta)$-block-encoding of $AB$.
+\end{lemma}
+\begin{proof}
+    \begin{align*}
+        &\|AB-\alpha\beta((\bra{0}^{\otimes a+b}\otimes I)(I_b\otimes U)(I_a\otimes V)(\ket{0}^{\otimes a+b)}otimes I)\|\\
+        &=\|AB-\alpha(\bra{0}^{\otimes a}\otimes I)U(\ket{0}^{\otimes a}\otimes I)\beta(\bra{0}^{\otimes b}\otimes I)V(\ket{0}^{\otimes b}\otimes I)\|\\
+        &=\|AB-\tilde{A}B+\tilde{A}B-\tilde{A}\tilde{B}\|\\
+        &=\|(A-\tilde{A})B+\tilde{A}(B-\tilde{B})\|\\
+        &\leq \|A\tilde{A}\|\beta +\alpha \|B-\tilde{B}\|\\
+        &\leq \alpha\epsilon+\beta\delta
+    \end{align*}
+    where $\tilde{A}=\alpha(\bra{0}^{\otimes a}\otimes I)U(\ket{0}^{\otimes a}\otimes I)$ and $\tilde{B}=\beta(\bra{0}^{\otimes b}\otimes I)V(\ket{0}^{\otimes b}\otimes I)$.
+\end{proof}
+In the special case when the encoded matrices are unitaries and their block-encoding does not use any extra scaling factor, then we might reuse the ancilla qubits, however it introduces an extra error term, which can be bounded by geometric mean of the two input error bounds.
+\subsection{Tensor products}
+the operation $U_{A\otimes B}=U_a \otimes U_B$ is an $(\alpha\beta,a+b,\alpha\epsilon_b+\beta\epsilon_a)$-block-encoding of the operator $A\otimes B$.
+
+\subsection{Linear Combinations}
+Linear combinations of block-encodings can be viewed as a generalization of the linear combination of Unitaries (LCU). We wish to iplement a block-encoding of $\sum_{i=0}^{L-1} c_iA_i$, where $c_i\in\mathbb{R}$(the LCU trick can also be extended to complex coefficients) and define $\lambda=\sum_{i=0}^{L-1}|c_i|$. We consider $L$ block-encodings $U_i$ that are $(1,m,\epsilon_i)$-block encodings of $A_i$. We note that in cases where the block-encodings have different $\alpha_i$ or $m_i$ values, the former can be absorbed into the $c_i$ values and latter can be taken as $m=\max_i m_i$.
+
+We first define an operator PREPARE by the following action on $\ket{0^{\lceil \log_2(L)\rceil}}$
+\[
+PREPARE\ket{0^{\lceil \log_2(L)}}=\frac{1}{\sqrt{\lambda}} \sum_j \sqrt{|c_j|}\ket{j}
+\]
+that prepares a weighted superposition on an ancilla register, such that the amplitudes are proportional to the square roots of the absolute values of the desired coefficients. We also define
+\[
+SELECT=\sum_{j=0}^{L-1}\ket{j}\bra{j}\otimes sign(c_j)U_j
+\]
+We then have the following result:
+\[
+(\bra{0^{\lceil \log_2(L)\rceil}}\otimes I)PREPARE^{\dagger}\cdot SELECT\cdot PREPARE (\ket{0^{\lceil \log_2(L)}}\otimes I)=\frac{1}{\lambda} \sum_{l=0}^{L-1} c_iU_i
+\]
+i.e. $U_{LC}=PREPARE^{\dagger}\cdot SELECT\cdot PREPARE$ is a $(\lambda,\lceil\log_2(L)\rceil,0)$-block-encoding of the LCU $\sum_Ic_iU_i$. This is the standard LCU trick, and it does not require $U_i$ to be block encodings (or we can view them as $(1,0,0)$ block-encodings of themselves). This technique can be used in Hamiltonian simulation, or to instantiate a block-encoding.
+
+If, as specified above, $U_i$ are block-encodings of $\tilde{A}_i$ (which approximate $A_i$), we also have the following result:
+\[
+\|\left(\sum_i c_i A_i\right)-\lambda(\bra{0^{m+\lceil\log_2(L)\rceil}}\otimes I)U_{LC}(\ket{0^{m+\lceil \log_2(L)\rceil}}\otimes I)\|\leq \sum_i |c_i|\epsilon_i
+\]
+Hence, $U_{LC}$ is a $(\lambda,\lceil \log_2(L)\rceil +m, \lambda \max_i \epsilon_i)$ block-encoding of $\sum_i c_iA_i$.
+\begin{lemma}
+    \textbf{(Linear combination of block-encoded matrices)} Let $A=\sum_{j=1}^m y_jA_j$ be an $s$ qubit operator and $\epsilon\in\mathbb{R}_+$. Suppose that $(P_L,P_R)$ is a $(\beta,b,\epsilon_1)$ state preparation pair for $y$. $W=\sum_{j=0}^{m-1}\ket{j}\bra{j}\otimes U_j + ((I-\sum_{j=0}^{m-1}\ket{j}\bra{j}\otimes I_a\otimes I_s)$ is an $s+a+b$ qubit unitary such that for all $j \in 0,\ldots,m$ we have that $U_j$ is an $(\alpha, a,\epsilon_2)$ block-encoding of $A_j$. Then we can implement a $(\alpha\beta,a+b,\alpha\epsilon_1+\alpha\beta\epsilon_2)$-block-encoding of $A$, with a single use of $W$, $P_r$ and $P_L^{\dagger}$.
+\end{lemma}
+\begin{proof}
+    Observe that $\tilde{W}=(P_L^{\dagger}\otimes I_a\otimes I_s)W(P_R\otimes I_a\otimes I_s)$ is an $(\alpha\beta,a+b,\alpha\epsilon_1+\alpha\beta\epsilon_2)$block-encoding of $A$.
+    \begin{align*}
+        \|A-\alpha\beta(\bra{0}^{\otimes b}\otimes \bra{0}^{\otimes a}\otimes I)\tilde{W}(\ket{0}^{\otimes b}\otimes \ket{0}^{\otimes a}\otimes I)\|&=\|A-\alpha\sum_{j=0}^{m-1}\beta(c_j^*d_j)(\bra{0}^{\otimes a}\otimes I)U_j(\ket{0}^{\otimes a}\otimes I)\|\\
+        &\leq \alpha\epsilon_1 +\|A-\alpha\sum_{j=0}^{m-1}y_j (\bra{0}^{\otimes a}\otimes I)U_j (\ket{0}^{\otimes a}\otimes I)\|\\
+        &\leq \alpha\epsilon_1 + \alpha\sum_{j=0}^{m-1}y_j \|A_j - (\bra{0}^{\otimes a}\otimes I)U_j(\ket{0}^{\otimes a}\otimes I)\|\\
+        &\leq \alpha\epsilon_1 +\alpha\sum_{j=0}^{m-1}y_j\epsilon_2\\
+        &\leq \alpha\epsilon_1 +\alpha\beta\epsilon_2
+    \end{align*}
+\end{proof}
+\section{Examples}
+Linear combinations of block-encodings are used to obtain mixed-parity functions in QSVT required for Hamiltonian simulation. LCU trick is used for Hamiltonian simulation, or to instantiate block-encodings of chemistry or condensed matter physics Hamiltonians.
+\begin{example}
+    \textbf{(Linear combination of two matrices)}. Let $U_A, U_B$ be two n-qubit unitaries, and we would like to construct a block encoding of $T=U_A + U_B$.
+
+    There are two terms in total, so one ancilla qubit is needed. The prepare oracle needs to implement
+    \[
+    V\ket{0}=\frac{1}{\sqrt{2}}(\ket{0}+\ket{1})
+    \]
+    so this is the Hadamard gate. The circuit is given by figure \ref{fig:lcu2U}, which constructs $W \in BE_{\sqrt{2},1}(T)$.
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.5\linewidth]{../images/lcu2U.png}
+    \caption{Circuit for linear combination of two unitaries}
+    \label{fig:lcu2U}
+\end{figure}
+    A special case is the linear combination of two block encoded matrices. Given two n-qubit matrices $A,B$, for simplicity let $U_A \in BE_{1,m}(A), U_B \in BE_{1,m}(B)$. We would like to construct a block encoding of $T=A+B$. The circuit is given by figure \ref{fig:lcu2BE}, which constructs $W \in BE_{\sqrt{2},1+m}(T)$. This is also an example of a linear combination of non-unitary matrices.
+    \begin{figure}[ht]
+        \centering
+        \includegraphics[width=0.5\linewidth]{../images/lcu2BE.png}
+        \caption{Circuit for linear combination of two block encoded matrices}
+        \label{fig:lcu2BE}
+    \end{figure}
+\end{example}
+
+\begin{example}
+    (Transverse field Ising Model) Consider the following TFIM model with periodic boundary conditions $(Z_n=Z_0)$ and $n=2^m$.
+    \[
+    \hat{H}=-\sum_{i\in[n]} Z_i Z_{i+1} - \sum_{i \in [n]} X_i
+    \]
+    In order to use LCU we need (m+1) ancilla qubits. The prepare oracle can be simply constructed from the Hadamard gate
+    \[
+    V =H^{\otimes (m+1)}
+    \]
+    and the select oracle implements
+    \[
+    U=\sum_{i\in[n]} \ket{i}\bra{i} \otimes (-Z_iZ_{i+1} + \sum_{i\in[n]} \ket{i+n}\bra{i+n}\otimes (-X_i)
+    \]
+    The corresponding $W\in BE_{\sqrt{2n},n+1}(\hat{H})$.
+\end{example}
+\begin{example}
+    \textbf{(Block encoding of a matrix polynomial)} Let us use the LCU lemma to construct the block encoding for an arbitrary matrix polynomial for a Hermitian matrix $A$.
+    \[
+    f(A)=\sum_{k\in[K]}\alpha_kT_k(A)
+    \]
+    with $\|\alpha\|_1=\sum_{k\in[K]}|\alpha_k|$ and we set $K=2^a$. For simplicity assume $\alpha_k \geq 0$.
+
+    We have constructed $U_k = (U_A Z_{\Pi})^k$ as the $(1,m)$ block encoding of $T_k(A)$. From each $U_k$ we can implement the select oracle
+    \[
+    U=\sum_{k\in[K]} \ket{k}\bra{k}\otimes U_k
+    \]
+    via multi-qubit controls. Also given the availability of the prepare oracle
+    \[
+    V\ket{0^a} = \frac{1}{\sqrt{\|\alpha\|_1}} \sum_{k\in[K]} \sqrt{\alpha_k}\ket{k}
+    \]
+    we obtain a $(\|\alpha\|_1,m+a)$-block-encoding of $f(A)$.
+
+    The need of using $a$ ancilla qubtis, and even more importantly the need to implement the prepare and select oracles is undesirable. We will later see that the quantum signal processing (QSP) and quantum singular value transformation (QSVT) can drastically reduce bot sources of difficulties.
+\end{example}
+
+\begin{example}
+    \textbf{(Matrix functions given by a matrix Fourier Series)}. Instead of block encoding, LCU can also utilize a different query model based on Hamiltonian simulation. Let $A$ be an n-qubit Hermitian matrix. Consider $f(x) \in \mathbb{R}$ given by its Fourier expansion (up to a normalization factor)
+    \[
+    f(x) = \int \hat{f}(x)e^{\iota kx}dk
+    \]
+    and we are interested in computing the matrix function via numerical quadrature
+    \[
+    f(A) = \int \hat{f}(k) e^{\iota kA} dk \approx \Delta k\sum_{k\in [K]} \hat{f}(k) e^{\iota kA}
+    \]
+    Here $K$ is a uniform grid discertizing the interval $[-L,L]$ using $|K|=2^p$ grid points, and the grid space is $\Delta k=2L/|K|$. The prepare oracle is given by the coefficients $c_k =\Delta k\hat{f}(k)$, and the corresponding subnormalization factor is
+    \[
+    \|c\|_1 =\sum_{k\in [K]} \Delta k|\hat{f}(k)| \approx \int |\hat{f}(k)|dk
+    \]
+    The select oracle is
+    \[
+    U=\sum_{k\in K} \ket{k}\bra{k}\otimes e^{\iota k A}
+    \]
+    This can be efficiently implemented using the controlled matrix powers as in figure \ref{fig:controlledrotation}, where the basic unit is the short time Hamiltonian simulation $e^{\iota \Delta kA}$. This can be used to block encode a large class of matrix functions.
+\end{example}
+
+\begin{importantnote}
+    Performing linear algebraic manipulations of block-encodings using these primitives can quickly increase the ancilla count of the algorithm and worsen the normalization factor of the block-encoding. Amplifying a subnormalized block-encoding is possible, but costly, requiring an amount of time scaling roughly linearly in the amplification factor. Given a single block-encoded operator $A$, the above primitives can be used to implement a block-encoding polynomial in $A$. However, this can be achieved using quantum singular value transformation.
+\end{importantnote}
 
 
 
@@ -15374,7 +15952,16 @@ On the other hand, the query complexity of the HHL algorithm, even after using t
 \end{remark}
 
 \section{Improvements in HHL algorithm}
+The complexity of the above basic HHL algorithm can be improved further. Gilyen et al used the singular value transformation technique to implement $A^{-1}$, improving on an LCU construction due to Childs et al. We would like to apply the function $f(x)=1/x$ to a block-encoding of $A$ in order to get a block-encoding of $A^{-1}$ (up to normalization) that we can then apply to $\ket{b}\ket{0}$.
 
+The function $f(x)=1/x$ is not itself a polynomial, so we need to approximate it by a low-degree polynomial to be able to apply. Childs et al started from the following polynomial of degree $D=2b-1$ for $b=\mathcal{O}(\kappa^2 \log (\kappa/\epsilon))$:
+\[
+\dfrac{1-(1-x^2)^b}{x}
+\]
+This is indeed a polynomial because all terms in the numerator have degree $\geq 1$, so we can divide out the $x$ of the denominator. Since $(1-x^2)^b$ is close to $0$ (unless $|x|$ is small), this polynomial is indeed close to $1/x$ (unless $|x|$ is small, but we won't care about that because we'll apply this polynomial to a matrix whose eigenvalues aren't close to $0$). More precisely, this polynomial is $\epsilon/2$ close to $1/x$ whenever $x$ lies in the range $E_{\kappa}=[-1,-1/\kappa]\cup [1/\kappa,1]$. Its range on this domain is $[-\kappa,-1]\cup [1,\kappa]$ (ignoring the small $\epsilon$ for simplicity). Like every degree-$D$ polynomial, $f$ can be written exactly as a sum of $D+1$ Chebyshev polynomials of the first kind. These univariate polynomials are defined recursively as follows: $T_o(x)=1, T_1(x)=x$ and $T_{d+1}=2xT_d(x)-T_{d-1}(x)$. Note that $T_d$ has degree $d$, and maps $[-1,1]$ to $[-1,1]$. The polynomials $T_1,\ldots,T_D$ are linearly independent (even orthonormal in a certain way) and hence span the set of all univariate polynomials of degree $\leq D$. Childs et al show that the coefficients in this sum decrease quickly for larger degree, and that by dropping the resulting degree-$d$ polynomial $p$ $\epsilon$-approximates $1/x$ on the interval $E_k$, and its largest value (in absolute values) on this domain is $\kappa$. Now define the polynomial $P=p/(4\kappa)$. This has the same degree $d$ as $p$, but a range $[-1/4,1/4]$ that fits the assumption (there's a trick to ensure that the values of $P$ are within that range even for $x\approx 0$, which we'll skip here).
+We can implement a block-encoding of the $s$-sparse matrix $A/s$ using $O(1)$ sparse-access queries to $A$ and $O(n)$ other gates. Using a factor $O(s)$ more work, we can turn this into a block-encoding of $A$ itself (alternatively, we could directly invert the matrix $A/s$. whose singular values are $\geq 1/(\kappa s)$). With this block-encoding of $A$ and the polynomial $P=p/(4k)$, of degree $d=O(\kappa \log (\kappa/\epsilon))$. Note that all eigenvalues of $A$ lie in the interval $E_k$, where $p(x)\approx 1/x$, hence $p(A)\approx A^{-1}$ and $P(A)\approx \frac{1}{4\kappa}A^{-1}$. Then we have the block encoding of $P(A)$, at the expense of running the block-encoding of $A$ $O(d)$ times. Using $O(\kappa)$ rounds to amplitude amplification on top of this, we can get rid of the $1/(4\kappa)$ factor and end up with essentially the state $A^{-1}\ket{b}$ normalized. Note that we need to assume a unitary to prepare $\ket{b}$ here, having just one copy of $\ket{b}$ is not enough. We cannot use oblivious amplitude amplification because that assumes we have a block-encoding of a matrix that is proportional to a unitary (or close to that), which $A^{-1}$ is not. This gives a quantum algorithm that solves QLSP using $O(d\kappa s)=O(\kappa^2 s \log (\kappa/\epsilon))$ queries to $A$, and $O(\kappa s(\kappa n\log(\kappa/\epsilon)+B))$-2 qubit gates. Note that compared to basic HHL, dependence on $1/\epsilon$ has been improved from linear to logarithmic. The dependence on $\kappa$ can also be improved from quadratic to linear, using a technique called ``variable-time amplitude amplification".
+
+The HHL algorithm can in some cases solve the QLSP exponentially faster than classical algorithms can solve the LSP. In particular, if the sparsity $s$, the condition number $\kappa$, and the cost $B$ of preparing $\ket{b}$ are all $\leq polylog (N)$, and the allowed error is $\epsilon \geq 2^{-polylog(N)}$, then this improved version of the HHL algorithm uses $polylog(N)$ queries and gates to solve (in a quantum way) an $N$-dimensional linear system. It can also be used for other tasks, for instance approximately solving differential equations and other applications in scientific computing.
 \section{Implementation using Qiskit}
 
 \section{Applications}
@@ -15651,11 +16238,11 @@ Consider an undirected graph $G$ with $N$ vertices. Suppose at least an $\epsilo
     \item Repeat the following a number of times. 
     \item Check if $y$ is marked, and if not then choose one of its neighbors at random and set $y$ to be that neighbor.
 \end{enumerate}
-This may seem like a stupid algorithm, but it has certain advantages. For instance, it only need space $\mathcal{O}(\log N)$, because you need to keep track of the current vertex $y$ (Say there are 8 vertices then they can be represented using 3 bits, thus $\log N$ space required to keep track of the current vertex), and maybe a counter that keeps track of how many steps you have already taken. Note that here we are assuming the neighbors of a given vertex of a given vertex are efficiently commutable, so you don't actually need to keep the whole graph in memory. This will be true for all graphs we consider here. Such an algorithm can for example decide whether there is a path from specific vertex $y$ to a specific vertex $x$ using $\mathcal{O}(\log N)$ space. We'd start the walk at $y$ and only $x$ would be marked; one can show that if there exists a path from $y$ to $x$ in G, then we will reach $x$ in $poly(N)$ steps.
+This may seem like a stupid algorithm, but it has certain advantages. For instance, it only need space $\mathcal{O}(\log N)$, because you need to keep track of the current vertex $y$ (Say there are 8 vertices then they can be represented using 3 bits, thus $\log N$ space required to keep track of the current vertex), and maybe a counter that keeps track of how many steps you have already taken. Note that here we are assuming the neighbors of a given vertex are efficiently computable, so you don't actually need to keep the whole graph in memory. This will be true for all graphs we consider here. Such an algorithm can for example decide whether there is a path from specific vertex $y$ to a specific vertex $x$ using $\mathcal{O}(\log N)$ space. We'd start the walk at $y$ and only $x$ would be marked; one can show that if there exists a path from $y$ to $x$ in G, then we will reach $x$ in $poly(N)$ steps.
 
 let us restrict attention to $d$-regular graphs without self-loops, so each vertex has exactly $d$ neighbors. A random walk on such a graph $G$ corresponds to an $N \times N$ symmetric matrix $P$, where $P_{x,y} = 1/d$ if $(x,y)$ is an edge in $G$, and $P_{x,y}=0$ otherwise. This $P$ is the normalized adjacency matrix of $G$. If $v \in \mathbb{R}^N$ is a vector with a $1$ at position $y$ and 0s elsewhere, then $Pv$ is a vector whose $x$-th entry is $(Pv)_x=1/d$ if $(x,y)$ is an edge, and $(Pv)_x=0$ otherwise. In other words, $Pv$ is the uniform probability distribution over the neighbors of $y$, which is what you get by taking on step of the random walk starting at $y$. More generally, if $v$ is a probability distribution on the vertices, then $Pv$ is the new probability distribution on the vertices after taking one step of the random walk, and $P^kv$ is the probability distribution after taking $k$ steps.
 
-Suppose we start with some probability-distribution vector $v$ (which may or may not be centered at one vertex $y$). We will assume $G$ is connected and not bipartite. Then $P^kv$ will converge to the uniform distribution over all vertices, and the speed of convergence is determined by the ``gap" between the first eigenvalue of $P$ and all the other eigenvalues. This can be seen as follows. Let $\lambda_1 \geq \lambda_2 \geq \ldots \geq \lambda_N$ be the eigenvalues of $P$, ordered by size, and $v_1, v_2, \ldots, v_N$ be corresponding orthogonal eigenvectors. (Analysing graphs by looking at the eigenvalues and eigenvectors of their adjacency matrix is called ``algebraic graph theory" or ``spectral graph theory". The largest eigenvalue is $\lambda_1=1$, and corresponds to eigenvector $v_1=u=(1/N)$ which is the uniform distribution over all vertices. One can show that our assumption that $G$ is connected implies $\lambda_2 < 1$, and our assumption that $G$ is not bipartite implies $\lambda_N > -1$. Hence all eigenvalues $\lambda_i \in \{2,\ldots,N\}$ will be in $(-1,1)$; the corresponding eigenvector $v_i$ will be orthogonal to the uniform vector $u$, so the sum of its entries is $0$. Let $\delta > 0$  be the difference between $\lambda_1 = 1$ and $\max_{i\geq 2}|\lambda_i|$ (hence $|\lambda_i|\leq 1-\delta$ for all $i \geq 2$). This $\delta$ is called the ``spectral gap" of the graph.
+Suppose we start with some probability-distribution vector $v$ (which may or may not be centered at one vertex $y$). We will assume $G$ is connected and not bipartite. Then $P^kv$ will converge to the uniform distribution over all vertices, and the speed of convergence is determined by the ``gap" between the first eigenvalue of $P$ and all the other eigenvalues. This can be seen as follows. Let $\lambda_1 \geq \lambda_2 \geq \ldots \geq \lambda_N$ be the eigenvalues of $P$, ordered by size, and $v_1, v_2, \ldots, v_N$ be corresponding orthogonal eigenvectors. (Analysing graphs by looking at the eigenvalues and eigenvectors of their adjacency matrix is called ``algebraic graph theory" or ``spectral graph theory". The largest eigenvalue is $\lambda_1=1$, and corresponds to eigenvector $v_1=u=(1/N)$ which is the uniform distribution over all vertices. One can show that our assumption that $G$ is connected implies $\lambda_2 < 1$, and our assumption that $G$ is not bipartite implies $\lambda_N > -1$. Hence all eigenvalues $\lambda_i$ $\forall i \in \{2,\ldots,N\}$ will be in $(-1,1)$; the corresponding eigenvector $v_i$ will be orthogonal to the uniform vector $u$, so the sum of its entries is $0$. Let $\delta > 0$  be the difference between $\lambda_1 = 1$ and $\max_{i\geq 2}|\lambda_i|$ (hence $|\lambda_i|\leq 1-\delta$ for all $i \geq 2$). This $\delta$ is called the ``spectral gap" of the graph.
 
 Now decompose the starting distribution $v$ as $v =\sum_{i=1}^N \alpha_i v_i$. Since the sum of $v$'s entries is $1$, and the sum of $v_1$'s entries is $1$, while each other eigenvector $v_i$ ($i\geq2$) has entries summing to $0$, it follows that $\alpha_1=1$. Now let us see what happens if we apply the random walk for $k$ steps, starting from $v$:
 \[
@@ -15668,9 +16255,9 @@ Consider the squared norm of the difference between $P^kv$ and $u$:
 &\leq (1-\delta)^{2k}\sum_i |\alpha_i|^2\\
 \|P^{k}v-u\|^2&\leq \|v\|^2(1-\delta)^{2k}
 \end{align*}
-Since $v$ is a probability distribution we have $\|v\|^2\leq 1$. By choosing $k=ln(1/\eta)/\delta$, we get $\|P^kv-u\|\leq \eta$. In particular, if $\delta$ is not too small, then we get quick convergence of the random walk to the uniform distribution $u$, no matter which distribution $v$ started with (convergence if total variation distance can be derived from this by Cauchy-Schwarz, choosing $\eta <<1/\sqrt{N}$). Once we are close to the uniform distribution, we have probability roughly $\epsilon$ of hitting a marked vertex.Of course, the same happens if we just pick a vertex uniformly at random, but that may not always be an option if the graph is given implicitly.
+Since $v$ is a probability distribution we have $\|v\|^2\leq 1$. By choosing $k=ln(1/\eta)/\delta$, we get $\|P^kv-u\|\leq \eta$. In particular, if $\delta$ is not too small, then we get quick convergence of the random walk to the uniform distribution $u$, no matter which distribution $v$ started with (convergence in total variation distance can be derived from this by Cauchy-Schwarz, choosing $\eta <<1/\sqrt{N}$). Once we are close to the uniform distribution, we have probability roughly $\epsilon$ of hitting a marked vertex.Of course, the same happens if we just pick a vertex uniformly at random, but that may not always be an option if the graph is given implicitly.
 
-Suppose it costs $S$ to set up an initial state $v$; it costs $U$ to update the current vertex i.e. to perform one step of the random walk; and it costs $C$ to check whether a given vertex is marked. ``Cost" is left undefined for now, but typically it will count the number of queries to some input, or number of elementary operations. Consider a classical search algorithm that starts at $v$, and then repeats the following until it finds a marked vertex: check if the current vertex is marked, and if not run a random walk for roughly $1/\delta$ steps to get close to the uniform distribution. Ignoring constant factors, the expected cost before this procedure fins a marked item, is on the order of
+Suppose it costs $S$ to set up an initial state $v$; it costs $U$ to update the current vertex i.e. to perform one step of the random walk; and it costs $C$ to check whether a given vertex is marked. ``Cost" is left undefined for now, but typically it will count the number of queries to some input, or number of elementary operations. Consider a classical search algorithm that starts at $v$, and then repeats the following until it finds a marked vertex: check if the current vertex is marked, and if not run a random walk for roughly $1/\delta$ steps to get close to the uniform distribution. Ignoring constant factors, the expected cost before this procedure finds a marked item, is on the order of
 \[
 S+\frac{1}{\epsilon}\left(C + \frac{1}{\delta}U\right)
 \]
@@ -15714,8 +16301,44 @@ Choosing $k\approx \frac{\pi}{4\theta}=\mathcal{O}(1/\sqrt{\epsilon})$, we will 
         \item $\ket{x}\ket{0} \rightarrow \ket{x}\ket{p_x}$
         \item $\ket{0}\ket{y} \rightarrow \ket{p_y}\ket{y}$
     \end{enumerate}
-    Since (1)and (2) prepare a uniform superposition over the neighbors of $x$ and $y$, respectively, one can think of them as taking one classical walk step ``in superposition". Note that $ref(\mathcal{A})$ can be implemented by applying the inverse of 
+    Since (1)and (2) prepare a uniform superposition over the neighbors of $x$ and $y$, respectively, one can think of them as taking one classical walk step ``in superposition". Note that $ref(\mathcal{A})$ can be implemented by applying the inverse of (a), putting a minus if the second register is not $\ket{0}$, and applying (a). We can similarly implement $ref(\mathcal{B})$ using (2) and its inverse. Here we can think $W(P)=ref(\mathcal{B})ref(\mathcal{A})$ as corresponding to four steps of the classical walk in superposition.
+
+    To see how to implement the reflection through $\ket{U}$, let us consider the eigenvalues and eigenvectors of $W(P)$. The eigenvalue of $W(P)$ can be related to the eigenvalues of $\lambda_1,\lambda_2,\ldots$ of $P$ as follows.
+    Let $\theta_j \in [0,\pi/2]$ be such that $|\lambda_j|=\cos (\theta_j)$. We won't prove it here, but it turns out that the eigenvalues of $W(P)$ are of the form $e^{\pm 2\iota\theta_j}$ where $\theta_j \geq \sqrt{2\delta}$, because $1-\delta \geq |\lambda)j|=\cos(\theta_j)\geq 1 -\theta_j^2/2$. We want to implement a reflection $R(P)$ through the subspace spanned by the eigenvalue$-1$ eigenvectors of $W(P)$; restricted $R(P)$ through subspace spanned by $\ket{G}$ and $\ket{B}$ this will b the desired reflection through $\ket{U}$.
 \end{enumerate}
+
+
+\subsection{Continuous-time quantum walk}
+We will now introduce continuous-time quantum walk as a natural analog of continuous-time classical random walk, and we'll see some examples how the two kinds of processes differ.
+
+Random walks come in two flavors: discrete - and continuous-time random walk, so we consider this case first. Given a graph $G=(V,E)$, we define the continuous-time random walk on $G$ as follows. Let $A$ be the adjacency matrix of $G$, the $|V|\times |V|$ matrix with
+\[
+A_{j,k}=\begin{cases}1, &(j,k)\in E\\
+0 &(j,k)\notin E\end{cases}
+\]
+for every pair $j,k\in V$. In particular, if we disallow self loops, then the diagonal of $A$ is zero. There is another matrix associated with $G$ that is nearly as important: the Laplacian of $G$, which has
+\[
+L_{j,k}=\begin{cases} -deg(j) &j=k\\
+1 &(j,k)\in E\\
+0 &\text{otherwise}\end{cases}
+\]
+where $deg(j)$ denotes the degree of vertex $j$. (The Laplacian is sometimes defined different than this -e.g. sometimes with the opposite sign. We use this definition because it makes $L$ as a discrete approximation of the Laplacian operator $\nabla^2$ in the continuum.)
+
+The continuous-time random walk on $G$ is defined as the solution of the differential equation
+\[
+\frac{d}{dt}p_j(t)=\sum_{k\in V}L_{jk}p_k(t)
+\]
+Here $p_j(t)$ denotes the probability associated with vertex $j$ at time $t$. This can be viewed as a discrete analogy of the diffusion equation. Note that
+\[
+\frac{d}{dt}\sum_{j\in V}p_j(t)=\sum_{j,k\in V}L_{jk}p_k(t)=0
+\]
+(since the columns of $L$ sum to $0$), which shows that an initially normalized distribution remains normalized: the evolution of the continuous-time random walk for any time $t$ is a stochastic process. The solution of the differential equation can be given in closed form as
+\[
+p(t)=e^{Lt}p(0)
+\]
+
+
+
 
 
 
@@ -15758,6 +16381,60 @@ Many tasks in scientific computation can be expressed in terms of matrix functio
     \item Eigenstate filtering $f(A)=\mathbb{I}_{(-\infty,0)}(A-\mu I)$
 \end{itemize}
 A key technique for representing matrix functions is called qubitization.
+
+\chapter{Qubitization}
+\subsection{Motivation}
+Qubitization has the following motivation: we are given block-encoding of $U_A$ of a Hermitian operator $A$, and we wish to manipulate $A$ - e.g., implement $A^2$, or more generally some function $f(A)$.However, the eigenvalues of $U_A$ are typically unrelated to those of $A$, and plain repeated applications of $U_A$ do not in general produced the desired behavior. Qubitization converts the block-encoding $U_A$ into a unitary operator $W$ (sometimes called a qubiterate or a qubitized quantum walk operator) having the following guaranteed advantageous properties:
+\begin{enumerate}
+    \item $W$ is a block-encoding of the operator $A$.
+    \item The spectrum of $W$ has a nice relation to the spectrum of $A$.
+    \item Repeated applications of $W$ leads to structured behavior that can be cleanly analyzed.
+\end{enumerate}
+This combination of features means that qubitization can be used for applying polynomial transformations to the spectrum of $A$. For example, repeated application of $W$ implements Chebyshev polynomials of $A$, while other polynomials can be implemented by using quantum signal processing. 
+
+The key observation is that a qubitization unitary $W$ has eigenvalues and eigenvectors that relate in a nice way to those of $A$. Thus one can also perform quantum phase estimation on $W$ to learn these quantities, providing a potentially cheaper alternative to such tasks compared to approaches based on explicitly Hamiltonian simulation for implementing $U=e^{\iota At}$
+
+\subsection{Overview}
+We are given a $(1,m,0)$-block-encoding $U_A$ of Hermitian $A$ such that
+\[
+A=(\bra{0^m}\otimes I)U_A(\ket{0^m}\otimes I)\implies U_A=\begin{pmatrix} A & \cdot \\ 
+\cdot & \cdot \end{pmatrix}
+\]
+where $\ket{0^m}$ denotes $\ket{0}^{\otimes m}$. First we will assume $U_A$ is also Hermitian (implying $U_A^2=I$, where $I$ is the identity matrix). Let $A$ have spectral decomposition $A=\sum_{\lambda}\lambda\ket{\lambda}\bra{\lambda}$. An application of $U_A$ to an eigenstate $\ket{\lambda}$ of $A$ gives
+\[
+U_A\ket{0^m}\otimes \ket{\lambda}=\lambda\ket{0^m}\ket{\lambda}+\sqrt{1-\lambda^2}\ket{\perp_{0^m,\lambda}}
+\]
+where $\ket{\perp_{0^m,\lambda}}$ is a state perpendicular to $\ket{0^m}$ (If $\lambda =\pm 1$, then there is no need for $\ket{\perp_{0^m,\lambda}}$, and the subspace $S_{\lambda}$ becomes one dimensional). Noting $U_A^2=I$ reveals that the $2D$ subspace $S_{\lambda}$ spanned by $\{\ket{0^m}\ket{\lambda},\ket{\perp_{0^m,\lambda}}\}$ is invariant under the action of $U_A$. $U_A$ is restricted onto $S_{\lambda}$ can be described by the matrix
+\[
+\begin{pmatrix}
+    \lambda & \sqrt{1-\lambda^2}\\
+    \sqrt{1-\lambda^2} & -\lambda 
+\end{pmatrix}
+\]
+which is a $2D$ reflection with the eigenvalues $\pm 1$. Clearly, repeated application of (self-inverse) $U_A$ can have limited effect on any input state. Qubitization uses a reflection $Z_{\ket{0^m}}=(2\ket{0^m}\bra{0^m}-I)$ to transform $U_A$ into a Grover-like operator $W=Z_{\ket{0^m}}U_A$ which has the following matrix when restricted onto the invariant subspace $S_{\lambda}$ in the $\{\ket{0^m}\ket{\lambda},\ket{\perp_{0^m,\lambda}}\}$ basis
+\[
+[W]_{(\ket{0^m}\ket{\lambda},\ket{\perp_{0^m},\lambda}}=\begin{pmatrix}1 & 0 \\ 0 & -1 \end{pmatrix} \begin{pmatrix} \lambda & \sqrt{1-\lambda^2}\\
+\sqrt{1-\lambda^2} & -\lambda \end{pmatrix} = \begin{pmatrix} \lambda & \sqrt{1-\lambda^2} \\ 
+-\sqrt{1-\lambda^2} & \lambda
+\end{pmatrix}
+\]
+showing that $W$ is still a $(1,m,0)$-block-encoding of $A$. This has the form of of a $Y$-axis rotation
+\[
+[W]_{\ket{0^m}\ket{\lambda},\ket{\perp_{0^m},\lambda}}=\begin{pmatrix} \cos(\theta_{\lambda}) & \sin(\theta_{\lambda}) \\
+-\sin(\theta_{\lambda}) & \cos(\theta_{\lambda})\end{pmatrix}
+\]
+where $\theta_{\lambda}=arccos(\lambda)$. Therefore, $W$ has eigenvalues $e^{\pm arccos(\lambda)}$ with respective eigenvectors $(\ket{0^m}\ket{\lambda} \pm \iota \ket{0^m,\lambda})/\sqrt{2}$, which can be accessed using quantum phase estimation.
+
+Furthermore, we can see that on the space of the subspace $S_{\lambda}$ repeated application of $W$ acts as
+\begin{align*}
+W^d &=\bigoplus_{\lambda} \begin{pmatrix} \cos(d\theta_{\lambda}) & \sin(d\theta_{\lambda}) \\
+-\sin(d\theta_{\lambda}) & \cos(d\theta_{\lambda})\end{pmatrix}\\
+&=\bigoplus_{\lambda} \begin{pmatrix} T_d(\lambda) & \sqrt{1-\lambda^2} U_{d-1}(\lambda) \\
+-\sqrt{1-\lambda^2} U_{d-1}(\lambda) & T_d(\lambda) \end{pmatrix}\\
+&=\begin{pmatrix} T_d(A) & \cdot \\
+\cdot & \cdot \end{pmatrix}
+\end{align*}
+where $T_d(\cdot)$ and $U_d(\cdot)$ are degree-$d$ Chebyshev polynomials of the first and second king, respectively. Therefore, $W^d$ applies the polynomial transformation $T_d$ to each eigenvalue of $A$ thereby implementing $T_d(A)$.
 
 
 \section{Qubitization of Hermitian matrices with Hermitian block encoding}
@@ -15869,7 +16546,7 @@ In other words, the circuit in figure implements the operator $O$. Repeating the
 
 
 \begin{remark}
-    \textbf{(Alternative perspective of qubitization)} The fact that an arbitrarily large block encoding matrix $U_A$ can be partially block diagonalizeed into $N$ subblocks of size $2 \times 2$ may seem a rather peculiar algebraic structure. in fact there are other alternative perspectives and derivations of the qubitization result. Some noticeable ones include the use of Jordan's Lemma, and the use of cosine-sine (CS) decomposition.
+    \textbf{(Alternative perspective of qubitization)} The fact that an arbitrarily large block encoding matrix $U_A$ can be partially block diagonalized into $N$ subblocks of size $2 \times 2$ may seem a rather peculiar algebraic structure. in fact there are other alternative perspectives and derivations of the qubitization result. Some noticeable ones include the use of Jordan's Lemma, and the use of cosine-sine (CS) decomposition.
 \end{remark}
 
 \section{Qubitization of hermitian matrices with general block encoding}
@@ -15948,186 +16625,47 @@ In summary, the block encoding of $T_l(A0$ is given by applying $U_AZ_{\Pi}$ and
 
 Otherwise if $l=2k+1$, then there is an extra $U_AZ_{\Pi}$. The effect is to map each eigenvector $\ket{v}\ket{v_i}$ back and forth between the two-dimensional subspaces $\mathcal{H}_i$ and $\mathcal{H}_i'$. We shall later see that the separate treatment even/odd polynomials will play a more prominent role.
 
-Now that we have obtained $O_k \in BE_{1,m}(T_k(A))$ for all $k$, we can use the LCU again to construct block encodings for linear combinatio of Checbyshev polynomials.
+Now that we have obtained $O_k \in BE_{1,m}(T_k(A))$ for all $k$, we can use the LCU again to construct block encodings for linear combination of Chebyshev polynomials.
 
+\section{Dominant resource cost - qubits and gates}
+The resource cost of qubitization is inheritied from the cost of the block-encoding. Given a Hermitian $(\alpha,m,0)$-block-encoding, the qubitization operator $@$ is a (non-Hermitian) $(\alpha,m,0)$block-encoding, and it uses no additional qubits. The operation $Z_{\ket{0^m}}=2(\ket{0^m}\bra{0^m}-I)$ can be implemented (up to a global phase) with an $m$-qubit controlled $Z$ gate, equivalent to an $m$-qubit Toffoli gate up to single-qubit gates. An example qubitization circuit is shown below in figure \ref{} for $m=3$. Implementing a block-encoding of a degree $d$ Chebyshev polynomial applied to $A$ requires $d$ calls to $U_A$ and $Z_{\ket{0^m}}$.
 
-
-
-
-
-
-
-
-
-
-
-
-\chapter{Linear Combination of Unitaries}
-\section{Introduction}
-In practical applications, we are often not interested in constructing the Chebyshev Polynomial of $A$, but linear combination of Chebyshev polynomials. For instance, the matrix inversion problem can be solved by expanding $f(x)=x^{-1}$ using a linear combination of Chebyshev polynomials on the interval $[-1,-\kappa^{-1}] \cup [\kappa^{-1},1]$. Here we assume $\|A\|=1$ and $\|A\|\|A^{-1}\|$ is the condition number. One way to implement this is via a quantum primitive called the linear combination of unitaries.
-
-Let $T=\sum_{i=0}^{K-1} \alpha_i U_i$ be the linear combination of unitary matrices $U_i$. For simplicity let $K=2^{a}$, and $\alpha_i >0$ (Without loss of generality we can absorb the phase of $\alpha_i$ into the unitary $U_i$). Then
+if the block-encoding of $U_A$ is not Hermitian, qubitization can be achieved using the construction that uses one additional qubit and one call to controlled $U_A$ and controlled $U_A^{\dagger}$ to implement the Hermitian block-encoding.
 \[
-U=\sum_{i \in [K]} \ket{i}\bra{i} \otimes U_i
+U_A'=((HX)\otimes I)(\ket{0}\bra{0}\otimes U_A + \ket{1}\bra{1}\otimes U_A^{|dagger})(H\otimes I)
 \]
-Let $V$ be a unitary operator satisfying
+An alternate to qubitization is based on singular value transformation that uses the sequence $Z_{\ket{0^m}}U_{A}^{\dagger}Z_{\ket{0^m}}U_A$, analogous to the earlier $W^2$, acting as
 \[
-V\ket{0^a} = \frac{1}{\sqrt{\|\alpha\|_1}} \sum_{i \in [K]} \sqrt{\alpha_i} \ket{i}
+\begin{pmatrix}
+    \lambda & \sqrt{1-\lambda^2} \\
+    -\sqrt{1-\lambda^2} & \lambda
+\end{pmatrix}
 \]
-and $V$ is called the prepare oracle. The 1-norm of the coefficients is given by
-\[
-\|\alpha\|_1 = \sum_{i} |\alpha_i|
-\]
-In the matrix form
-\[
-V=\frac{1}{\sqrt{\|\alpha\|_1}}\begin{bmatrix} \sqrt{\alpha_0} & \ldots & \ldots & \ldots \\
-\vdots & \ldots & \ddots & \ldots \\
-\sqrt{\alpha_{K-1}} & \ldots & \ldots & \ldots \end{bmatrix}
-\]
-where the first basis is $\ket{0^m}$, and all other basis functions are orthogonal to it. Then
-\[
-V^{\dagger} = \frac{1}{\sqrt{\|\alpha\|_1}} \begin{bmatrix} \sqrt{\alpha_0} & \ldots & \sqrt{\alpha_{K-1}} \\
-\ldots & \ldots & \ldots \\
-\vdots & \ddots & \ldots \\
-\ldots & \ldots & \ldots \end{bmatrix}
-\]
-Then $T$ can be implemented using the unitary given as follows (called the LCU lemma).
-\begin{lemma}
-    \textbf{(LCU)} Define $W=(V^{\dagger} \otimes I_n)U(V \otimes I_n)$, then for any $\ket{\psi}$,
-    \[
-    W\ket{0^a} \ket{\psi} = \frac{1}{\|\alpha\|_1} \ket{0^a}T\ket{\psi} + \ket{\tilde{\perp}}
-    \]
-    where $\ket{\tilde{\perp}}$ is an unnormalized state satisfying
-    \[
-    (\ket{0^a}\bra{0^a} \otimes I_n)\ket{\tilde{\perp}} = 0
-    \]
-    In other words, $W\in BE_{\|\alpha\|_1,a} (T)$
-\end{lemma}
-\begin{proof}
-    \begin{align*}
-    W\ket{0^a}\ket{\psi} &= (V^{\dagger} \otimes I_n)U(V\otimes I_n)\ket{0^a}\ket{\psi}\\
-    (V^{\dagger} \otimes I_n)U(V\otimes I_n)\ket{0^a}\ket{\psi}&= (V^{\dagger} \otimes I_n)U\frac{1}{\sqrt{\|\alpha\|_1}}\sum_{i} \sqrt{\alpha_i} \ket{i}\ket{\psi}\\
-    &=(V^{\dagger} \otimes I_n)\left(\sum_j \ket{j}\bra{j} \otimes U_j \right) \frac{1}{\sqrt{\|\alpha\|_1}}\sum_i \sqrt{\alpha_i}\ket{i}\ket{\psi}\\
-    &=(V^{\dagger} \otimes I_n) \left( \sum_j \sum_i \frac{\sqrt{\alpha_i}}{\sqrt{\|\alpha\|_1}} \ket{j}\braket{j|i} \otimes U_j\ket{\psi}\right)\\
-    &= (V^{\dagger} \otimes I_n) \left(\frac{1}{\sqrt{\|\alpha\|_1}}\sum_i {\sqrt{\alpha_i}} \ket{i} \otimes U_i\ket{\psi}\right)\\
-    &=\frac{1}{\sqrt{\|\alpha\|_1}}(V^{\dagger}\otimes I_n)\left(\sum_i \sqrt{\alpha_i} \ket{i} \otimes U_i\ket{\psi} \right)\\
-    &=\frac{1}{\sqrt{\|\alpha\|_1}}\left(\sum_i \sqrt{\alpha_i} V^{\dagger}\ket{i} \otimes U_i\ket{\psi}\right)\\
-    &=\frac{1}{\|\alpha\|_1} \left(\sum_i \sqrt{\alpha_i} \begin{bmatrix} \sqrt{\alpha_0} & \ldots & \sqrt{\alpha_{K-1}} \\
-\ldots & \ldots & \ldots \\
-\vdots & \ddots & \ldots \\
-\ldots & \ldots & \ldots \end{bmatrix} \ket{i} \otimes U_i\ket{\psi}\right)\\
-&=\frac{1}{\|\alpha\|_1}\left(\sqrt{\alpha_0}\begin{bmatrix} \sqrt{\alpha_0} \\ \ldots \\ \vdots \\ \ldots \end{bmatrix}  \otimes U_0\ket{\psi}+\ldots + \sqrt{\alpha_{K-1}} \begin{bmatrix}\sqrt{\alpha_{K-1}} \\ \ldots \\ \vdots \\ \ldots \end{bmatrix} \otimes U_{K-1}\ket{\psi}\right)\\
-&=\frac{1}{\|\alpha\|_1}\left(\sum_i \left(\begin{bmatrix} \alpha_i \\ 0 \\ \vdots \\ 0 \end{bmatrix} + \begin{bmatrix} 0 \\ \ldots \\ \vdots \\ \ldots \end{bmatrix}\right) \otimes U_i\ket{\psi} \right)\\
-&=\frac{1}{\|\alpha\|_1}\left(\sum_i \left(\begin{bmatrix} \alpha_i \\ 0 \\ \vdots \\ 0 \end{bmatrix} + \ket{\perp_i}\right) \otimes U_i\ket{\psi}\right)\\
-    \end{align*}
+on a 2D subspace analogous to $S_{\lambda}$. The approach can be extended to odd-degree polynomials with a single additional application of $Z_{\ket{0^m}}U_A$. The advantage of this approach is it does not require $U_A$ to be Hermitian, thus there is no need for an additional qubit or calles to controlled $U_A^{\pm 1}$. This approach may be referred to as ``quantum eigenvalue transformation" as this is a special case of quantum singular value trnasformation just appleid to Hermitian $A$.
 
-    \begin{align*}
-        &=\frac{1}{\|\alpha\|_1}\left(\sum_i \left( \alpha_i\ket{0^a}+\ket{\perp_i}\right)\otimes U_i\ket{\psi}\right)\\
-        &=\frac{1}{\|\alpha\|_1}\left(\sum_i \alpha_i\ket{0^a} \otimes U_i\ket{\psi}+\ket{\perp_i}\otimes U_i\ket{\psi}\right)\\
-        &=\frac{1}{\|\alpha\|_1}\left(\sum_i \alpha_i\ket{0^a}U_i\ket{\psi} + \ket{\tilde{\perp}_i}\right)\\
-        &=\frac{1}{\|\alpha\|_1}\left(\sum_i \alpha_i\ket{0^a}U_i\ket{\psi} + \sum_i\ket{\tilde{\perp}_i}\right)\\
-        &=\frac{1}{\|\alpha\|_1}\left(\ket{0^a}\left(\sum_i\alpha_iU_i\right)\ket{\psi} + \ket{\tilde{\perp}}\right)\\
-        &=\frac{1}{\|\alpha\|_1}\ket{0^a}T\ket{\psi} + \ket{\tilde{\perp}}
-    \end{align*}
-    Thus, upon measuring the first register of $a$ qubits in $\ket{0}$ state will result in the second register being in the state $\frac{1}{\|\alpha\|_1}T\ket{\psi}$ state.
-\end{proof}
+\begin{importantnote}
+    The original formualtion of qubitization discussed above requires a Hermitian or normal block-encoded matrix $A$. The concept can be extended to general (non-square) matrices via quantum singular value transformation, providing a significant generalizatin, however in some cases quantum signal processing and its generalized versions can exploit additional structure that comes for example from the extra symmetries of Hermitian block-encoding leading to potentia cost factor savings. 
 
-The LCU lemma is a useful quantum primitive, as it states that the number of ancilla qubits needed only depends logarithmically on $K$, the number of terms in the linear combination. Hence it is possible to implement the linear combination of a very large number of terms efficiently. From a practical perspective, the select and prepare oracles uses multi-qubit controls, and can be difficult to implement.
- If implemented directly, the number of multi-qubit controls again depends linearly on $K$ and is not desirable. Therefore an efficient implementation using LCU (in terms of the gate complexity) also requires additional structures in the prepare and select oracles. 
- 
- If we apply $W$ to $\ket{0^a\ket{\psi}}$ and measure the ancilla qubits, then the probability of obtaining the outcome $0^a$ in the ancilla qubits (and therefore obtaining the state $T \ket{\psi}/\|T\ket{\psi}\|$ in the system register) is $(\|T\ket{\psi}\|/\|\alpha\|_1)^2$. The expected number of repetition needed to succeed is $(\|\alpha\|_1/\|T\ket{\psi}\|)^2$. Now we demonstrate that using the amplitude amplification (AA), this number can be reduced to $\mathcal{O}(\|\alpha\|_1/T\ket{\psi}\|)$.
+    Consider for example Hamiltonian simulation, where QSVT separately implements $\sin(tH)$ and $\cos(tH)$ using a block-encoding of $U_H$ of the Hamiltonian $H$, and applies a $3$ step oblivious amplification procedure on top of linear combination of unitaries to implement $exp(\iota tH)$. Meanwhile, quantum signal processing implements $exp(\iota tH)$ directly but requires an additional ancilla qubit and controlled access to a Hermitian block encoding $U_H^{\dagger}$, which, when implemented, uses both controlled $U_H$ and $U_H^{\dagger}$ resulting in a factor of $\approx 4$ overhead. Altogether these considerations suggest that the QSVT-based approach might have a slightly better constant factor overhead, particularly when controlled $U_H$ is significantly more costly to implement than $U_H$. If $U_H$ is already hermitian then quantum signal processing can have an improved complexity.
+\end{importantnote}
 
-\begin{remark} 
-\textbf{(Alternate construction of the prepare oracle)}. In some applications it may not be convenient to absorb the phase of $\alpha_i$ to the select oracle. In such a case, we may modify the prepare oracle instead. If $\alpha_i=r_ie^{\iota \theta_i}$ with $r_i>0,\theta_i \in [0,2\pi)$, we can define $\sqrt{\alpha_i} = \sqrt{r_i} e^{\iota \theta_i/2}$, and $V$ is defined as earlier. However instead of $V^{\dagger}$, we need to introduce
-\[
-\tilde{V} =\frac{1}{\sqrt{\|\alpha\|_1}} \begin{pmatrix} \sqrt{\alpha_0} & \ldots & \sqrt{\alpha_{K-1}} \\ 
-\ldots & \ldots & \ldots \\
-\vdots & \ddots & \vdots \\
-\ldots & \ldots & \ldots \end{pmatrix}
-\]
-Then following the same proof as earlier, we can show that $W=(\tilde{V}\otimes I_n)U(V\otimes I_n) \in BE_{\|\alpha\|_1,a}(T)$.
-\end{remark}
-\begin{remark}
-    \textbf{(Linear combination of non-unitaries)}. Using the block encoding technique, we may immediately obtain linear combination of general matrices that are not unitaries. However, with some abuse of notation, the term "LCU" will be used whether the terms to be combined are unitaries or not. In other words, the term ``linear combination of unitaries" should be loosely interpreted as ``Linear combination of things" (LCT) in many contexts.
-\end{remark}    
-\section{Examples}
-\begin{example}
-    \textbf{(Linear combination of two matrices)}. Let $U_A, U_B$ be two n-qubit unitaries, and we would like to construct a block encoding of $T=U_A + U_B$.
+\section{Example - Use cases}
+\begin{itemize}
+    \item Some quantum algorithms in quantum chemistry that compute energies perform phase estimation on a qubiziation operator $W$ implemented via calls to a block-encoding of the electronic structure Hamiltonian. This avoids the approximation error incurred when performing phase estimation on $e^{\iota Ht}$, implemented via Hamiltonian simulation.
+    \item Qubitization acts as a precursor to quantum singular value transformation, which extends the concept to general matrices and unifies it with quantum signal processing.
+\end{itemize}
 
-    There are two terms in total, so one ancilla qubit is needed. The prepare oracle needs to implement
-    \[
-    V\ket{0}=\frac{1}{\sqrt{2}}(\ket{0}+\ket{1})
-    \]
-    so this is the Hadamard gate. The circuit is given by figure \ref{fig:lcu2U}, which constructs $W \in BE_{\sqrt{2},1}(T)$.
-\begin{figure}[ht]
-    \centering
-    \includegraphics[width=0.5\linewidth]{../images/lcu2U.png}
-    \caption{Circuit for linear combination of two unitaries}
-    \label{fig:lcu2U}
-\end{figure}
-    A special case is the linear combination of two block encoded matrices. Given two n-qubit matrices $A,B$, for simplicity let $U_A \in BE_{1,m}(A), U_B \in BE_{1,m}(B)$. We would like to construct a block encoding of $T=A+B$. The circuit is given by figure \ref{fig:lcu2BE}, which constructs $W \in BE_{\sqrt{2},1+m}(T)$. This is also an example of a linear combination of non-unitary matrices.
-    \begin{figure}[ht]
-        \centering
-        \includegraphics[width=0.5\linewidth]{../images/lcu2BE.png}
-        \caption{Circuit for linear combination of two block encoded matrices}
-        \label{fig:lcu2BE}
-    \end{figure}
-\end{example}
 
-\begin{example}
-    (Transverse field Ising Model) Consider the following TFIM model with periodic boundary conditions $(Z_n=Z_0)$ and $n=2^m$.
-    \[
-    \hat{H}=-\sum_{i\in[n]} Z_i Z_{i+1} - \sum_{i \in [n]} X_i
-    \]
-    In order to use LCU we need (m+1) ancilla qubits. The prepare oracle can be simply constructed from the Hadamard gate
-    \[
-    V =H^{\otimes (m+1)}
-    \]
-    and the select oracle implements
-    \[
-    U=\sum_{i\in[n]} \ket{i}\bra{i} \otimes (-Z_iZ_{i+1} + \sum_{i\in[n]} \ket{i+n}\bra{i+n}\otimes (-X_i)
-    \]
-    The corresponding $W\in BE_{\sqrt{2n},n+1}(\hat{H})$.
-\end{example}
-\begin{example}
-    \textbf{(Block encoding of a matrix polynomial)} Let us use the LCU lemma to construct the block encoding for an arbitrary matrix polynomial for a Hermitian matrix $A$.
-    \[
-    f(A)=\sum_{k\in[K]}\alpha_kT_k(A)
-    \]
-    with $\|\alpha\|_1=\sum_{k\in[K]}|\alpha_k|$ and we set $K=2^a$. For simplicity assume $\alpha_k \geq 0$.
 
-    We have constructed $U_k = (U_A Z_{\Pi})^k$ as the $(1,m)$ block encoding of $T_k(A)$. From each $U_k$ we can implement the select oracle
-    \[
-    U=\sum_{k\in[K]} \ket{k}\bra{k}\otimes U_k
-    \]
-    via multi-qubit controls. Also given the availability of the prepare oracle
-    \[
-    V\ket{0^a} = \frac{1}{\sqrt{\|\alpha\|_1}} \sum_{k\in[K]} \sqrt{\alpha_k}\ket{k}
-    \]
-    we obtain a $(\|\alpha\|_1,m+a)$-block-encoding of $f(A)$.
 
-    The need of using $a$ ancilla qubtis, and even more importantly the need to implement the prepare and select oracles is undesirable. We will later see that the quantum signal processing (QSP) and quantum singular value transformation (QSVT) can drastically reduce bot sources of difficulties.
-\end{example}
 
-\begin{example}
-    \textbf{(Matrix functions given by a matrix Fourier Series)}. Instead of block encoding, LCU can also utilize a different query model based on Hamiltonian simulation. Let $A$ be an n-qubit Hermitian matrix. Consider $f(x) \in \mathbb{R}$ given by its Fourier expansion (up to a normalization factor)
-    \[
-    f(x) = \int \hat{f}(x)e^{\iota kx}dk
-    \]
-    and we are interested in computing the matrix function via numerical quadrature
-    \[
-    f(A) = \int \hat{f}(k) e^{\iota kA} dk \approx \Delta k\sum_{k\in [K]} \hat{f}(k) e^{\iota kA}
-    \]
-    Here $K$ is a uniform grid discertizing the interval $[-L,L]$ using $|K|=2^p$ grid points, and the grid space is $\Delta k=2L/|K|$. The prepare oracle is given by the coefficients $c_k =\Delta k\hat{f}(k)$, and the corresponding subnormalization factor is
-    \[
-    \|c\|_1 =\sum_{k\in [K]} \Delta k|\hat{f}(k)| \approx \int |\hat{f}(k)|dk
-    \]
-    The select oracle is
-    \[
-    U=\sum_{k\in K} \ket{k}\bra{k}\otimes e^{\iota k A}
-    \]
-    This can be efficiently implemented using the controlled matrix powers as in figure \ref{fig:controlledrotation}, where the basic unit is the short time Hamiltonian simulation $e^{\iota \Delta kA}$. This can be used to block encode a large class of matrix functions.
-\end{example}
+
+
+
+
+
+
+
 
 
 \chapter{Quantum Eigenvalue Transformation}
@@ -16263,6 +16801,38 @@ On the other hand, if the real and imaginary parts $g, h$ have definite parity, 
 
 
 \chapter{Quantum Signal Processing}
+
+\section{Introduction}
+Quantum signal processing (QSP) describes a method for non linear transformations of a signal parameter encoded in a single-qubit gate, using a structured sequence that interleaves the ``signal gate" with fixed parameterized ``modulation" gates. The technique was originally motivated by the desire to characterize pulse sequences used in nuclear magnetic resonance. Remarkably, it has been shown that there is a rich family of polynomial transformations that are in one-to-one correspondence with appropriate modulation sequences, moreover given such a polynomial one can efficiently compute the corresponding modulation parameters.
+
+Even more remarkably, this analysis holds not just for single-qubit ``signal gates" but can be extended for multi-qubit operators that act like single-qubit rotations when restricted to the appropriate two-dimensional subspaces. This insight enables the implementation of block-encoding of polynomials of Hermitian/normal matrices when used in conjunction with qubitization. The two step process of qubitization + QSP can be unified and generalized through quantum singular value transformation (QSVT).
+
+\subsection{Overview}
+We follow the ``Wx" convention of QSP. We define single-qubit operator
+\[
+W(x)=\begin{pmatrix} x & \iota \sqrt{1-x^2} \\ \iota \sqrt{1-x^2} & x \end{pmatrix}=e^{\iota arccos(x)X}
+\]
+which is a single-qubit $X$ rotations. We can verify that
+\begin{align*}
+    W(x)^2 &= \begin{pmatrix} 2x^2-1 & \cdot \\
+    \cdot & \cdot \end{pmatrix}\\
+    W(x)^3 &= \begin{pmatrix} 4x^3-3x & \cdot \\ \cdot & \cdot \end{pmatrix} \\
+    &\vdots \\
+    W(x)^n &= \begin{pmatrix} T_n(x) & \cdot \\
+    \cdot & \cdot \end{pmatrix}
+\end{align*}
+where $T_n(x)$ is the $n$-th Chebyshev polynomial of the first kind, showcasing that even a simple sequence of the signal unitaries can implement a rich family of the signal $x$.
+
+More complex behavior is obtained by interleaving $W(x)$ with parameterized single-qubit rotations $e^{\iota \phi_j Z}$. We define a QSP sequence.
+\[
+U_{QSP}(\Phi) = e^{\iota \phi_0 Z}\prod_{j=1}^d W(x)e^{\iota \phi_j Z}
+\]
+where $\Phi$ denotes the vector of angles $(\phi_0,\phi_1,\ldots,\phi_d)$. The QSP sequences implements the following unitary
+\[
+U_{QSP}(\Phi) = \begin{pmatrix} P(x) & \iota Q(x)\sqrt{1-x^2} \\ \iota Q^*(x)\sqrt{1-x^2} & P^*(x) \end{pmatrix}
+\]
+where $P(x),Q(x)$ are complex polynomials obeying a number of constraints, and $P^*(x), Q^*(x)$ denote their complex conjugates.
+
 In terms of implementing matrix polynomials of hermitian matrices, quantum eigenvalue transform provides a much simpler methods than based on the LCU and qubitization (i.e., linear combination of Chebyshev polynomials). The simplification is clear both in terms of the number of ancilla qubits and of the circuit architecture. However, it is not clear so far for which polynomials (either complex polynomial $P \in \mathbb{C}[x]$ or real polynomial $P_{Re} \in \mathbb{R}[x])$ we can apply the QET technique, and how to obtain the phase factors. Quantum signal processing (QSP) provides a complete answer to this question.
 
 Due to qubitization, all these questions can be answered in the context of $SU(2)$ matrices. QSP is the theory of QET for SU(2) matrices, otr the unitary representation of a scalar (real or complex) polynomial $P(x)$. Let $A = x \in [-1,1]$, be a scalar with one-qubit Hermitian block encoding
@@ -16406,9 +16976,42 @@ Note that the normalization condition (3) in theorem imposes very strong constra
         \item $P_{Re}$ has parity $d$ mod $2$.
         \item $|P_{Re}| \leq 1 \forall x \in [-1,1]$
     \end{enumerate}
-    then there exists polynomials $P(x),Q(x) \in \mathbb{C}[x]$ with $Re(P)=P_{Re}$ and a set of phase factors $\Phi = (\phi_0,\ldots, \phi_d) \in \mathbb{R}^{d+1}$ such that the QSP represnetation holds.
+    then there exists polynomials $P(x),Q(x) \in \mathbb{C}[x]$ with $Re(P)=P_{Re}$ and a set of phase factors $\Phi = (\phi_0,\ldots, \phi_d) \in \mathbb{R}^{d+1}$ such that the QSP representation holds.
 \end{theorem}
+\section{Dominant resource cost - gates and qubits}
+A QSP circuit that implements a degree $d$ polynomials in the signal parameter requires $d$ uses of $W(x)$ and $d+1$ fixed angle $Z$ rotations. There are efficient classical algorithms to determine the angles for a given target polynomials, either using high-precision arithmetic with $\approx d\log(d)$ bits of precision (or more - though this can be mitigated using heuristic techniques) or in some regimes using more efficient optimization-based algorithms. Although these procedures are efficient in theory, in practice it may still be non-trivial to find the angles. Nevertheless, researches reportedly computed angle sequences corresponding to various degree $\mathcal{O}(10^4)$ polynomials.
 
+
+\begin{importantnote}
+    As discussed above, not all polynomials can be implemented by a QSP sequence. Implementable polynomials must obey a number of constraints which can be somewhat restrictive. For the standard QSP circuit $U_{QSP}(\Phi)$ given above, the achievable polynomial pairs $P(x),Q(x)\in\mathbb{C}$ can be characterized by the following three conditions:
+    \begin{itemize}
+        \item $Deg(P)\leq d,\quad Deg(Q)\leq d-1$
+        \item $Parity(P)=Parity(d),\quad Parity(Q)=Parity(d-1)$
+        \item $\forall x in[-1,1]: |P(x)|^2 + (1-x^2)|Q(x)|^2=1$ (required to be Unitary)
+    \end{itemize}
+    This last requirement can be particularly limiting. A useful way t circumvent this for real functions is to encode the polynomial in the matrix element $\bra{+}U_{QSP}(\Phi)\ket{+}$ rather than in $\bra{0}U_{QSP}(\Phi)\ket{0}$, where $\ket{+}=(\ket{0}+\ket{1})/\sqrt{2}$. This matrix element evaluates to 
+    \[
+    \bra{+}U_{QSP}(\Phi)\ket{+}=Re[P(x)]+\iota\sqrt{1-x^2}Re[Q(x)]
+    \]
+    Given a real target polynomial $f(x)$ with parity equal to $Parity(d)$, we can guarantee that the matrix element evaluates to $f(x)$ by choosing $Re[P(x)]=f(x)$ and $Re[Q(x)]=0$. The third condition above then reduces to $1-f(x)^2 = |Im[P(x)]|^2+(q-x^2)|Im[Q(x)]|^2$. There exist choices for $Im[P(x)]$ and $Im[Q(x)]$ that satisfy this identity as well as the first two conditions above, provided $f(x)\leq 1 \forall x \in[-1,1]$. In summary, we may implement any real polynomial $f(x)$ satisfying the requirements.
+    \begin{itemize}
+        \item $Deg(f)=d$
+        \item $Parity(f)=Parity(d)$
+        \item $\forall x \in [-1,1,]:|f(x)|\leq 1$
+    \end{itemize}
+    There are several related conventions considered in the literature for the explicit form of the single qubit operators used in QSP. One common form that links closely to qubitization and QSVT is the reflection conventions, which replaces $W(x)$ by the reflection
+    \[
+    R(x)=\begin{bmatrix} x & \sqrt{1-x^2}\\
+    \sqrt{1-x^2} & -x \end{bmatrix}
+    \]
+    and adjusts the parameters $\{\phi_j\}$ accordingly.
+\end{importantnote}
+Some example uses cases include:
+\begin{itemize}
+    \item Functions of Hermitian/normal matrices, in conjunction with qubitization, including for Hamiltonian simulation.
+    \item Functions of general matrices via quantum singular value transformation (QSVT).
+    \item QSP applied to beyond-Heisenberg limit calibration of two-qubit gates in a superconducting system.
+\end{itemize}
 \chapter{Quantum Singular Value Transformation}
 In previous chapters, we have found that using qubitization, we can effectively block encode the Chebyshev matrix polynomial $T_k(A)$ for a Hermitian matrix $A$. Combined with LCU, we can construct a block encoding of any matrix polynomial of $A$. The process is greatly simplified using QSP and QET, which allows the implementation of a general class of matrix functions for Hermitian matrices. 
 
@@ -17241,12 +17844,12 @@ In quantum mechanics, states are represented by normalized complex column vector
 
 how to measure a quantum system and what can you measure, Qiskit offers two primitives that can help:
 \begin{itemize}
-    \item \textbf{Sampler: }Given a quantum state $\ket{\psi}$, this primitve obtains the probability of each possible computational basis state.
-    \item \textbf{Estimator: } Given a quantum observable $\hat{H}$ and a state $\ket{\psi}$, this primitve computes the expected value of $\hat{H}$.
+    \item \textbf{Sampler: }Given a quantum state $\ket{\psi}$, this primitive obtains the probability of each possible computational basis state.
+    \item \textbf{Estimator: } Given a quantum observable $\hat{H}$ and a state $\ket{\psi}$, this primitive computes the expected value of $\hat{H}$.
 \end{itemize}
 
 \subsubsection{The Sampler Primitive}
-The $\textbf{Sampler}$ primitve calculates the probability of obtaining each possible state $\ket{k}$ from the computational basis, given a quantum circuit that prepare the state $\ket{\psi}$. It calculates
+The $\textbf{Sampler}$ primitive calculates the probability of obtaining each possible state $\ket{k}$ from the computational basis, given a quantum circuit that prepare the state $\ket{\psi}$. It calculates
 \[
     p_k=|\braket{k|\psi}|^2 \quad \forall k\in\mathbb{Z}_2^n \equiv \{0,1,\ldots, 2^n-1\}
 \]
@@ -17622,7 +18225,7 @@ This problem can be expressed as a binary optimization problem. For each node $0
 \begin{align*}
     C(\vec{x})&=\sum_{i,j=0}^n w_{ij}x_i(1-x_j)\\
     &=\sum_{i,j=0}^n w_{ij}x_i-\sum_{i,j=0}^nw_{ij}x_ix_j\\
-    &=\sum_{i,j=0}^n w_{ij}x_i-\sum_{i=0}^nb\sum_{j=0}^i 2w_{ij}x_ix_j
+    &=\sum_{i,j=0}^n w_{ij}x_i-\sum_{i=0}^n\sum_{j=0}^i 2w_{ij}x_ix_j
 \end{align*}
 To solve this problem with a quantum computer, we are going to express the cost function as the expected value of an observable. However, the observables that Qiskit admits natively consist of Pauli operators, that have eigenvalues $1$ and $-1$ instead of $0$ and $1$. That's why we are going to make the following change of variable:
 
@@ -17645,17 +18248,17 @@ C(\vec{z})&=\sum_{i,j=)}^n w_{ij}\left(\frac{1-z_i}{2}\right) \left(1-\frac{1-z_
 \end{align*}
 Moreover, the natural tendency of a quantum computer is to find minima (usually the lowest energy) instead of maxima so instead of maximizing $X(\vec{z})$ we are going to minimize:
 \[
--C(\vec{z})=\sum_{i=0}^n\sum_{j=0}^i \frac{w_{ij}}{2}
+-C(\vec{z})=\sum_{i=0}^n\sum_{j=0}^i \frac{w_{ij}}{2}z_iz_j - \sum_{i=0}\sum_{j=0}^i \frac{w_{ij}}{2}
 \]
 Now that we have a cost function to minimize whose variables can have the values -1 and 1, we can make the following analogy with the Pauli Z:
 \[
 z_i\equiv Z_i=I\otimes \ldots \otimes Z \otimes \ldots \otimes I
 \]
-with Z at the ith position and I everywhere else.
+with $Z$ at the ith position and $I$ everywhere else.
 
-In other words, the variable $z_i$ will be equivalent to a Z gate acting on qubit i. Moreover:
+In other words, the variable $z_i$ will be equivalent to a $Z$ gate acting on qubit i. Moreover:
 \[
-Z_i\ket{x-{n-1}\ldots x_0}=z_i\ket{x_{n-1}\ldots x_0}\rightarrow \braket{x_{n-1}\ldots x_0|Z_i|x_{n-1}\ldots x_0}=z_i
+Z_i\ket{x_{n-1}\ldots x_0}=z_i\ket{x_{n-1}\ldots x_0}\rightarrow \braket{x_{n-1}\ldots x_0|Z_i|x_{n-1}\ldots x_0}=z_i
 \]
 Then the observable we are going to consider is:
 \[
@@ -17665,7 +18268,7 @@ to which we will have to add the independent term afterwards:
 \[
 \text{offset}=-\sum_{i=0}^n\sum_{j=0}^i \frac{w_{ij}}{2}
 \]
-The operator is a linear combination of terms with Z operators on nodes connected by an edge (recall that the 0th qubit is farthest right): $IIZZ+IZIZ+IZZI+ZIIZ+ZZZII$. Once the operator is constructed, the ansatz for the QAOA algorithm can easily be built by using the QAOAAnsatz circuit form the Qiskit circuit library.
+The operator is a linear combination of terms with Z operators on nodes connected by an edge (recall that the 0th qubit is farthest right): $IIZZ+IZIZ+IZZI+ZIIZ+ZZII$. Once the operator is constructed, the ansatz for the QAOA algorithm can easily be built by using the QAOAAnsatz circuit form the Qiskit circuit library.
 \begin{lstlisting}[language=Python]
 from qiskit.circuit.library import QAOAAnsatz
 from qiskit.quantum_info import SparsePauliOp
@@ -17767,7 +18370,7 @@ We will revisit this example in Applications to explore how to leverage an optim
 \end{itemize}
 
 \subsubsection{Measurement Strategy: speed vs accuracy}
-As mentioned, we are using noisy quantum computer as a black box oracle, where noise can make the retrieved values non-deterministic, leading to random fluctuations which, in turn, will harm - or even completely prevent the convergence os certain optimizers to a proposed solution. This is a general problem that we must address as we incrementally explore quantum utility and progress towards quantum advantage:
+As mentioned, we are using noisy quantum computer as a black box oracle, where noise can make the retrieved values non-deterministic, leading to random fluctuations which, in turn, will harm - or even completely prevent the convergence of certain optimizers to a proposed solution. This is a general problem that we must address as we incrementally explore quantum utility and progress towards quantum advantage:
 \begin{figure}[ht]
     \centering
     \includegraphics[width=1\linewidth]{../images/measstrat_speedvsacc.png}
@@ -17781,7 +18384,7 @@ Error suppression refers to techniques used to optimize and transform a circuit 
     \item Mapping the virtual qubits to physical qubits
     \item Adding SWAPs based on connectivity requirements
     \item Optimizing 1Q and 2Q gates
-    \item Adding dynamical decouping to idle qubits to prevent the effects of decoherence.
+    \item Adding dynamical decoupling to idle qubits to prevent the effects of decoherence.
 \end{itemize}
 Primitives allow for the use of error suppression techniques by setting the optimization\_level option and selecting advanced transpilation options. Later, we will delve into different circuit construction methods to improve results, but for most cases, we recommend setting optimization\_level=3.
 
@@ -17828,9 +18431,9 @@ backend = service.get_backend('ibm_sherbrooke')
 # generate a simulator that mimics the real quantum system with the latest calibration results
 backend_sim = AerSimulator.from_backend(backend)
 \end{lstlisting}
-We can now use a pass manager to transpile the circuit into the "instruction set architecture" or ISA of the backend. This is a new requirement in Qiskit Runtime: all circuits submitted to a backend must conform to the constraints of the backend's target, meaning they must be written in terms of the backedn's ISA - i.e., the set of instructions the device can understand and execute. These target constraints are defined by factors like the device's native basis gates, its qubit connectivity, and - when relevant - its pulse and other instruction timing specifications.
+We can now use a pass manager to transpile the circuit into the "instruction set architecture" or ISA of the backend. This is a new requirement in Qiskit Runtime: all circuits submitted to a backend must conform to the constraints of the backend's target, meaning they must be written in terms of the backend's ISA - i.e., the set of instructions the device can understand and execute. These target constraints are defined by factors like the device's native basis gates, its qubit connectivity, and - when relevant - its pulse and other instruction timing specifications.
 
-Note taht in the present case, we will do this twice: once with optimization\_level=0, and once with it set to 3. Each time we will use the Estimator primitve to estimate the expectation values of the observable at different values of phase.
+Note that in the present case, we will do this twice: once with optimization\_level=0, and once with it set to 3. Each time we will use the Estimator primitive to estimate the expectation values of the observable at different values of phase.
 
 \begin{lstlisting}[language=Python]
 #Import estimator and specify that we are using the simulated backend:
@@ -18267,6 +18870,10 @@ The Qiskit patterns framework applies to all these algorithms - but we will expl
 
 \subsection{Variational Quantum eigensolver (VQE)}
 VQE is one of the most widely used variational quantum algorithms, setting up a template for other algorithms to build upon.\\
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=1\linewidth]{../images/vq_img.png}
+\end{figure}
 \textbf{Step 1:} Map classical inputs to a quantum problem
 
 VQE's theoretical layout is simple:
@@ -18287,16 +18894,130 @@ Here's the example for the following observable:
 \[
 \hat{O}_1 = 2II - 2XX + 3YY-3ZZ
 \]
-We can use this cost function to calculate the optimal parameters
+\subsubsection{VQE Implementation}
+\begin{lstlisting}[language=Python]
+from qiskit import QuantumCircuit
+from qiskit.quantum_info import SparsePauliOp
+from qiskit.circuit.library import TwoLocal
+import numpy as np
 
+theta_list = (2 * np.pi * np.random.rand(1, 8)).tolist()
+observable=SparsePauliOp.from_list([("II", 2), ("XX", -2), ("YY", 3), ("ZZ", -3)])
+
+reference_circuit = QuantumCircuit(2)
+reference_circuit.x(0)
+
+variational_form = TwoLocal(
+    2,
+    rotation_blocks=["rz", "ry"],
+    entanglement_blocks="cx",
+    entanglement="linear",
+    reps=1,
+)
+ansatz = reference_circuit.compose(variational_form)
+
+ansatz.decompose().draw('mpl')
+\end{lstlisting}
+\begin{figure}
+    \centering
+    \includegraphics[width=0.75\linewidth]{../images/vqe_impl.png}
+\end{figure}
+\begin{lstlisting}[language=Python]
+def cost_func_vqe(parameters, ansatz, hamiltonian, estimator):
+    """Return estimate of energy from estimator
+
+    Parameters:
+        params (ndarray): Array of ansatz parameters
+        ansatz (QuantumCircuit): Parameterized ansatz circuit
+        hamiltonian (SparsePauliOp): Operator representation of Hamiltonian
+        estimator (Estimator): Estimator primitive instance
+
+    Returns:
+        float: Energy estimate
+    """
+
+    estimator_job = estimator.run([(ansatz, hamiltonian, [parameters])])
+    estimator_result = estimator_job.result()[0]
+
+    cost = estimator_result.data.evs[0]
+    return cost
+\end{lstlisting}
+\begin{lstlisting}[language=Python]
+from qiskit.primitives import StatevectorEstimator
+estimator = StatevectorEstimator()
+\end{lstlisting}
+We can use this cost function to calculate the optimal parameters
+\begin{lstlisting}[language=Python]
+# SciPy minimizer routine
+from scipy.optimize import minimize
+
+x0 = np.ones(8)
+
+result = minimize(cost_func_vqe, x0, args=(ansatz, observable, estimator), method="COBYLA")
+
+result
+\end{lstlisting}
+\begin{lstlisting}
+message: Optimization terminated successfully.
+ success: True
+  status: 1
+     fun: -5.999999988971083
+       x: [ 1.779e+00  9.443e-01  1.571e+00  2.105e-05  1.938e+00
+            1.204e+00  6.059e-01  6.059e-01]
+    nfev: 136
+   maxcv: 0.0
+\end{lstlisting}
 \textbf{Step2: Optimize problems for quantum execution}
 We will select the least-busy backend, and import the necessary components from the qiskit\_ibm\_runtime.
+\begin{lstlisting}[language=Python]
+from qiskit_ibm_runtime import SamplerV2 as Sampler
+from qiskit_ibm_runtime import EstimatorV2 as Estimator
+from qiskit_ibm_runtime import Session, Options
+from qiskit_ibm_runtime import QiskitRuntimeService
 
+
+service = QiskitRuntimeService(channel='ibm_quantum')
+backend = service.least_busy(operational=True, simulator=False)
+\end{lstlisting}
 We will transpile the circuit using the preset pass manager with optimization level 3, and we will apply the corresponding layout to the observable.
-\\
+\begin{lstlisting}[language=Python]
+from qiskit.transpiler.preset_passmanagers import generate_preset_pass_manager
+
+pm = generate_preset_pass_manager(backend=backend, optimization_level=3)
+isa_ansatz = pm.run(ansatz)
+isa_observable = observable.apply_layout(layout = isa_ansatz.layout)
+\end{lstlisting}
 \textbf{Step3: Execute using Qiskit Runtime Primitives}
 We are now ready to run our calculation on IBM Quantum hardware. Because the cost function minimization is highly iterative, we will start at a Runtime session. This way we only have to wait in a queue once. Once the job begins running, each iteration with updates to parameters will run immediately.
-\\
+\begin{lstlisting}[language=Python]
+#Estimated required time: <20 min. Benchmarked at 17 min, 40 s on ibm_osaka, on 5-29-24
+
+x0 = np.ones(8)
+
+with Session(backend=backend) as session:
+    session_options = Options()
+    session_options.execution.shots = 4096
+    session_options.resilience_level = 1
+
+    estimator = Estimator(session=session)
+    sampler = Sampler(session = session)
+    estimator.options.default_shots = 10_000
+    
+    result = minimize(cost_func_vqe, x0, args=(isa_ansatz, isa_observable, estimator), method="COBYLA")
+
+session.close()
+print(result)
+\end{lstlisting}
+\begin{lstlisting}
+ message: Optimization terminated successfully.
+ success: True
+  status: 1
+     fun: -5.633934465186281
+       x: [ 1.135e+00  1.712e+00  1.340e+00  9.429e-02  2.175e+00
+            7.089e-01  4.387e-01  5.427e-01]
+    nfev: 90
+   maxcv: 0.0
+\end{lstlisting}
 \textbf{Step4: Post-process, return in classical format}
 We can see that the minimization routine successfully terminated, meaning we reached the default tolerance of the COBYLA classical optimizer. If we require a more precise result, we can specify a smaller tolerance. This may indeed be the case, since the result was several percent off compared to the result obtained by the simulator above.
 
@@ -18306,7 +19027,10 @@ Finally, we note that the function was evaluated $96$ times in the process of op
 
 \subsection{Subspace Search VQE (SSVQE)}
 SSVQE is a variant of VQE that allows obtaining the first $k$ eigenvalues of an observable $\hat{H}$ with eigenvalues $\{\lambda_0 ,\lambda_1,\ldots ,\lambda_{N-1}\}$, where $N\geq k$. Without loss of generality, we assume that $\lambda_0<\lambda_1<\ldots <\lambda_{N-1}$, SSVQE introduces a new idea by adding weights to help prioritize optimizing for the term with the largest weight.
-
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=1\linewidth]{../images/ssvqe.png}
+\end{figure}
 To implement this algorithm, we need $k$ mutually orthogonal reference states $\{\ket{\rho_j}\}_{j=0}^{k-1}$, meaning $\braket{\rho_j|\rho_l}=\delta_{jl}$ for $j,l<k$. These states can be constructed using Pauli operators. The cost function of this algorithm is then:
 \begin{align*}
     C(\vec{\theta})&=\sum_{j=0}^{k-1} w_j \bra{\rho_j}U_V^{\dagger}(\vec{\theta}) \hat{H}U_V(\vec{\theta})\ket{\rho_j}\\
@@ -18326,9 +19050,312 @@ Weights $w_j$ help ensure that all the states are eigenstates. If the weights ar
 
 Applying the same argument to the rest of the terms, the next priority would then be the term with weight $w_1$, so $U_V(\vec{\theta})\ket{\rho_l}$ would be the eigenstate corresponding to $\lambda_1$, and the other terms would be contained in the eigenspace of $\{\lambda_2,\ldots,\lambda_{N-1}\}$
 
+By reasoning inductively, we deduce that $U_V(\vec{\theta})\ket{\rho_j}$ will be an approximate eigenstates of $\lambda_j$ for $0\leq j < k$.
 
-\section{Variational Quantum Eigensolver}
-Usage Estimate: 73 minutes on ibmion \_kyiv or 28 minutes on ibm\_manila. (NOTE:This is an estimate only. Your runtime may vary.)
+\subsubsection{SSVQE's Theoretical layout}
+SSVQE's can be summarized as follows:
+\begin{itemize}
+    \item Prepare several reference states by applying a unitary $U_R$ to $k$ different computational basis states
+    \item This algorithm requires the usage of $k$ mutually orthogonal reference states $\{\ket{\rho_j}\}_{j=0}^{k-1}$ such that $\braket{\rho_j|\rho_l}=\delta_{jl}$ for $j,l<k$.
+    \item Apply the variational form $U_V(\vec{\theta}_{i,j})$ to each reference state ,resulting in the following ansatz $U_A(\vec{\theta}_{i,j})$.
+    \item Bootstrap at $i=0$ if a similar problem is available (usually found via classical simulation or sampling.
+    \item Evaluate the cost function $C(\vec{\theta}_{i,j})=\sum_{j=0}^{k-1}w_j\bra{\psi_j(\vec\theta)}\hat{H}\ket{\psi_j(\vec{\theta})}$ for all prepared states on a quantum computer.
+    \item This can be separated into calculating the expectation value for an observable $\bra{\psi_j(\vec{\theta})}\hat{H}\ket{\psi_j(\vec{\theta})}$ and multiplying the result by $w_j$.
+    \item Afterward, the cost function returns the sum of all weighed expectation values.
+    \item Use a classical optimizer to determine the next set of parameters $\Theta_{i+1}$.
+    \item Repeat the above steps until convergence is achieved.
+\end{itemize}
+You will be reconstructing SSVQE's cost function in the assessment, but we have the following snippet to motivate your solution:
+\begin{lstlisting}[language=Python]
+import numpy as np
+
+def cost_func_ssvqe(params, initialized_anastz_list, weights, ansatz, hamiltonian, estimator):
+    # """Return estimate of energy from estimator
+
+    # Parameters:
+    #     params (ndarray): Array of ansatz parameters
+    #     initialized_anastz_list (list QuantumCircuit): Array of initialised ansatz with reference
+    #     weights (list): List of weights
+    #     ansatz (QuantumCircuit): Parameterized ansatz circuit
+    #     hamiltonian (SparsePauliOp): Operator representation of Hamiltonian
+    #     estimator (Estimator): Estimator primitive instance
+
+    # Returns:
+    #     float: Weighted energy estimate
+    # """
+
+    energies = []
+
+    # Define SSVQE
+
+    weighted_energy_sum = np.dot(energies, weights)
+    return weighted_energy_sum
+\end{lstlisting}
+
+
+\subsection{Variational Quantum Deflation}
+VQD is an alternative method that extends VQE to obtain the first $k$-eigenvalues of an observable $\hat{H}$ with eigenvalues $\{\lambda_0,\lambda_1,\ldots,\lambda_{N-1}\}$, where $N\geq k$, instead of only the first. For the rest of this section, we will assume, without loss of generality, that $\lambda_0\leq \lambda_1\leq \ldots\leq \lambda_{N-1}$. VQD introduces the notion of a penalty cost to guide the optimization process.
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=1\linewidth]{../images/vqd_fig.png}
+\end{figure}
+VQD introduces a penalty term, introduced as $\beta$, to balance the contribution of each overlap term to the cost. This penalty term serves to penalize the optimization process if orthogonality is not achieved. We impose this constraint because the eigen states of an observable, or a Hermitian operator, corresponding to different eigenvalues are mutually orthogonal, or can be made so in the case of degeneracy or repeated eigenvalues. Thus, by enforcing orthogonality with the eigenstate corresponding to $\lambda_0$, we are effectively optimizing over the subspace that corresponds to the rest of the eigenvalues $\{\lambda_1,\lambda_2,\ldots,\lambda_{N-1}\}$. here $\lambda_1$ is the lowest eigenvalue from the rest of the eigenvalues and, therefore, the optimal solution to the new problem can be obtained using the variational theorem.
+
+The general idea behind VQE is to use VQE as usual to obtain the lowest eiegnvalue $\lambda_0=C_0(\vec{\theta}^0)=C_{VQE}(\vec{\theta}^0)$ along with the corresponding (approximate) eigenstate $\ket{\psi(\vec{\theta}^0)}$ for some optimal parameter vector $\vec{\theta}^0$. Then, to obtain the next eigenvalue $\lambda_1>\lambda_0$, instead of minimizing the cost function $C_0(\vec{\theta})=\bra{\psi(\vec{\theta})}\hat{H}\ket{\psi(\vec{\theta})}$, we optimize:
+\[
+C_1(\vec{\theta})=C_0(\vec{\theta})+\beta_0|\braket{\psi(\vec{\theta})|\psi(\vec{\theta}^0)}|^2
+\]
+The positive value $\beta_0$ should be greater than $\lambda_1-\lambda_0$.
+
+This introduces a new cost function that can be viewd as a constrained problem, where we minimize $C_{VQE}(\vec{\theta})=\bra{\psi(\vec{\theta})}\hat{H}\ket{\psi(\vec{\theta})}$ subject to the constraint that the state must be orthogonal o the previously obtained $\ket{\psi(\vec{\theta}^0})$, with $\beta_0$ acting as a penalty terms if the constraint is not satisfied.
+
+Alternatively, this new problem can be interpreted as running $VQE$ on the new observable:
+\[
+\hat{H}_1=\hat{H}+\beta_0 \ket{\psi(\vec{\theta}^0)}\bra{\psi(\vec{\theta}^0} \implies C_1(\vec{\theta})=\bra{\psi(\vec{\theta})}\hat{H}_1\ket{\psi(\vec{\theta})},
+\]
+Assuming the solution to the new problem is $\ket{\psi(\vec{\theta}^1)}$, the expected value of $\hat{H}$ (not $\hat{H}_1$) should be $\bra{\psi(\vec{\theta}^1)}\hat{H}\ket{\psi(\vec{\theta}^1)}=\lambda_1$.
+
+To obtain the third eigenvalue $\lambda_2$, the cost function to optimize is:
+\[
+C_2(\vec{\theta})=C_1(\vec{\theta})+\beta_1|\braket{\psi(\vec{\theta})|\psi(\vec{\theta}^1)}|^2
+\]
+where $\beta_1$ is a positive constant large enough to enforce orthogonality of the solution state to both $\ket{\psi(\vec{\theta}^0)}$ and $\ket{\psi(\vec{\theta}^1)}$. This penalizes states in the search space that do not meet this requirement, effectively restricting the search space. Thus, the optimal solution of the new problem should be the eigenstate corresponding to $\lambda_2$.
+
+Like the previous case, this new problem can also be interpreted as VQE with the observable:
+\[
+\hat{H}_2=\hat{H}_1+\beta_1\ket{\psi(\vec{\theta}^1)}\bra{\psi(\vec{\theta}^1)}\implies C_2(\vec{\theta}=\bra{\psi(\vec{\theta})}\hat{H}_2\ket{\psi(\vec{\theta})}
+\]
+If the solution to this new problem is $\ket{\psi(\vec{\theta}^2)}$, the expected value of $\hat{H}$ (not $\hat{H}_2$) should be $\bra{\psi(\vec{|theta}^2)}\hat{H}\ket{\psi(\vec{\theta}^2)}=\lambda_2$.
+
+Analogously, to obtain the $k$th eigenvalue $\lambda_{k-1}$, you would minimize the cost function:
+\[
+C_{k-1}(\vec{\theta})=C_{k-2}(\vec{\theta})+\beta_{k-2}|\braket{\psi(\vec{\theta})|\psi(\vec{\theta}^{k-2})}|^2,
+\]
+Remember that we defined $\vec{\theta}^j$ such that $\bra{\psi(\vec{\theta}^j}\hat{H}\ket{\psi(\vec{\theta}^j}=\lambda_j$, $\forall j <k$. This problem is equivalent to minimizing $V(\vec{\theta})=\bra{\psi(\vec{\theta}}\hat{H}\ket{\psi(\vec{\theta})}$ but with the constraining that the state must be orthogonal to $\ket{\psi(\vec{\theta}^j}$; $\forall j \in 0,\ldots,k-1$, thereby restricting the search space to the subspace corresponding to the eigenvalues $\{\lambda_{k-1},\ldots,\lambda_{N-1}\}$.
+
+This problem is equivalent to a VQE with the observable:
+\[
+\hat{H}_{k-1}=\hat{H}_{k-2}+\beta_{k-2}\ket{\psi(\vec{\theta}^{k-2})}\bra{\psi(\vec{\theta}^{k-2})}\implies C_{k-1}(\vec{\theta})=\bra{\psi(\vec{\theta})}\hat{H}_{k-1}\ket{\psi(\vec{\theta})},
+\]
+As you can see from the process, to obtain the $k$-th eigenvalue, you need the (approximate) eignestates of the previous $k-1$ eigenvalues, so you would need to run $VQE$ a total of $k$ times. Therefore, VQD's cost function is as follows:
+\[
+C_k(\vec{\theta})=\bra{\psi(\vec{\theta})}\hat{H}\ket{\psi(\vec{\theta})}+\sum_{j=0}^{k-1}\beta_j|\braket{\psi(\vec{\theta})|\psi(\vec{\theta}^j}|^2
+\]
+\subsubsection{VQD's Theoretical Layout}
+VQD's layout can be summarized as follows:
+\begin{itemize}
+    \item Prepare a reference operator $U_R$.
+    \item Apply a variational form $U_V(\vec{\theta}_{i,j})$ to the reference state, creating the following ansatze $U_A(\vec{\theta}_{i,j})$.
+    \item Bootstrap at $i=0$ if we have a similar problem (typically found via classical simulation or sampling)
+    \item Evaluate the cost function $C_k(\vec{\theta})$ which involved computing $k$ excited states and an array of $\beta$'s defining the overall penalty for each overlap term.
+    \item Calculate the expectation value for an observable $\bra{\psi_j(\vec{\theta})}\hat{H}\ket{\psi_j(\vec{\theta})}$ for each $k$
+    \item Calculate the penalty $\sum_{j=0}^{k-1}\beta_j| \braket{\psi(\vec{\theta})|\psi_j(\vec{\theta})}|^2$.
+    \item The cost function should then return the sum of these two terms.
+    \item Use a classical optimizer to choose the next set of parameters $\Theta_{i+1}$
+    \item Repeat this process until convergence is reached.
+\end{itemize}
+\subsubsection{VQD's Implementation}
+For this implementation, we'll create a function for an overlap penalty.This penalty will be used in the cost function at each iteration. This process will be repeated for each excited state
+\begin{lstlisting}[language=Python]
+from qiskit.circuit.library import TwoLocal
+
+raw_ansatz = TwoLocal(2, rotation_blocks=["ry", "rz"], entanglement_blocks="cz", reps=1)
+
+raw_ansatz.decompose().draw('mpl')
+\end{lstlisting}
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.75\linewidth]{../images/vqd_circ.png}
+\end{figure}
+First, we'll setup a fuction that calculates the sstate fidelity - a percentage of overlap between two states that we'll use as a penalty for VQD.
+\begin{lstlisting}[language=Python]
+import numpy as np
+
+def calculate_overlaps(ansatz, prev_circuits, parameters, sampler):
+
+    def create_fidelity_circuit(circuit_1, circuit_2):
+
+        """
+        Constructs the list of fidelity circuits to be evaluated.
+        These circuits represent the state overlap between pairs of input circuits,
+        and their construction depends on the fidelity method implementations.
+        """
+                
+        if len(circuit_1.clbits) > 0:
+            circuit_1.remove_final_measurements()
+        if len(circuit_2.clbits) > 0:
+            circuit_2.remove_final_measurements()
+
+        circuit = circuit_1.compose(circuit_2.inverse())
+        circuit.measure_all()
+        return circuit
+    overlaps = []
+
+    for prev_circuit in prev_circuits:
+        fidelity_circuit = create_fidelity_circuit(ansatz, prev_circuit)
+        sampler_job = sampler.run([(fidelity_circuit, parameters)])
+        meas_data = sampler_job.result()[0].data.meas
+        
+        counts_0 = meas_data.get_int_counts().get(0, 0)
+        shots = meas_data.num_shots
+        overlap = counts_0/shots
+        overlaps.append(overlap)
+    
+    return np.array(overlaps)
+\end{lstlisting}
+It's time to write VQD's cost function. As before wen we calculated only the ground state, we will determine the lowest energy state using the Estimator primitive. However, as described above, we will now add a penalty term to ensure orthogonality of higher-energy states. That is, for each excited state, a penalty is added for any overlap between the current variational state and the lower-energy eigenstate already found.
+\begin{lstlisting}[language=Python]
+def cost_func_vqd(parameters, ansatz, prev_states, step, betas, estimator, sampler, hamiltonian):
+
+    estimator_job = estimator.run([(ansatz, hamiltonian, [parameters])])
+
+    total_cost = 0
+
+    if step > 1:
+        overlaps = calculate_overlaps(ansatz, prev_states, parameters, sampler)
+        total_cost = np.sum([np.real(betas[state] * overlap) for state, overlap in enumerate(overlaps)])
+
+    estimator_result = estimator_job.result()[0]
+
+    value = estimator_result.data.evs[0] + total_cost
+
+    return value
+\end{lstlisting}
+Note specially that the cost function above refers to the calculate\_overalps function, which actually creates a new quantum circuit. If we want to run on a real hardware, the new circuit must also be transpiled, hopefully in an optimal way, to run on the backend we select. Note that transpilation has been built to the calculate\_overlaps or cost\_func\_vqd functions. Feel free to try modifying the code yourself to build in this additional (and conditional) transpilation - but this will  also be done for you in the next lesson.
+
+In this lesson, we will run the VQD algorithm using the Statevector Sampler and Statevector Estimator:
+\begin{lstlisting}[language=Python]
+from qiskit.primitives import StatevectorSampler as Sampler
+from qiskit.primitives import StatevectorEstimator as Estimator
+sampler = Sampler()
+estimator = Estimator()
+\end{lstlisting}
+We will introduce an observable to b estimated. In the next lesson we will add some physical context to this, like the excited state of a molecule. It may be helpful to think of this observable as the Hamiltonian of a system that can have excited states, even though this observable has not been chosen to match any particular molecule or atom.
+\begin{lstlisting}[language=Python]
+from qiskit.quantum_info import SparsePauliOp
+observable = SparsePauliOp.from_list([("II", 2), ("XX", -2), ("YY", 3), ("ZZ", -3)])
+\end{lstlisting}
+Here, we set the total number of state we wish to calculate (ground state and excited states, $k$), and the penalties (betas) for overlap between statevectors that should be orthogonal. The consequences of choosing betas to be too high or too low will be explored a bit in the next lesson. For now, we will simply use those provided below. We will start by using all zeros as our parameters. We will start by using all zeros as our parameters. In your own calculations, you may want to use more clever  starting parameters based on your knowledge of the system or on previous calculations.
+\begin{lstlisting}[language=Python]
+k = 3
+betas = [33, 33, 33]
+x0 = np.zeros(8)
+\end{lstlisting}
+We can now run the calculation:
+\begin{lstlisting}[language=Python]
+from scipy.optimize import minimize
+
+prev_states = []
+prev_opt_parameters = []
+eigenvalues = []
+
+for step in range(1, k + 1):
+    
+    if step > 1:
+        prev_states.append(ansatz.assign_parameters(prev_opt_parameters))
+    
+    result = minimize(cost_func_vqd, x0, args=(ansatz, prev_states, step, betas, estimator, sampler, observable), method="COBYLA", options={'maxiter': 200,})
+    print(result)
+
+    prev_opt_parameters = result.x
+    eigenvalues.append(result.fun)
+\end{lstlisting}
+\begin{lstlisting}
+message: Optimization terminated successfully.
+ success: True
+  status: 1
+     fun: -5.999999983468767
+       x: [-5.092e-01 -5.806e-02 -1.571e+00 -1.722e-05  2.688e-01
+           -2.688e-01 -8.556e-01 -8.555e-01]
+    nfev: 125
+   maxcv: 0.0
+ message: Optimization terminated successfully.
+ success: True
+  status: 1
+     fun: 4.025471915908117
+       x: [ 1.719e-01 -3.279e-01  1.567e+00 -5.447e-02  5.202e-03
+            5.401e-02  3.745e-02 -3.008e-01]
+    nfev: 99
+   maxcv: 0.0
+ message: Optimization terminated successfully.
+ success: True
+  status: 1
+     fun: 5.923215165670577
+       x: [ 1.464e+00 -7.677e-01 -1.584e+00 -6.150e-02  6.260e-01
+            1.752e+00  3.236e+00 -2.544e-01]
+    nfev: 86
+   maxcv: 0.0
+\end{lstlisting}
+This values we obtained from the cost function are approximately $-6.00,4.02,5.92$. The important thing about these results is that the function values are increasing. If we have obtained a first excited state that is lower in energy that our initial, unconstrained calculation of the ground state, that would have indicated an error somewhere in our code.
+
+The values of $x$ are the parameters that yielded a state vector corresponding to each of these costs/energies. 
+
+Finally, we note that all three minimization converged to within the default tolerance of the classical optimizers (here COBYLA). They required $125,99,86$ function evaluations, respectively.
+
+\subsection{Quantum Sample Regression (QSR)}
+One of the main issues with VQE is the multiple calls to a quantum computer that are required to obtain the parameters for each step, including $k,k-$, etc. This is especially problematic when access to quantum devices is queued. While a Session can be used to group multiple iterative calls, an alternative approach is to use sampling. By utilizing more classical resources, we can complete the full optimization process in a single call. This is where, Quantum Sampling Regressions comes into play. Single access of quantum computers is still a low-offer/high-demand commodity, we find this trade-off to be both possible and convenient for many current studies. This approach harnesses all available classical capabilities while still capturing many of the inner workings and intrinsic properties of quantum computations that do not appear in simulation.
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=1\linewidth]{../images/qsr_fig.png}
+\end{figure}
+The idea beind QSR is that the cost function $C(\theta)=\bra{\psi(\theta)}\hat{H}\ket{\psi(\theta)}$ can be expressed as a Fourier series in the following manner:
+\begin{align*}
+C(\vec{\theta})&=\bra{\psi(\theta)}\hat{H}\ket{\psi(\theta)}\\
+&=a_0+\sum_{k=1}^S [a_k \cos (k\theta)+b_k\sin(k\theta)]
+\end{align*}
+Depending on the periodicity and bandwidth of the original function, the set $S$ may be finite or infinite. For the purposes of the discussion, we will assume it is infinite. The next step is to sample the cost function $C(\theta)$ multiple times in order to obtain the Fourier coefficients $\{a_0,a_k,b_k\}_{k=1}^S$. Specifically, since we have $2S+1$ unknowns, we will need to sample the cost function $2S+1 $ times.
+
+If we then sample the cost function for $2S+1$ parameter values $\{\theta_1,\ldots,\theta_{2S+1}\}$, we can obtain the following system:
+\[
+\begin{pmatrix}
+    1 & \cos(\theta_1) & \sin(\theta_1) & \cos(2\theta_1) & \ldots & \sin (S\theta_1)\\
+    1 & \cos(\theta_2) & \sin(\theta_2) & \cos(2\theta_2) & \ldots &\sin(S\theta_2)\\
+    \vdots & \vdots & \vdots & \vdots & \ddots & \vdots \\
+    1 & \cos(\theta_{2S+1}) & \sin(\theta_{2S+1}) &\cos(2\theta_{2S+1}) & \ldots & \sin(S\theta_{2S+1})     
+\end{pmatrix}
+\begin{pmatrix} a_0 \\ a_1 \\ b_1 \\ a_2 \\ \vdots \\ b_s \end{pmatrix} =\begin{pmatrix} C(\theta_1)\\ C(\theta_2) \\ \vdots \\ C(\theta_{2S+1}) \end{pmatrix}
+\]
+that we'll rewrite as
+\[
+Fa=c
+\]
+In practice, this system is generally not consistent because the cost function values $c$ are not exact. Therefore, it is usually a good idea to normalized them by multiplying them by $F^{\dagger}$ on the left, which results in:
+\[
+F^{\dagger}Fa=F^{\dagger}c
+\]
+This new system is always consistent, and its solution is a least-squares solution to the original problem. If we have $k$ parameters instead of just one, and each parameter $\theta^i$ has its own $S_i$ for $i\in 1,\ldots,k$, then the total number of samples required is:
+\[
+T=\prod_{i=1}^k (2S_i+1)\leq \prod_{i=1}^k (2S_{max}+1)=(2S_{max}+1)^n 
+\]
+where $S_{max}=max_i(S_i)$. Furthermore, adjusting $S_{max}$ as a tunable parameter (instead of inferring it) opens up new possibilities, such as:
+\begin{itemize}
+\item \textbf{Oversampling}: to improve accuracy.
+\item \textbf{Undersampling}: to boost performance by reducing runtime overhead or eliminating local minima.
+\end{itemize}
+\subsubsection{QSR's Theoretical Layout}
+QSR's layout can be summarized as follows:
+\begin{itemize}
+\item Prepare reference operators $U_R$.
+\item We'll go from the state $\ket{0}$ to the reference state $\ket{\rho}$.
+\item Apply the variational form $U_V(\vec{\theta}_{i,j})$ to create an ansatz $U_A(\vec{\theta}_{i,j})$.
+\item Determine the bandwidth associated with each parameter in the ansatz. An upper bound is sufficient.
+\item Bootstrap at $i=0$ if we have a similar problem (typically found via classical simulation or sampling)
+\item Sample the cost function $C(\vec{\theta})=a_0+\sum_{k=1}^S [a_k \cos (k\theta)+bb_k \sin(k\theta)]$ at least $T$ times- $T=\prod_{i=1}^k (2S_i+1)\leq \prod_{i=1}^k (2S_{max}+1)=(2S_{max}+1)^n $
+\item Decide whether to oversample/undersample to balance speed vs accuracy by adjusting $T$.
+\item Compute the Fourier coefficients from the samples (i.e., solve the normalized linear system fo equations).
+\item Solve for the global minimum of the resulting regression function on a classical machine.
+\end{itemize}
+\subsection{Summary}
+With this lesson, you learned about multiple variational instances available:
+\begin{itemize}
+    \item General layout
+    \item Introducing weights and penalties to adjust a cost function.
+    \item Exploring undersampling vs oversampling to trade-off speed vs accuracy.
+\end{itemize}
+These ideas can be adapted to form a custom variational algorithm that fits your problem. We encourage you to share your results with the community. The next section we will explore how to use a variational algorithm to solve an application.
+
+\section{Variational Quantum Eigenlsolver}
+Usage Estimate: 73 minutes on ibm\_kyiv or 28 minutes on ibm\_manila. (NOTE:This is an estimate only. Your runtime may vary.)
 \subsection{Background}
 Variational quantum algorithms are promising candidate hybrid-quantum algorithms for observing quantum computational utility on noisy near-term devices. Variational algorithms are characterized by the use of classical optimization algorithm to iteratively update a parameterized trial solution, or ``ansatz". Chief among these methods is the Variational Quantum Eigensolver (VQE) that aims to solve for the ground state of a given Hamiltonian represented as a linear combination of Pauli terms, with an ansatz circuit where the number of parameters to optimize over is polynomial in number of qubits. Given that the size of the full solution vector is exponential in the number of qubits, successful minimization using VQE requires, in general, additional problem-specific information to define the structure of the ansatz circuit.
 
