@@ -1,3 +1,0 @@
-\beamer@sectionintoc {1}{The Problem}{3}{0}{1}
-\beamer@sectionintoc {2}{The Proposal}{7}{0}{2}
-\beamer@sectionintoc {3}{Block-encoding}{14}{0}{3}
