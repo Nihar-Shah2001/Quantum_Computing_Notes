@@ -5384,8 +5384,6 @@ Returning to the general case, we see that implementing the two-level unitary op
     where $\tilde{U}=\begin{bmatrix}a & c \\ b & d \end{bmatrix}$ is an arbitrary $2\times 2$ unitary matrix.
 \end{example}
 
-
-
 \subsection{Approximating arbitrary unitary gates}
 We've seen that any unitary transformation on $n$ qubits can be built up out of a small set of elementary gates. Is it always possible to do this efficiently? That is, given a unitary transformation $U$ on $n$ qubits does there always exist a circuit of size polynomial in $n$ approximating $U$? The answer to this question turns out to be a resounding no: in fact, most unitary transformations can only be implemented very inefficiently. One way to consider the question: how many gates does it take to generate an arbitrary state on $n$ qubits? A simple counting argument shows that this requires exponentially many operations, in general; it immediately follows that there are unitary operations requiring exponentially many operations. to see this, suppose we have $g$ different types of gates available, and each work on at most $f$ qubits. These numbers, $f$ and $g$, are fixed by the computing hardware we have available, and may be considered to be constants. Suppose we have a quantum circuit containing $m$ gates, starting from the computational basis state $\ket{0}^{\otimes n}$. For any particular gate in the circuit there are therefore at most $(\binom{n}{f}))^g=\mathcal{O}(n^{fg})$ possible choices. It follows that at most $\mathcal{O}(n^{fgm})$ different states may be computed using $m$ gates.
 \begin{figure}[ht]
