@@ -1,0 +1,185 @@
+\documentclass[12pt, oneside]{book}
+
+% Include necessary packages
+\usepackage[nottoc]{tocbibind}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{amsthm}
+\usepackage{hyperref}
+\usepackage{cleveref}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{enumitem}
+\usepackage{appendix}
+\usepackage{titlesec}
+\usepackage{lipsum}
+\usepackage{setspace}
+\usepackage{geometry}
+\usepackage{pdflscape}
+\usepackage{pdfpages}
+\usepackage{wrapfig}
+\usepackage{fancyhdr}
+\usepackage{etoolbox}
+\usepackage{mathrsfs}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepackage{pgfplotstable}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{longtable}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{colortbl}
+\usepackage{braket}
+\usepackage{tikz}
+\usepackage{quantikz}
+\usepackage{circuitikz}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{tcolorbox}
+
+% Define colors
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\definecolor{darkgreen}{rgb}{0.0, 0.2, 0.13}
+\definecolor{darkred}{rgb}{0.55, 0.0, 0.0}
+\definecolor{darkblue}{rgb}{0.0, 0.0, 0.55}
+\definecolor{darkpurple}{rgb}{0.5, 0.0, 0.5}
+\definecolor{darkcyan}{rgb}{0.0, 0.55, 0.55}
+\definecolor{darkgray}{rgb}{0.66, 0.66, 0.66}
+\definecolor{lightgray}{rgb}{0.95, 0.95, 0.95}
+
+% Define styles and environments
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+\lstset{style=mystyle}
+
+\newtcolorbox{importantnote}{
+    colback=lightgray,
+    colframe=darkgray,
+    fonttitle=\bfseries,
+    title=Important Note
+}
+
+\newtheorem{problem}{Problem}[section]
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{axiom}{Axiom}[section]
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\theoremstyle{definition}
+\newtheorem{example}{Example}[section]
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+% Define \abstractname and \acknowledgementsname
+\newcommand{\abstractname}{Abstract}
+\newcommand{\acknowledgementsname}{Acknowledgements}
+
+\newenvironment{abstract}{%
+\clearpage
+\null\vfill
+\begin{center}%
+    \bfseries \abstractname
+\end{center}}%
+{\vfill\null}
+
+\newenvironment{Acknowledgements}{%
+\clearpage
+\null\vfill
+\begin{center}%
+    \bfseries \acknowledgementsname
+\end{center}}%
+{\vfill\null}
+
+\begin{document}
+
+\frontmatter
+
+\title{\vspace{-3.0cm}Quantum Machine Learning}  % Title
+\author{Nihar Shah}  % Author name
+\date{\today}  % Date
+\maketitle  % Print the title page
+
+\begin{center}
+\vspace*{2cm}
+\textbf{Quantum Error Correction}\\[1cm]
+\textbf{Nihar Shah}\\[1cm]
+Guide: Professor Phani Motamarri
+\vfill
+\includegraphics[width=0.3\textwidth]{images/IISc_Master_Seal_Black.jpg}\\[1cm]
+\large \textit{Department of Computational and Data Science}\\
+\large \textit{Indian Institute of Science}
+\vfill
+\end{center}
+
+\frontmatter
+
+\begin{abstract}
+The following content consists of the work done by me as a part of my Master's Thesis at Indian
+Institute of Science, Bengaluru. The work is done under the guidance of Prof. Phani Motamarri. 
+This work includes notes made during the 1 year work from June 2024 to August 2025 and is based on the
+lectures, papers, books, and other resources that I have referred to during the course of my work.
+To a reader who is not at all familiar with Quantum Computing, this work will serve as a good starting point. 
+I suggest starting with the Appendix to get a good grasp of the math used in the entire text. 
+The work is divided into parts: The first part is the introduction to Quantum Computing, the second part is Quantum Linear Algebra, the third part is on Quantum Information Theory and at last the fourth part is on Quantum Error Correction. Along with the references, 
+I have also included the code snippets that I have written during the course of my work. The references are included at the end of the document.
+I hope that this text helps the reader to get a good grasp on Quantum Computing. Enjoy reading!
+\end{abstract}
+
+% Acknowledgements
+\begin{Acknowledgements}
+\addcontentsline{toc}{chapter}{Acknowledgements}
+First and foremost, I would like to express my sincere gratitude to my advisor,
+Professor Phani Motamarri, for the continuous support of my study and related, for
+his patience, and immense knowledge.
+His guidance helped me through the time of research and writing of this thesis.
+
+Besides my advisor, I am also grateful to the faculty members and staff at the
+Department of Computational and Data Science of Indian Institute of Science for
+their assistance and support. Special thanks to MATRIX lab for providing a stimulating
+and collaborative research environment.
+
+Last but not the least, I would like to thank my family: my parents,
+for supporting me spiritually throughout writing this thesis and my life in general.
+\end{Acknowledgements}
+
+\tableofcontents
+
+% Start of the main content
+\mainmatter
+
+\chapter{Introduction}
+Ha ~\cite{lidar2013quantum} is a good.
+
+\backmatter  % Use letter page numbering style (A, B, C, D...) for the post-content pages
+  % The references (bibliography) information are stored in the file named "references.bib"
+    \bibliographystyle{plain}
+    \bibliography{references_qml}
+\end{document}
