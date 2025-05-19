@@ -1,0 +1,11 @@
+\contentsline {chapter}{Acknowledgements}{ii}{Doc-Start}%
+\contentsline {chapter}{\numberline {1}Introduction to Quantum Information}{1}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Density Matrices}{2}{section.1.1}%
+\contentsline {section}{\numberline {1.2}Operations on Density matrices}{6}{section.1.2}%
+\contentsline {section}{\numberline {1.3}Postulates}{10}{section.1.3}%
+\contentsline {subsection}{\numberline {1.3.1}Postulate 1: The State Postulate}{10}{subsection.1.3.1}%
+\contentsline {subsection}{\numberline {1.3.2}Postulate 2: Evolution Postulate}{10}{subsection.1.3.2}%
+\contentsline {subsection}{\numberline {1.3.3}Postulate 3: Measurement Postulate}{10}{subsection.1.3.3}%
+\contentsline {subsection}{\numberline {1.3.4}Postulate 4: Composite Systems}{12}{subsection.1.3.4}%
+\contentsline {section}{\numberline {1.4}The Reduced Density Operator}{16}{section.1.4}%
+\contentsline {chapter}{Bibliography}{19}{chapter*.2}%

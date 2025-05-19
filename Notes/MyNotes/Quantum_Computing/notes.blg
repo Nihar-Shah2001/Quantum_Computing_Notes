@@ -1,0 +1,54 @@
+This is BibTeX, Version 0.99d
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: notes.aux
+Reallocating 'name_of_file' (item size: 1) to 6 items.
+The style file: plain.bst
+Reallocating 'name_of_file' (item size: 1) to 11 items.
+Database file #1: references.bib
+Warning--I didn't find a database entry for "cooley1965algorithm"
+Warning--I didn't find a database entry for "ambainis2018quantumspeedupsexponentialtimedynamic"
+Warning--I didn't find a database entry for "harrow2009quantum"
+Warning--I didn't find a database entry for "shewchuk1994introduction"
+Warning--I didn't find a database entry for "dervovic2018quantumlinearsystemsalgorithms"
+You've used 4 entries,
+            2118 wiz_defined-function locations,
+            520 strings with 4545 characters,
+and the built_in function-call counts, 891 in all, are:
+= -- 76
+> -- 34
+< -- 1
++ -- 14
+- -- 10
+* -- 37
+:= -- 156
+add.period$ -- 10
+call.type$ -- 4
+change.case$ -- 15
+chr.to.int$ -- 0
+cite$ -- 4
+duplicate$ -- 38
+empty$ -- 89
+format.name$ -- 10
+if$ -- 188
+int.to.chr$ -- 0
+int.to.str$ -- 4
+missing$ -- 4
+newline$ -- 21
+num.names$ -- 8
+pop$ -- 34
+preamble$ -- 1
+purify$ -- 13
+quote$ -- 0
+skip$ -- 30
+stack$ -- 0
+substring$ -- 20
+swap$ -- 5
+text.length$ -- 1
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 12
+warning$ -- 0
+while$ -- 8
+width$ -- 5
+write$ -- 39
+(There were 5 warnings)

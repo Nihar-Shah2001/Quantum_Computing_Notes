@@ -1,0 +1,551 @@
+\contentsline {chapter}{Acknowledgements}{ii}{Doc-Start}%
+\contentsline {part}{I\hspace {1em}Introduction to Quantum Computing}{1}{part.1}%
+\contentsline {chapter}{\numberline {1}Introduction}{2}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Why Quantum Computation?}{2}{section.1.1}%
+\contentsline {section}{\numberline {1.2}The Double Slit Experiment}{4}{section.1.2}%
+\contentsline {section}{\numberline {1.3}The Coin Experiment: Analogy for intuition}{8}{section.1.3}%
+\contentsline {section}{\numberline {1.4}Quantum Information}{11}{section.1.4}%
+\contentsline {subsection}{\numberline {1.4.1}The Classical Information}{11}{subsection.1.4.1}%
+\contentsline {subsection}{\numberline {1.4.2}A probabilistic model}{12}{subsection.1.4.2}%
+\contentsline {subsection}{\numberline {1.4.3}Quantum bits (qubits)}{14}{subsection.1.4.3}%
+\contentsline {subsection}{\numberline {1.4.4}Example of Qubits}{20}{subsection.1.4.4}%
+\contentsline {subsubsection}{Atomic Orbitals}{20}{subsection.1.4.4}%
+\contentsline {subsubsection}{Photon Polarization}{20}{subsection.1.4.4}%
+\contentsline {subsubsection}{Spins}{21}{subsection.1.4.4}%
+\contentsline {subsection}{\numberline {1.4.5}Multiple Qubits}{21}{subsection.1.4.5}%
+\contentsline {subsubsection}{Tensor Products: How to combine qubits}{26}{example.1.4.7}%
+\contentsline {section}{\numberline {1.5}Measurements}{33}{section.1.5}%
+\contentsline {subsection}{\numberline {1.5.1}Simple Measurements}{34}{subsection.1.5.1}%
+\contentsline {subsubsection}{Measurement in Standard Basis}{34}{subsection.1.5.1}%
+\contentsline {subsubsection}{Application: Randomness from a deterministic process}{35}{subsection.1.5.1}%
+\contentsline {subsubsection}{Measuring a qubit in other bases}{36}{figure.caption.3}%
+\contentsline {subsubsection}{Measurement Example I: Phase Estimation}{39}{example.1.5.6}%
+\contentsline {subsubsection}{Measurement example II: general Qubit Bases}{40}{example.1.5.6}%
+\contentsline {subsubsection}{Expectation Values}{41}{example.1.5.6}%
+\contentsline {subsection}{\numberline {1.5.2}Measuring Multiple Systems}{41}{subsection.1.5.2}%
+\contentsline {subsubsection}{Partial Measurements}{42}{example.1.5.8}%
+\contentsline {section}{\numberline {1.6}The Stern-Gerlach Experiment}{45}{section.1.6}%
+\contentsline {section}{\numberline {1.7}Qiskit Examples}{49}{section.1.7}%
+\contentsline {subsection}{\numberline {1.7.1}Vector and Matrices in Python}{49}{subsection.1.7.1}%
+\contentsline {subsection}{\numberline {1.7.2}States, measurements and operations}{50}{subsection.1.7.2}%
+\contentsline {subsubsection}{Defining and displaying state vectors}{51}{subsection.1.7.2}%
+\contentsline {subsubsection}{Simulating Measurements using Statevector}{51}{lstnumber.-13.3}%
+\contentsline {subsubsection}{Performing operations with Operator and Statevector}{53}{figure.caption.7}%
+\contentsline {subsubsection}{Looking ahead toward Quantum Circuits}{54}{lstnumber.-20.1}%
+\contentsline {subsubsection}{Tensor products}{56}{lstnumber.-25.2}%
+\contentsline {subsection}{\numberline {1.7.3}Partial measurements}{57}{subsection.1.7.3}%
+\contentsline {chapter}{\numberline {2}Axioms of Quantum Mechanics}{59}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Dynamical Collapse}{59}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Postulate 1: The State Space Postulate}{60}{section.2.2}%
+\contentsline {section}{\numberline {2.3}Postulate 2: Evolution Postulate}{62}{section.2.3}%
+\contentsline {section}{\numberline {2.4}Postulate 3: Measurement Postulate}{65}{section.2.4}%
+\contentsline {subsection}{\numberline {2.4.1}Projective Measurements}{70}{subsection.2.4.1}%
+\contentsline {subsection}{\numberline {2.4.2}Positive Operator Valued Measure (POVM) measurements}{72}{subsection.2.4.2}%
+\contentsline {section}{\numberline {2.5}Postulate 4: Composite Systems}{78}{section.2.5}%
+\contentsline {subsection}{\numberline {2.5.1}Full and Partial Measurements of a multi-particle systems}{79}{subsection.2.5.1}%
+\contentsline {chapter}{\numberline {3}Qubits and quantum gates}{83}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Phase}{84}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Bloch-Poincare sphere representation of a Qubit}{85}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Single Qubit Gates}{90}{section.3.3}%
+\contentsline {subsection}{\numberline {3.3.1}Pauli Matrices}{91}{subsection.3.3.1}%
+\contentsline {subsubsection}{Pauli-I Gate}{91}{subsection.3.3.1}%
+\contentsline {subsubsection}{Pauli-X Gate}{92}{figure.caption.14}%
+\contentsline {subsubsection}{Pauli-Y Gate}{94}{figure.caption.16}%
+\contentsline {subsubsection}{Pauli-Z Gate}{95}{figure.caption.18}%
+\contentsline {subsection}{\numberline {3.3.2}Hadamard Gate}{102}{subsection.3.3.2}%
+\contentsline {subsection}{\numberline {3.3.3}$S$ and $S^{\dagger }$ Gate}{105}{subsection.3.3.3}%
+\contentsline {subsubsection}{$S$ Gate}{106}{subsection.3.3.3}%
+\contentsline {subsubsection}{$S^{\dagger }$ Gate}{107}{figure.caption.24}%
+\contentsline {subsection}{\numberline {3.3.4}$T$ and $T^{\dagger }$ Gate}{108}{subsection.3.3.4}%
+\contentsline {subsubsection}{$T$ Gate}{108}{subsection.3.3.4}%
+\contentsline {subsubsection}{$T^{\dagger }$ Gate}{110}{figure.caption.28}%
+\contentsline {subsection}{\numberline {3.3.5}Quantum Rotation Gates}{114}{subsection.3.3.5}%
+\contentsline {subsubsection}{$R_X$ Gate}{114}{subsection.3.3.5}%
+\contentsline {subsubsection}{$R_Y$ Gate}{115}{figure.caption.31}%
+\contentsline {subsubsection}{$R_Z$ Gate}{115}{figure.caption.32}%
+\contentsline {subsubsection}{$R_n$ \textbf {Gate}}{116}{figure.caption.33}%
+\contentsline {subsection}{\numberline {3.3.6}Universal Quantum Gates}{117}{subsection.3.3.6}%
+\contentsline {section}{\numberline {3.4}Multi-Qubit Gates}{127}{section.3.4}%
+\contentsline {subsection}{\numberline {3.4.1}Two-qubit Gates}{128}{subsection.3.4.1}%
+\contentsline {subsubsection}{CNOT/CX Gate}{128}{subsection.3.4.1}%
+\contentsline {subsubsection}{CY Gate}{130}{figure.caption.36}%
+\contentsline {subsubsection}{CZ/CPHASE Gate}{131}{figure.caption.38}%
+\contentsline {subsubsection}{CH/ Controlled Hadamard Gate}{133}{figure.caption.40}%
+\contentsline {subsubsection}{SWAP Gate}{140}{figure.caption.48}%
+\contentsline {subsection}{\numberline {3.4.2}Three-qubit Gates}{142}{subsection.3.4.2}%
+\contentsline {subsubsection}{CCNOT/Toffoli Gate}{142}{subsection.3.4.2}%
+\contentsline {subsubsection}{CSWAP/Fredkin Gate}{145}{figure.caption.54}%
+\contentsline {section}{\numberline {3.5}Implementation of Controlled-U}{149}{section.3.5}%
+\contentsline {section}{\numberline {3.6}Universal quantum gates}{154}{section.3.6}%
+\contentsline {subsection}{\numberline {3.6.1}Two-level unitary gates are universal}{156}{subsection.3.6.1}%
+\contentsline {subsection}{\numberline {3.6.2}Single qubit and CNOT gates are universal}{159}{subsection.3.6.2}%
+\contentsline {subsection}{\numberline {3.6.3}Approximating arbitrary unitary gates}{163}{subsection.3.6.3}%
+\contentsline {section}{\numberline {3.7}Measurements}{166}{section.3.7}%
+\contentsline {subsection}{\numberline {3.7.1}Principle of deferred measurement}{167}{subsection.3.7.1}%
+\contentsline {subsection}{\numberline {3.7.2}Principle of implicit measurement}{168}{subsection.3.7.2}%
+\contentsline {chapter}{\numberline {4}Mixed States}{170}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Mixed States}{170}{section.4.1}%
+\contentsline {subsection}{\numberline {4.1.1}Density Matrices}{171}{subsection.4.1.1}%
+\contentsline {subsection}{\numberline {4.1.2}Properties of Density Matrices}{173}{subsection.4.1.2}%
+\contentsline {subsection}{\numberline {4.1.3}Partial trace and Reduced Density Matrix}{174}{subsection.4.1.3}%
+\contentsline {chapter}{\numberline {5}Quantum Circuits}{177}{chapter.5}%
+\contentsline {section}{\numberline {5.1}The Standard Circuit Model}{179}{section.5.1}%
+\contentsline {subsection}{\numberline {5.1.1}Examples}{180}{subsection.5.1.1}%
+\contentsline {section}{\numberline {5.2}Quantum Computing}{188}{section.5.2}%
+\contentsline {section}{\numberline {5.3}Classical Circuits simulating Quantum Circuits}{191}{section.5.3}%
+\contentsline {section}{\numberline {5.4}Universal gate sets}{192}{section.5.4}%
+\contentsline {subsection}{\numberline {5.4.1}A discrete set of universal operations}{197}{subsection.5.4.1}%
+\contentsline {subsubsection}{Approximating Unitary operation}{197}{subsection.5.4.1}%
+\contentsline {subsubsection}{Universality of Hadamard, Phase, CNOT and $\pi /8$ gates}{198}{subsection.5.4.1}%
+\contentsline {subsection}{\numberline {5.4.2}Linear Growth and Duhamel's Principle}{199}{subsection.5.4.2}%
+\contentsline {section}{\numberline {5.5}Reversible Computation}{202}{section.5.5}%
+\contentsline {subsection}{\numberline {5.5.1}Quantum Circuits simulating Classical Circuits}{202}{subsection.5.5.1}%
+\contentsline {subsection}{\numberline {5.5.2}Fixed Point Number Representation and Classical Arithmetic operations}{206}{subsection.5.5.2}%
+\contentsline {section}{\numberline {5.6}Energy and computation}{206}{section.5.6}%
+\contentsline {subsection}{\numberline {5.6.1}The billiard ball model of computation}{208}{subsection.5.6.1}%
+\contentsline {section}{\numberline {5.7}Efficient Implementation}{218}{section.5.7}%
+\contentsline {subsection}{\numberline {5.7.1}Reversible Implementation of invertible functions}{224}{subsection.5.7.1}%
+\contentsline {section}{\numberline {5.8}Quantum Implementation of Classical Arithmetics operations}{225}{section.5.8}%
+\contentsline {subsection}{\numberline {5.8.1}Reversible and Quantum versions of simple classical gates}{226}{subsection.5.8.1}%
+\contentsline {subsubsection}{NOT}{227}{subsection.5.8.1}%
+\contentsline {subsubsection}{XOR}{227}{subsection.5.8.1}%
+\contentsline {subsubsection}{AND}{227}{subsection.5.8.1}%
+\contentsline {section}{\numberline {5.9}Reversible implementation of Classical Circuits}{228}{section.5.9}%
+\contentsline {subsection}{\numberline {5.9.1}A Naive reversible Implementation}{229}{subsection.5.9.1}%
+\contentsline {subsection}{\numberline {5.9.2}A General Construction}{232}{subsection.5.9.2}%
+\contentsline {subsection}{\numberline {5.9.3}Efficient implementation of AND}{236}{subsection.5.9.3}%
+\contentsline {subsection}{\numberline {5.9.4}The Implementations}{236}{subsection.5.9.4}%
+\contentsline {subsubsection}{Integer Addition}{237}{subsection.5.9.4}%
+\contentsline {subsubsection}{Integer Multiplication}{238}{subsection.5.9.4}%
+\contentsline {subsubsection}{Integer Division}{238}{subsection.5.9.4}%
+\contentsline {subsubsection}{Greatest Common Divisor}{238}{subsection.5.9.4}%
+\contentsline {subsubsection}{Modular Integer Addition}{238}{subsection.5.9.4}%
+\contentsline {subsubsection}{Modular integer Multiplication}{238}{subsection.5.9.4}%
+\contentsline {subsubsection}{Modular Inverse}{239}{subsection.5.9.4}%
+\contentsline {subsubsection}{Modular Exponentiation}{239}{subsection.5.9.4}%
+\contentsline {subsubsection}{Primality testing}{239}{subsection.5.9.4}%
+\contentsline {subsubsection}{Integer Factoring}{239}{subsection.5.9.4}%
+\contentsline {section}{\numberline {5.10}Complexity of Quantum Algorithms}{239}{section.5.10}%
+\contentsline {section}{\numberline {5.11}Oracles}{241}{section.5.11}%
+\contentsline {section}{\numberline {5.12}Quantum Algorithms as Quantum Circuits}{246}{section.5.12}%
+\contentsline {section}{\numberline {5.13}Fault tolerant Computation}{247}{section.5.13}%
+\contentsline {chapter}{\numberline {6}The Stabilizer Formalism}{249}{chapter.6}%
+\contentsline {chapter}{\numberline {7}Entanglement}{251}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Two qubits}{251}{section.7.1}%
+\contentsline {section}{\numberline {7.2}Bell States/EPR Pairs (EPR Paradox)}{254}{section.7.2}%
+\contentsline {section}{\numberline {7.3}Bell's Thought Experiment}{256}{section.7.3}%
+\contentsline {section}{\numberline {7.4}No Cloning Theorem}{261}{section.7.4}%
+\contentsline {section}{\numberline {7.5}Hidden Variable Theories}{263}{section.7.5}%
+\contentsline {subsection}{\numberline {7.5.1}Bohmian Mechanics}{263}{subsection.7.5.1}%
+\contentsline {subsection}{\numberline {7.5.2}Local Hidden Variable theories}{265}{subsection.7.5.2}%
+\contentsline {section}{\numberline {7.6}Applications of Entanglement}{266}{section.7.6}%
+\contentsline {subsection}{\numberline {7.6.1}The CHSH Game}{266}{subsection.7.6.1}%
+\contentsline {subsection}{\numberline {7.6.2}CHSH Game: Quantum Strategy}{267}{subsection.7.6.2}%
+\contentsline {subsection}{\numberline {7.6.3}Analysis of Protocol}{269}{subsection.7.6.3}%
+\contentsline {subsection}{\numberline {7.6.4}CHSH game: Interpretations and Local Realism}{270}{subsection.7.6.4}%
+\contentsline {subsubsection}{Nonlocal games}{272}{subsection.7.6.4}%
+\contentsline {subsubsection}{CHSH game description}{273}{figure.caption.126}%
+\contentsline {subsubsection}{Limitations of classical strategies}{274}{table.caption.127}%
+\contentsline {subsubsection}{Deterministic Strategies}{274}{table.caption.127}%
+\contentsline {subsubsection}{Probabilistic Strategies}{275}{table.caption.127}%
+\contentsline {subsubsection}{CHSH game strategy}{275}{table.caption.127}%
+\contentsline {subsubsection}{Required vectors and matrices}{275}{figure.caption.128}%
+\contentsline {section}{\numberline {7.7}Einstein-Certified Randomness}{277}{section.7.7}%
+\contentsline {subsection}{\numberline {7.7.1}Guaranteed Random Numbers}{277}{subsection.7.7.1}%
+\contentsline {section}{\numberline {7.8}Implementation using Qiskit}{280}{section.7.8}%
+\contentsline {subsection}{\numberline {7.8.1}Quantum Teleportation}{280}{subsection.7.8.1}%
+\contentsline {subsubsection}{Implementation using Qiskit}{286}{figure.caption.131}%
+\contentsline {subsection}{\numberline {7.8.2}Superdense Coding}{286}{subsection.7.8.2}%
+\contentsline {subsubsection}{Implementation using Qiskit}{292}{example.7.8.1}%
+\contentsline {chapter}{\numberline {8}Elitzur-Vaidman Bomb Detection Algorithm}{298}{chapter.8}%
+\contentsline {section}{\numberline {8.1}The Quantum Zeno Effect}{298}{section.8.1}%
+\contentsline {section}{\numberline {8.2}The Problem}{299}{section.8.2}%
+\contentsline {subsection}{\numberline {8.2.1}Approach 1: Naive Approach }{299}{subsection.8.2.1}%
+\contentsline {subsection}{\numberline {8.2.2}Approach 2: Quantum Superposition Approach}{299}{subsection.8.2.2}%
+\contentsline {subsection}{\numberline {8.2.3}Elitzur-Vaidman Bomb Detection Algorithm}{301}{subsection.8.2.3}%
+\contentsline {section}{\numberline {8.3}Quantum Money}{303}{section.8.3}%
+\contentsline {section}{\numberline {8.4}Weisner's Quantum Money}{304}{section.8.4}%
+\contentsline {subsection}{\numberline {8.4.1}Quantum Money Attacks}{305}{subsection.8.4.1}%
+\contentsline {subsection}{\numberline {8.4.2}Interactive attacks}{305}{subsection.8.4.2}%
+\contentsline {subsection}{\numberline {8.4.3}Public-Key Quantum Money}{307}{subsection.8.4.3}%
+\contentsline {section}{\numberline {8.5}Quantum Key Distribution}{307}{section.8.5}%
+\contentsline {subsection}{\numberline {8.5.1}The BB84 Protocol}{308}{subsection.8.5.1}%
+\contentsline {chapter}{\numberline {9}Deutsch's Algorithm}{310}{chapter.9}%
+\contentsline {section}{\numberline {9.1}The Problem Definition}{310}{section.9.1}%
+\contentsline {section}{\numberline {9.2}The Classical Solution}{311}{section.9.2}%
+\contentsline {section}{\numberline {9.3}The Quantum Solution: Deutsch's Algorithm}{312}{section.9.3}%
+\contentsline {subsection}{\numberline {9.3.1}Quantum Parallelism}{312}{subsection.9.3.1}%
+\contentsline {subsection}{\numberline {9.3.2}Idea of the Algorithm}{315}{subsection.9.3.2}%
+\contentsline {subsection}{\numberline {9.3.3}Algorithm}{315}{subsection.9.3.3}%
+\contentsline {subsection}{\numberline {9.3.4}Example}{319}{subsection.9.3.4}%
+\contentsline {section}{\numberline {9.4}Implementation using Qiskit}{322}{section.9.4}%
+\contentsline {subsection}{\numberline {9.4.1}Background}{322}{subsection.9.4.1}%
+\contentsline {subsection}{\numberline {9.4.2}Requirements}{322}{subsection.9.4.2}%
+\contentsline {subsection}{\numberline {9.4.3}Setup}{322}{subsection.9.4.3}%
+\contentsline {chapter}{\numberline {10}Deutsch-Jozsa Algorithm}{328}{chapter.10}%
+\contentsline {section}{\numberline {10.1}The Problem Definition}{328}{section.10.1}%
+\contentsline {section}{\numberline {10.2}The Classical Solution}{328}{section.10.2}%
+\contentsline {section}{\numberline {10.3}The Quantum Solution: Deutsch-Jozsa Algorithm}{330}{section.10.3}%
+\contentsline {subsection}{\numberline {10.3.1}Idea of the Algorithm}{330}{subsection.10.3.1}%
+\contentsline {subsection}{\numberline {10.3.2}Algorithm}{330}{subsection.10.3.2}%
+\contentsline {subsection}{\numberline {10.3.3}Example}{334}{subsection.10.3.3}%
+\contentsline {section}{\numberline {10.4}Complexity Analysis}{337}{section.10.4}%
+\contentsline {section}{\numberline {10.5}Conclusion}{338}{section.10.5}%
+\contentsline {section}{\numberline {10.6}Implementation using Qiskit}{338}{section.10.6}%
+\contentsline {subsection}{\numberline {10.6.1}Background}{338}{subsection.10.6.1}%
+\contentsline {subsection}{\numberline {10.6.2}Requirements}{338}{subsection.10.6.2}%
+\contentsline {subsection}{\numberline {10.6.3}Setup}{340}{subsection.10.6.3}%
+\contentsline {chapter}{\numberline {11}Bernstein-Vazirani Algorithm}{350}{chapter.11}%
+\contentsline {section}{\numberline {11.1}The Problem}{350}{section.11.1}%
+\contentsline {section}{\numberline {11.2}The Classical solution}{351}{section.11.2}%
+\contentsline {section}{\numberline {11.3}Quantum solution}{351}{section.11.3}%
+\contentsline {section}{\numberline {11.4}Implementation}{353}{section.11.4}%
+\contentsline {chapter}{\numberline {12}Simon's Algorithm}{354}{chapter.12}%
+\contentsline {section}{\numberline {12.1}The Problem Definition}{354}{section.12.1}%
+\contentsline {section}{\numberline {12.2}The Classical Solution}{356}{section.12.2}%
+\contentsline {subsection}{\numberline {12.2.1}Classical Lower Bound}{357}{subsection.12.2.1}%
+\contentsline {section}{\numberline {12.3}The Quantum Solution: Simon's Algorithm}{359}{section.12.3}%
+\contentsline {subsection}{\numberline {12.3.1}Algorithm}{360}{subsection.12.3.1}%
+\contentsline {subsubsection}{Classical Post Processing}{363}{subsection.12.3.1}%
+\contentsline {subsection}{\numberline {12.3.2}Example}{365}{subsection.12.3.2}%
+\contentsline {section}{\numberline {12.4}Complexity Analysis}{368}{section.12.4}%
+\contentsline {section}{\numberline {12.5}Conclusion}{368}{section.12.5}%
+\contentsline {chapter}{\numberline {13}Discrete log Problem}{370}{chapter.13}%
+\contentsline {section}{\numberline {13.1}Definition of $\mathbb {Z}_m$ and $\mathbb {Z}_m^*$}{370}{section.13.1}%
+\contentsline {section}{\numberline {13.2}Generators of $\mathbb {Z}_p^*$ and the exponential/log functions}{371}{section.13.2}%
+\contentsline {section}{\numberline {13.3}Discrete exponential problem}{372}{section.13.3}%
+\contentsline {subsection}{\numberline {13.3.1}Repeated Squaring Trick}{372}{subsection.13.3.1}%
+\contentsline {section}{\numberline {13.4}Discrete log problem}{373}{section.13.4}%
+\contentsline {section}{\numberline {13.5}Shor's Algorithm for the discrete log problem}{373}{section.13.5}%
+\contentsline {subsection}{\numberline {13.5.1}Shor's function with a property similar to Simon's}{373}{subsection.13.5.1}%
+\contentsline {chapter}{\numberline {14}Quantum Fourier Transform}{376}{chapter.14}%
+\contentsline {chapter}{\numberline {15}Quantum Fourier Transform}{377}{chapter.15}%
+\contentsline {section}{\numberline {15.1}Mathematical Foundations}{378}{section.15.1}%
+\contentsline {subsection}{\numberline {15.1.1}Roots of Unity}{378}{subsection.15.1.1}%
+\contentsline {subsection}{\numberline {15.1.2}The Discrete Fourier Transform}{380}{subsection.15.1.2}%
+\contentsline {subsubsection}{Definition of the DFT}{381}{subsection.15.1.2}%
+\contentsline {subsection}{\numberline {15.1.3}Computing the Discrete Fourier Transform}{382}{subsection.15.1.3}%
+\contentsline {subsubsection}{Naïve Method}{382}{subsection.15.1.3}%
+\contentsline {subsubsection}{Fast Fourier Transform (FFT)}{382}{equation.15.1.11}%
+\contentsline {paragraph}{Matrix View:}{386}{equation.15.1.13}%
+\contentsline {paragraph}{Recursive Formula for Functions:}{387}{figure.caption.169}%
+\contentsline {subsubsection}{Quantum Fourier Transform (QFT)}{392}{equation.15.1.17}%
+\contentsline {section}{\numberline {15.2}Quantum Fourier Transform}{392}{section.15.2}%
+\contentsline {subsection}{\numberline {15.2.1}Properties of the Quantum Fourier Transform (QFT)}{393}{subsection.15.2.1}%
+\contentsline {subsubsection}{QFT is Unitary}{393}{subsection.15.2.1}%
+\contentsline {subsubsection}{Linear Shift Invariance}{394}{equation.15.2.22}%
+\contentsline {subsubsection}{Period and Wavelength Relationship}{397}{example.15.2.2}%
+\contentsline {subsection}{\numberline {15.2.2}Examples and Applications of the QFT}{401}{subsection.15.2.2}%
+\contentsline {section}{\numberline {15.3}Efficient implementation of Quantum Fourier Transform}{403}{section.15.3}%
+\contentsline {subsection}{\numberline {15.3.1}Idea of the Algorithm}{403}{subsection.15.3.1}%
+\contentsline {subsection}{\numberline {15.3.2}Intuitive way}{405}{subsection.15.3.2}%
+\contentsline {subsection}{\numberline {15.3.3}Mathematical Way}{409}{subsection.15.3.3}%
+\contentsline {subsubsection}{Implementation of controlled rotations}{413}{equation.15.3.37}%
+\contentsline {subsection}{\numberline {15.3.4}Implementation of the controlled-phase gates}{416}{subsection.15.3.4}%
+\contentsline {subsection}{\numberline {15.3.5}Implementation of SWAP gates}{417}{subsection.15.3.5}%
+\contentsline {subsection}{\numberline {15.3.6}Total Gate Complexity}{418}{subsection.15.3.6}%
+\contentsline {section}{\numberline {15.4}Approximate Quantum Fourier Transform}{419}{section.15.4}%
+\contentsline {section}{\numberline {15.5}Addition by Fourier Transform}{424}{section.15.5}%
+\contentsline {section}{\numberline {15.6}Measured Quantum Fourier transform}{429}{section.15.6}%
+\contentsline {section}{\numberline {15.7}Generalized Quantum Fourier Transform}{433}{section.15.7}%
+\contentsline {section}{\numberline {15.8}Implementation using Qiskit}{433}{section.15.8}%
+\contentsline {subsection}{\numberline {15.8.1}Implementation details}{434}{subsection.15.8.1}%
+\contentsline {subsubsection}{Class}{434}{subsection.15.8.1}%
+\contentsline {subsubsection}{Parameters}{434}{lstnumber.-80.1}%
+\contentsline {subsubsection}{Attributes}{435}{lstnumber.-80.1}%
+\contentsline {subsubsection}{Methods}{438}{lstnumber.-84.6}%
+\contentsline {subsection}{\numberline {15.8.2}Quantum Fourier Transform}{439}{subsection.15.8.2}%
+\contentsline {subsection}{\numberline {15.8.3}Inverse Quantum Fourier Transform}{441}{subsection.15.8.3}%
+\contentsline {subsection}{\numberline {15.8.4}Approximate Quantum Fourier Transform}{443}{subsection.15.8.4}%
+\contentsline {section}{\numberline {15.9}Conclusion}{444}{section.15.9}%
+\contentsline {chapter}{\numberline {16}Phase Estimation}{445}{chapter.16}%
+\contentsline {section}{\numberline {16.1}Phase Estimation}{445}{section.16.1}%
+\contentsline {section}{\numberline {16.2}The Problem Definition}{446}{section.16.2}%
+\contentsline {section}{\numberline {16.3}The Classical Solution}{447}{section.16.3}%
+\contentsline {section}{\numberline {16.4}The Quantum Solution}{447}{section.16.4}%
+\contentsline {subsection}{\numberline {16.4.1}Hadamard Test}{447}{subsection.16.4.1}%
+\contentsline {subsection}{\numberline {16.4.2}Overlap Estimate using Swap Test}{450}{subsection.16.4.2}%
+\contentsline {subsection}{\numberline {16.4.3}Overlap estimate with Relative phase information}{451}{subsection.16.4.3}%
+\contentsline {subsection}{\numberline {16.4.4}Single Qubit Phase Estimation}{452}{subsection.16.4.4}%
+\contentsline {section}{\numberline {16.5}Kitaev's Method - for Quantum Phase Estimation}{455}{section.16.5}%
+\contentsline {subsection}{\numberline {16.5.1}Idea of the Algorithm}{455}{subsection.16.5.1}%
+\contentsline {subsubsection}{Case: $d=1$}{455}{subsection.16.5.1}%
+\contentsline {subsubsection}{Case: $d>1$}{456}{subsection.16.5.1}%
+\contentsline {subsection}{\numberline {16.5.2}Algorithm}{457}{subsection.16.5.2}%
+\contentsline {subsection}{\numberline {16.5.3}Example}{459}{subsection.16.5.3}%
+\contentsline {subsection}{\numberline {16.5.4}Validity of Kitaev's Algorithm}{459}{subsection.16.5.4}%
+\contentsline {section}{\numberline {16.6}Quantum Phase Estimation using Quantum Fourier Transform}{460}{section.16.6}%
+\contentsline {subsection}{\numberline {16.6.1}Implementation of Controlled Unitary operation}{462}{subsection.16.6.1}%
+\contentsline {subsection}{\numberline {16.6.2}Implementation of QPE Circuit}{465}{subsection.16.6.2}%
+\contentsline {subsubsection}{A simple case: Exact $\theta $ }{467}{figure.caption.210}%
+\contentsline {subsubsection}{For the general values of $\theta $}{470}{Item.75}%
+\contentsline {section}{\numberline {16.7}Special Case: Superposition of Eigenvectors}{476}{section.16.7}%
+\contentsline {section}{\numberline {16.8}Complexity Analysis}{478}{section.16.8}%
+\contentsline {section}{\numberline {16.9}Implementation using Qiskit}{482}{section.16.9}%
+\contentsline {chapter}{\numberline {17}Order Finding}{484}{chapter.17}%
+\contentsline {section}{\numberline {17.1}Introduction}{484}{section.17.1}%
+\contentsline {section}{\numberline {17.2}The Problem Definition}{487}{section.17.2}%
+\contentsline {section}{\numberline {17.3}The Classical Solution}{487}{section.17.3}%
+\contentsline {section}{\numberline {17.4}The Quantum Solution}{489}{section.17.4}%
+\contentsline {subsection}{\numberline {17.4.1}Multiplicity-controlled $-U_{a,N}$ gate}{492}{subsection.17.4.1}%
+\contentsline {subsection}{\numberline {17.4.2}Precision needed to determine $1/r$}{496}{subsection.17.4.2}%
+\contentsline {subsection}{\numberline {17.4.3}Can we construct $\mathinner {|{\psi _1}\rangle }$?}{497}{subsection.17.4.3}%
+\contentsline {subsection}{\numberline {17.4.4}Order-finding using a random eigenvector $\mathinner {|{\psi _k}\rangle }$}{498}{subsection.17.4.4}%
+\contentsline {subsubsection}{When $k$ is known}{499}{subsection.17.4.4}%
+\contentsline {subsubsection}{When $k$ is not known}{499}{subsection.17.4.4}%
+\contentsline {subsubsection}{Continued fractions}{501}{figure.caption.218}%
+\contentsline {subsection}{\numberline {17.4.5}Conclusions of order-finding with a random eigenvector}{504}{subsection.17.4.5}%
+\contentsline {subsection}{\numberline {17.4.6}Order-finding using a superposition of eigenvectors}{504}{subsection.17.4.6}%
+\contentsline {subsubsection}{Order finding without the requirement of an eigenvector}{505}{subsection.17.4.6}%
+\contentsline {section}{\numberline {17.5}Performance}{507}{section.17.5}%
+\contentsline {section}{\numberline {17.6}Complexity Analysis}{509}{section.17.6}%
+\contentsline {section}{\numberline {17.7}Summary}{510}{section.17.7}%
+\contentsline {chapter}{\numberline {18}Shor's Algorithm}{511}{chapter.18}%
+\contentsline {section}{\numberline {18.1}Introduction}{511}{section.18.1}%
+\contentsline {section}{\numberline {18.2}Problem Definition}{512}{section.18.2}%
+\contentsline {section}{\numberline {18.3}Reduction of factoring to order-finding}{513}{section.18.3}%
+\contentsline {section}{\numberline {18.4}Example}{515}{section.18.4}%
+\contentsline {section}{\numberline {18.5}Summary}{516}{section.18.5}%
+\contentsline {chapter}{\numberline {19}Period-finding}{518}{chapter.19}%
+\contentsline {section}{\numberline {19.1}Problem Definition}{518}{section.19.1}%
+\contentsline {chapter}{\numberline {20}Hidden Subgroup problem}{520}{chapter.20}%
+\contentsline {chapter}{\numberline {21}Grover's Search Algorithm}{521}{chapter.21}%
+\contentsline {section}{\numberline {21.1}The Problem Definition}{522}{section.21.1}%
+\contentsline {section}{\numberline {21.2}The Classical Solution}{522}{section.21.2}%
+\contentsline {section}{\numberline {21.3}The Quantum Solution: Grover's Algorithm}{524}{section.21.3}%
+\contentsline {subsection}{\numberline {21.3.1}Idea of the Algorithm}{524}{subsection.21.3.1}%
+\contentsline {subsection}{\numberline {21.3.2}Algorithm}{528}{subsection.21.3.2}%
+\contentsline {subsubsection}{Reflection about $\mathinner {|{B}\rangle }$}{528}{subsection.21.3.2}%
+\contentsline {subsubsection}{Reflection about $\mathinner {|{h}\rangle }$}{533}{figure.caption.223}%
+\contentsline {subsubsection}{Grover's Rotation Operator}{539}{example.21.3.2}%
+\contentsline {subsection}{\numberline {21.3.3}Example}{544}{subsection.21.3.3}%
+\contentsline {section}{\numberline {21.4}Complexity Analysis}{550}{section.21.4}%
+\contentsline {subsection}{\numberline {21.4.1}Unique Search Problem}{551}{subsection.21.4.1}%
+\contentsline {subsection}{\numberline {21.4.2}Multiple Solutions}{553}{subsection.21.4.2}%
+\contentsline {subsection}{\numberline {21.4.3}Trivial Case}{558}{subsection.21.4.3}%
+\contentsline {section}{\numberline {21.5}Optimality of Grover's algorithm}{559}{section.21.5}%
+\contentsline {subsection}{\numberline {21.5.1}The BBBV Theorem}{566}{subsection.21.5.1}%
+\contentsline {section}{\numberline {21.6}Conclusion}{567}{section.21.6}%
+\contentsline {section}{\numberline {21.7}Quantum Counting}{568}{section.21.7}%
+\contentsline {section}{\numberline {21.8}Amplitude Estimation}{571}{section.21.8}%
+\contentsline {section}{\numberline {21.9}Amplitude Amplification}{573}{section.21.9}%
+\contentsline {section}{\numberline {21.10}Applications of Grover's Algorithm}{575}{section.21.10}%
+\contentsline {subsection}{\numberline {21.10.1}Application: Satisfiability}{575}{subsection.21.10.1}%
+\contentsline {subsection}{\numberline {21.10.2}Speeding up the solutions of NP-complete problems}{576}{subsection.21.10.2}%
+\contentsline {subsection}{\numberline {21.10.3}Quantum Search of an unstructured database}{578}{subsection.21.10.3}%
+\contentsline {subsection}{\numberline {21.10.4}The Collision Problem}{581}{subsection.21.10.4}%
+\contentsline {section}{\numberline {21.11}Implementation using Qiskit}{582}{section.21.11}%
+\contentsline {subsection}{\numberline {21.11.1}Background}{582}{subsection.21.11.1}%
+\contentsline {subsection}{\numberline {21.11.2}Requirements}{582}{subsection.21.11.2}%
+\contentsline {subsection}{\numberline {21.11.3}Setup}{582}{subsection.21.11.3}%
+\contentsline {part}{II\hspace {1em}Advanced Quantum Computing}{590}{part.2}%
+\contentsline {chapter}{\numberline {22}Hamiltonians}{591}{chapter.22}%
+\contentsline {section}{\numberline {22.1}Quantum Algorithms for NP-complete Problems}{591}{section.22.1}%
+\contentsline {section}{\numberline {22.2}Hamiltonians}{592}{section.22.2}%
+\contentsline {subsection}{\numberline {22.2.1}Matrix Exponentiation}{593}{subsection.22.2.1}%
+\contentsline {subsection}{\numberline {22.2.2}Energy}{595}{subsection.22.2.2}%
+\contentsline {subsection}{\numberline {22.2.3}Tensor product of Hamiltonians}{597}{subsection.22.2.3}%
+\contentsline {subsection}{\numberline {22.2.4}Addition of Hamiltonians}{598}{subsection.22.2.4}%
+\contentsline {chapter}{\numberline {23}Trotter based Hamiltonian Simulation}{602}{chapter.23}%
+\contentsline {section}{\numberline {23.1}Simulation of Quantum Systems}{603}{section.23.1}%
+\contentsline {subsection}{\numberline {23.1.1}Simulation in action}{604}{subsection.23.1.1}%
+\contentsline {section}{\numberline {23.2}Introduction}{606}{section.23.2}%
+\contentsline {section}{\numberline {23.3}Hamiltonian Simulation}{612}{section.23.3}%
+\contentsline {subsection}{\numberline {23.3.1}Evolution of a Closed Quantum System}{614}{subsection.23.3.1}%
+\contentsline {section}{\numberline {23.4}The Problem Definition}{614}{section.23.4}%
+\contentsline {section}{\numberline {23.5}Trotter Splitting}{615}{section.23.5}%
+\contentsline {section}{\numberline {23.6}Evolution of Hamiltonian formed by Pauli Operators: Quantum circuits and exact simulation}{623}{section.23.6}%
+\contentsline {subsection}{\numberline {23.6.1}One-qubit Hamiltonians}{623}{subsection.23.6.1}%
+\contentsline {subsection}{\numberline {23.6.2}Two-qubit Hamiltonians}{623}{subsection.23.6.2}%
+\contentsline {section}{\numberline {23.7}How to simulate any Hamiltonian}{625}{section.23.7}%
+\contentsline {section}{\numberline {23.8}Example}{626}{section.23.8}%
+\contentsline {section}{\numberline {23.9}Commutator type error bound}{629}{section.23.9}%
+\contentsline {chapter}{\numberline {24}The Adiabatic Algorithm}{632}{chapter.24}%
+\contentsline {section}{\numberline {24.1}The Local Hamiltonians}{632}{section.24.1}%
+\contentsline {chapter}{\numberline {25}The HHL Algorithm}{633}{chapter.25}%
+\contentsline {section}{\numberline {25.1}Introduction}{633}{section.25.1}%
+\contentsline {section}{\numberline {25.2}The Linear-System Problem (LSP)}{633}{section.25.2}%
+\contentsline {section}{\numberline {25.3}The HHL Algorithm}{635}{section.25.3}%
+\contentsline {subsection}{\numberline {25.3.1}Some Mathematical Preliminaries}{635}{subsection.25.3.1}%
+\contentsline {subsection}{\numberline {25.3.2}Algorithm}{637}{subsection.25.3.2}%
+\contentsline {subsection}{\numberline {25.3.3}Example}{644}{subsection.25.3.3}%
+\contentsline {section}{\numberline {25.4}Complexity Analysis}{648}{section.25.4}%
+\contentsline {section}{\numberline {25.5}Improvements in HHL algorithm}{652}{section.25.5}%
+\contentsline {section}{\numberline {25.6}Implementation using Qiskit}{654}{section.25.6}%
+\contentsline {section}{\numberline {25.7}Applications}{654}{section.25.7}%
+\contentsline {subsection}{\numberline {25.7.1}Poisson's problem}{654}{subsection.25.7.1}%
+\contentsline {subsection}{\numberline {25.7.2}Solve Linear Differential Equations}{657}{subsection.25.7.2}%
+\contentsline {subsubsection}{Scalar case}{658}{subsection.25.7.2}%
+\contentsline {subsubsection}{Vector Case}{661}{theorem.25.7.3}%
+\contentsline {subsection}{\numberline {25.7.3}Computing observables}{663}{subsection.25.7.3}%
+\contentsline {chapter}{\numberline {26}Quantum Walk Algorithms}{666}{chapter.26}%
+\contentsline {section}{\numberline {26.1}Random Walk}{666}{section.26.1}%
+\contentsline {subsection}{\numberline {26.1.1}Setup}{666}{subsection.26.1.1}%
+\contentsline {subsection}{\numberline {26.1.2}Process}{667}{subsection.26.1.2}%
+\contentsline {section}{\numberline {26.2}Markov Chain}{667}{section.26.2}%
+\contentsline {subsection}{\numberline {26.2.1}Transition Matrix}{667}{subsection.26.2.1}%
+\contentsline {subsection}{\numberline {26.2.2}Stationary distribution}{668}{subsection.26.2.2}%
+\contentsline {section}{\numberline {26.3}Convergence Analysis}{669}{section.26.3}%
+\contentsline {subsection}{\numberline {26.3.1}Spectrum of T}{669}{subsection.26.3.1}%
+\contentsline {subsection}{\numberline {26.3.2}Convergence Analysis for Symmetric $T$}{670}{subsection.26.3.2}%
+\contentsline {section}{\numberline {26.4}Classical Random Walks}{671}{section.26.4}%
+\contentsline {section}{\numberline {26.5}Applications of Random Walks}{674}{section.26.5}%
+\contentsline {subsection}{\numberline {26.5.1}Sampling}{674}{subsection.26.5.1}%
+\contentsline {subsection}{\numberline {26.5.2}Search}{674}{subsection.26.5.2}%
+\contentsline {section}{\numberline {26.6}Introduction to Quantum Walks}{675}{section.26.6}%
+\contentsline {subsection}{\numberline {26.6.1}Block encoding of the discriminant matrix}{676}{subsection.26.6.1}%
+\contentsline {section}{\numberline {26.7}Quantum Walk}{677}{section.26.7}%
+\contentsline {subsection}{\numberline {26.7.1}Discrete-time Quantum Walk}{677}{subsection.26.7.1}%
+\contentsline {subsubsection}{Model}{677}{subsection.26.7.1}%
+\contentsline {subsubsection}{Two different phases of a quantum walk}{678}{subsection.26.7.1}%
+\contentsline {section}{\numberline {26.8}Choices for coin flip}{679}{section.26.8}%
+\contentsline {subsubsection}{Analysis of the Grover coin flip}{679}{section.26.8}%
+\contentsline {subsubsection}{How to quantize a Markov Chain}{682}{section.26.8}%
+\contentsline {subsubsection}{Spectrum of the quantum walk}{683}{section.26.8}%
+\contentsline {subsection}{\numberline {26.8.1}Szegedy's quantum walk}{685}{subsection.26.8.1}%
+\contentsline {subsection}{\numberline {26.8.2}Comparison with the original version of Szegedy's quantum walk}{688}{subsection.26.8.2}%
+\contentsline {section}{\numberline {26.9}Quantum walks}{689}{section.26.9}%
+\contentsline {subsection}{\numberline {26.9.1}Continuous-time quantum walk}{691}{subsection.26.9.1}%
+\contentsline {chapter}{\numberline {27}Variational Algorithms}{693}{chapter.27}%
+\contentsline {section}{\numberline {27.1}Variational Theorem}{696}{section.27.1}%
+\contentsline {subsection}{\numberline {27.1.1}Mathematical intuition for energy and ground state}{696}{subsection.27.1.1}%
+\contentsline {subsection}{\numberline {27.1.2}Variational theorem of Quantum Mechanics}{697}{subsection.27.1.2}%
+\contentsline {section}{\numberline {27.2}Reference States}{698}{section.27.2}%
+\contentsline {subsection}{\numberline {27.2.1}Default State}{698}{subsection.27.2.1}%
+\contentsline {subsection}{\numberline {27.2.2}Classical Reference state}{698}{subsection.27.2.2}%
+\contentsline {subsection}{\numberline {27.2.3}Quantum Reference State}{699}{subsection.27.2.3}%
+\contentsline {subsection}{\numberline {27.2.4}Constructing Reference States using template circuits}{699}{subsection.27.2.4}%
+\contentsline {subsection}{\numberline {27.2.5}Application Specific Reference States}{700}{subsection.27.2.5}%
+\contentsline {subsubsection}{Quantum Machine Learning}{700}{subsection.27.2.5}%
+\contentsline {section}{\numberline {27.3}Ansatze and Variational Forms}{701}{section.27.3}%
+\contentsline {subsection}{\numberline {27.3.1}Parameterized Quantum Circuits}{701}{subsection.27.3.1}%
+\contentsline {subsection}{\numberline {27.3.2}Variational Form and Ansatz}{703}{subsection.27.3.2}%
+\contentsline {subsubsection}{Heuristic ansatze and trade-offs}{704}{subsection.27.3.2}%
+\contentsline {subsubsection}{N-local circuits}{704}{subsection.27.3.2}%
+\contentsline {subsubsection}{EfficientSU2}{706}{figure.caption.271}%
+\contentsline {subsection}{\numberline {27.3.3}Problem-specific ansatze}{707}{subsection.27.3.3}%
+\contentsline {subsubsection}{Optimization}{707}{subsection.27.3.3}%
+\contentsline {subsubsection}{Quantum Machine Learing}{709}{figure.caption.275}%
+\contentsline {section}{\numberline {27.4}Cost Functions}{710}{section.27.4}%
+\contentsline {subsection}{\numberline {27.4.1}Primitive}{710}{subsection.27.4.1}%
+\contentsline {subsubsection}{The Sampler Primitive}{711}{subsection.27.4.1}%
+\contentsline {subsubsection}{The Estimator Primitive}{712}{subsection.27.4.1}%
+\contentsline {subsubsection}{Guided example to calculate expectation values}{713}{subsection.27.4.1}%
+\contentsline {subsubsection}{Mathematical rigor}{717}{lstnumber.-118.8}%
+\contentsline {subsection}{\numberline {27.4.2}Cost functions}{719}{subsection.27.4.2}%
+\contentsline {subsubsection}{Example mapping to non-physical systems}{722}{lstnumber.-124.1}%
+\contentsline {subsubsection}{Measurement Strategy: speed vs accuracy}{727}{lstnumber.-133.1}%
+\contentsline {subsubsection}{Error Suppression}{727}{figure.caption.286}%
+\contentsline {subsubsection}{Error Mitigation}{731}{lstnumber.-138.8}%
+\contentsline {subsubsection}{Twirled readout error extinction (T-REx)}{731}{figure.caption.288}%
+\contentsline {subsubsection}{Zero noise extrapolation}{733}{figure.caption.289}%
+\contentsline {subsubsection}{Using Qiskit Runtime's mitigation and suppression options}{734}{table.caption.291}%
+\contentsline {subsection}{\numberline {27.4.3}Summary}{736}{subsection.27.4.3}%
+\contentsline {section}{\numberline {27.5}Optimization Loops}{737}{section.27.5}%
+\contentsline {subsection}{\numberline {27.5.1}Local and Global Optimizers}{737}{subsection.27.5.1}%
+\contentsline {subsubsection}{Local Optimizers}{739}{lstnumber.-145.2}%
+\contentsline {subsubsection}{Global Optimizers}{740}{lstnumber.-147.11}%
+\contentsline {subsubsection}{Bootstrapping Optimization}{740}{lstnumber.-147.11}%
+\contentsline {subsection}{\numberline {27.5.2}Gradient-Based and Gradient-Free Optimizers}{740}{subsection.27.5.2}%
+\contentsline {subsubsection}{Gradient-Based}{740}{subsection.27.5.2}%
+\contentsline {subsubsection}{Gradient-Free}{741}{figure.caption.296}%
+\contentsline {subsection}{\numberline {27.5.3}Barren Plateaus}{742}{subsection.27.5.3}%
+\contentsline {subsection}{\numberline {27.5.4}Summary}{744}{subsection.27.5.4}%
+\contentsline {section}{\numberline {27.6}Instances and Extensions}{745}{section.27.6}%
+\contentsline {subsection}{\numberline {27.6.1}Variational Quantum eigensolver (VQE)}{745}{subsection.27.6.1}%
+\contentsline {subsubsection}{VQE Implementation}{746}{figure.caption.299}%
+\contentsline {subsection}{\numberline {27.6.2}Subspace Search VQE (SSVQE)}{750}{subsection.27.6.2}%
+\contentsline {subsubsection}{SSVQE's Theoretical layout}{751}{figure.caption.301}%
+\contentsline {subsection}{\numberline {27.6.3}Variational Quantum Deflation}{753}{subsection.27.6.3}%
+\contentsline {subsubsection}{VQD's Theoretical Layout}{755}{figure.caption.302}%
+\contentsline {subsubsection}{VQD's Implementation}{756}{figure.caption.302}%
+\contentsline {subsection}{\numberline {27.6.4}Quantum Sample Regression (QSR)}{760}{subsection.27.6.4}%
+\contentsline {subsubsection}{QSR's Theoretical Layout}{762}{figure.caption.304}%
+\contentsline {subsection}{\numberline {27.6.5}Summary}{762}{subsection.27.6.5}%
+\contentsline {section}{\numberline {27.7}Variational Quantum Eigenlsolver}{763}{section.27.7}%
+\contentsline {subsection}{\numberline {27.7.1}Background}{763}{subsection.27.7.1}%
+\contentsline {subsection}{\numberline {27.7.2}Requirements}{763}{subsection.27.7.2}%
+\contentsline {subsection}{\numberline {27.7.3}Setup}{764}{subsection.27.7.3}%
+\contentsline {subsubsection}{Step1: Map classical inputs to a quantum problem}{764}{lstnumber.-171.7}%
+\contentsline {subsubsection}{Step2: Optimize problem for quantum execution}{765}{lstnumber.-175.1}%
+\contentsline {subsubsection}{ISA circuit}{765}{lstnumber.-175.1}%
+\contentsline {subsubsection}{ISA observable}{766}{figure.caption.306}%
+\contentsline {subsubsection}{Step 3: Execute using Qiskit Primitives}{766}{lstnumber.-178.1}%
+\contentsline {subsubsection}{Step 4: Post-process, return result in classical format}{768}{lstnumber.-186.7}%
+\contentsline {chapter}{\numberline {A}Linear Algebra and Calculus Prerequisites}{770}{appendix.A}%
+\contentsline {section}{\numberline {A.1}Linear Algebra}{771}{section.A.1}%
+\contentsline {subsection}{\numberline {A.1.1}Mathematical Notation}{771}{subsection.A.1.1}%
+\contentsline {subsection}{\numberline {A.1.2}Basics of Linear Algebra}{771}{subsection.A.1.2}%
+\contentsline {subsection}{\numberline {A.1.3}Inner Product}{778}{subsection.A.1.3}%
+\contentsline {subsection}{\numberline {A.1.4}Gram-Schmidt Orthogonalization}{783}{subsection.A.1.4}%
+\contentsline {subsection}{\numberline {A.1.5}Cauchy-Schwarz and Traingle Inequalities}{785}{subsection.A.1.5}%
+\contentsline {subsection}{\numberline {A.1.6}Linear Operators and Matrix Representation}{786}{subsection.A.1.6}%
+\contentsline {subsubsection}{Matrix Representation for Product of Operators}{793}{Item.219}%
+\contentsline {subsubsection}{Outer Product Representation of Operators}{794}{example.A.1.24}%
+\contentsline {subsubsection}{Properties of Adjoint of an Operator}{795}{example.A.1.25}%
+\contentsline {subsection}{\numberline {A.1.7}Hermitian and Unitary Operators}{795}{subsection.A.1.7}%
+\contentsline {subsubsection}{Hermitian Operators (or Self-Adjoint operators)}{796}{subsection.A.1.7}%
+\contentsline {subsubsection}{Unitary Operators}{797}{example.A.1.29}%
+\contentsline {subsubsection}{Unitarily Diagonziable}{799}{definition.A.1.22}%
+\contentsline {subsubsection}{Normal Operators}{799}{definition.A.1.23}%
+\contentsline {subsection}{\numberline {A.1.8}Positive Operators}{801}{subsection.A.1.8}%
+\contentsline {subsection}{\numberline {A.1.9}Eigen Value Problems}{802}{subsection.A.1.9}%
+\contentsline {subsection}{\numberline {A.1.10}Spectral Decomposition}{811}{subsection.A.1.10}%
+\contentsline {subsection}{\numberline {A.1.11}Commutator and Anti-Commutator}{812}{subsection.A.1.11}%
+\contentsline {subsection}{\numberline {A.1.12}Simultaneous Diagonalization of two Hermitian Operators}{813}{subsection.A.1.12}%
+\contentsline {subsection}{\numberline {A.1.13}Operator Functions}{813}{subsection.A.1.13}%
+\contentsline {subsection}{\numberline {A.1.14}Trace of a Matrix}{818}{subsection.A.1.14}%
+\contentsline {subsection}{\numberline {A.1.15}Norms}{820}{subsection.A.1.15}%
+\contentsline {subsection}{\numberline {A.1.16}Induce Matrix Norm}{821}{subsection.A.1.16}%
+\contentsline {subsection}{\numberline {A.1.17}Conditioning and Condition Number}{822}{subsection.A.1.17}%
+\contentsline {section}{\numberline {A.2}Tensor Products}{823}{section.A.2}%
+\contentsline {subsubsection}{Factorizing Tensor Products}{829}{example.A.2.12}%
+\contentsline {section}{\numberline {A.3}Complex Numbers}{830}{section.A.3}%
+\contentsline {subsection}{\numberline {A.3.1}Complex Plane}{830}{subsection.A.3.1}%
+\contentsline {subsection}{\numberline {A.3.2}Addition of Complex Numbers}{831}{subsection.A.3.2}%
+\contentsline {subsection}{\numberline {A.3.3}Multiplication of Complex Numbers}{831}{subsection.A.3.3}%
+\contentsline {subsection}{\numberline {A.3.4}Complex Conjugate}{832}{subsection.A.3.4}%
+\contentsline {subsection}{\numberline {A.3.5}Modulus of a Complex Number}{832}{subsection.A.3.5}%
+\contentsline {subsection}{\numberline {A.3.6}Polar form}{833}{subsection.A.3.6}%
+\contentsline {subsection}{\numberline {A.3.7}Euler's Formula}{833}{subsection.A.3.7}%
+\contentsline {section}{\numberline {A.4}Probability Theory}{835}{section.A.4}%
+\contentsline {section}{\numberline {A.5}Calculus}{835}{section.A.5}%
+\contentsline {section}{\numberline {A.6}Group Theory}{835}{section.A.6}%
+\contentsline {subsection}{\numberline {A.6.1}Basic Definitions}{835}{subsection.A.6.1}%
+\contentsline {subsection}{\numberline {A.6.2}Generators}{837}{subsection.A.6.2}%
+\contentsline {section}{\numberline {A.7}Number Theory}{838}{section.A.7}%
+\contentsline {subsection}{\numberline {A.7.1}Fundamentals}{838}{subsection.A.7.1}%
+\contentsline {subsection}{\numberline {A.7.2}Modular Arithmetic and Euclid's Algorithm}{840}{subsection.A.7.2}%
+\contentsline {subsection}{\numberline {A.7.3}Advanced Properties:}{842}{subsection.A.7.3}%
+\contentsline {section}{\numberline {A.8}Reduction of factoring to order-finding}{853}{section.A.8}%
+\contentsline {section}{\numberline {A.9}Continued fractions}{854}{section.A.9}%
+\contentsline {chapter}{\numberline {B}Classical Computations}{858}{appendix.B}%
+\contentsline {section}{\numberline {B.1}Classical Logic Gates}{859}{section.B.1}%
+\contentsline {subsection}{\numberline {B.1.1}NOT Gate}{859}{subsection.B.1.1}%
+\contentsline {subsection}{\numberline {B.1.2}AND Gate}{859}{subsection.B.1.2}%
+\contentsline {subsection}{\numberline {B.1.3}OR Gate}{860}{subsection.B.1.3}%
+\contentsline {subsection}{\numberline {B.1.4}NAND Gate}{860}{subsection.B.1.4}%
+\contentsline {subsection}{\numberline {B.1.5}NOR Gate}{861}{subsection.B.1.5}%
+\contentsline {subsection}{\numberline {B.1.6}XOR Gate}{862}{subsection.B.1.6}%
+\contentsline {subsection}{\numberline {B.1.7}FANOUT Gate}{862}{subsection.B.1.7}%
+\contentsline {subsection}{\numberline {B.1.8}CROSSOVER Gate}{863}{subsection.B.1.8}%
+\contentsline {section}{\numberline {B.2}Classical Circuits}{863}{section.B.2}%
+\contentsline {section}{\numberline {B.3}Classical Algorithms as logic circuits}{865}{section.B.3}%
+\contentsline {subsection}{\numberline {B.3.1}Multiplication problem and factoring problem}{866}{subsection.B.3.1}%
+\contentsline {section}{\numberline {B.4}Classical Circuits}{867}{section.B.4}%
+\contentsline {chapter}{\numberline {C}Qiskit}{869}{appendix.C}%
+\contentsline {section}{\numberline {C.1}Introduction to Qiskit}{869}{section.C.1}%
+\contentsline {subsection}{\numberline {C.1.1}The Qiskit SDK}{869}{subsection.C.1.1}%
+\contentsline {subsection}{\numberline {C.1.2}Qiskit Runtime}{870}{subsection.C.1.2}%
+\contentsline {subsubsection}{Is Qiskit Runtime open-source?}{871}{subsection.C.1.2}%
+\contentsline {subsection}{\numberline {C.1.3}Qiskit Serverless}{871}{subsection.C.1.3}%
+\contentsline {subsection}{\numberline {C.1.4}Qiskit Transpiler as a Service}{872}{subsection.C.1.4}%
+\contentsline {subsection}{\numberline {C.1.5}The Qiskit ecosystem}{872}{subsection.C.1.5}%
+\contentsline {section}{\numberline {C.2}Install Qiskit}{874}{section.C.2}%
+\contentsline {section}{\numberline {C.3}Anatomy of a Quantum Computing Service}{874}{section.C.3}%
+\contentsline {subsection}{\numberline {C.3.1}Getting set up with Qiskit}{876}{subsection.C.3.1}%
+\contentsline {subsection}{\numberline {C.3.2}Qiskit Patterns}{877}{subsection.C.3.2}%
+\contentsline {section}{\numberline {C.4}Qiskit 101}{877}{section.C.4}%
+\contentsline {subsection}{\numberline {C.4.1}Qiskit 101 traning session}{877}{subsection.C.4.1}%
+\contentsline {section}{\numberline {C.5}Explore gates and circuits with IBM Quantum Composer}{877}{section.C.5}%
+\contentsline {chapter}{Bibliography}{879}{appendix*.321}%
