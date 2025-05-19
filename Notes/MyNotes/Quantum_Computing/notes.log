@@ -1,10 +1,10 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.10.12) (preloaded format=pdflatex 2023.10.21)  19 MAY 2025 16:12
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.10.12) (preloaded format=pdflatex 2023.10.21)  19 MAY 2025 21:38
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**"c:/Users/nihar/OneDrive - Indian Institute of Science/Indian Institute of Science/MTech_Thesis/Notes/MyNotes/notes.tex"
-(c:/Users/nihar/OneDrive - Indian Institute of Science/Indian Institute of Science/MTech_Thesis/Notes/MyNotes/notes.tex
+**"c:/Users/nihar/OneDrive - Indian Institute of Science/Indian Institute of Science/MTech_Thesis/Notes/MyNotes/Quantum_Computing/notes.tex"
+(c:/Users/nihar/OneDrive - Indian Institute of Science/Indian Institute of Science/MTech_Thesis/Notes/MyNotes/Quantum_Computing/notes.tex
 LaTeX2e <2023-06-01> patch level 1
 L3 programming layer <2023-10-10>
 (C:\Users\nihar\AppData\Local\Programs\MiKTeX\tex/latex/base\book.cls
@@ -1005,17 +1005,17 @@ Package pgfplots notification 'compat/show suggested version=true': document has
 
 
 {C:/Users/nihar/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}]
-<../Images/IISc_Master_Seal_Black.jpg, id=1680, 2409.0pt x 2409.0pt>
-File: ../Images/IISc_Master_Seal_Black.jpg Graphic file (type jpg)
-<use ../Images/IISc_Master_Seal_Black.jpg>
-Package pdftex.def Info: ../Images/IISc_Master_Seal_Black.jpg  used on input line 142.
+<Images/IISc_Master_Seal_Black.jpg, id=1680, 2409.0pt x 2409.0pt>
+File: Images/IISc_Master_Seal_Black.jpg Graphic file (type jpg)
+<use Images/IISc_Master_Seal_Black.jpg>
+Package pdftex.def Info: Images/IISc_Master_Seal_Black.jpg  used on input line 142.
 (pdftex.def)             Requested size: 129.00269pt x 128.98499pt.
 
 pdfTeX warning (ext4): destination with the same identifier (name{page.i}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
 l.148 \frontmatter
-                   [1 <../Images/IISc_Master_Seal_Black.jpg>]
+                   [1 <./Images/IISc_Master_Seal_Black.jpg>]
 pdfTeX warning (ext4): destination with the same identifier (name{page.i}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
@@ -1039,37 +1039,37 @@ Chapter 1.
 [2
 
 ] [3] [4]
-<../Images/Doubleslit.png, id=2192, 868.74562pt x 386.19281pt>
-File: ../Images/Doubleslit.png Graphic file (type png)
-<use ../Images/Doubleslit.png>
-Package pdftex.def Info: ../Images/Doubleslit.png  used on input line 229.
+<Images/Doubleslit.png, id=2192, 868.74562pt x 386.19281pt>
+File: Images/Doubleslit.png Graphic file (type png)
+<use Images/Doubleslit.png>
+Package pdftex.def Info: Images/Doubleslit.png  used on input line 229.
 (pdftex.def)             Requested size: 430.00462pt x 191.15718pt.
- [5 <../Images/Doubleslit.png>] [6] [7] [8] [9] [10] [11] [12] [13] [14] [15] [16] [17] [18] [19] [20] [21] [22] [23] [24] [25] [26] [27] [28] [29] [30]
+ [5 <./Images/Doubleslit.png>] [6] [7] [8] [9] [10] [11] [12] [13] [14] [15] [16] [17] [18] [19] [20] [21] [22] [23] [24] [25] [26] [27] [28] [29] [30]
 Missing character: There is no d in font msbm10!
 [31] [32] [33] [34]
-<../Images/randomness.png, id=2357, 628.3475pt x 137.51375pt>
-File: ../Images/randomness.png Graphic file (type png)
-<use ../Images/randomness.png>
-Package pdftex.def Info: ../Images/randomness.png  used on input line 964.
+<Images/randomness.png, id=2357, 628.3475pt x 137.51375pt>
+File: Images/randomness.png Graphic file (type png)
+<use Images/randomness.png>
+Package pdftex.def Info: Images/randomness.png  used on input line 964.
 (pdftex.def)             Requested size: 430.00462pt x 94.10612pt.
- [35 <../Images/randomness.png>] [36] [37] [38] [39] [40] [41] [42] [43] [44] [45]
-<../Images/stern-gerlach.png, id=2416, 470.75874pt x 216.81pt>
-File: ../Images/stern-gerlach.png Graphic file (type png)
-<use ../Images/stern-gerlach.png>
-Package pdftex.def Info: ../Images/stern-gerlach.png  used on input line 1331.
+ [35 <./Images/randomness.png>] [36] [37] [38] [39] [40] [41] [42] [43] [44] [45]
+<Images/stern-gerlach.png, id=2416, 470.75874pt x 216.81pt>
+File: Images/stern-gerlach.png Graphic file (type png)
+<use Images/stern-gerlach.png>
+Package pdftex.def Info: Images/stern-gerlach.png  used on input line 1331.
 (pdftex.def)             Requested size: 215.0023pt x 99.01923pt.
  [46]
-<../Images/casca_sgexp.png, id=2423, 744.7825pt x 238.8925pt>
-File: ../Images/casca_sgexp.png Graphic file (type png)
-<use ../Images/casca_sgexp.png>
-Package pdftex.def Info: ../Images/casca_sgexp.png  used on input line 1340.
+<Images/casca_sgexp.png, id=2423, 744.7825pt x 238.8925pt>
+File: Images/casca_sgexp.png Graphic file (type png)
+<use Images/casca_sgexp.png>
+Package pdftex.def Info: Images/casca_sgexp.png  used on input line 1340.
 (pdftex.def)             Requested size: 279.50037pt x 89.65372pt.
-<../Images/3stage-sgexp.png, id=2424, 1010.77625pt x 234.8775pt>
-File: ../Images/3stage-sgexp.png Graphic file (type png)
-<use ../Images/3stage-sgexp.png>
-Package pdftex.def Info: ../Images/3stage-sgexp.png  used on input line 1346.
+<Images/3stage-sgexp.png, id=2424, 1010.77625pt x 234.8775pt>
+File: Images/3stage-sgexp.png Graphic file (type png)
+<use Images/3stage-sgexp.png>
+Package pdftex.def Info: Images/3stage-sgexp.png  used on input line 1346.
 (pdftex.def)             Requested size: 322.50346pt x 74.94012pt.
- [47 <../Images/stern-gerlach.png>] [48 <../Images/casca_sgexp.png> <../Images/3stage-sgexp.png>] (C:\Users\nihar\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang1.sty
+ [47 <./Images/stern-gerlach.png>] [48 <./Images/casca_sgexp.png> <./Images/3stage-sgexp.png>] (C:\Users\nihar\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang1.sty
 File: lstlang1.sty 2023/02/27 1.9 listings language file
 ) [49] [50] [51] [52]
 LaTeX Font Info:    Trying to load font information for OMS+cmr on input line 1516.
@@ -1078,24 +1078,24 @@ File: omscmr.fd 2023/04/13 v2.5m Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 1516.
-<../Images/histogram_exp.png, id=2522, 416.2752pt x 297.7524pt>
-File: ../Images/histogram_exp.png Graphic file (type png)
-<use ../Images/histogram_exp.png>
-Package pdftex.def Info: ../Images/histogram_exp.png  used on input line 1521.
+<Images/histogram_exp.png, id=2522, 416.2752pt x 297.7524pt>
+File: Images/histogram_exp.png Graphic file (type png)
+<use Images/histogram_exp.png>
+Package pdftex.def Info: Images/histogram_exp.png  used on input line 1521.
 (pdftex.def)             Requested size: 322.50346pt x 230.69211pt.
- [53 <../Images/histogram_exp.png>]
-<../Images/circuit_exp.png, id=2542, 303.534pt x 79.497pt>
-File: ../Images/circuit_exp.png Graphic file (type png)
-<use ../Images/circuit_exp.png>
-Package pdftex.def Info: ../Images/circuit_exp.png  used on input line 1574.
+ [53 <./Images/histogram_exp.png>]
+<Images/circuit_exp.png, id=2542, 303.534pt x 79.497pt>
+File: Images/circuit_exp.png Graphic file (type png)
+<use Images/circuit_exp.png>
+Package pdftex.def Info: Images/circuit_exp.png  used on input line 1574.
 (pdftex.def)             Requested size: 322.50346pt x 84.46533pt.
  [54]
-<../Images/histogram_exp2.png, id=2579, 422.7795pt x 297.7524pt>
-File: ../Images/histogram_exp2.png Graphic file (type png)
-<use ../Images/histogram_exp2.png>
-Package pdftex.def Info: ../Images/histogram_exp2.png  used on input line 1598.
+<Images/histogram_exp2.png, id=2579, 422.7795pt x 297.7524pt>
+File: Images/histogram_exp2.png Graphic file (type png)
+<use Images/histogram_exp2.png>
+Package pdftex.def Info: Images/histogram_exp2.png  used on input line 1598.
 (pdftex.def)             Requested size: 322.50346pt x 227.14377pt.
- [55 <../Images/circuit_exp.png> <../Images/histogram_exp2.png>] [56] [57] [58]
+ [55 <./Images/circuit_exp.png> <./Images/histogram_exp2.png>] [56] [57] [58]
 Chapter 2.
 [59
 
@@ -1140,48 +1140,48 @@ Overfull \hbox (15.22112pt too wide) in paragraph at lines 2377--2377
  []
 
 [85]
-<../Images/bloch_sphere_dia.png, id=2794, 914.41624pt x 796.9775pt>
-File: ../Images/bloch_sphere_dia.png Graphic file (type png)
-<use ../Images/bloch_sphere_dia.png>
-Package pdftex.def Info: ../Images/bloch_sphere_dia.png  used on input line 2406.
+<Images/bloch_sphere_dia.png, id=2794, 914.41624pt x 796.9775pt>
+File: Images/bloch_sphere_dia.png Graphic file (type png)
+<use Images/bloch_sphere_dia.png>
+Package pdftex.def Info: Images/bloch_sphere_dia.png  used on input line 2406.
 (pdftex.def)             Requested size: 258.00539pt x 224.86685pt.
- [86 <../Images/bloch_sphere_dia.png>]
+ [86 <./Images/bloch_sphere_dia.png>]
 LaTeX Font Info:    Trying to load font information for OML+cmr on input line 2436.
  (C:\Users\nihar\AppData\Local\Programs\MiKTeX\tex/latex/base\omlcmr.fd
 File: omlcmr.fd 2023/04/13 v2.5m Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <10> not available
 (Font)              Font shape `OML/cmm/m/it' tried instead on input line 2436.
-<../Images/bloch_sphere.png, id=2806, 361.35pt x 361.35pt>
-File: ../Images/bloch_sphere.png Graphic file (type png)
-<use ../Images/bloch_sphere.png>
-Package pdftex.def Info: ../Images/bloch_sphere.png  used on input line 2458.
+<Images/bloch_sphere.png, id=2806, 361.35pt x 361.35pt>
+File: Images/bloch_sphere.png Graphic file (type png)
+<use Images/bloch_sphere.png>
+Package pdftex.def Info: Images/bloch_sphere.png  used on input line 2458.
 (pdftex.def)             Requested size: 215.0023pt x 215.00316pt.
- [87] [88 <../Images/bloch_sphere.png>] [89] [90]
-<../Images/pauli-i.png, id=2861, 133.6995pt x 84.5559pt>
-File: ../Images/pauli-i.png Graphic file (type png)
-<use ../Images/pauli-i.png>
-Package pdftex.def Info: ../Images/pauli-i.png  used on input line 2592.
+ [87] [88 <./Images/bloch_sphere.png>] [89] [90]
+<Images/pauli-i.png, id=2861, 133.6995pt x 84.5559pt>
+File: Images/pauli-i.png Graphic file (type png)
+<use Images/pauli-i.png>
+Package pdftex.def Info: Images/pauli-i.png  used on input line 2592.
 (pdftex.def)             Requested size: 129.00269pt x 81.59203pt.
- [91 <../Images/pauli-i.png>]
-<../Images/pauli-x.png, id=2881, 133.6995pt x 84.5559pt>
-File: ../Images/pauli-x.png Graphic file (type png)
-<use ../Images/pauli-x.png>
-Package pdftex.def Info: ../Images/pauli-x.png  used on input line 2661.
+ [91 <./Images/pauli-i.png>]
+<Images/pauli-x.png, id=2881, 133.6995pt x 84.5559pt>
+File: Images/pauli-x.png Graphic file (type png)
+<use Images/pauli-x.png>
+Package pdftex.def Info: Images/pauli-x.png  used on input line 2661.
 (pdftex.def)             Requested size: 129.00269pt x 81.59203pt.
- [92] [93 <../Images/pauli-x.png>]
-<../Images/pauli-y.png, id=2906, 133.6995pt x 84.5559pt>
-File: ../Images/pauli-y.png Graphic file (type png)
-<use ../Images/pauli-y.png>
-Package pdftex.def Info: ../Images/pauli-y.png  used on input line 2740.
+ [92] [93 <./Images/pauli-x.png>]
+<Images/pauli-y.png, id=2906, 133.6995pt x 84.5559pt>
+File: Images/pauli-y.png Graphic file (type png)
+<use Images/pauli-y.png>
+Package pdftex.def Info: Images/pauli-y.png  used on input line 2740.
 (pdftex.def)             Requested size: 129.00269pt x 81.59203pt.
- [94 <../Images/pauli-y.png>] [95]
-<../Images/pauli-z.png, id=2938, 133.6995pt x 84.5559pt>
-File: ../Images/pauli-z.png Graphic file (type png)
-<use ../Images/pauli-z.png>
-Package pdftex.def Info: ../Images/pauli-z.png  used on input line 2822.
+ [94 <./Images/pauli-y.png>] [95]
+<Images/pauli-z.png, id=2938, 133.6995pt x 84.5559pt>
+File: Images/pauli-z.png Graphic file (type png)
+<use Images/pauli-z.png>
+Package pdftex.def Info: Images/pauli-z.png  used on input line 2822.
 (pdftex.def)             Requested size: 129.00269pt x 81.59203pt.
- [96 <../Images/pauli-z.png>] [97]
+ [96 <./Images/pauli-z.png>] [97]
 Overfull \hbox (6.38109pt too wide) detected at line 2941
 \OT1/cmr/m/n/12 [\OML/cmm/m/it/12 Y; Z\OT1/cmr/m/n/12 ] = \OML/cmm/m/it/12 YZ \OMS/cmsy/m/n/12 ^^@ \OML/cmm/m/it/12 ZY \OT1/cmr/m/n/12 = [] [] \OMS/cmsy/m/n/12 ^^@ [] [] \OT1/cmr/m/n/12 = [] \OMS/cmsy/m/n/12 ^^@ [] \OT1/cmr/m/n/12 = 2\OML/cmm/m/it/12 ^^SX
  []
@@ -1202,70 +1202,70 @@ Overfull \hbox (18.29123pt too wide) detected at line 2964
  []
 
 [98] [99] [100] [101]
-<../Images/hadamard.png, id=2981, 133.6995pt x 84.5559pt>
-File: ../Images/hadamard.png Graphic file (type png)
-<use ../Images/hadamard.png>
-Package pdftex.def Info: ../Images/hadamard.png  used on input line 3139.
+<Images/hadamard.png, id=2981, 133.6995pt x 84.5559pt>
+File: Images/hadamard.png Graphic file (type png)
+<use Images/hadamard.png>
+Package pdftex.def Info: Images/hadamard.png  used on input line 3139.
 (pdftex.def)             Requested size: 129.00269pt x 81.59203pt.
- [102 <../Images/hadamard.png>] [103] [104]
+ [102 <./Images/hadamard.png>] [103] [104]
 Overfull \hbox (21.42491pt too wide) in paragraph at lines 3258--3260
 []\OT1/cmr/m/it/12 Remark. []\OT1/cmr/m/n/12 Sylvester's Con-struc-tion gives an in-ter-est-ing re-cur-sive con-struc-tion of Hadamard
  []
 
 [105]
-<../Images/s-gate.png, id=3017, 133.6995pt x 84.5559pt>
-File: ../Images/s-gate.png Graphic file (type png)
-<use ../Images/s-gate.png>
-Package pdftex.def Info: ../Images/s-gate.png  used on input line 3309.
+<Images/s-gate.png, id=3017, 133.6995pt x 84.5559pt>
+File: Images/s-gate.png Graphic file (type png)
+<use Images/s-gate.png>
+Package pdftex.def Info: Images/s-gate.png  used on input line 3309.
 (pdftex.def)             Requested size: 129.00269pt x 81.59203pt.
- [106 <../Images/s-gate.png>]
-<../Images/sdag-gate.png, id=3037, 133.6995pt x 84.5559pt>
-File: ../Images/sdag-gate.png Graphic file (type png)
-<use ../Images/sdag-gate.png>
-Package pdftex.def Info: ../Images/sdag-gate.png  used on input line 3383.
+ [106 <./Images/s-gate.png>]
+<Images/sdag-gate.png, id=3037, 133.6995pt x 84.5559pt>
+File: Images/sdag-gate.png Graphic file (type png)
+<use Images/sdag-gate.png>
+Package pdftex.def Info: Images/sdag-gate.png  used on input line 3383.
 (pdftex.def)             Requested size: 129.00269pt x 81.59203pt.
- [107] [108 <../Images/sdag-gate.png>]
-<../Images/t-gate.png, id=3062, 133.6995pt x 84.5559pt>
-File: ../Images/t-gate.png Graphic file (type png)
-<use ../Images/t-gate.png>
-Package pdftex.def Info: ../Images/t-gate.png  used on input line 3460.
+ [107] [108 <./Images/sdag-gate.png>]
+<Images/t-gate.png, id=3062, 133.6995pt x 84.5559pt>
+File: Images/t-gate.png Graphic file (type png)
+<use Images/t-gate.png>
+Package pdftex.def Info: Images/t-gate.png  used on input line 3460.
 (pdftex.def)             Requested size: 129.00269pt x 81.59203pt.
- [109 <../Images/t-gate.png>]
-<../Images/tdag-gate.png, id=3081, 133.6995pt x 84.5559pt>
-File: ../Images/tdag-gate.png Graphic file (type png)
-<use ../Images/tdag-gate.png>
-Package pdftex.def Info: ../Images/tdag-gate.png  used on input line 3534.
+ [109 <./Images/t-gate.png>]
+<Images/tdag-gate.png, id=3081, 133.6995pt x 84.5559pt>
+File: Images/tdag-gate.png Graphic file (type png)
+<use Images/tdag-gate.png>
+Package pdftex.def Info: Images/tdag-gate.png  used on input line 3534.
 (pdftex.def)             Requested size: 129.00269pt x 81.59203pt.
- [110 <../Images/tdag-gate.png>] [111]
+ [110 <./Images/tdag-gate.png>] [111]
 Overfull \hbox (43.75461pt too wide) detected at line 3647
 []
  []
 
 [112] [113]
-<../Images/rx-gate.png, id=3115, 133.6995pt x 84.5559pt>
-File: ../Images/rx-gate.png Graphic file (type png)
-<use ../Images/rx-gate.png>
-Package pdftex.def Info: ../Images/rx-gate.png  used on input line 3719.
+<Images/rx-gate.png, id=3115, 133.6995pt x 84.5559pt>
+File: Images/rx-gate.png Graphic file (type png)
+<use Images/rx-gate.png>
+Package pdftex.def Info: Images/rx-gate.png  used on input line 3719.
 (pdftex.def)             Requested size: 129.00269pt x 81.59203pt.
- [114 <../Images/rx-gate.png>]
-<../Images/ry-gate.png, id=3134, 133.6995pt x 84.5559pt>
-File: ../Images/ry-gate.png Graphic file (type png)
-<use ../Images/ry-gate.png>
-Package pdftex.def Info: ../Images/ry-gate.png  used on input line 3751.
+ [114 <./Images/rx-gate.png>]
+<Images/ry-gate.png, id=3134, 133.6995pt x 84.5559pt>
+File: Images/ry-gate.png Graphic file (type png)
+<use Images/ry-gate.png>
+Package pdftex.def Info: Images/ry-gate.png  used on input line 3751.
 (pdftex.def)             Requested size: 129.00269pt x 81.59203pt.
- [115 <../Images/ry-gate.png>]
-<../Images/rz-gate.png, id=3152, 133.6995pt x 84.5559pt>
-File: ../Images/rz-gate.png Graphic file (type png)
-<use ../Images/rz-gate.png>
-Package pdftex.def Info: ../Images/rz-gate.png  used on input line 3784.
+ [115 <./Images/ry-gate.png>]
+<Images/rz-gate.png, id=3152, 133.6995pt x 84.5559pt>
+File: Images/rz-gate.png Graphic file (type png)
+<use Images/rz-gate.png>
+Package pdftex.def Info: Images/rz-gate.png  used on input line 3784.
 (pdftex.def)             Requested size: 129.00269pt x 81.59203pt.
- [116 <../Images/rz-gate.png>]
-<../Images/u3-gate.png, id=3171, 194.4063pt x 84.5559pt>
-File: ../Images/u3-gate.png Graphic file (type png)
-<use ../Images/u3-gate.png>
-Package pdftex.def Info: ../Images/u3-gate.png  used on input line 3844.
+ [116 <./Images/rz-gate.png>]
+<Images/u3-gate.png, id=3171, 194.4063pt x 84.5559pt>
+File: Images/u3-gate.png Graphic file (type png)
+<use Images/u3-gate.png>
+Package pdftex.def Info: Images/u3-gate.png  used on input line 3844.
 (pdftex.def)             Requested size: 129.00269pt x 56.11282pt.
- [117 <../Images/u3-gate.png>]
+ [117 <./Images/u3-gate.png>]
 Overfull \hbox (29.11478pt too wide) detected at line 3887
 []
  []
@@ -1286,86 +1286,86 @@ Overfull \hbox (27.61241pt too wide) detected at line 4065
  []
 
 [123] [124] [125] [126] [127]
-<../Images/cnot-gate.png, id=3256, 146.7081pt x 144.54pt>
-File: ../Images/cnot-gate.png Graphic file (type png)
-<use ../Images/cnot-gate.png>
-Package pdftex.def Info: ../Images/cnot-gate.png  used on input line 4255.
+<Images/cnot-gate.png, id=3256, 146.7081pt x 144.54pt>
+File: Images/cnot-gate.png Graphic file (type png)
+<use Images/cnot-gate.png>
+Package pdftex.def Info: Images/cnot-gate.png  used on input line 4255.
 (pdftex.def)             Requested size: 129.00269pt x 127.09853pt.
- [128] [129 <../Images/cnot-gate.png>]
-<../Images/cy-gate.png, id=3284, 146.7081pt x 144.54pt>
-File: ../Images/cy-gate.png Graphic file (type png)
-<use ../Images/cy-gate.png>
-Package pdftex.def Info: ../Images/cy-gate.png  used on input line 4348.
+ [128] [129 <./Images/cnot-gate.png>]
+<Images/cy-gate.png, id=3284, 146.7081pt x 144.54pt>
+File: Images/cy-gate.png Graphic file (type png)
+<use Images/cy-gate.png>
+Package pdftex.def Info: Images/cy-gate.png  used on input line 4348.
 (pdftex.def)             Requested size: 129.00269pt x 127.09853pt.
- [130] [131 <../Images/cy-gate.png>]
-<../Images/CZ-gate.png, id=3311, 146.7081pt x 144.54pt>
-File: ../Images/CZ-gate.png Graphic file (type png)
-<use ../Images/CZ-gate.png>
-Package pdftex.def Info: ../Images/CZ-gate.png  used on input line 4443.
+ [130] [131 <./Images/cy-gate.png>]
+<Images/CZ-gate.png, id=3311, 146.7081pt x 144.54pt>
+File: Images/CZ-gate.png Graphic file (type png)
+<use Images/CZ-gate.png>
+Package pdftex.def Info: Images/CZ-gate.png  used on input line 4443.
 (pdftex.def)             Requested size: 129.00269pt x 127.09853pt.
- [132 <../Images/CZ-gate.png>] [133]
-<../Images/ch-gate.png, id=3344, 146.7081pt x 144.54pt>
-File: ../Images/ch-gate.png Graphic file (type png)
-<use ../Images/ch-gate.png>
-Package pdftex.def Info: ../Images/ch-gate.png  used on input line 4535.
+ [132 <./Images/CZ-gate.png>] [133]
+<Images/ch-gate.png, id=3344, 146.7081pt x 144.54pt>
+File: Images/ch-gate.png Graphic file (type png)
+<use Images/ch-gate.png>
+Package pdftex.def Info: Images/ch-gate.png  used on input line 4535.
 (pdftex.def)             Requested size: 129.00269pt x 127.09853pt.
- [134 <../Images/ch-gate.png>]
-<../Images/cu.png, id=3359, 206.7725pt x 124.465pt>
-File: ../Images/cu.png Graphic file (type png)
-<use ../Images/cu.png>
-Package pdftex.def Info: ../Images/cu.png  used on input line 4622.
+ [134 <./Images/ch-gate.png>]
+<Images/cu.png, id=3359, 206.7725pt x 124.465pt>
+File: Images/cu.png Graphic file (type png)
+<use Images/cu.png>
+Package pdftex.def Info: Images/cu.png  used on input line 4622.
 (pdftex.def)             Requested size: 107.50114pt x 64.71077pt.
  [135]
-<../Images/chexamp.png, id=3364, 126.4725pt x 80.3pt>
-File: ../Images/chexamp.png Graphic file (type png)
-<use ../Images/chexamp.png>
-Package pdftex.def Info: ../Images/chexamp.png  used on input line 4630.
+<Images/chexamp.png, id=3364, 126.4725pt x 80.3pt>
+File: Images/chexamp.png Graphic file (type png)
+<use Images/chexamp.png>
+Package pdftex.def Info: Images/chexamp.png  used on input line 4630.
 (pdftex.def)             Requested size: 107.50114pt x 68.25653pt.
-<../Images/chexamp2.png, id=3365, 126.4725pt x 80.3pt>
-File: ../Images/chexamp2.png Graphic file (type png)
-<use ../Images/chexamp2.png>
-Package pdftex.def Info: ../Images/chexamp2.png  used on input line 4635.
+<Images/chexamp2.png, id=3365, 126.4725pt x 80.3pt>
+File: Images/chexamp2.png Graphic file (type png)
+<use Images/chexamp2.png>
+Package pdftex.def Info: Images/chexamp2.png  used on input line 4635.
 (pdftex.def)             Requested size: 107.50114pt x 68.25653pt.
  [136]
-<../Images/cnot-z.png, id=3372, 389.455pt x 80.3pt>
-File: ../Images/cnot-z.png Graphic file (type png)
-<use ../Images/cnot-z.png>
-Package pdftex.def Info: ../Images/cnot-z.png  used on input line 4659.
+<Images/cnot-z.png, id=3372, 389.455pt x 80.3pt>
+File: Images/cnot-z.png Graphic file (type png)
+<use Images/cnot-z.png>
+Package pdftex.def Info: Images/cnot-z.png  used on input line 4659.
 (pdftex.def)             Requested size: 215.0023pt x 44.32932pt.
- [137 <../Images/cu.png> <../Images/chexamp.png>]
-<../Images/czzc.png, id=3381, 408.52625pt x 144.54pt>
-File: ../Images/czzc.png Graphic file (type png)
-<use ../Images/czzc.png>
-Package pdftex.def Info: ../Images/czzc.png  used on input line 4672.
+ [137 <./Images/cu.png> <./Images/chexamp.png>]
+<Images/czzc.png, id=3381, 408.52625pt x 144.54pt>
+File: Images/czzc.png Graphic file (type png)
+<use Images/czzc.png>
+Package pdftex.def Info: Images/czzc.png  used on input line 4672.
 (pdftex.def)             Requested size: 215.0023pt x 76.06989pt.
- [138 <../Images/chexamp2.png> <../Images/cnot-z.png> <../Images/czzc.png>]
-<../Images/exampimg.png, id=3393, 408.52625pt x 144.54pt>
-File: ../Images/exampimg.png Graphic file (type png)
-<use ../Images/exampimg.png>
-Package pdftex.def Info: ../Images/exampimg.png  used on input line 4707.
+ [138 <./Images/chexamp2.png> <./Images/cnot-z.png> <./Images/czzc.png>]
+<Images/exampimg.png, id=3393, 408.52625pt x 144.54pt>
+File: Images/exampimg.png Graphic file (type png)
+<use Images/exampimg.png>
+Package pdftex.def Info: Images/exampimg.png  used on input line 4707.
 (pdftex.def)             Requested size: 215.0023pt x 76.06989pt.
- [139] [140 <../Images/exampimg.png>]
-<../Images/swap-gate.png, id=3416, 146.7081pt x 144.54pt>
-File: ../Images/swap-gate.png Graphic file (type png)
-<use ../Images/swap-gate.png>
-Package pdftex.def Info: ../Images/swap-gate.png  used on input line 4761.
+ [139] [140 <./Images/exampimg.png>]
+<Images/swap-gate.png, id=3416, 146.7081pt x 144.54pt>
+File: Images/swap-gate.png Graphic file (type png)
+<use Images/swap-gate.png>
+Package pdftex.def Info: Images/swap-gate.png  used on input line 4761.
 (pdftex.def)             Requested size: 129.00269pt x 127.09853pt.
- [141 <../Images/swap-gate.png>]
-<../Images/swap-gatemeth1.png, id=3428, 267.399pt x 144.54pt>
-File: ../Images/swap-gatemeth1.png Graphic file (type png)
-<use ../Images/swap-gatemeth1.png>
-Package pdftex.def Info: ../Images/swap-gatemeth1.png  used on input line 4811.
+ [141 <./Images/swap-gate.png>]
+<Images/swap-gatemeth1.png, id=3428, 267.399pt x 144.54pt>
+File: Images/swap-gatemeth1.png Graphic file (type png)
+<use Images/swap-gatemeth1.png>
+Package pdftex.def Info: Images/swap-gatemeth1.png  used on input line 4811.
 (pdftex.def)             Requested size: 129.00269pt x 69.73128pt.
-<../Images/swap-gatemeth2.png, id=3429, 267.399pt x 144.54pt>
-File: ../Images/swap-gatemeth2.png Graphic file (type png)
-<use ../Images/swap-gatemeth2.png>
-Package pdftex.def Info: ../Images/swap-gatemeth2.png  used on input line 4818.
+<Images/swap-gatemeth2.png, id=3429, 267.399pt x 144.54pt>
+File: Images/swap-gatemeth2.png Graphic file (type png)
+<use Images/swap-gatemeth2.png>
+Package pdftex.def Info: Images/swap-gatemeth2.png  used on input line 4818.
 (pdftex.def)             Requested size: 129.00269pt x 69.73128pt.
- [142 <../Images/swap-gatemeth1.png> <../Images/swap-gatemeth2.png>]
-<../Images/ccx-gate.png, id=3442, 146.7081pt x 205.2468pt>
-File: ../Images/ccx-gate.png Graphic file (type png)
-<use ../Images/ccx-gate.png>
-Package pdftex.def Info: ../Images/ccx-gate.png  used on input line 4871.
+ [142 <./Images/swap-gatemeth1.png> <./Images/swap-gatemeth2.png>]
+<Images/ccx-gate.png, id=3442, 146.7081pt x 205.2468pt>
+File: Images/ccx-gate.png Graphic file (type png)
+<use Images/ccx-gate.png>
+Package pdftex.def Info: Images/ccx-gate.png  used on input line 4871.
 (pdftex.def)             Requested size: 129.00269pt x 180.47992pt.
 
 Overfull \hbox (31.2131pt too wide) in paragraph at lines 4891--4893
@@ -1377,142 +1377,142 @@ Overfull \hbox (14.23137pt too wide) detected at line 4941
 [] [] \OT1/cmr/m/n/12 = [] = \OML/cmm/m/it/12  [] \OT1/cmr/m/n/12 + \OML/cmm/m/it/12 ^^L [] \OT1/cmr/m/n/12 + [] + \OML/cmm/m/it/12 ^^P [] \OT1/cmr/m/n/12 + \OML/cmm/m/it/12 ^^R [] \OT1/cmr/m/n/12 + \OML/cmm/m/it/12 ^^Q []
  []
 
-[144 <../Images/ccx-gate.png>]
-<../Images/cswap-gate.png, id=3467, 146.7081pt x 205.2468pt>
-File: ../Images/cswap-gate.png Graphic file (type png)
-<use ../Images/cswap-gate.png>
-Package pdftex.def Info: ../Images/cswap-gate.png  used on input line 4984.
+[144 <./Images/ccx-gate.png>]
+<Images/cswap-gate.png, id=3467, 146.7081pt x 205.2468pt>
+File: Images/cswap-gate.png Graphic file (type png)
+<use Images/cswap-gate.png>
+Package pdftex.def Info: Images/cswap-gate.png  used on input line 4984.
 (pdftex.def)             Requested size: 129.00269pt x 180.47992pt.
  [145]
 Overfull \hbox (31.2131pt too wide) in paragraph at lines 5004--5005
 []\OT1/cmr/m/n/12 It is rep-re-sented by the ma-trix in the com-pu-ta-tional ba-sis ($[] \OML/cmm/m/it/12 ; [] ; [] ; [] ; []$\OT1/cmr/m/n/12 )
  []
 
-[146 <../Images/cswap-gate.png>]
+[146 <./Images/cswap-gate.png>]
 Overfull \hbox (14.23137pt too wide) detected at line 5053
 [] [] \OT1/cmr/m/n/12 = [] = \OML/cmm/m/it/12  [] \OT1/cmr/m/n/12 + \OML/cmm/m/it/12 ^^L [] \OT1/cmr/m/n/12 + [] + \OML/cmm/m/it/12 ^^P [] \OT1/cmr/m/n/12 + \OML/cmm/m/it/12 ^^R [] \OT1/cmr/m/n/12 + \OML/cmm/m/it/12 ^^Q []
  []
 
-<../Images/cswap-gatemeth1.png, id=3492, 268.1217pt x 205.2468pt>
-File: ../Images/cswap-gatemeth1.png Graphic file (type png)
-<use ../Images/cswap-gatemeth1.png>
-Package pdftex.def Info: ../Images/cswap-gatemeth1.png  used on input line 5058.
+<Images/cswap-gatemeth1.png, id=3492, 268.1217pt x 205.2468pt>
+File: Images/cswap-gatemeth1.png Graphic file (type png)
+<use Images/cswap-gatemeth1.png>
+Package pdftex.def Info: Images/cswap-gatemeth1.png  used on input line 5058.
 (pdftex.def)             Requested size: 129.00269pt x 98.75534pt.
-[147 <../Images/cswap-gatemeth1.png>]
+[147 <./Images/cswap-gatemeth1.png>]
 Overfull \vbox (0.3511pt too high) has occurred while \output is active []
 
  [148]
-<../Images/uncontrolu.png, id=3504, 536.0025pt x 235.88126pt>
-File: ../Images/uncontrolu.png Graphic file (type png)
-<use ../Images/uncontrolu.png>
-Package pdftex.def Info: ../Images/uncontrolu.png  used on input line 5144.
+<Images/uncontrolu.png, id=3504, 536.0025pt x 235.88126pt>
+File: Images/uncontrolu.png Graphic file (type png)
+<use Images/uncontrolu.png>
+Package pdftex.def Info: Images/uncontrolu.png  used on input line 5144.
 (pdftex.def)             Requested size: 215.0023pt x 94.61717pt.
-<../Images/univcontrolledu.png, id=3506, 625.33624pt x 205.76875pt>
-File: ../Images/univcontrolledu.png Graphic file (type png)
-<use ../Images/univcontrolledu.png>
-Package pdftex.def Info: ../Images/univcontrolledu.png  used on input line 5152.
+<Images/univcontrolledu.png, id=3506, 625.33624pt x 205.76875pt>
+File: Images/univcontrolledu.png Graphic file (type png)
+<use Images/univcontrolledu.png>
+Package pdftex.def Info: Images/univcontrolledu.png  used on input line 5152.
 (pdftex.def)             Requested size: 215.0023pt x 70.74538pt.
-<../Images/multicontrolu.png, id=3508, 275.0275pt x 298.11375pt>
-File: ../Images/multicontrolu.png Graphic file (type png)
-<use ../Images/multicontrolu.png>
-Package pdftex.def Info: ../Images/multicontrolu.png  used on input line 5163.
+<Images/multicontrolu.png, id=3508, 275.0275pt x 298.11375pt>
+File: Images/multicontrolu.png Graphic file (type png)
+<use Images/multicontrolu.png>
+Package pdftex.def Info: Images/multicontrolu.png  used on input line 5163.
 (pdftex.def)             Requested size: 107.50114pt x 116.52318pt.
-<../Images/controlv.png, id=3510, 501.875pt x 190.7125pt>
-File: ../Images/controlv.png Graphic file (type png)
-<use ../Images/controlv.png>
-Package pdftex.def Info: ../Images/controlv.png  used on input line 5170.
+<Images/controlv.png, id=3510, 501.875pt x 190.7125pt>
+File: Images/controlv.png Graphic file (type png)
+<use Images/controlv.png>
+Package pdftex.def Info: Images/controlv.png  used on input line 5170.
 (pdftex.def)             Requested size: 322.50346pt x 122.55609pt.
- [149 <../Images/uncontrolu.png>]
+ [149 <./Images/uncontrolu.png>]
 Overfull \hbox (8.084pt too wide) detected at line 5183
 []
  []
 
-[150 <../Images/univcontrolledu.png> <../Images/multicontrolu.png>]
-<../Images/c2uimpl.png, id=3530, 818.05624pt x 123.46124pt>
-File: ../Images/c2uimpl.png Graphic file (type png)
-<use ../Images/c2uimpl.png>
-Package pdftex.def Info: ../Images/c2uimpl.png  used on input line 5192.
+[150 <./Images/univcontrolledu.png> <./Images/multicontrolu.png>]
+<Images/c2uimpl.png, id=3530, 818.05624pt x 123.46124pt>
+File: Images/c2uimpl.png Graphic file (type png)
+<use Images/c2uimpl.png>
+Package pdftex.def Info: Images/c2uimpl.png  used on input line 5192.
 (pdftex.def)             Requested size: 430.00462pt x 64.89723pt.
-<../Images/c2uimpl2.png, id=3531, 282.05376pt x 100.375pt>
-File: ../Images/c2uimpl2.png Graphic file (type png)
-<use ../Images/c2uimpl2.png>
-Package pdftex.def Info: ../Images/c2uimpl2.png  used on input line 5197.
+<Images/c2uimpl2.png, id=3531, 282.05376pt x 100.375pt>
+File: Images/c2uimpl2.png Graphic file (type png)
+<use Images/c2uimpl2.png>
+Package pdftex.def Info: Images/c2uimpl2.png  used on input line 5197.
 (pdftex.def)             Requested size: 215.0023pt x 76.51398pt.
-<../Images/c2uimpl3.png, id=3532, 751.80875pt x 138.5175pt>
-File: ../Images/c2uimpl3.png Graphic file (type png)
-<use ../Images/c2uimpl3.png>
-Package pdftex.def Info: ../Images/c2uimpl3.png  used on input line 5202.
+<Images/c2uimpl3.png, id=3532, 751.80875pt x 138.5175pt>
+File: Images/c2uimpl3.png Graphic file (type png)
+<use Images/c2uimpl3.png>
+Package pdftex.def Info: Images/c2uimpl3.png  used on input line 5202.
 (pdftex.def)             Requested size: 430.00462pt x 79.22844pt.
-<../Images/c2uimpl4.png, id=3533, 764.8575pt x 119.44624pt>
-File: ../Images/c2uimpl4.png Graphic file (type png)
-<use ../Images/c2uimpl4.png>
-Package pdftex.def Info: ../Images/c2uimpl4.png  used on input line 5207.
+<Images/c2uimpl4.png, id=3533, 764.8575pt x 119.44624pt>
+File: Images/c2uimpl4.png Graphic file (type png)
+<use Images/c2uimpl4.png>
+Package pdftex.def Info: Images/c2uimpl4.png  used on input line 5207.
 (pdftex.def)             Requested size: 430.00462pt x 67.1537pt.
- [151 <../Images/controlv.png> <../Images/c2uimpl.png>]
-<../Images/c2Utoffoli.png, id=3544, 511.9125pt x 184.69pt>
-File: ../Images/c2Utoffoli.png Graphic file (type png)
-<use ../Images/c2Utoffoli.png>
-Package pdftex.def Info: ../Images/c2Utoffoli.png  used on input line 5220.
+ [151 <./Images/controlv.png> <./Images/c2uimpl.png>]
+<Images/c2Utoffoli.png, id=3544, 511.9125pt x 184.69pt>
+File: Images/c2Utoffoli.png Graphic file (type png)
+<use Images/c2Utoffoli.png>
+Package pdftex.def Info: Images/c2Utoffoli.png  used on input line 5220.
 (pdftex.def)             Requested size: 322.50346pt x 116.3553pt.
-<../Images/toffoli_decomp.png, id=3546, 602.25pt x 143.53625pt>
-File: ../Images/toffoli_decomp.png Graphic file (type png)
-<use ../Images/toffoli_decomp.png>
-Package pdftex.def Info: ../Images/toffoli_decomp.png  used on input line 5227.
+<Images/toffoli_decomp.png, id=3546, 602.25pt x 143.53625pt>
+File: Images/toffoli_decomp.png Graphic file (type png)
+<use Images/toffoli_decomp.png>
+Package pdftex.def Info: Images/toffoli_decomp.png  used on input line 5227.
 (pdftex.def)             Requested size: 430.00462pt x 102.48746pt.
-<../Images/controlnu.png, id=3548, 474.77374pt x 312.16624pt>
-File: ../Images/controlnu.png Graphic file (type png)
-<use ../Images/controlnu.png>
-Package pdftex.def Info: ../Images/controlnu.png  used on input line 5235.
+<Images/controlnu.png, id=3548, 474.77374pt x 312.16624pt>
+File: Images/controlnu.png Graphic file (type png)
+<use Images/controlnu.png>
+Package pdftex.def Info: Images/controlnu.png  used on input line 5235.
 (pdftex.def)             Requested size: 430.00462pt x 282.74277pt.
-<../Images/controlxdecomp.png, id=3550, 509.905pt x 150.5625pt>
-File: ../Images/controlxdecomp.png Graphic file (type png)
-<use ../Images/controlxdecomp.png>
-Package pdftex.def Info: ../Images/controlxdecomp.png  used on input line 5242.
+<Images/controlxdecomp.png, id=3550, 509.905pt x 150.5625pt>
+File: Images/controlxdecomp.png Graphic file (type png)
+<use Images/controlxdecomp.png>
+Package pdftex.def Info: Images/controlxdecomp.png  used on input line 5242.
 (pdftex.def)             Requested size: 430.00462pt x 126.97475pt.
-<../Images/cuequiv.png, id=3553, 392.46625pt x 275.0275pt>
-File: ../Images/cuequiv.png Graphic file (type png)
-<use ../Images/cuequiv.png>
-Package pdftex.def Info: ../Images/cuequiv.png  used on input line 5249.
+<Images/cuequiv.png, id=3553, 392.46625pt x 275.0275pt>
+File: Images/cuequiv.png Graphic file (type png)
+<use Images/cuequiv.png>
+Package pdftex.def Info: Images/cuequiv.png  used on input line 5249.
 (pdftex.def)             Requested size: 430.00462pt x 301.35194pt.
-<../Images/multiplegatescontrollednot.png, id=3555, 316.18124pt x 120.45pt>
-File: ../Images/multiplegatescontrollednot.png Graphic file (type png)
-<use ../Images/multiplegatescontrollednot.png>
-Package pdftex.def Info: ../Images/multiplegatescontrollednot.png  used on input line 5256.
+<Images/multiplegatescontrollednot.png, id=3555, 316.18124pt x 120.45pt>
+File: Images/multiplegatescontrollednot.png Graphic file (type png)
+<use Images/multiplegatescontrollednot.png>
+Package pdftex.def Info: Images/multiplegatescontrollednot.png  used on input line 5256.
 (pdftex.def)             Requested size: 215.0023pt x 81.90674pt.
- [152 <../Images/c2uimpl2.png> <../Images/c2uimpl3.png>] [153 <../Images/c2uimpl4.png> <../Images/c2Utoffoli.png>] [154 <../Images/toffoli_decomp.png>]
+ [152 <./Images/c2uimpl2.png> <./Images/c2uimpl3.png>] [153 <./Images/c2uimpl4.png> <./Images/c2Utoffoli.png>] [154 <./Images/toffoli_decomp.png>]
 Overfull \hbox (29.21754pt too wide) in paragraph at lines 5269--5270
 \OT1/cmr/m/n/12 mod-ulo $4$. That is, the cir-cuit should per-form the trans-for-ma-tion $[] \OMS/cmsy/m/n/12 ! []$\OT1/cmr/m/n/12 . 
  []
 
-[155 <../Images/controlnu.png>] [156 <../Images/controlxdecomp.png>] [157 <../Images/cuequiv.png>] [158 <../Images/multiplegatescontrollednot.png>] [159] [160]
-<../Images/circuitimp2level.png, id=3616, 361.35pt x 142.5325pt>
-File: ../Images/circuitimp2level.png Graphic file (type png)
-<use ../Images/circuitimp2level.png>
-Package pdftex.def Info: ../Images/circuitimp2level.png  used on input line 5415.
+[155 <./Images/controlnu.png>] [156 <./Images/controlxdecomp.png>] [157 <./Images/cuequiv.png>] [158 <./Images/multiplegatescontrollednot.png>] [159] [160]
+<Images/circuitimp2level.png, id=3616, 361.35pt x 142.5325pt>
+File: Images/circuitimp2level.png Graphic file (type png)
+<use Images/circuitimp2level.png>
+Package pdftex.def Info: Images/circuitimp2level.png  used on input line 5415.
 (pdftex.def)             Requested size: 322.50346pt x 127.21019pt.
- [161] [162 <../Images/circuitimp2level.png>] [163]
+ [161] [162 <./Images/circuitimp2level.png>] [163]
 Overfull \hbox (1.34645pt too wide) in paragraph at lines 5468--5469
 []\OT1/cmr/m/n/12 Once again, these ar-gu-ments don't give us a sin-gle ex-am-ple of a hard-to-implement
  []
 
-<../Images/genericallyhard.png, id=3633, 561.09625pt x 572.1375pt>
-File: ../Images/genericallyhard.png Graphic file (type png)
-<use ../Images/genericallyhard.png>
-Package pdftex.def Info: ../Images/genericallyhard.png  used on input line 5473.
+<Images/genericallyhard.png, id=3633, 561.09625pt x 572.1375pt>
+File: Images/genericallyhard.png Graphic file (type png)
+<use Images/genericallyhard.png>
+Package pdftex.def Info: Images/genericallyhard.png  used on input line 5473.
 (pdftex.def)             Requested size: 215.0023pt x 219.23036pt.
-[164] [165 <../Images/genericallyhard.png>]
-<../Images/meassym.png, id=3646, 228.855pt x 66.2475pt>
-File: ../Images/meassym.png Graphic file (type png)
-<use ../Images/meassym.png>
-Package pdftex.def Info: ../Images/meassym.png  used on input line 5499.
+[164] [165 <./Images/genericallyhard.png>]
+<Images/meassym.png, id=3646, 228.855pt x 66.2475pt>
+File: Images/meassym.png Graphic file (type png)
+<use Images/meassym.png>
+Package pdftex.def Info: Images/meassym.png  used on input line 5499.
 (pdftex.def)             Requested size: 215.0023pt x 62.2403pt.
  [166]
-<../Images/qcteleport.png, id=3654, 537.00626pt x 186.6975pt>
-File: ../Images/qcteleport.png Graphic file (type png)
-<use ../Images/qcteleport.png>
-Package pdftex.def Info: ../Images/qcteleport.png  used on input line 5512.
+<Images/qcteleport.png, id=3654, 537.00626pt x 186.6975pt>
+File: Images/qcteleport.png Graphic file (type png)
+<use Images/qcteleport.png>
+Package pdftex.def Info: Images/qcteleport.png  used on input line 5512.
 (pdftex.def)             Requested size: 322.50346pt x 112.1219pt.
- [167 <../Images/meassym.png>] [168 <../Images/qcteleport.png>] [169]
+ [167 <./Images/meassym.png>] [168 <./Images/qcteleport.png>] [169]
 Chapter 4.
 [170
 
@@ -1536,53 +1536,53 @@ Chapter 5.
 [177
 
 ] [178] [179]
-File: ../Images/hadamard.png Graphic file (type png)
-<use ../Images/hadamard.png>
-Package pdftex.def Info: ../Images/hadamard.png  used on input line 5788.
+File: Images/hadamard.png Graphic file (type png)
+<use Images/hadamard.png>
+Package pdftex.def Info: Images/hadamard.png  used on input line 5788.
 (pdftex.def)             Requested size: 107.50114pt x 67.98798pt.
-<../Images/circ_exe.png, id=3719, 576.1525pt x 107.40125pt>
-File: ../Images/circ_exe.png Graphic file (type png)
-<use ../Images/circ_exe.png>
-Package pdftex.def Info: ../Images/circ_exe.png  used on input line 5793.
+<Images/circ_exe.png, id=3719, 576.1525pt x 107.40125pt>
+File: Images/circ_exe.png Graphic file (type png)
+<use Images/circ_exe.png>
+Package pdftex.def Info: Images/circ_exe.png  used on input line 5793.
 (pdftex.def)             Requested size: 279.50037pt x 52.10428pt.
-<../Images/circ_exe4.png, id=3720, 576.1525pt x 107.40125pt>
-File: ../Images/circ_exe4.png Graphic file (type png)
-<use ../Images/circ_exe4.png>
-Package pdftex.def Info: ../Images/circ_exe4.png  used on input line 5801.
+<Images/circ_exe4.png, id=3720, 576.1525pt x 107.40125pt>
+File: Images/circ_exe4.png Graphic file (type png)
+<use Images/circ_exe4.png>
+Package pdftex.def Info: Images/circ_exe4.png  used on input line 5801.
 (pdftex.def)             Requested size: 279.50037pt x 52.10428pt.
-<../Images/circ-exe5_1.png, id=3722, 446.66875pt x 131.49126pt>
-File: ../Images/circ-exe5_1.png Graphic file (type png)
-<use ../Images/circ-exe5_1.png>
-Package pdftex.def Info: ../Images/circ-exe5_1.png  used on input line 5809.
+<Images/circ-exe5_1.png, id=3722, 446.66875pt x 131.49126pt>
+File: Images/circ-exe5_1.png Graphic file (type png)
+<use Images/circ-exe5_1.png>
+Package pdftex.def Info: Images/circ-exe5_1.png  used on input line 5809.
 (pdftex.def)             Requested size: 279.50037pt x 82.28014pt.
-<../Images/circ_exe5_b.png, id=3724, 491.8375pt x 136.51pt>
-File: ../Images/circ_exe5_b.png Graphic file (type png)
-<use ../Images/circ_exe5_b.png>
-Package pdftex.def Info: ../Images/circ_exe5_b.png  used on input line 5816.
+<Images/circ_exe5_b.png, id=3724, 491.8375pt x 136.51pt>
+File: Images/circ_exe5_b.png Graphic file (type png)
+<use Images/circ_exe5_b.png>
+Package pdftex.def Info: Images/circ_exe5_b.png  used on input line 5816.
 (pdftex.def)             Requested size: 279.50037pt x 77.5782pt.
- [180 <../Images/circ_exe.png> <../Images/circ_exe4.png>]
-<../Images/circ-exe6_1.png, id=3737, 429.605pt x 153.57375pt>
-File: ../Images/circ-exe6_1.png Graphic file (type png)
-<use ../Images/circ-exe6_1.png>
-Package pdftex.def Info: ../Images/circ-exe6_1.png  used on input line 5827.
+ [180 <./Images/circ_exe.png> <./Images/circ_exe4.png>]
+<Images/circ-exe6_1.png, id=3737, 429.605pt x 153.57375pt>
+File: Images/circ-exe6_1.png Graphic file (type png)
+<use Images/circ-exe6_1.png>
+Package pdftex.def Info: Images/circ-exe6_1.png  used on input line 5827.
 (pdftex.def)             Requested size: 279.50037pt x 99.91548pt.
-<../Images/circ-exe6_2.png, id=3738, 401.5pt x 188.705pt>
-File: ../Images/circ-exe6_2.png Graphic file (type png)
-<use ../Images/circ-exe6_2.png>
-Package pdftex.def Info: ../Images/circ-exe6_2.png  used on input line 5832.
+<Images/circ-exe6_2.png, id=3738, 401.5pt x 188.705pt>
+File: Images/circ-exe6_2.png Graphic file (type png)
+<use Images/circ-exe6_2.png>
+Package pdftex.def Info: Images/circ-exe6_2.png  used on input line 5832.
 (pdftex.def)             Requested size: 279.50037pt x 131.37274pt.
- [181 <../Images/circ-exe5_1.png> <../Images/circ_exe5_b.png> <../Images/circ-exe6_1.png>] [182 <../Images/circ-exe6_2.png>]
-<../Images/qcircuit1.png, id=3758, 509.5035pt x 205.2468pt>
-File: ../Images/qcircuit1.png Graphic file (type png)
-<use ../Images/qcircuit1.png>
-Package pdftex.def Info: ../Images/qcircuit1.png  used on input line 5866.
+ [181 <./Images/circ-exe5_1.png> <./Images/circ_exe5_b.png> <./Images/circ-exe6_1.png>] [182 <./Images/circ-exe6_2.png>]
+<Images/qcircuit1.png, id=3758, 509.5035pt x 205.2468pt>
+File: Images/qcircuit1.png Graphic file (type png)
+<use Images/qcircuit1.png>
+Package pdftex.def Info: Images/qcircuit1.png  used on input line 5866.
 (pdftex.def)             Requested size: 344.005pt x 138.57631pt.
-<../Images/qcircuit1-rev.png, id=3760, 509.5035pt x 205.2468pt>
-File: ../Images/qcircuit1-rev.png Graphic file (type png)
-<use ../Images/qcircuit1-rev.png>
-Package pdftex.def Info: ../Images/qcircuit1-rev.png  used on input line 5881.
+<Images/qcircuit1-rev.png, id=3760, 509.5035pt x 205.2468pt>
+File: Images/qcircuit1-rev.png Graphic file (type png)
+<use Images/qcircuit1-rev.png>
+Package pdftex.def Info: Images/qcircuit1-rev.png  used on input line 5881.
 (pdftex.def)             Requested size: 344.005pt x 138.57631pt.
- [183 <../Images/qcircuit1.png>]
+ [183 <./Images/qcircuit1.png>]
 Overfull \hbox (63.0336pt too wide) detected at line 5899
 []
  []
@@ -1592,17 +1592,17 @@ Overfull \hbox (68.77628pt too wide) detected at line 5907
 []
  []
 
-[184 <../Images/qcircuit1-rev.png>] [185] [186] [187] [188] [189] [190]
+[184 <./Images/qcircuit1-rev.png>] [185] [186] [187] [188] [189] [190]
 Overfull \hbox (7.09518pt too wide) in paragraph at lines 6049--6049
 |[]\OT1/cmr/bx/n/17.28 Classical Cir-cuits sim-u-lat-ing Quan-tum Cir-cuits| 
  []
 
-<../Images/2ndimarray.png, id=3811, 139.52126pt x 250.9375pt>
-File: ../Images/2ndimarray.png Graphic file (type png)
-<use ../Images/2ndimarray.png>
-Package pdftex.def Info: ../Images/2ndimarray.png  used on input line 6060.
+<Images/2ndimarray.png, id=3811, 139.52126pt x 250.9375pt>
+File: Images/2ndimarray.png Graphic file (type png)
+<use Images/2ndimarray.png>
+Package pdftex.def Info: Images/2ndimarray.png  used on input line 6060.
 (pdftex.def)             Requested size: 43.00308pt x 77.34181pt.
-[191 <../Images/2ndimarray.png>]
+[191 <./Images/2ndimarray.png>]
 
 LaTeX Warning: Reference `' on page 192 undefined on input line 6080.
 
@@ -1632,129 +1632,129 @@ Overfull \hbox (59.94334pt too wide) detected at line 6226
 Overfull \vbox (26.43582pt too high) has occurred while \output is active []
 
  [201]
-<../Images/Toffoligate.png, id=3871, 279.0425pt x 154.5775pt>
-File: ../Images/Toffoligate.png Graphic file (type png)
-<use ../Images/Toffoligate.png>
-Package pdftex.def Info: ../Images/Toffoligate.png  used on input line 6276.
+<Images/Toffoligate.png, id=3871, 279.0425pt x 154.5775pt>
+File: Images/Toffoligate.png Graphic file (type png)
+<use Images/Toffoligate.png>
+Package pdftex.def Info: Images/Toffoligate.png  used on input line 6276.
 (pdftex.def)             Requested size: 215.0023pt x 119.10521pt.
  [202]
-<../Images/toffoli_classical.png, id=3878, 449.68pt x 190.7125pt>
-File: ../Images/toffoli_classical.png Graphic file (type png)
-<use ../Images/toffoli_classical.png>
-Package pdftex.def Info: ../Images/toffoli_classical.png  used on input line 6301.
+<Images/toffoli_classical.png, id=3878, 449.68pt x 190.7125pt>
+File: Images/toffoli_classical.png Graphic file (type png)
+<use Images/toffoli_classical.png>
+Package pdftex.def Info: Images/toffoli_classical.png  used on input line 6301.
 (pdftex.def)             Requested size: 215.0023pt x 91.18301pt.
- [203 <../Images/Toffoligate.png>]
-<../Images/CNOT_fanout.png, id=3888, 236.885pt x 130.4875pt>
-File: ../Images/CNOT_fanout.png Graphic file (type png)
-<use ../Images/CNOT_fanout.png>
-Package pdftex.def Info: ../Images/CNOT_fanout.png  used on input line 6311.
+ [203 <./Images/Toffoligate.png>]
+<Images/CNOT_fanout.png, id=3888, 236.885pt x 130.4875pt>
+File: Images/CNOT_fanout.png Graphic file (type png)
+<use Images/CNOT_fanout.png>
+Package pdftex.def Info: Images/CNOT_fanout.png  used on input line 6311.
 (pdftex.def)             Requested size: 129.00269pt x 71.06349pt.
-<../Images/squarerootx.png, id=3890, 460.72125pt x 118.4425pt>
-File: ../Images/squarerootx.png Graphic file (type png)
-<use ../Images/squarerootx.png>
-Package pdftex.def Info: ../Images/squarerootx.png  used on input line 6318.
+<Images/squarerootx.png, id=3890, 460.72125pt x 118.4425pt>
+File: Images/squarerootx.png Graphic file (type png)
+<use Images/squarerootx.png>
+Package pdftex.def Info: Images/squarerootx.png  used on input line 6318.
 (pdftex.def)             Requested size: 322.50346pt x 82.90916pt.
- [204 <../Images/toffoli_classical.png> <../Images/CNOT_fanout.png>]
-<../Images/randbit_sim.png, id=3899, 387.4475pt x 111.41624pt>
-File: ../Images/randbit_sim.png Graphic file (type png)
-<use ../Images/randbit_sim.png>
-Package pdftex.def Info: ../Images/randbit_sim.png  used on input line 6332.
+ [204 <./Images/toffoli_classical.png> <./Images/CNOT_fanout.png>]
+<Images/randbit_sim.png, id=3899, 387.4475pt x 111.41624pt>
+File: Images/randbit_sim.png Graphic file (type png)
+<use Images/randbit_sim.png>
+Package pdftex.def Info: Images/randbit_sim.png  used on input line 6332.
 (pdftex.def)             Requested size: 215.0023pt x 61.82823pt.
 
 Overfull \hbox (14.70654pt too wide) in paragraph at lines 6342--6342
 |[]\OT1/cmr/bx/n/14.4 Fixed Point Num-ber Rep-re-sen-ta-tion and Clas-si-cal Arith-
  []
 
-[205 <../Images/squarerootx.png> <../Images/randbit_sim.png>] [206] [207]
-<../Images/blliardballmodel.png, id=3920, 520.94624pt x 275.0275pt>
-File: ../Images/blliardballmodel.png Graphic file (type png)
-<use ../Images/blliardballmodel.png>
-Package pdftex.def Info: ../Images/blliardballmodel.png  used on input line 6394.
+[205 <./Images/squarerootx.png> <./Images/randbit_sim.png>] [206] [207]
+<Images/blliardballmodel.png, id=3920, 520.94624pt x 275.0275pt>
+File: Images/blliardballmodel.png Graphic file (type png)
+<use Images/blliardballmodel.png>
+Package pdftex.def Info: Images/blliardballmodel.png  used on input line 6394.
 (pdftex.def)             Requested size: 430.00462pt x 227.01799pt.
  [208]
-<../Images/fredkingateandcircimpl.png, id=3927, 512.91624pt x 263.98625pt>
-File: ../Images/fredkingateandcircimpl.png Graphic file (type png)
-<use ../Images/fredkingateandcircimpl.png>
-Package pdftex.def Info: ../Images/fredkingateandcircimpl.png  used on input line 6403.
+<Images/fredkingateandcircimpl.png, id=3927, 512.91624pt x 263.98625pt>
+File: Images/fredkingateandcircimpl.png Graphic file (type png)
+<use Images/fredkingateandcircimpl.png>
+Package pdftex.def Info: Images/fredkingateandcircimpl.png  used on input line 6403.
 (pdftex.def)             Requested size: 430.00462pt x 221.31592pt.
- [209 <../Images/blliardballmodel.png>] [210 <../Images/fredkingateandcircimpl.png>]
-<../Images/fredimplediff.png, id=3944, 658.46pt x 169.63374pt>
-File: ../Images/fredimplediff.png Graphic file (type png)
-<use ../Images/fredimplediff.png>
-Package pdftex.def Info: ../Images/fredimplediff.png  used on input line 6423.
+ [209 <./Images/blliardballmodel.png>] [210 <./Images/fredkingateandcircimpl.png>]
+<Images/fredimplediff.png, id=3944, 658.46pt x 169.63374pt>
+File: Images/fredimplediff.png Graphic file (type png)
+<use Images/fredimplediff.png>
+Package pdftex.def Info: Images/fredimplediff.png  used on input line 6423.
 (pdftex.def)             Requested size: 215.0023pt x 55.38914pt.
- [211 <../Images/fredimplediff.png>] [212] [213]
-<../Images/toffolitru.png, id=3960, 794.97pt x 380.92313pt>
-File: ../Images/toffolitru.png Graphic file (type png)
-<use ../Images/toffolitru.png>
-Package pdftex.def Info: ../Images/toffolitru.png  used on input line 6464.
+ [211 <./Images/fredimplediff.png>] [212] [213]
+<Images/toffolitru.png, id=3960, 794.97pt x 380.92313pt>
+File: Images/toffolitru.png Graphic file (type png)
+<use Images/toffolitru.png>
+Package pdftex.def Info: Images/toffolitru.png  used on input line 6464.
 (pdftex.def)             Requested size: 322.50346pt x 154.53458pt.
-<../Images/NANDToffoli.png, id=3962, 523.20468pt x 287.57437pt>
-File: ../Images/NANDToffoli.png Graphic file (type png)
-<use ../Images/NANDToffoli.png>
-Package pdftex.def Info: ../Images/NANDToffoli.png  used on input line 6471.
+<Images/NANDToffoli.png, id=3962, 523.20468pt x 287.57437pt>
+File: Images/NANDToffoli.png Graphic file (type png)
+<use Images/NANDToffoli.png>
+Package pdftex.def Info: Images/NANDToffoli.png  used on input line 6471.
 (pdftex.def)             Requested size: 215.0023pt x 118.17392pt.
-<../Images/FANOUT.png, id=3964, 283.0575pt x 282.30469pt>
-File: ../Images/FANOUT.png Graphic file (type png)
-<use ../Images/FANOUT.png>
-Package pdftex.def Info: ../Images/FANOUT.png  used on input line 6478.
+<Images/FANOUT.png, id=3964, 283.0575pt x 282.30469pt>
+File: Images/FANOUT.png Graphic file (type png)
+<use Images/FANOUT.png>
+Package pdftex.def Info: Images/FANOUT.png  used on input line 6478.
 (pdftex.def)             Requested size: 107.50114pt x 107.21227pt.
- [214] [215 <../Images/toffolitru.png> <../Images/NANDToffoli.png>] [216 <../Images/FANOUT.png>] [217] [218]
-<../Images/toffolidecompose.png, id=3995, 333.49594pt x 156.585pt>
-File: ../Images/toffolidecompose.png Graphic file (type png)
-<use ../Images/toffolidecompose.png>
-Package pdftex.def Info: ../Images/toffolidecompose.png  used on input line 6520.
+ [214] [215 <./Images/toffolitru.png> <./Images/NANDToffoli.png>] [216 <./Images/FANOUT.png>] [217] [218]
+<Images/toffolidecompose.png, id=3995, 333.49594pt x 156.585pt>
+File: Images/toffolidecompose.png Graphic file (type png)
+<use Images/toffolidecompose.png>
+Package pdftex.def Info: Images/toffolidecompose.png  used on input line 6520.
 (pdftex.def)             Requested size: 215.0023pt x 100.95233pt.
-<../Images/modularadditionclassical.png, id=3996, 636.87938pt x 378.66469pt>
-File: ../Images/modularadditionclassical.png Graphic file (type png)
-<use ../Images/modularadditionclassical.png>
-Package pdftex.def Info: ../Images/modularadditionclassical.png  used on input line 6527.
+<Images/modularadditionclassical.png, id=3996, 636.87938pt x 378.66469pt>
+File: Images/modularadditionclassical.png Graphic file (type png)
+<use Images/modularadditionclassical.png>
+Package pdftex.def Info: Images/modularadditionclassical.png  used on input line 6527.
 (pdftex.def)             Requested size: 215.0023pt x 127.83136pt.
- [219 <../Images/toffolidecompose.png>]
-<../Images/quantummodularaddition.png, id=4003, 668.4975pt x 427.5975pt>
-File: ../Images/quantummodularaddition.png Graphic file (type png)
-<use ../Images/quantummodularaddition.png>
-Package pdftex.def Info: ../Images/quantummodularaddition.png  used on input line 6534.
+ [219 <./Images/toffolidecompose.png>]
+<Images/quantummodularaddition.png, id=4003, 668.4975pt x 427.5975pt>
+File: Images/quantummodularaddition.png Graphic file (type png)
+<use Images/quantummodularaddition.png>
+Package pdftex.def Info: Images/quantummodularaddition.png  used on input line 6534.
 (pdftex.def)             Requested size: 215.0023pt x 137.52559pt.
 
 Overfull \hbox (1.1159pt too wide) in paragraph at lines 6531--6537
 []\OT1/cmr/m/n/12 Based on our pre-vi-ous dis-cus-sions con-cern-ing black-box trans-for-ma-tions, we might
  []
 
-[220 <../Images/modularadditionclassical.png> <../Images/quantummodularaddition.png>]
-<../Images/simulateand.png, id=4012, 436.63126pt x 195.73125pt>
-File: ../Images/simulateand.png Graphic file (type png)
-<use ../Images/simulateand.png>
-Package pdftex.def Info: ../Images/simulateand.png  used on input line 6543.
+[220 <./Images/modularadditionclassical.png> <./Images/quantummodularaddition.png>]
+<Images/simulateand.png, id=4012, 436.63126pt x 195.73125pt>
+File: Images/simulateand.png Graphic file (type png)
+<use Images/simulateand.png>
+Package pdftex.def Info: Images/simulateand.png  used on input line 6543.
 (pdftex.def)             Requested size: 215.0023pt x 96.38103pt.
-<../Images/fanoutimg.png, id=4013, 420.82219pt x 197.23688pt>
-File: ../Images/fanoutimg.png Graphic file (type png)
-<use ../Images/fanoutimg.png>
-Package pdftex.def Info: ../Images/fanoutimg.png  used on input line 6552.
+<Images/fanoutimg.png, id=4013, 420.82219pt x 197.23688pt>
+File: Images/fanoutimg.png Graphic file (type png)
+<use Images/fanoutimg.png>
+Package pdftex.def Info: Images/fanoutimg.png  used on input line 6552.
 (pdftex.def)             Requested size: 215.0023pt x 100.77003pt.
-<../Images/simulateclassical.png, id=4014, 773.13844pt x 237.88875pt>
-File: ../Images/simulateclassical.png Graphic file (type png)
-<use ../Images/simulateclassical.png>
-Package pdftex.def Info: ../Images/simulateclassical.png  used on input line 6560.
+<Images/simulateclassical.png, id=4014, 773.13844pt x 237.88875pt>
+File: Images/simulateclassical.png Graphic file (type png)
+<use Images/simulateclassical.png>
+Package pdftex.def Info: Images/simulateclassical.png  used on input line 6560.
 (pdftex.def)             Requested size: 215.0023pt x 66.15465pt.
-<../Images/reversiblecomputecirc.png, id=4015, 794.97pt x 509.65407pt>
-File: ../Images/reversiblecomputecirc.png Graphic file (type png)
-<use ../Images/reversiblecomputecirc.png>
-Package pdftex.def Info: ../Images/reversiblecomputecirc.png  used on input line 6565.
+<Images/reversiblecomputecirc.png, id=4015, 794.97pt x 509.65407pt>
+File: Images/reversiblecomputecirc.png Graphic file (type png)
+<use Images/reversiblecomputecirc.png>
+Package pdftex.def Info: Images/reversiblecomputecirc.png  used on input line 6565.
 (pdftex.def)             Requested size: 322.50346pt x 206.75871pt.
- [221 <../Images/simulateand.png> <../Images/fanoutimg.png>] [222 <../Images/simulateclassical.png> <../Images/reversiblecomputecirc.png>]
-<../Images/quantumreversiblecirc.png, id=4032, 889.82437pt x 525.46312pt>
-File: ../Images/quantumreversiblecirc.png Graphic file (type png)
-<use ../Images/quantumreversiblecirc.png>
-Package pdftex.def Info: ../Images/quantumreversiblecirc.png  used on input line 6582.
+ [221 <./Images/simulateand.png> <./Images/fanoutimg.png>] [222 <./Images/simulateclassical.png> <./Images/reversiblecomputecirc.png>]
+<Images/quantumreversiblecirc.png, id=4032, 889.82437pt x 525.46312pt>
+File: Images/quantumreversiblecirc.png Graphic file (type png)
+<use Images/quantumreversiblecirc.png>
+Package pdftex.def Info: Images/quantumreversiblecirc.png  used on input line 6582.
 (pdftex.def)             Requested size: 322.50346pt x 190.44142pt.
- [223 <../Images/quantumreversiblecirc.png>]
-<../Images/invertiblefunccirc.png, id=4039, 800.23969pt x 204.01219pt>
-File: ../Images/invertiblefunccirc.png Graphic file (type png)
-<use ../Images/invertiblefunccirc.png>
-Package pdftex.def Info: ../Images/invertiblefunccirc.png  used on input line 6610.
+ [223 <./Images/quantumreversiblecirc.png>]
+<Images/invertiblefunccirc.png, id=4039, 800.23969pt x 204.01219pt>
+File: Images/invertiblefunccirc.png Graphic file (type png)
+<use Images/invertiblefunccirc.png>
+Package pdftex.def Info: Images/invertiblefunccirc.png  used on input line 6610.
 (pdftex.def)             Requested size: 322.50346pt x 82.21979pt.
- [224 <../Images/invertiblefunccirc.png>]
+ [224 <./Images/invertiblefunccirc.png>]
 Overfull \hbox (49.54607pt too wide) has occurred while \output is active
 \OT1/cmr/m/sl/12 5.8.  QUANTUM IMPLEMENTATION OF CLASSICAL ARITHMETICS OPERATIONS \OT1/cmr/m/n/12 225
  []
@@ -1775,10 +1775,10 @@ Overfull \hbox (49.54607pt too wide) has occurred while \output is active
  []
 
 [227]
-<../Images/one-bitadd.png, id=4062, 770.12718pt x 292.84406pt>
-File: ../Images/one-bitadd.png Graphic file (type png)
-<use ../Images/one-bitadd.png>
-Package pdftex.def Info: ../Images/one-bitadd.png  used on input line 6716.
+<Images/one-bitadd.png, id=4062, 770.12718pt x 292.84406pt>
+File: Images/one-bitadd.png Graphic file (type png)
+<use Images/one-bitadd.png>
+Package pdftex.def Info: Images/one-bitadd.png  used on input line 6716.
 (pdftex.def)             Requested size: 215.0023pt x 81.75447pt.
 
 Overfull \hbox (8.30719pt too wide) in paragraph at lines 6720--6720
@@ -1786,46 +1786,46 @@ Overfull \hbox (8.30719pt too wide) in paragraph at lines 6720--6720
  []
 
 [228]
-<../Images/4bitconj.png, id=4069, 852.93657pt x 256.70906pt>
-File: ../Images/4bitconj.png Graphic file (type png)
-<use ../Images/4bitconj.png>
-Package pdftex.def Info: ../Images/4bitconj.png  used on input line 6727.
+<Images/4bitconj.png, id=4069, 852.93657pt x 256.70906pt>
+File: Images/4bitconj.png Graphic file (type png)
+<use Images/4bitconj.png>
+Package pdftex.def Info: Images/4bitconj.png  used on input line 6727.
 (pdftex.def)             Requested size: 215.0023pt x 64.70982pt.
-<../Images/rev4bitconj.png, id=4071, 674.52pt x 432.11438pt>
-File: ../Images/rev4bitconj.png Graphic file (type png)
-<use ../Images/rev4bitconj.png>
-Package pdftex.def Info: ../Images/rev4bitconj.png  used on input line 6736.
+<Images/rev4bitconj.png, id=4071, 674.52pt x 432.11438pt>
+File: Images/rev4bitconj.png Graphic file (type png)
+<use Images/rev4bitconj.png>
+Package pdftex.def Info: Images/rev4bitconj.png  used on input line 6736.
 (pdftex.def)             Requested size: 215.0023pt x 137.73215pt.
- [229 <../Images/one-bitadd.png> <../Images/4bitconj.png>]
-<../Images/4bituncomp.png, id=4082, 796.47563pt x 531.48563pt>
-File: ../Images/4bituncomp.png Graphic file (type png)
-<use ../Images/4bituncomp.png>
-Package pdftex.def Info: ../Images/4bituncomp.png  used on input line 6747.
+ [229 <./Images/one-bitadd.png> <./Images/4bitconj.png>]
+<Images/4bituncomp.png, id=4082, 796.47563pt x 531.48563pt>
+File: Images/4bituncomp.png Graphic file (type png)
+<use Images/4bituncomp.png>
+Package pdftex.def Info: Images/4bituncomp.png  used on input line 6747.
 (pdftex.def)             Requested size: 215.0023pt x 143.4706pt.
- [230 <../Images/rev4bitconj.png>]
-<../Images/rev4bitANDS.png, id=4095, 689.57625pt x 561.59813pt>
-File: ../Images/rev4bitANDS.png Graphic file (type png)
-<use ../Images/rev4bitANDS.png>
-Package pdftex.def Info: ../Images/rev4bitANDS.png  used on input line 6758.
+ [230 <./Images/rev4bitconj.png>]
+<Images/rev4bitANDS.png, id=4095, 689.57625pt x 561.59813pt>
+File: Images/rev4bitANDS.png Graphic file (type png)
+<use Images/rev4bitANDS.png>
+Package pdftex.def Info: Images/rev4bitANDS.png  used on input line 6758.
 (pdftex.def)             Requested size: 215.0023pt x 175.09622pt.
- [231 <../Images/4bituncomp.png>]
-<../Images/revector.png, id=4106, 752.8125pt x 203.25937pt>
-File: ../Images/revector.png Graphic file (type png)
-<use ../Images/revector.png>
-Package pdftex.def Info: ../Images/revector.png  used on input line 6772.
+ [231 <./Images/4bituncomp.png>]
+<Images/revector.png, id=4106, 752.8125pt x 203.25937pt>
+File: Images/revector.png Graphic file (type png)
+<use Images/revector.png>
+Package pdftex.def Info: Images/revector.png  used on input line 6772.
 (pdftex.def)             Requested size: 215.0023pt x 58.05048pt.
- [232 <../Images/rev4bitANDS.png>]
-<../Images/revcircr1torr.png, id=4115, 684.30656pt x 469.00218pt>
-File: ../Images/revcircr1torr.png Graphic file (type png)
-<use ../Images/revcircr1torr.png>
-Package pdftex.def Info: ../Images/revcircr1torr.png  used on input line 6785.
+ [232 <./Images/rev4bitANDS.png>]
+<Images/revcircr1torr.png, id=4115, 684.30656pt x 469.00218pt>
+File: Images/revcircr1torr.png Graphic file (type png)
+<use Images/revcircr1torr.png>
+Package pdftex.def Info: Images/revcircr1torr.png  used on input line 6785.
 (pdftex.def)             Requested size: 215.0023pt x 147.35718pt.
-<../Images/effimplertoc.png, id=4117, 977.90344pt x 302.63063pt>
-File: ../Images/effimplertoc.png Graphic file (type png)
-<use ../Images/effimplertoc.png>
-Package pdftex.def Info: ../Images/effimplertoc.png  used on input line 6792.
+<Images/effimplertoc.png, id=4117, 977.90344pt x 302.63063pt>
+File: Images/effimplertoc.png Graphic file (type png)
+<use Images/effimplertoc.png>
+Package pdftex.def Info: Images/effimplertoc.png  used on input line 6792.
 (pdftex.def)             Requested size: 322.50346pt x 99.80376pt.
- [233 <../Images/revector.png>] [234 <../Images/revcircr1torr.png> <../Images/effimplertoc.png>]
+ [233 <./Images/revector.png>] [234 <./Images/revcircr1torr.png> <./Images/effimplertoc.png>]
 Overfull \hbox (26.64052pt too wide) detected at line 6814
 []
  []
@@ -1841,51 +1841,51 @@ Overfull \hbox (33.89133pt too wide) in paragraph at lines 6871--6872
  []
 
 [238] [239] [240]
-<../Images/classicalcircuit.png, id=4165, 1523.6925pt x 630.355pt>
-File: ../Images/classicalcircuit.png Graphic file (type png)
-<use ../Images/classicalcircuit.png>
-Package pdftex.def Info: ../Images/classicalcircuit.png  used on input line 6979.
+<Images/classicalcircuit.png, id=4165, 1523.6925pt x 630.355pt>
+File: Images/classicalcircuit.png Graphic file (type png)
+<use Images/classicalcircuit.png>
+Package pdftex.def Info: Images/classicalcircuit.png  used on input line 6979.
 (pdftex.def)             Requested size: 344.005pt x 142.31429pt.
- [241] [242 <../Images/classicalcircuit.png>]
-<../Images/reversiblecswap.png, id=4186, 1209.51875pt x 477.785pt>
-File: ../Images/reversiblecswap.png Graphic file (type png)
-<use ../Images/reversiblecswap.png>
-Package pdftex.def Info: ../Images/reversiblecswap.png  used on input line 7013.
+ [241] [242 <./Images/classicalcircuit.png>]
+<Images/reversiblecswap.png, id=4186, 1209.51875pt x 477.785pt>
+File: Images/reversiblecswap.png Graphic file (type png)
+<use Images/reversiblecswap.png>
+Package pdftex.def Info: Images/reversiblecswap.png  used on input line 7013.
 (pdftex.def)             Requested size: 344.005pt x 135.8858pt.
-<../Images/reversibleand.png, id=4188, 1176.395pt x 477.785pt>
-File: ../Images/reversibleand.png Graphic file (type png)
-<use ../Images/reversibleand.png>
-Package pdftex.def Info: ../Images/reversibleand.png  used on input line 7026.
+<Images/reversibleand.png, id=4188, 1176.395pt x 477.785pt>
+File: Images/reversibleand.png Graphic file (type png)
+<use Images/reversibleand.png>
+Package pdftex.def Info: Images/reversibleand.png  used on input line 7026.
 (pdftex.def)             Requested size: 344.005pt x 139.71327pt.
  [243]
-<../Images/classicaltoquantum.png, id=4196, 1895.08pt x 630.355pt>
-File: ../Images/classicaltoquantum.png Graphic file (type png)
-<use ../Images/classicaltoquantum.png>
-Package pdftex.def Info: ../Images/classicaltoquantum.png  used on input line 7057.
+<Images/classicaltoquantum.png, id=4196, 1895.08pt x 630.355pt>
+File: Images/classicaltoquantum.png Graphic file (type png)
+<use Images/classicaltoquantum.png>
+Package pdftex.def Info: Images/classicaltoquantum.png  used on input line 7057.
 (pdftex.def)             Requested size: 344.005pt x 114.42084pt.
- [244 <../Images/reversiblecswap.png> <../Images/reversibleand.png>]
-<../Images/quantumoracle.png, id=4207, 1981.4025pt x 745.78625pt>
-File: ../Images/quantumoracle.png Graphic file (type png)
-<use ../Images/quantumoracle.png>
-Package pdftex.def Info: ../Images/quantumoracle.png  used on input line 7069.
+ [244 <./Images/reversiblecswap.png> <./Images/reversibleand.png>]
+<Images/quantumoracle.png, id=4207, 1981.4025pt x 745.78625pt>
+File: Images/quantumoracle.png Graphic file (type png)
+<use Images/quantumoracle.png>
+Package pdftex.def Info: Images/quantumoracle.png  used on input line 7069.
 (pdftex.def)             Requested size: 344.005pt x 129.47899pt.
- [245 <../Images/classicaltoquantum.png>]
-<../Images/oracle.png, id=4215, 1300.86pt x 629.35126pt>
-File: ../Images/oracle.png Graphic file (type png)
-<use ../Images/oracle.png>
-Package pdftex.def Info: ../Images/oracle.png  used on input line 7084.
+ [245 <./Images/classicaltoquantum.png>]
+<Images/oracle.png, id=4215, 1300.86pt x 629.35126pt>
+File: Images/oracle.png Graphic file (type png)
+<use Images/oracle.png>
+Package pdftex.def Info: Images/oracle.png  used on input line 7084.
 (pdftex.def)             Requested size: 344.005pt x 166.42197pt.
-<../Images/quantum-circ.png, id=4217, 415.5525pt x 193.72375pt>
-File: ../Images/quantum-circ.png Graphic file (type png)
-<use ../Images/quantum-circ.png>
-Package pdftex.def Info: ../Images/quantum-circ.png  used on input line 7092.
+<Images/quantum-circ.png, id=4217, 415.5525pt x 193.72375pt>
+File: Images/quantum-circ.png Graphic file (type png)
+<use Images/quantum-circ.png>
+Package pdftex.def Info: Images/quantum-circ.png  used on input line 7092.
 (pdftex.def)             Requested size: 215.0023pt x 100.23145pt.
-<../Images/uncomputation.png, id=4218, 507.8975pt x 322.20375pt>
-File: ../Images/uncomputation.png Graphic file (type png)
-<use ../Images/uncomputation.png>
-Package pdftex.def Info: ../Images/uncomputation.png  used on input line 7099.
+<Images/uncomputation.png, id=4218, 507.8975pt x 322.20375pt>
+File: Images/uncomputation.png Graphic file (type png)
+<use Images/uncomputation.png>
+Package pdftex.def Info: Images/uncomputation.png  used on input line 7099.
 (pdftex.def)             Requested size: 344.005pt x 218.24019pt.
- [246 <../Images/quantumoracle.png>] [247 <../Images/oracle.png> <../Images/quantum-circ.png>] [248 <../Images/uncomputation.png>]
+ [246 <./Images/quantumoracle.png>] [247 <./Images/oracle.png> <./Images/quantum-circ.png>] [248 <./Images/uncomputation.png>]
 Chapter 6.
 [249
 
@@ -1894,18 +1894,18 @@ Chapter 7.
 [251
 
 ] [252] [253] [254] [255] [256] [257]
-<../Images/bell-states.png, id=4279, 207.4149pt x 144.54pt>
-File: ../Images/bell-states.png Graphic file (type png)
-<use ../Images/bell-states.png>
-Package pdftex.def Info: ../Images/bell-states.png  used on input line 7281.
+<Images/bell-states.png, id=4279, 207.4149pt x 144.54pt>
+File: Images/bell-states.png Graphic file (type png)
+<use Images/bell-states.png>
+Package pdftex.def Info: Images/bell-states.png  used on input line 7281.
 (pdftex.def)             Requested size: 215.0023pt x 149.83282pt.
  [258]
-<../Images/bell-states-rev.png, id=4286, 207.4149pt x 144.54pt>
-File: ../Images/bell-states-rev.png Graphic file (type png)
-<use ../Images/bell-states-rev.png>
-Package pdftex.def Info: ../Images/bell-states-rev.png  used on input line 7309.
+<Images/bell-states-rev.png, id=4286, 207.4149pt x 144.54pt>
+File: Images/bell-states-rev.png Graphic file (type png)
+<use Images/bell-states-rev.png>
+Package pdftex.def Info: Images/bell-states-rev.png  used on input line 7309.
 (pdftex.def)             Requested size: 215.0023pt x 149.83282pt.
- [259 <../Images/bell-states.png>] [260 <../Images/bell-states-rev.png>] [261]
+ [259 <./Images/bell-states.png>] [260 <./Images/bell-states-rev.png>] [261]
 Overfull \hbox (59.5536pt too wide) detected at line 7381
 []
  []
@@ -1920,194 +1920,194 @@ Overfull \hbox (5.1154pt too wide) in paragraph at lines 7402--7403
 LaTeX Warning: Reference `' on page 267 undefined on input line 7483.
 
 [267] [268] [269] [270] [271]
-<../Images/chsh.png, id=4348, 387.4475pt x 352.31625pt>
-File: ../Images/chsh.png Graphic file (type png)
-<use ../Images/chsh.png>
-Package pdftex.def Info: ../Images/chsh.png  used on input line 7604.
+<Images/chsh.png, id=4348, 387.4475pt x 352.31625pt>
+File: Images/chsh.png Graphic file (type png)
+<use Images/chsh.png>
+Package pdftex.def Info: Images/chsh.png  used on input line 7604.
 (pdftex.def)             Requested size: 215.0023pt x 195.51094pt.
- [272] [273 <../Images/chsh.png>] [274]
-<../Images/chsh_game.png, id=4368, 387.4475pt x 352.31625pt>
-File: ../Images/chsh_game.png Graphic file (type png)
-<use ../Images/chsh_game.png>
-Package pdftex.def Info: ../Images/chsh_game.png  used on input line 7665.
+ [272] [273 <./Images/chsh.png>] [274]
+<Images/chsh_game.png, id=4368, 387.4475pt x 352.31625pt>
+File: Images/chsh_game.png Graphic file (type png)
+<use Images/chsh_game.png>
+Package pdftex.def Info: Images/chsh_game.png  used on input line 7665.
 (pdftex.def)             Requested size: 215.0023pt x 195.51094pt.
- [275] [276 <../Images/chsh_game.png>] [277] [278] [279] [280]
+ [275] [276 <./Images/chsh_game.png>] [277] [278] [279] [280]
 Underfull \hbox (badness 10000) in paragraph at lines 7757--7764
 
  []
 
-<../Images/teleportation1.png, id=4397, 207.4149pt x 144.54pt>
-File: ../Images/teleportation1.png Graphic file (type png)
-<use ../Images/teleportation1.png>
-Package pdftex.def Info: ../Images/teleportation1.png  used on input line 7767.
+<Images/teleportation1.png, id=4397, 207.4149pt x 144.54pt>
+File: Images/teleportation1.png Graphic file (type png)
+<use Images/teleportation1.png>
+Package pdftex.def Info: Images/teleportation1.png  used on input line 7767.
 (pdftex.def)             Requested size: 215.0023pt x 149.83282pt.
-<../Images/teleportation2.png, id=4399, 388.8126pt x 205.2468pt>
-File: ../Images/teleportation2.png Graphic file (type png)
-<use ../Images/teleportation2.png>
-Package pdftex.def Info: ../Images/teleportation2.png  used on input line 7776.
+<Images/teleportation2.png, id=4399, 388.8126pt x 205.2468pt>
+File: Images/teleportation2.png Graphic file (type png)
+<use Images/teleportation2.png>
+Package pdftex.def Info: Images/teleportation2.png  used on input line 7776.
 (pdftex.def)             Requested size: 322.50346pt x 170.25456pt.
-[281 <../Images/teleportation1.png>]
+[281 <./Images/teleportation1.png>]
 Overfull \hbox (27.81401pt too wide) detected at line 7796
 [] []
  []
 
-[282 <../Images/teleportation2.png>] [283] [284]
-<../Images/teleportation.png, id=4427, 690.9012pt x 265.2309pt>
-File: ../Images/teleportation.png Graphic file (type png)
-<use ../Images/teleportation.png>
-Package pdftex.def Info: ../Images/teleportation.png  used on input line 7872.
+[282 <./Images/teleportation2.png>] [283] [284]
+<Images/teleportation.png, id=4427, 690.9012pt x 265.2309pt>
+File: Images/teleportation.png Graphic file (type png)
+<use Images/teleportation.png>
+Package pdftex.def Info: Images/teleportation.png  used on input line 7872.
 (pdftex.def)             Requested size: 430.00462pt x 165.07684pt.
- [285] [286 <../Images/teleportation.png>]
-<../Images/superdense-coding1.png, id=4439, 207.4149pt x 144.54pt>
-File: ../Images/superdense-coding1.png Graphic file (type png)
-<use ../Images/superdense-coding1.png>
-Package pdftex.def Info: ../Images/superdense-coding1.png  used on input line 7910.
+ [285] [286 <./Images/teleportation.png>]
+<Images/superdense-coding1.png, id=4439, 207.4149pt x 144.54pt>
+File: Images/superdense-coding1.png Graphic file (type png)
+<use Images/superdense-coding1.png>
+Package pdftex.def Info: Images/superdense-coding1.png  used on input line 7910.
 (pdftex.def)             Requested size: 215.0023pt x 149.83282pt.
  [287]
-<../Images/superdense-coding2.png, id=4448, 94.10156pt x 143.78719pt>
-File: ../Images/superdense-coding2.png Graphic file (type png)
-<use ../Images/superdense-coding2.png>
-Package pdftex.def Info: ../Images/superdense-coding2.png  used on input line 7919.
+<Images/superdense-coding2.png, id=4448, 94.10156pt x 143.78719pt>
+File: Images/superdense-coding2.png Graphic file (type png)
+<use Images/superdense-coding2.png>
+Package pdftex.def Info: Images/superdense-coding2.png  used on input line 7919.
 (pdftex.def)             Requested size: 43.00308pt x 65.71068pt.
- [288 <../Images/superdense-coding1.png> <../Images/superdense-coding2.png>]
-<../Images/superdense-coding3.png, id=4459, 207.4149pt x 144.54pt>
-File: ../Images/superdense-coding3.png Graphic file (type png)
-<use ../Images/superdense-coding3.png>
-Package pdftex.def Info: ../Images/superdense-coding3.png  used on input line 7949.
+ [288 <./Images/superdense-coding1.png> <./Images/superdense-coding2.png>]
+<Images/superdense-coding3.png, id=4459, 207.4149pt x 144.54pt>
+File: Images/superdense-coding3.png Graphic file (type png)
+<use Images/superdense-coding3.png>
+Package pdftex.def Info: Images/superdense-coding3.png  used on input line 7949.
 (pdftex.def)             Requested size: 215.0023pt x 149.83282pt.
- [289 <../Images/superdense-coding3.png>]
-<../Images/superdense-coding4.png, id=4467, 750.8853pt x 205.2468pt>
-File: ../Images/superdense-coding4.png Graphic file (type png)
-<use ../Images/superdense-coding4.png>
-Package pdftex.def Info: ../Images/superdense-coding4.png  used on input line 7996.
+ [289 <./Images/superdense-coding3.png>]
+<Images/superdense-coding4.png, id=4467, 750.8853pt x 205.2468pt>
+File: Images/superdense-coding4.png Graphic file (type png)
+<use Images/superdense-coding4.png>
+Package pdftex.def Info: Images/superdense-coding4.png  used on input line 7996.
 (pdftex.def)             Requested size: 430.00462pt x 117.5368pt.
- [290] [291 <../Images/superdense-coding4.png>]
+ [290] [291 <./Images/superdense-coding4.png>]
 Overfull \hbox (22.84772pt too wide) in paragraph at lines 8036--8037
 []\OT1/cmr/m/n/12 Qiskit SDK 1.0 or later, with vi-su-al-iza-tion sup-port (pip in-stall 'qiskit[visualization]') 
  []
 
 [292] [293]
-<../Images/superdense_00.png, id=4529, 499.3857pt x 172.0026pt>
-File: ../Images/superdense_00.png Graphic file (type png)
-<use ../Images/superdense_00.png>
-Package pdftex.def Info: ../Images/superdense_00.png  used on input line 8114.
+<Images/superdense_00.png, id=4529, 499.3857pt x 172.0026pt>
+File: Images/superdense_00.png Graphic file (type png)
+<use Images/superdense_00.png>
+Package pdftex.def Info: Images/superdense_00.png  used on input line 8114.
 (pdftex.def)             Requested size: 193.50076pt x 66.64769pt.
-<../Images/superdense_01.png, id=4530, 546.3612pt x 172.0026pt>
-File: ../Images/superdense_01.png Graphic file (type png)
-<use ../Images/superdense_01.png>
-Package pdftex.def Info: ../Images/superdense_01.png  used on input line 8122.
+<Images/superdense_01.png, id=4530, 546.3612pt x 172.0026pt>
+File: Images/superdense_01.png Graphic file (type png)
+<use Images/superdense_01.png>
+Package pdftex.def Info: Images/superdense_01.png  used on input line 8122.
 (pdftex.def)             Requested size: 193.50076pt x 60.91568pt.
-<../Images/superdense_10.png, id=4531, 546.3612pt x 172.0026pt>
-File: ../Images/superdense_10.png Graphic file (type png)
-<use ../Images/superdense_10.png>
-Package pdftex.def Info: ../Images/superdense_10.png  used on input line 8129.
+<Images/superdense_10.png, id=4531, 546.3612pt x 172.0026pt>
+File: Images/superdense_10.png Graphic file (type png)
+<use Images/superdense_10.png>
+Package pdftex.def Info: Images/superdense_10.png  used on input line 8129.
 (pdftex.def)             Requested size: 193.50076pt x 60.91568pt.
-<../Images/superdense_11.png, id=4532, 592.614pt x 172.0026pt>
-File: ../Images/superdense_11.png Graphic file (type png)
-<use ../Images/superdense_11.png>
-Package pdftex.def Info: ../Images/superdense_11.png  used on input line 8136.
+<Images/superdense_11.png, id=4532, 592.614pt x 172.0026pt>
+File: Images/superdense_11.png Graphic file (type png)
+<use Images/superdense_11.png>
+Package pdftex.def Info: Images/superdense_11.png  used on input line 8136.
 (pdftex.def)             Requested size: 193.50076pt x 56.16263pt.
  [294]
-<../Images/opt_superdense_00.png, id=4567, 1097.0586pt x 181.3977pt>
-File: ../Images/opt_superdense_00.png Graphic file (type png)
-<use ../Images/opt_superdense_00.png>
-Package pdftex.def Info: ../Images/opt_superdense_00.png  used on input line 8158.
+<Images/opt_superdense_00.png, id=4567, 1097.0586pt x 181.3977pt>
+File: Images/opt_superdense_00.png Graphic file (type png)
+<use Images/opt_superdense_00.png>
+Package pdftex.def Info: Images/opt_superdense_00.png  used on input line 8158.
 (pdftex.def)             Requested size: 193.50076pt x 31.99417pt.
-<../Images/opt_superdense_01.png, id=4568, 1144.0341pt x 181.3977pt>
-File: ../Images/opt_superdense_01.png Graphic file (type png)
-<use ../Images/opt_superdense_01.png>
-Package pdftex.def Info: ../Images/opt_superdense_01.png  used on input line 8166.
+<Images/opt_superdense_01.png, id=4568, 1144.0341pt x 181.3977pt>
+File: Images/opt_superdense_01.png Graphic file (type png)
+<use Images/opt_superdense_01.png>
+Package pdftex.def Info: Images/opt_superdense_01.png  used on input line 8166.
 (pdftex.def)             Requested size: 193.50076pt x 30.67943pt.
-<../Images/opt_superdense_10.png, id=4569, 1144.0341pt x 181.3977pt>
-File: ../Images/opt_superdense_10.png Graphic file (type png)
-<use ../Images/opt_superdense_10.png>
-Package pdftex.def Info: ../Images/opt_superdense_10.png  used on input line 8173.
+<Images/opt_superdense_10.png, id=4569, 1144.0341pt x 181.3977pt>
+File: Images/opt_superdense_10.png Graphic file (type png)
+<use Images/opt_superdense_10.png>
+Package pdftex.def Info: Images/opt_superdense_10.png  used on input line 8173.
 (pdftex.def)             Requested size: 193.50076pt x 30.67943pt.
-<../Images/opt_superdense_11.png, id=4570, 1190.2869pt x 181.3977pt>
-File: ../Images/opt_superdense_11.png Graphic file (type png)
-<use ../Images/opt_superdense_11.png>
-Package pdftex.def Info: ../Images/opt_superdense_11.png  used on input line 8180.
+<Images/opt_superdense_11.png, id=4570, 1190.2869pt x 181.3977pt>
+File: Images/opt_superdense_11.png Graphic file (type png)
+<use Images/opt_superdense_11.png>
+Package pdftex.def Info: Images/opt_superdense_11.png  used on input line 8180.
 (pdftex.def)             Requested size: 193.50076pt x 29.48923pt.
- [295 <../Images/superdense_00.png> <../Images/superdense_01.png> <../Images/superdense_10.png> <../Images/superdense_11.png> <../Images/opt_superdense_00.png> <../Images/opt_superdense_01.png> <../Images/opt_superdense_10.png> <../Images/opt_superdense_11.png>]
-<../Images/results_superdense_00.png, id=4591, 429.2838pt x 303.534pt>
-File: ../Images/results_superdense_00.png Graphic file (type png)
-<use ../Images/results_superdense_00.png>
-Package pdftex.def Info: ../Images/results_superdense_00.png  used on input line 8213.
+ [295 <./Images/superdense_00.png> <./Images/superdense_01.png> <./Images/superdense_10.png> <./Images/superdense_11.png> <./Images/opt_superdense_00.png> <./Images/opt_superdense_01.png> <./Images/opt_superdense_10.png> <./Images/opt_superdense_11.png>]
+<Images/results_superdense_00.png, id=4591, 429.2838pt x 303.534pt>
+File: Images/results_superdense_00.png Graphic file (type png)
+<use Images/results_superdense_00.png>
+Package pdftex.def Info: Images/results_superdense_00.png  used on input line 8213.
 (pdftex.def)             Requested size: 193.50076pt x 136.81598pt.
-<../Images/results_superdense_01.png, id=4592, 429.2838pt x 303.534pt>
-File: ../Images/results_superdense_01.png Graphic file (type png)
-<use ../Images/results_superdense_01.png>
-Package pdftex.def Info: ../Images/results_superdense_01.png  used on input line 8221.
+<Images/results_superdense_01.png, id=4592, 429.2838pt x 303.534pt>
+File: Images/results_superdense_01.png Graphic file (type png)
+<use Images/results_superdense_01.png>
+Package pdftex.def Info: Images/results_superdense_01.png  used on input line 8221.
 (pdftex.def)             Requested size: 193.50076pt x 136.81598pt.
-<../Images/results_superdense_10.png, id=4593, 429.2838pt x 303.534pt>
-File: ../Images/results_superdense_10.png Graphic file (type png)
-<use ../Images/results_superdense_10.png>
-Package pdftex.def Info: ../Images/results_superdense_10.png  used on input line 8228.
+<Images/results_superdense_10.png, id=4593, 429.2838pt x 303.534pt>
+File: Images/results_superdense_10.png Graphic file (type png)
+<use Images/results_superdense_10.png>
+Package pdftex.def Info: Images/results_superdense_10.png  used on input line 8228.
 (pdftex.def)             Requested size: 193.50076pt x 136.81598pt.
-<../Images/results_superdense_11.png, id=4594, 429.2838pt x 303.534pt>
-File: ../Images/results_superdense_11.png Graphic file (type png)
-<use ../Images/results_superdense_11.png>
-Package pdftex.def Info: ../Images/results_superdense_11.png  used on input line 8235.
+<Images/results_superdense_11.png, id=4594, 429.2838pt x 303.534pt>
+File: Images/results_superdense_11.png Graphic file (type png)
+<use Images/results_superdense_11.png>
+Package pdftex.def Info: Images/results_superdense_11.png  used on input line 8235.
 (pdftex.def)             Requested size: 193.50076pt x 136.81598pt.
- [296] [297 <../Images/results_superdense_00.png> <../Images/results_superdense_01.png> <../Images/results_superdense_10.png> <../Images/results_superdense_11.png>]
+ [296] [297 <./Images/results_superdense_00.png> <./Images/results_superdense_01.png> <./Images/results_superdense_10.png> <./Images/results_superdense_11.png>]
 Chapter 8.
 [298
 
 ]
-<../Images/elitzur-vaidman.png, id=4626, 315.0972pt x 144.54pt>
-File: ../Images/elitzur-vaidman.png Graphic file (type png)
-<use ../Images/elitzur-vaidman.png>
-Package pdftex.def Info: ../Images/elitzur-vaidman.png  used on input line 8293.
+<Images/elitzur-vaidman.png, id=4626, 315.0972pt x 144.54pt>
+File: Images/elitzur-vaidman.png Graphic file (type png)
+<use Images/elitzur-vaidman.png>
+Package pdftex.def Info: Images/elitzur-vaidman.png  used on input line 8293.
 (pdftex.def)             Requested size: 215.0023pt x 98.62553pt.
- [299] [300 <../Images/elitzur-vaidman.png>]
-<../Images/elitzur-vaidmanfinal.png, id=4638, 489.9906pt x 94.4328pt>
-File: ../Images/elitzur-vaidmanfinal.png Graphic file (type png)
-<use ../Images/elitzur-vaidmanfinal.png>
-Package pdftex.def Info: ../Images/elitzur-vaidmanfinal.png  used on input line 8349.
+ [299] [300 <./Images/elitzur-vaidman.png>]
+<Images/elitzur-vaidmanfinal.png, id=4638, 489.9906pt x 94.4328pt>
+File: Images/elitzur-vaidmanfinal.png Graphic file (type png)
+<use Images/elitzur-vaidmanfinal.png>
+Package pdftex.def Info: Images/elitzur-vaidmanfinal.png  used on input line 8349.
 (pdftex.def)             Requested size: 344.005pt x 66.2999pt.
  [301]
 Overfull \hbox (11.92781pt too wide) in paragraph at lines 8373--8380
 [][] [][] [] \OMS/cmsy/m/n/12 ^^Y [] \OT1/cmr/m/n/12 0 \OMS/cmsy/m/n/12 ^^Y \OT1/cmr/m/n/12 1$ and the prob-a-bil-ity of get-ting $[]$ is $[][] [][] [] \OMS/cmsy/m/n/12 ^^Y
  []
 
-[302 <../Images/elitzur-vaidmanfinal.png>] [303] [304] [305] [306] [307] [308] [309]
+[302 <./Images/elitzur-vaidmanfinal.png>] [303] [304] [305] [306] [307] [308] [309]
 Chapter 9.
 [310
 
 ]
-<../Images/Deutsch_classical.png, id=4691, 745.3446pt x 184.0476pt>
-File: ../Images/Deutsch_classical.png Graphic file (type png)
-<use ../Images/Deutsch_classical.png>
-Package pdftex.def Info: ../Images/Deutsch_classical.png  used on input line 8552.
+<Images/Deutsch_classical.png, id=4691, 745.3446pt x 184.0476pt>
+File: Images/Deutsch_classical.png Graphic file (type png)
+<use Images/Deutsch_classical.png>
+Package pdftex.def Info: Images/Deutsch_classical.png  used on input line 8552.
 (pdftex.def)             Requested size: 430.00462pt x 106.1832pt.
  [311]
-<../Images/Deutsch_bb.png, id=4698, 1332.98pt x 234.8775pt>
-File: ../Images/Deutsch_bb.png Graphic file (type png)
-<use ../Images/Deutsch_bb.png>
-Package pdftex.def Info: ../Images/Deutsch_bb.png  used on input line 8576.
+<Images/Deutsch_bb.png, id=4698, 1332.98pt x 234.8775pt>
+File: Images/Deutsch_bb.png Graphic file (type png)
+<use Images/Deutsch_bb.png>
+Package pdftex.def Info: Images/Deutsch_bb.png  used on input line 8576.
 (pdftex.def)             Requested size: 430.00462pt x 75.76802pt.
- [312 <../Images/Deutsch_classical.png>]
-<../Images/deutsch_oracle.png, id=4704, 547.04375pt x 156.585pt>
-File: ../Images/deutsch_oracle.png Graphic file (type png)
-<use ../Images/deutsch_oracle.png>
-Package pdftex.def Info: ../Images/deutsch_oracle.png  used on input line 8587.
+ [312 <./Images/Deutsch_classical.png>]
+<Images/deutsch_oracle.png, id=4704, 547.04375pt x 156.585pt>
+File: Images/deutsch_oracle.png Graphic file (type png)
+<use Images/deutsch_oracle.png>
+Package pdftex.def Info: Images/deutsch_oracle.png  used on input line 8587.
 (pdftex.def)             Requested size: 430.00462pt x 123.08435pt.
- [313 <../Images/Deutsch_bb.png> <../Images/deutsch_oracle.png>]
-<../Images/deutsch.png, id=4714, 448.7967pt x 205.2468pt>
-File: ../Images/deutsch.png Graphic file (type png)
-<use ../Images/deutsch.png>
-Package pdftex.def Info: ../Images/deutsch.png  used on input line 8613.
+ [313 <./Images/Deutsch_bb.png> <./Images/deutsch_oracle.png>]
+<Images/deutsch.png, id=4714, 448.7967pt x 205.2468pt>
+File: Images/deutsch.png Graphic file (type png)
+<use Images/deutsch.png>
+Package pdftex.def Info: Images/deutsch.png  used on input line 8613.
 (pdftex.def)             Requested size: 430.00462pt x 196.65884pt.
- [314 <../Images/deutsch.png>]
+ [314 <./Images/deutsch.png>]
 Overfull \hbox (68.08485pt too wide) detected at line 8636
 []
  []
 
 [315] [316] [317] [318] [319]
-<../Images/deutsch_example.png, id=4750, 546.3612pt x 218.9781pt>
-File: ../Images/deutsch_example.png Graphic file (type png)
-<use ../Images/deutsch_example.png>
-Package pdftex.def Info: ../Images/deutsch_example.png  used on input line 8817.
+<Images/deutsch_example.png, id=4750, 546.3612pt x 218.9781pt>
+File: Images/deutsch_example.png Graphic file (type png)
+<use Images/deutsch_example.png>
+Package pdftex.def Info: Images/deutsch_example.png  used on input line 8817.
 (pdftex.def)             Requested size: 430.00462pt x 172.34592pt.
 
 Overfull \hbox (26.06763pt too wide) detected at line 8828
@@ -2115,101 +2115,101 @@ Overfull \hbox (26.06763pt too wide) detected at line 8828
  []
  []
 
-[320 <../Images/deutsch_example.png>] [321]
+[320 <./Images/deutsch_example.png>] [321]
 Overfull \hbox (25.4588pt too wide) in paragraph at lines 8866--8867
 []\OT1/cmr/m/n/12 Qiskit SDK 1.0 or later, with vi-su-al-iza-tion sup-port ( pip in-stall 'qiskit[visualization]') 
  []
 
 [322]
-<../Images/deutsch_f1.png, id=4786, 406.8801pt x 172.0026pt>
-File: ../Images/deutsch_f1.png Graphic file (type png)
-<use ../Images/deutsch_f1.png>
-Package pdftex.def Info: ../Images/deutsch_f1.png  used on input line 8936.
+<Images/deutsch_f1.png, id=4786, 406.8801pt x 172.0026pt>
+File: Images/deutsch_f1.png Graphic file (type png)
+<use Images/deutsch_f1.png>
+Package pdftex.def Info: Images/deutsch_f1.png  used on input line 8936.
 (pdftex.def)             Requested size: 193.50076pt x 81.79918pt.
-<../Images/deutsch_f2.png, id=4787, 406.8801pt x 172.0026pt>
-File: ../Images/deutsch_f2.png Graphic file (type png)
-<use ../Images/deutsch_f2.png>
-Package pdftex.def Info: ../Images/deutsch_f2.png  used on input line 8944.
+<Images/deutsch_f2.png, id=4787, 406.8801pt x 172.0026pt>
+File: Images/deutsch_f2.png Graphic file (type png)
+<use Images/deutsch_f2.png>
+Package pdftex.def Info: Images/deutsch_f2.png  used on input line 8944.
 (pdftex.def)             Requested size: 193.50076pt x 81.79918pt.
-<../Images/deutsch_f3.png, id=4788, 406.8801pt x 172.0026pt>
-File: ../Images/deutsch_f3.png Graphic file (type png)
-<use ../Images/deutsch_f3.png>
-Package pdftex.def Info: ../Images/deutsch_f3.png  used on input line 8951.
+<Images/deutsch_f3.png, id=4788, 406.8801pt x 172.0026pt>
+File: Images/deutsch_f3.png Graphic file (type png)
+<use Images/deutsch_f3.png>
+Package pdftex.def Info: Images/deutsch_f3.png  used on input line 8951.
 (pdftex.def)             Requested size: 193.50076pt x 81.79918pt.
-<../Images/deutsch_f4.png, id=4789, 453.1329pt x 172.0026pt>
-File: ../Images/deutsch_f4.png Graphic file (type png)
-<use ../Images/deutsch_f4.png>
-Package pdftex.def Info: ../Images/deutsch_f4.png  used on input line 8958.
+<Images/deutsch_f4.png, id=4789, 453.1329pt x 172.0026pt>
+File: Images/deutsch_f4.png Graphic file (type png)
+<use Images/deutsch_f4.png>
+Package pdftex.def Info: Images/deutsch_f4.png  used on input line 8958.
 (pdftex.def)             Requested size: 193.50076pt x 73.4505pt.
  [323]
-<../Images/opt_deutsch_f1.png, id=4831, 539.1342pt x 181.3977pt>
-File: ../Images/opt_deutsch_f1.png Graphic file (type png)
-<use ../Images/opt_deutsch_f1.png>
-Package pdftex.def Info: ../Images/opt_deutsch_f1.png  used on input line 8984.
+<Images/opt_deutsch_f1.png, id=4831, 539.1342pt x 181.3977pt>
+File: Images/opt_deutsch_f1.png Graphic file (type png)
+<use Images/opt_deutsch_f1.png>
+Package pdftex.def Info: Images/opt_deutsch_f1.png  used on input line 8984.
 (pdftex.def)             Requested size: 258.00539pt x 86.80971pt.
-<../Images/opt_deutsch_f2.png, id=4832, 585.387pt x 181.3977pt>
-File: ../Images/opt_deutsch_f2.png Graphic file (type png)
-<use ../Images/opt_deutsch_f2.png>
-Package pdftex.def Info: ../Images/opt_deutsch_f2.png  used on input line 8992.
+<Images/opt_deutsch_f2.png, id=4832, 585.387pt x 181.3977pt>
+File: Images/opt_deutsch_f2.png Graphic file (type png)
+<use Images/opt_deutsch_f2.png>
+Package pdftex.def Info: Images/opt_deutsch_f2.png  used on input line 8992.
 (pdftex.def)             Requested size: 258.00539pt x 79.95085pt.
-<../Images/opt_deutsch_f3.png, id=4833, 771.8436pt x 181.3977pt>
-File: ../Images/opt_deutsch_f3.png Graphic file (type png)
-<use ../Images/opt_deutsch_f3.png>
-Package pdftex.def Info: ../Images/opt_deutsch_f3.png  used on input line 8999.
+<Images/opt_deutsch_f3.png, id=4833, 771.8436pt x 181.3977pt>
+File: Images/opt_deutsch_f3.png Graphic file (type png)
+<use Images/opt_deutsch_f3.png>
+Package pdftex.def Info: Images/opt_deutsch_f3.png  used on input line 8999.
 (pdftex.def)             Requested size: 258.00539pt x 60.63643pt.
-<../Images/opt_deutsch_f4.png, id=4834, 865.0719pt x 181.3977pt>
-File: ../Images/opt_deutsch_f4.png Graphic file (type png)
-<use ../Images/opt_deutsch_f4.png>
-Package pdftex.def Info: ../Images/opt_deutsch_f4.png  used on input line 9006.
+<Images/opt_deutsch_f4.png, id=4834, 865.0719pt x 181.3977pt>
+File: Images/opt_deutsch_f4.png Graphic file (type png)
+<use Images/opt_deutsch_f4.png>
+Package pdftex.def Info: Images/opt_deutsch_f4.png  used on input line 9006.
 (pdftex.def)             Requested size: 258.00539pt x 54.10141pt.
 
 Underfull \hbox (badness 10000) in paragraph at lines 9014--9015
 
  []
 
-[324 <../Images/deutsch_f1.png> <../Images/deutsch_f2.png> <../Images/deutsch_f3.png> <../Images/deutsch_f4.png>]
-<../Images/deutsch_result_f1.png, id=4857, 429.2838pt x 297.7524pt>
-File: ../Images/deutsch_result_f1.png Graphic file (type png)
-<use ../Images/deutsch_result_f1.png>
-Package pdftex.def Info: ../Images/deutsch_result_f1.png  used on input line 9040.
+[324 <./Images/deutsch_f1.png> <./Images/deutsch_f2.png> <./Images/deutsch_f3.png> <./Images/deutsch_f4.png>]
+<Images/deutsch_result_f1.png, id=4857, 429.2838pt x 297.7524pt>
+File: Images/deutsch_result_f1.png Graphic file (type png)
+<use Images/deutsch_result_f1.png>
+Package pdftex.def Info: Images/deutsch_result_f1.png  used on input line 9040.
 (pdftex.def)             Requested size: 193.50076pt x 134.20996pt.
-<../Images/deutsch_result_f2.png, id=4858, 429.2838pt x 297.7524pt>
-File: ../Images/deutsch_result_f2.png Graphic file (type png)
-<use ../Images/deutsch_result_f2.png>
-Package pdftex.def Info: ../Images/deutsch_result_f2.png  used on input line 9048.
+<Images/deutsch_result_f2.png, id=4858, 429.2838pt x 297.7524pt>
+File: Images/deutsch_result_f2.png Graphic file (type png)
+<use Images/deutsch_result_f2.png>
+Package pdftex.def Info: Images/deutsch_result_f2.png  used on input line 9048.
 (pdftex.def)             Requested size: 193.50076pt x 134.20996pt.
-<../Images/deutsch_result_f3.png, id=4859, 429.2838pt x 297.7524pt>
-File: ../Images/deutsch_result_f3.png Graphic file (type png)
-<use ../Images/deutsch_result_f3.png>
-Package pdftex.def Info: ../Images/deutsch_result_f3.png  used on input line 9055.
+<Images/deutsch_result_f3.png, id=4859, 429.2838pt x 297.7524pt>
+File: Images/deutsch_result_f3.png Graphic file (type png)
+<use Images/deutsch_result_f3.png>
+Package pdftex.def Info: Images/deutsch_result_f3.png  used on input line 9055.
 (pdftex.def)             Requested size: 193.50076pt x 134.20996pt.
-<../Images/deutsch_result_f4.png, id=4860, 429.2838pt x 297.7524pt>
-File: ../Images/deutsch_result_f4.png Graphic file (type png)
-<use ../Images/deutsch_result_f4.png>
-Package pdftex.def Info: ../Images/deutsch_result_f4.png  used on input line 9062.
+<Images/deutsch_result_f4.png, id=4860, 429.2838pt x 297.7524pt>
+File: Images/deutsch_result_f4.png Graphic file (type png)
+<use Images/deutsch_result_f4.png>
+Package pdftex.def Info: Images/deutsch_result_f4.png  used on input line 9062.
 (pdftex.def)             Requested size: 193.50076pt x 134.20996pt.
- [325] [326 <../Images/opt_deutsch_f1.png> <../Images/opt_deutsch_f2.png> <../Images/opt_deutsch_f3.png> <../Images/opt_deutsch_f4.png>] [327 <../Images/deutsch_result_f1.png> <../Images/deutsch_result_f2.png> <../Images/deutsch_result_f3.png> <../Images/deutsch_result_f4.png>]
+ [325] [326 <./Images/opt_deutsch_f1.png> <./Images/opt_deutsch_f2.png> <./Images/opt_deutsch_f3.png> <./Images/opt_deutsch_f4.png>] [327 <./Images/deutsch_result_f1.png> <./Images/deutsch_result_f2.png> <./Images/deutsch_result_f3.png> <./Images/deutsch_result_f4.png>]
 Chapter 10.
 [328
 
 ] [329]
-<../Images/Deutsch-Jozsa.png, id=4912, 287.0725pt x 176.66pt>
-File: ../Images/Deutsch-Jozsa.png Graphic file (type png)
-<use ../Images/Deutsch-Jozsa.png>
-Package pdftex.def Info: ../Images/Deutsch-Jozsa.png  used on input line 9159.
+<Images/Deutsch-Jozsa.png, id=4912, 287.0725pt x 176.66pt>
+File: Images/Deutsch-Jozsa.png Graphic file (type png)
+<use Images/Deutsch-Jozsa.png>
+Package pdftex.def Info: Images/Deutsch-Jozsa.png  used on input line 9159.
 (pdftex.def)             Requested size: 344.005pt x 211.6998pt.
- [330] [331 <../Images/Deutsch-Jozsa.png>]
+ [330] [331 <./Images/Deutsch-Jozsa.png>]
 Overfull \hbox (4.55055pt too wide) detected at line 9189
 []
  []
 
 [332] [333]
-<../Images/deutsch-jozsa-algorithm.png, id=4934, 448.7967pt x 265.2309pt>
-File: ../Images/deutsch-jozsa-algorithm.png Graphic file (type png)
-<use ../Images/deutsch-jozsa-algorithm.png>
-Package pdftex.def Info: ../Images/deutsch-jozsa-algorithm.png  used on input line 9243.
+<Images/deutsch-jozsa-algorithm.png, id=4934, 448.7967pt x 265.2309pt>
+File: Images/deutsch-jozsa-algorithm.png Graphic file (type png)
+<use Images/deutsch-jozsa-algorithm.png>
+Package pdftex.def Info: Images/deutsch-jozsa-algorithm.png  used on input line 9243.
 (pdftex.def)             Requested size: 344.005pt x 203.30568pt.
- [334 <../Images/deutsch-jozsa-algorithm.png>]
+ [334 <./Images/deutsch-jozsa-algorithm.png>]
 Overfull \hbox (0.48155pt too wide) detected at line 9253
 []
  []
@@ -2257,94 +2257,94 @@ Overfull \hbox (25.4588pt too wide) in paragraph at lines 9386--9387
  []
 
 [338] [339] [340] [341] [342]
-<../Images/deutsch_const_0.png, id=5099, 453.1329pt x 218.9781pt>
-File: ../Images/deutsch_const_0.png Graphic file (type png)
-<use ../Images/deutsch_const_0.png>
-Package pdftex.def Info: ../Images/deutsch_const_0.png  used on input line 9542.
+<Images/deutsch_const_0.png, id=5099, 453.1329pt x 218.9781pt>
+File: Images/deutsch_const_0.png Graphic file (type png)
+<use Images/deutsch_const_0.png>
+Package pdftex.def Info: Images/deutsch_const_0.png  used on input line 9542.
 (pdftex.def)             Requested size: 193.50076pt x 93.51051pt.
-<../Images/deutsch_const_1.png, id=5100, 453.1329pt x 218.9781pt>
-File: ../Images/deutsch_const_1.png Graphic file (type png)
-<use ../Images/deutsch_const_1.png>
-Package pdftex.def Info: ../Images/deutsch_const_1.png  used on input line 9550.
+<Images/deutsch_const_1.png, id=5100, 453.1329pt x 218.9781pt>
+File: Images/deutsch_const_1.png Graphic file (type png)
+<use Images/deutsch_const_1.png>
+Package pdftex.def Info: Images/deutsch_const_1.png  used on input line 9550.
 (pdftex.def)             Requested size: 193.50076pt x 93.51051pt.
-<../Images/deutsch_jozsa_bal_0.png, id=5101, 453.1329pt x 218.9781pt>
-File: ../Images/deutsch_jozsa_bal_0.png Graphic file (type png)
-<use ../Images/deutsch_jozsa_bal_0.png>
-Package pdftex.def Info: ../Images/deutsch_jozsa_bal_0.png  used on input line 9557.
+<Images/deutsch_jozsa_bal_0.png, id=5101, 453.1329pt x 218.9781pt>
+File: Images/deutsch_jozsa_bal_0.png Graphic file (type png)
+<use Images/deutsch_jozsa_bal_0.png>
+Package pdftex.def Info: Images/deutsch_jozsa_bal_0.png  used on input line 9557.
 (pdftex.def)             Requested size: 193.50076pt x 93.51051pt.
-<../Images/deutsch_jozsa_bal_1.png, id=5102, 592.614pt x 218.9781pt>
-File: ../Images/deutsch_jozsa_bal_1.png Graphic file (type png)
-<use ../Images/deutsch_jozsa_bal_1.png>
-Package pdftex.def Info: ../Images/deutsch_jozsa_bal_1.png  used on input line 9564.
+<Images/deutsch_jozsa_bal_1.png, id=5102, 592.614pt x 218.9781pt>
+File: Images/deutsch_jozsa_bal_1.png Graphic file (type png)
+<use Images/deutsch_jozsa_bal_1.png>
+Package pdftex.def Info: Images/deutsch_jozsa_bal_1.png  used on input line 9564.
 (pdftex.def)             Requested size: 193.50076pt x 71.50116pt.
-<../Images/deutsch_const_opt_0.png, id=5103, 595.5048pt x 227.6505pt>
-File: ../Images/deutsch_const_opt_0.png Graphic file (type png)
-<use ../Images/deutsch_const_opt_0.png>
-Package pdftex.def Info: ../Images/deutsch_const_opt_0.png  used on input line 9587.
+<Images/deutsch_const_opt_0.png, id=5103, 595.5048pt x 227.6505pt>
+File: Images/deutsch_const_opt_0.png Graphic file (type png)
+<use Images/deutsch_const_opt_0.png>
+Package pdftex.def Info: Images/deutsch_const_opt_0.png  used on input line 9587.
 (pdftex.def)             Requested size: 193.50076pt x 73.97163pt.
-<../Images/deutsch_const_opt_1.png, id=5104, 641.7576pt x 227.6505pt>
-File: ../Images/deutsch_const_opt_1.png Graphic file (type png)
-<use ../Images/deutsch_const_opt_1.png>
-Package pdftex.def Info: ../Images/deutsch_const_opt_1.png  used on input line 9595.
+<Images/deutsch_const_opt_1.png, id=5104, 641.7576pt x 227.6505pt>
+File: Images/deutsch_const_opt_1.png Graphic file (type png)
+<use Images/deutsch_const_opt_1.png>
+Package pdftex.def Info: Images/deutsch_const_opt_1.png  used on input line 9595.
 (pdftex.def)             Requested size: 193.50076pt x 68.63956pt.
-<../Images/deutsch_jozsa_bal_opt_0.png, id=5105, 921.4425pt x 226.9278pt>
-File: ../Images/deutsch_jozsa_bal_opt_0.png Graphic file (type png)
-<use ../Images/deutsch_jozsa_bal_opt_0.png>
-Package pdftex.def Info: ../Images/deutsch_jozsa_bal_opt_0.png  used on input line 9602.
+<Images/deutsch_jozsa_bal_opt_0.png, id=5105, 921.4425pt x 226.9278pt>
+File: Images/deutsch_jozsa_bal_opt_0.png Graphic file (type png)
+<use Images/deutsch_jozsa_bal_opt_0.png>
+Package pdftex.def Info: Images/deutsch_jozsa_bal_opt_0.png  used on input line 9602.
 (pdftex.def)             Requested size: 193.50076pt x 47.65277pt.
-<../Images/deutsch_jozsa_bal_opt_1.png, id=5106, 1004.553pt x 227.6505pt>
-File: ../Images/deutsch_jozsa_bal_opt_1.png Graphic file (type png)
-<use ../Images/deutsch_jozsa_bal_opt_1.png>
-Package pdftex.def Info: ../Images/deutsch_jozsa_bal_opt_1.png  used on input line 9609.
+<Images/deutsch_jozsa_bal_opt_1.png, id=5106, 1004.553pt x 227.6505pt>
+File: Images/deutsch_jozsa_bal_opt_1.png Graphic file (type png)
+<use Images/deutsch_jozsa_bal_opt_1.png>
+Package pdftex.def Info: Images/deutsch_jozsa_bal_opt_1.png  used on input line 9609.
 (pdftex.def)             Requested size: 193.50076pt x 43.84804pt.
- [343] [344 <../Images/deutsch_const_0.png> <../Images/deutsch_const_1.png> <../Images/deutsch_jozsa_bal_0.png> <../Images/deutsch_jozsa_bal_1.png>]
-<../Images/deutsch_jozsa_const_0results.png, id=5161, 429.2838pt x 303.534pt>
-File: ../Images/deutsch_jozsa_const_0results.png Graphic file (type png)
-<use ../Images/deutsch_jozsa_const_0results.png>
-Package pdftex.def Info: ../Images/deutsch_jozsa_const_0results.png  used on input line 9642.
+ [343] [344 <./Images/deutsch_const_0.png> <./Images/deutsch_const_1.png> <./Images/deutsch_jozsa_bal_0.png> <./Images/deutsch_jozsa_bal_1.png>]
+<Images/deutsch_jozsa_const_0results.png, id=5161, 429.2838pt x 303.534pt>
+File: Images/deutsch_jozsa_const_0results.png Graphic file (type png)
+<use Images/deutsch_jozsa_const_0results.png>
+Package pdftex.def Info: Images/deutsch_jozsa_const_0results.png  used on input line 9642.
 (pdftex.def)             Requested size: 193.50076pt x 136.81598pt.
-<../Images/deutsch_jozsa_const_1results.png, id=5162, 429.2838pt x 303.534pt>
-File: ../Images/deutsch_jozsa_const_1results.png Graphic file (type png)
-<use ../Images/deutsch_jozsa_const_1results.png>
-Package pdftex.def Info: ../Images/deutsch_jozsa_const_1results.png  used on input line 9650.
+<Images/deutsch_jozsa_const_1results.png, id=5162, 429.2838pt x 303.534pt>
+File: Images/deutsch_jozsa_const_1results.png Graphic file (type png)
+<use Images/deutsch_jozsa_const_1results.png>
+Package pdftex.def Info: Images/deutsch_jozsa_const_1results.png  used on input line 9650.
 (pdftex.def)             Requested size: 193.50076pt x 136.81598pt.
-<../Images/deutsch_jozsa_bal_0result.png, id=5163, 429.2838pt x 303.534pt>
-File: ../Images/deutsch_jozsa_bal_0result.png Graphic file (type png)
-<use ../Images/deutsch_jozsa_bal_0result.png>
-Package pdftex.def Info: ../Images/deutsch_jozsa_bal_0result.png  used on input line 9657.
+<Images/deutsch_jozsa_bal_0result.png, id=5163, 429.2838pt x 303.534pt>
+File: Images/deutsch_jozsa_bal_0result.png Graphic file (type png)
+<use Images/deutsch_jozsa_bal_0result.png>
+Package pdftex.def Info: Images/deutsch_jozsa_bal_0result.png  used on input line 9657.
 (pdftex.def)             Requested size: 193.50076pt x 136.81598pt.
-<../Images/deutsch_jozsa_bal_1result.png, id=5164, 429.2838pt x 303.534pt>
-File: ../Images/deutsch_jozsa_bal_1result.png Graphic file (type png)
-<use ../Images/deutsch_jozsa_bal_1result.png>
-Package pdftex.def Info: ../Images/deutsch_jozsa_bal_1result.png  used on input line 9664.
+<Images/deutsch_jozsa_bal_1result.png, id=5164, 429.2838pt x 303.534pt>
+File: Images/deutsch_jozsa_bal_1result.png Graphic file (type png)
+<use Images/deutsch_jozsa_bal_1result.png>
+Package pdftex.def Info: Images/deutsch_jozsa_bal_1result.png  used on input line 9664.
 (pdftex.def)             Requested size: 193.50076pt x 136.81598pt.
-<../Images/deutsch_jozsa_4q.png, id=5167, 685.8423pt x 312.2064pt>
-File: ../Images/deutsch_jozsa_4q.png Graphic file (type png)
-<use ../Images/deutsch_jozsa_4q.png>
-Package pdftex.def Info: ../Images/deutsch_jozsa_4q.png  used on input line 9674.
+<Images/deutsch_jozsa_4q.png, id=5167, 685.8423pt x 312.2064pt>
+File: Images/deutsch_jozsa_4q.png Graphic file (type png)
+<use Images/deutsch_jozsa_4q.png>
+Package pdftex.def Info: Images/deutsch_jozsa_4q.png  used on input line 9674.
 (pdftex.def)             Requested size: 322.50346pt x 146.81325pt.
-<../Images/opt_deutsch_jozsa_4q.png, id=5169, 1283.5152pt x 646.8165pt>
-File: ../Images/opt_deutsch_jozsa_4q.png Graphic file (type png)
-<use ../Images/opt_deutsch_jozsa_4q.png>
-Package pdftex.def Info: ../Images/opt_deutsch_jozsa_4q.png  used on input line 9681.
+<Images/opt_deutsch_jozsa_4q.png, id=5169, 1283.5152pt x 646.8165pt>
+File: Images/opt_deutsch_jozsa_4q.png Graphic file (type png)
+<use Images/opt_deutsch_jozsa_4q.png>
+Package pdftex.def Info: Images/opt_deutsch_jozsa_4q.png  used on input line 9681.
 (pdftex.def)             Requested size: 322.50346pt x 162.5229pt.
-<../Images/deutsch_jozsa_4q_result.png, id=5171, 422.7795pt x 315.8199pt>
-File: ../Images/deutsch_jozsa_4q_result.png Graphic file (type png)
-<use ../Images/deutsch_jozsa_4q_result.png>
-Package pdftex.def Info: ../Images/deutsch_jozsa_4q_result.png  used on input line 9688.
+<Images/deutsch_jozsa_4q_result.png, id=5171, 422.7795pt x 315.8199pt>
+File: Images/deutsch_jozsa_4q_result.png Graphic file (type png)
+<use Images/deutsch_jozsa_4q_result.png>
+Package pdftex.def Info: Images/deutsch_jozsa_4q_result.png  used on input line 9688.
 (pdftex.def)             Requested size: 322.50346pt x 240.92677pt.
- [345 <../Images/deutsch_const_opt_0.png> <../Images/deutsch_const_opt_1.png> <../Images/deutsch_jozsa_bal_opt_0.png> <../Images/deutsch_jozsa_bal_opt_1.png>]
-<../Images/deutsch_3q_example.png, id=5186, 592.614pt x 265.2309pt>
-File: ../Images/deutsch_3q_example.png Graphic file (type png)
-<use ../Images/deutsch_3q_example.png>
-Package pdftex.def Info: ../Images/deutsch_3q_example.png  used on input line 9698.
+ [345 <./Images/deutsch_const_opt_0.png> <./Images/deutsch_const_opt_1.png> <./Images/deutsch_jozsa_bal_opt_0.png> <./Images/deutsch_jozsa_bal_opt_1.png>]
+<Images/deutsch_3q_example.png, id=5186, 592.614pt x 265.2309pt>
+File: Images/deutsch_3q_example.png Graphic file (type png)
+<use Images/deutsch_3q_example.png>
+Package pdftex.def Info: Images/deutsch_3q_example.png  used on input line 9698.
 (pdftex.def)             Requested size: 215.0023pt x 96.22366pt.
-<../Images/deutsch_3q_oracle.png, id=5187, 592.614pt x 265.2309pt>
-File: ../Images/deutsch_3q_oracle.png Graphic file (type png)
-<use ../Images/deutsch_3q_oracle.png>
-Package pdftex.def Info: ../Images/deutsch_3q_oracle.png  used on input line 9704.
+<Images/deutsch_3q_oracle.png, id=5187, 592.614pt x 265.2309pt>
+File: Images/deutsch_3q_oracle.png Graphic file (type png)
+<use Images/deutsch_3q_oracle.png>
+Package pdftex.def Info: Images/deutsch_3q_oracle.png  used on input line 9704.
 (pdftex.def)             Requested size: 215.0023pt x 96.22366pt.
- [346 <../Images/deutsch_jozsa_const_0results.png> <../Images/deutsch_jozsa_const_1results.png> <../Images/deutsch_jozsa_bal_0result.png> <../Images/deutsch_jozsa_bal_1result.png>] [347 <../Images/deutsch_jozsa_4q.png> <../Images/opt_deutsch_jozsa_4q.png>] [348 <../Images/deutsch_jozsa_4q_result.png> <../Images/deutsch_3q_example.png>] [349 <../Images/deutsch_3q_oracle.png>]
+ [346 <./Images/deutsch_jozsa_const_0results.png> <./Images/deutsch_jozsa_const_1results.png> <./Images/deutsch_jozsa_bal_0result.png> <./Images/deutsch_jozsa_bal_1result.png>] [347 <./Images/deutsch_jozsa_4q.png> <./Images/opt_deutsch_jozsa_4q.png>] [348 <./Images/deutsch_jozsa_4q_result.png> <./Images/deutsch_3q_example.png>] [349 <./Images/deutsch_3q_oracle.png>]
 Chapter 11.
 [350
 
@@ -2353,12 +2353,12 @@ Chapter 12.
 [354
 
 ] [355] [356] [357] [358]
-<../Images/Simon.png, id=5264, 237.88875pt x 213.79875pt>
-File: ../Images/Simon.png Graphic file (type png)
-<use ../Images/Simon.png>
-Package pdftex.def Info: ../Images/Simon.png  used on input line 9921.
+<Images/Simon.png, id=5264, 237.88875pt x 213.79875pt>
+File: Images/Simon.png Graphic file (type png)
+<use Images/Simon.png>
+Package pdftex.def Info: Images/Simon.png  used on input line 9921.
 (pdftex.def)             Requested size: 171.99922pt x 154.58743pt.
- [359] [360 <../Images/Simon.png>] [361] [362] [363] [364] [365]
+ [359] [360 <./Images/Simon.png>] [361] [362] [363] [364] [365]
 Overfull \hbox (43.89146pt too wide) detected at line 10090
 []
  []
@@ -2410,30 +2410,30 @@ Overfull \hbox (16.12263pt too wide) detected at line 10467
 LaTeX Warning: Citation `cooley1965algorithm' on page 382 undefined on input line 10484.
 
 [382] [383] [384] [385]
-<../Images/FFT_8.png, id=5411, 889.3225pt x 274.02374pt>
-File: ../Images/FFT_8.png Graphic file (type png)
-<use ../Images/FFT_8.png>
-Package pdftex.def Info: ../Images/FFT_8.png  used on input line 10594.
+<Images/FFT_8.png, id=5411, 889.3225pt x 274.02374pt>
+File: Images/FFT_8.png Graphic file (type png)
+<use Images/FFT_8.png>
+Package pdftex.def Info: Images/FFT_8.png  used on input line 10594.
 (pdftex.def)             Requested size: 430.00462pt x 132.49577pt.
- [386 <../Images/FFT_8.png>] [387] [388] [389] [390] [391] [392] [393] [394] [395] [396] [397]
-<../Images/QFT_period_wavelength.png, id=5492, 431.6125pt x 290.08376pt>
-File: ../Images/QFT_period_wavelength.png Graphic file (type png)
-<use ../Images/QFT_period_wavelength.png>
-Package pdftex.def Info: ../Images/QFT_period_wavelength.png  used on input line 11105.
+ [386 <./Images/FFT_8.png>] [387] [388] [389] [390] [391] [392] [393] [394] [395] [396] [397]
+<Images/QFT_period_wavelength.png, id=5492, 431.6125pt x 290.08376pt>
+File: Images/QFT_period_wavelength.png Graphic file (type png)
+<use Images/QFT_period_wavelength.png>
+Package pdftex.def Info: Images/QFT_period_wavelength.png  used on input line 11105.
 (pdftex.def)             Requested size: 301.00192pt x 202.30919pt.
  [398]
-<../Images/f(x).png, id=5499, 603.25375pt x 143.53625pt>
-File: ../Images/f(x).png Graphic file (type png)
-<use ../Images/f(x).png>
-Package pdftex.def Info: ../Images/f(x).png  used on input line 11126.
+<Images/f(x).png, id=5499, 603.25375pt x 143.53625pt>
+File: Images/f(x).png Graphic file (type png)
+<use Images/f(x).png>
+Package pdftex.def Info: Images/f(x).png  used on input line 11126.
 (pdftex.def)             Requested size: 258.00539pt x 61.38866pt.
- [399 <../Images/QFT_period_wavelength.png> <../Images/f(x).png>]
-<../Images/QFT_f(x).png, id=5510, 603.25375pt x 143.53625pt>
-File: ../Images/QFT_f(x).png Graphic file (type png)
-<use ../Images/QFT_f(x).png>
-Package pdftex.def Info: ../Images/QFT_f(x).png  used on input line 11167.
+ [399 <./Images/QFT_period_wavelength.png> <./Images/f(x).png>]
+<Images/QFT_f(x).png, id=5510, 603.25375pt x 143.53625pt>
+File: Images/QFT_f(x).png Graphic file (type png)
+<use Images/QFT_f(x).png>
+Package pdftex.def Info: Images/QFT_f(x).png  used on input line 11167.
 (pdftex.def)             Requested size: 258.00539pt x 61.38866pt.
- [400 <../Images/QFT_f(x).png>] [401] [402]
+ [400 <./Images/QFT_f(x).png>] [401] [402]
 Overfull \hbox (22.13388pt too wide) has occurred while \output is active
 \OT1/cmr/m/sl/12 15.3.  EFFICIENT IMPLEMENTATION OF QUANTUM FOURIER TRANSFORM \OT1/cmr/m/n/12 403
  []
@@ -2595,34 +2595,34 @@ Overfull \hbox (0.50761pt too wide) in paragraph at lines 12350--12352
  []
 
 [438] [439]
-<../Images/QFT_2.png, id=5793, 1533.73pt x 304.13625pt>
-File: ../Images/QFT_2.png Graphic file (type png)
-<use ../Images/QFT_2.png>
-Package pdftex.def Info: ../Images/QFT_2.png  used on input line 12405.
+<Images/QFT_2.png, id=5793, 1533.73pt x 304.13625pt>
+File: Images/QFT_2.png Graphic file (type png)
+<use Images/QFT_2.png>
+Package pdftex.def Info: Images/QFT_2.png  used on input line 12405.
 (pdftex.def)             Requested size: 430.00462pt x 85.26894pt.
-<../Images/QFT_2_custom.png, id=5794, 1211.52625pt x 304.13625pt>
-File: ../Images/QFT_2_custom.png Graphic file (type png)
-<use ../Images/QFT_2_custom.png>
-Package pdftex.def Info: ../Images/QFT_2_custom.png  used on input line 12446.
+<Images/QFT_2_custom.png, id=5794, 1211.52625pt x 304.13625pt>
+File: Images/QFT_2_custom.png Graphic file (type png)
+<use Images/QFT_2_custom.png>
+Package pdftex.def Info: Images/QFT_2_custom.png  used on input line 12446.
 (pdftex.def)             Requested size: 430.00462pt x 107.94823pt.
- [440 <../Images/QFT_2.png>] [441 <../Images/QFT_2_custom.png>]
-<../Images/IQFT_2.png, id=5834, 1533.73pt x 304.13625pt>
-File: ../Images/IQFT_2.png Graphic file (type png)
-<use ../Images/IQFT_2.png>
-Package pdftex.def Info: ../Images/IQFT_2.png  used on input line 12485.
+ [440 <./Images/QFT_2.png>] [441 <./Images/QFT_2_custom.png>]
+<Images/IQFT_2.png, id=5834, 1533.73pt x 304.13625pt>
+File: Images/IQFT_2.png Graphic file (type png)
+<use Images/IQFT_2.png>
+Package pdftex.def Info: Images/IQFT_2.png  used on input line 12485.
 (pdftex.def)             Requested size: 430.00462pt x 85.26894pt.
- [442 <../Images/IQFT_2.png>]
-<../Images/IQFT_2_custom.png, id=5862, 1211.52625pt x 304.13625pt>
-File: ../Images/IQFT_2_custom.png Graphic file (type png)
-<use ../Images/IQFT_2_custom.png>
-Package pdftex.def Info: ../Images/IQFT_2_custom.png  used on input line 12523.
+ [442 <./Images/IQFT_2.png>]
+<Images/IQFT_2_custom.png, id=5862, 1211.52625pt x 304.13625pt>
+File: Images/IQFT_2_custom.png Graphic file (type png)
+<use Images/IQFT_2_custom.png>
+Package pdftex.def Info: Images/IQFT_2_custom.png  used on input line 12523.
 (pdftex.def)             Requested size: 430.00462pt x 107.94823pt.
-<../Images/AQFT_circ.png, id=5863, 1405.25pt x 368.37625pt>
-File: ../Images/AQFT_circ.png Graphic file (type png)
-<use ../Images/AQFT_circ.png>
-Package pdftex.def Info: ../Images/AQFT_circ.png  used on input line 12535.
+<Images/AQFT_circ.png, id=5863, 1405.25pt x 368.37625pt>
+File: Images/AQFT_circ.png Graphic file (type png)
+<use Images/AQFT_circ.png>
+Package pdftex.def Info: Images/AQFT_circ.png  used on input line 12535.
 (pdftex.def)             Requested size: 430.00462pt x 112.72275pt.
- [443 <../Images/IQFT_2_custom.png> <../Images/AQFT_circ.png>] [444]
+ [443 <./Images/IQFT_2_custom.png> <./Images/AQFT_circ.png>] [444]
 Chapter 16.
 [445
 
@@ -2632,47 +2632,47 @@ Underfull \hbox (badness 10000) in paragraph at lines 12601--12603
  []
 
 [446]
-<../Images/hadamardtest.png, id=5897, 383.4325pt x 148.555pt>
-File: ../Images/hadamardtest.png Graphic file (type png)
-<use ../Images/hadamardtest.png>
-Package pdftex.def Info: ../Images/hadamardtest.png  used on input line 12636.
+<Images/hadamardtest.png, id=5897, 383.4325pt x 148.555pt>
+File: Images/hadamardtest.png Graphic file (type png)
+<use Images/hadamardtest.png>
+Package pdftex.def Info: Images/hadamardtest.png  used on input line 12636.
 (pdftex.def)             Requested size: 258.00539pt x 99.96654pt.
- [447] [448 <../Images/hadamardtest.png>]
-<../Images/hadamardtest1.png, id=5909, 454.69875pt x 136.51pt>
-File: ../Images/hadamardtest1.png Graphic file (type png)
-<use ../Images/hadamardtest1.png>
-Package pdftex.def Info: ../Images/hadamardtest1.png  used on input line 12684.
+ [447] [448 <./Images/hadamardtest.png>]
+<Images/hadamardtest1.png, id=5909, 454.69875pt x 136.51pt>
+File: Images/hadamardtest1.png Graphic file (type png)
+<use Images/hadamardtest1.png>
+Package pdftex.def Info: Images/hadamardtest1.png  used on input line 12684.
 (pdftex.def)             Requested size: 258.00539pt x 77.45947pt.
- [449 <../Images/hadamardtest1.png>]
-<../Images/swaptest.png, id=5917, 375.4025pt x 185.69376pt>
-File: ../Images/swaptest.png Graphic file (type png)
-<use ../Images/swaptest.png>
-Package pdftex.def Info: ../Images/swaptest.png  used on input line 12710.
+ [449 <./Images/hadamardtest1.png>]
+<Images/swaptest.png, id=5917, 375.4025pt x 185.69376pt>
+File: Images/swaptest.png Graphic file (type png)
+<use Images/swaptest.png>
+Package pdftex.def Info: Images/swaptest.png  used on input line 12710.
 (pdftex.def)             Requested size: 258.00539pt x 127.63013pt.
 
 Overfull \hbox (25.99355pt too wide) detected at line 12730
 \OT1/cmr/m/n/12 = [] [] + [] []
  []
 
-[450 <../Images/swaptest.png>] [451] [452]
-<../Images/cosplot.png, id=5936, 1197.72469pt x 757.32938pt>
-File: ../Images/cosplot.png Graphic file (type png)
-<use ../Images/cosplot.png>
-Package pdftex.def Info: ../Images/cosplot.png  used on input line 12804.
+[450 <./Images/swaptest.png>] [451] [452]
+<Images/cosplot.png, id=5936, 1197.72469pt x 757.32938pt>
+File: Images/cosplot.png Graphic file (type png)
+<use Images/cosplot.png>
+Package pdftex.def Info: Images/cosplot.png  used on input line 12804.
 (pdftex.def)             Requested size: 322.50346pt x 203.91542pt.
- [453 <../Images/cosplot.png>]
-<../Images/sinplot.png, id=5945, 1176.64594pt x 764.8575pt>
-File: ../Images/sinplot.png Graphic file (type png)
-<use ../Images/sinplot.png>
-Package pdftex.def Info: ../Images/sinplot.png  used on input line 12816.
+ [453 <./Images/cosplot.png>]
+<Images/sinplot.png, id=5945, 1176.64594pt x 764.8575pt>
+File: Images/sinplot.png Graphic file (type png)
+<use Images/sinplot.png>
+Package pdftex.def Info: Images/sinplot.png  used on input line 12816.
 (pdftex.def)             Requested size: 322.50346pt x 209.63037pt.
- [454 <../Images/sinplot.png>] [455]
-<../Images/phaseest5.png, id=5958, 380.42125pt x 137.51375pt>
-File: ../Images/phaseest5.png Graphic file (type png)
-<use ../Images/phaseest5.png>
-Package pdftex.def Info: ../Images/phaseest5.png  used on input line 12871.
+ [454 <./Images/sinplot.png>] [455]
+<Images/phaseest5.png, id=5958, 380.42125pt x 137.51375pt>
+File: Images/phaseest5.png Graphic file (type png)
+<use Images/phaseest5.png>
+Package pdftex.def Info: Images/phaseest5.png  used on input line 12871.
 (pdftex.def)             Requested size: 258.00539pt x 93.26471pt.
- [456 <../Images/phaseest5.png>]
+ [456 <./Images/phaseest5.png>]
 Overfull \hbox (11.14926pt too wide) in paragraph at lines 12891--12893
 \OT1/cmr/m/n/12 for $\OML/cmm/m/it/12 j \OT1/cmr/m/n/12 = 0\OML/cmm/m/it/12 ; [] ; d \OMS/cmsy/m/n/12 ^^@ \OT1/cmr/m/n/12 1$. Re-call that $[](2\OML/cmm/m/it/12 ^^Y^^R[] [] ^^R[]:^^R[] [] ^^R[]\OT1/cmr/m/n/12 ) = [](2\OML/cmm/m/it/12 ^^Y\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 ^^R[] [] ^^R[] \OT1/cmr/m/n/12 +
  []
@@ -2698,17 +2698,17 @@ Overfull \hbox (48.31561pt too wide) has occurred while \output is active
  []
 
 [460]
-<../Images/phaseest1.png, id=5994, 717.68124pt x 413.545pt>
-File: ../Images/phaseest1.png Graphic file (type png)
-<use ../Images/phaseest1.png>
-Package pdftex.def Info: ../Images/phaseest1.png  used on input line 13025.
+<Images/phaseest1.png, id=5994, 717.68124pt x 413.545pt>
+File: Images/phaseest1.png Graphic file (type png)
+<use Images/phaseest1.png>
+Package pdftex.def Info: Images/phaseest1.png  used on input line 13025.
 (pdftex.def)             Requested size: 258.00539pt x 148.66785pt.
 
 Overfull \hbox (48.31561pt too wide) has occurred while \output is active
 \OT1/cmr/m/sl/12 16.6.  QUANTUM PHASE ESTIMATION USING QUANTUM FOURIER TRANSFORM \OT1/cmr/m/n/12 461
  []
 
-[461 <../Images/phaseest1.png>]
+[461 <./Images/phaseest1.png>]
 Overfull \hbox (48.31561pt too wide) has occurred while \output is active
 \OT1/cmr/m/sl/12 16.6.  QUANTUM PHASE ESTIMATION USING QUANTUM FOURIER TRANSFORM \OT1/cmr/m/n/12 462
  []
@@ -2724,10 +2724,10 @@ Overfull \hbox (48.31561pt too wide) has occurred while \output is active
  []
 
 [463]
-<../Images/controlunitary.png, id=6011, 377.15906pt x 192.72pt>
-File: ../Images/controlunitary.png Graphic file (type png)
-<use ../Images/controlunitary.png>
-Package pdftex.def Info: ../Images/controlunitary.png  used on input line 13086.
+<Images/controlunitary.png, id=6011, 377.15906pt x 192.72pt>
+File: Images/controlunitary.png Graphic file (type png)
+<use Images/controlunitary.png>
+Package pdftex.def Info: Images/controlunitary.png  used on input line 13086.
 (pdftex.def)             Requested size: 322.50346pt x 164.79199pt.
 
 Overfull \hbox (48.31561pt too wide) has occurred while \output is active
@@ -2735,22 +2735,22 @@ Overfull \hbox (48.31561pt too wide) has occurred while \output is active
  []
 
 [464]
-<../Images/phaseest2.png, id=6020, 717.68124pt x 413.545pt>
-File: ../Images/phaseest2.png Graphic file (type png)
-<use ../Images/phaseest2.png>
-Package pdftex.def Info: ../Images/phaseest2.png  used on input line 13116.
+<Images/phaseest2.png, id=6020, 717.68124pt x 413.545pt>
+File: Images/phaseest2.png Graphic file (type png)
+<use Images/phaseest2.png>
+Package pdftex.def Info: Images/phaseest2.png  used on input line 13116.
 (pdftex.def)             Requested size: 258.00539pt x 148.66785pt.
 
 Overfull \hbox (48.31561pt too wide) has occurred while \output is active
 \OT1/cmr/m/sl/12 16.6.  QUANTUM PHASE ESTIMATION USING QUANTUM FOURIER TRANSFORM \OT1/cmr/m/n/12 465
  []
 
-[465 <../Images/controlunitary.png>]
+[465 <./Images/controlunitary.png>]
 Overfull \hbox (48.31561pt too wide) has occurred while \output is active
 \OT1/cmr/m/sl/12 16.6.  QUANTUM PHASE ESTIMATION USING QUANTUM FOURIER TRANSFORM \OT1/cmr/m/n/12 466
  []
 
-[466 <../Images/phaseest2.png>]
+[466 <./Images/phaseest2.png>]
 Overfull \hbox (54.36415pt too wide) detected at line 13151
 [] [] \OML/cmm/m/it/12 e[] [] [] \OT1/cmr/m/n/12 = [] [] [] [] \OMS/cmsy/m/n/12 
  []
@@ -2767,10 +2767,10 @@ Overfull \hbox (48.31561pt too wide) has occurred while \output is active
  []
 
 [468]
-<../Images/phaseest3.png, id=6044, 717.68124pt x 413.545pt>
-File: ../Images/phaseest3.png Graphic file (type png)
-<use ../Images/phaseest3.png>
-Package pdftex.def Info: ../Images/phaseest3.png  used on input line 13225.
+<Images/phaseest3.png, id=6044, 717.68124pt x 413.545pt>
+File: Images/phaseest3.png Graphic file (type png)
+<use Images/phaseest3.png>
+Package pdftex.def Info: Images/phaseest3.png  used on input line 13225.
 (pdftex.def)             Requested size: 258.00539pt x 148.66785pt.
 
 Overfull \hbox (48.31561pt too wide) has occurred while \output is active
@@ -2782,16 +2782,16 @@ Overfull \hbox (48.31561pt too wide) has occurred while \output is active
 \OT1/cmr/m/sl/12 16.6.  QUANTUM PHASE ESTIMATION USING QUANTUM FOURIER TRANSFORM \OT1/cmr/m/n/12 470
  []
 
-[470 <../Images/phaseest3.png>]
+[470 <./Images/phaseest3.png>]
 Overfull \hbox (48.31561pt too wide) has occurred while \output is active
 \OT1/cmr/m/sl/12 16.6.  QUANTUM PHASE ESTIMATION USING QUANTUM FOURIER TRANSFORM \OT1/cmr/m/n/12 471
  []
 
 [471]
-<../Images/phaseest4.png, id=6062, 468.75125pt x 346.29375pt>
-File: ../Images/phaseest4.png Graphic file (type png)
-<use ../Images/phaseest4.png>
-Package pdftex.def Info: ../Images/phaseest4.png  used on input line 13311.
+<Images/phaseest4.png, id=6062, 468.75125pt x 346.29375pt>
+File: Images/phaseest4.png Graphic file (type png)
+<use Images/phaseest4.png>
+Package pdftex.def Info: Images/phaseest4.png  used on input line 13311.
 (pdftex.def)             Requested size: 258.00539pt x 190.59952pt.
 
 Overfull \hbox (48.31561pt too wide) has occurred while \output is active
@@ -2803,7 +2803,7 @@ Overfull \hbox (48.31561pt too wide) has occurred while \output is active
 \OT1/cmr/m/sl/12 16.6.  QUANTUM PHASE ESTIMATION USING QUANTUM FOURIER TRANSFORM \OT1/cmr/m/n/12 473
  []
 
-[473 <../Images/phaseest4.png>]
+[473 <./Images/phaseest4.png>]
 Overfull \hbox (48.31561pt too wide) has occurred while \output is active
 \OT1/cmr/m/sl/12 16.6.  QUANTUM PHASE ESTIMATION USING QUANTUM FOURIER TRANSFORM \OT1/cmr/m/n/12 474
  []
@@ -2818,58 +2818,58 @@ Chapter 17.
 [484
 
 ] [485] [486] [487] [488] [489] [490]
-<../Images/multicontroluop.png, id=6166, 432.61626pt x 148.555pt>
-File: ../Images/multicontroluop.png Graphic file (type png)
-<use ../Images/multicontroluop.png>
-Package pdftex.def Info: ../Images/multicontroluop.png  used on input line 13767.
+<Images/multicontroluop.png, id=6166, 432.61626pt x 148.555pt>
+File: Images/multicontroluop.png Graphic file (type png)
+<use Images/multicontroluop.png>
+Package pdftex.def Info: Images/multicontroluop.png  used on input line 13767.
 (pdftex.def)             Requested size: 322.50346pt x 110.74727pt.
- [491] [492 <../Images/multicontroluop.png>]
+ [491] [492 <./Images/multicontroluop.png>]
 Overfull \vbox (0.45137pt too high) has occurred while \output is active []
 
  [493] [494]
-<../Images/controlutech.png, id=6191, 576.1525pt x 218.8175pt>
-File: ../Images/controlutech.png Graphic file (type png)
-<use ../Images/controlutech.png>
-Package pdftex.def Info: ../Images/controlutech.png  used on input line 13850.
+<Images/controlutech.png, id=6191, 576.1525pt x 218.8175pt>
+File: Images/controlutech.png Graphic file (type png)
+<use Images/controlutech.png>
+Package pdftex.def Info: Images/controlutech.png  used on input line 13850.
 (pdftex.def)             Requested size: 322.50346pt x 122.48688pt.
-<../Images/precisionr.png, id=6192, 530.98375pt x 143.53625pt>
-File: ../Images/precisionr.png Graphic file (type png)
-<use ../Images/precisionr.png>
-Package pdftex.def Info: ../Images/precisionr.png  used on input line 13863.
+<Images/precisionr.png, id=6192, 530.98375pt x 143.53625pt>
+File: Images/precisionr.png Graphic file (type png)
+<use Images/precisionr.png>
+Package pdftex.def Info: Images/precisionr.png  used on input line 13863.
 (pdftex.def)             Requested size: 322.50346pt x 87.18027pt.
- [495] [496 <../Images/controlutech.png> <../Images/precisionr.png>]
-<../Images/ordefindingcirc.png, id=6206, 389.455pt x 254.9525pt>
-File: ../Images/ordefindingcirc.png Graphic file (type png)
-<use ../Images/ordefindingcirc.png>
-Package pdftex.def Info: ../Images/ordefindingcirc.png  used on input line 13905.
+ [495] [496 <./Images/controlutech.png> <./Images/precisionr.png>]
+<Images/ordefindingcirc.png, id=6206, 389.455pt x 254.9525pt>
+File: Images/ordefindingcirc.png Graphic file (type png)
+<use Images/ordefindingcirc.png>
+Package pdftex.def Info: Images/ordefindingcirc.png  used on input line 13905.
 (pdftex.def)             Requested size: 322.50346pt x 211.132pt.
- [497] [498 <../Images/ordefindingcirc.png>] [499]
-<../Images/candidr.png, id=6222, 538.01pt x 271.0125pt>
-File: ../Images/candidr.png Graphic file (type png)
-<use ../Images/candidr.png>
-Package pdftex.def Info: ../Images/candidr.png  used on input line 13941.
+ [497] [498 <./Images/ordefindingcirc.png>] [499]
+<Images/candidr.png, id=6222, 538.01pt x 271.0125pt>
+File: Images/candidr.png Graphic file (type png)
+<use Images/candidr.png>
+Package pdftex.def Info: Images/candidr.png  used on input line 13941.
 (pdftex.def)             Requested size: 322.50346pt x 162.45573pt.
-<../Images/combinedr.png, id=6224, 527.9725pt x 108.405pt>
-File: ../Images/combinedr.png Graphic file (type png)
-<use ../Images/combinedr.png>
-Package pdftex.def Info: ../Images/combinedr.png  used on input line 13948.
+<Images/combinedr.png, id=6224, 527.9725pt x 108.405pt>
+File: Images/combinedr.png Graphic file (type png)
+<use Images/combinedr.png>
+Package pdftex.def Info: Images/combinedr.png  used on input line 13948.
 (pdftex.def)             Requested size: 322.50346pt x 66.21626pt.
- [500 <../Images/candidr.png> <../Images/combinedr.png>] [501]
+ [500 <./Images/candidr.png> <./Images/combinedr.png>] [501]
 Overfull \vbox (77.71417pt too high) has occurred while \output is active []
 
  [502] [503] [504]
-<../Images/quantumorderfinding.png, id=6251, 576.1525pt x 218.8175pt>
-File: ../Images/quantumorderfinding.png Graphic file (type png)
-<use ../Images/quantumorderfinding.png>
-Package pdftex.def Info: ../Images/quantumorderfinding.png  used on input line 14054.
+<Images/quantumorderfinding.png, id=6251, 576.1525pt x 218.8175pt>
+File: Images/quantumorderfinding.png Graphic file (type png)
+<use Images/quantumorderfinding.png>
+Package pdftex.def Info: Images/quantumorderfinding.png  used on input line 14054.
 (pdftex.def)             Requested size: 322.50346pt x 122.48688pt.
- [505 <../Images/quantumorderfinding.png>]
-<../Images/orderfindingcircfinal.png, id=6258, 389.455pt x 254.9525pt>
-File: ../Images/orderfindingcircfinal.png Graphic file (type png)
-<use ../Images/orderfindingcircfinal.png>
-Package pdftex.def Info: ../Images/orderfindingcircfinal.png  used on input line 14077.
+ [505 <./Images/quantumorderfinding.png>]
+<Images/orderfindingcircfinal.png, id=6258, 389.455pt x 254.9525pt>
+File: Images/orderfindingcircfinal.png Graphic file (type png)
+<use Images/orderfindingcircfinal.png>
+Package pdftex.def Info: Images/orderfindingcircfinal.png  used on input line 14077.
 (pdftex.def)             Requested size: 215.0023pt x 140.74559pt.
- [506] [507 <../Images/orderfindingcircfinal.png>] [508]
+ [506] [507 <./Images/orderfindingcircfinal.png>] [508]
 Underfull \hbox (badness 2065) in paragraph at lines 14142--14143
 []\OT1/cmr/bx/n/12 In-put:\OT1/cmr/m/n/12 A black box $\OML/cmm/m/it/12 U[]$ \OT1/cmr/m/n/12 which per-forms the trans-for-ma-tion $[] [] \OMS/cmsy/m/n/12 !
  []
@@ -2879,12 +2879,12 @@ Chapter 18.
 [511
 
 ] [512] [513] [514]
-<../Images/plotmagvsl.png, id=6314, 873.2625pt x 264.99pt>
-File: ../Images/plotmagvsl.png Graphic file (type png)
-<use ../Images/plotmagvsl.png>
-Package pdftex.def Info: ../Images/plotmagvsl.png  used on input line 14345.
+<Images/plotmagvsl.png, id=6314, 873.2625pt x 264.99pt>
+File: Images/plotmagvsl.png Graphic file (type png)
+<use Images/plotmagvsl.png>
+Package pdftex.def Info: Images/plotmagvsl.png  used on input line 14345.
 (pdftex.def)             Requested size: 430.00462pt x 130.48509pt.
- [515] [516 <../Images/plotmagvsl.png>] [517]
+ [515] [516 <./Images/plotmagvsl.png>] [517]
 Chapter 19.
 [518
 
@@ -2897,12 +2897,12 @@ Chapter 21.
 [521
 
 ] [522] [523] [524] [525]
-<../Images/grover.png, id=6369, 724.7075pt x 822.07124pt>
-File: ../Images/grover.png Graphic file (type png)
-<use ../Images/grover.png>
-Package pdftex.def Info: ../Images/grover.png  used on input line 14505.
+<Images/grover.png, id=6369, 724.7075pt x 822.07124pt>
+File: Images/grover.png Graphic file (type png)
+<use Images/grover.png>
+Package pdftex.def Info: Images/grover.png  used on input line 14505.
 (pdftex.def)             Requested size: 215.0023pt x 243.87617pt.
- [526 <../Images/grover.png>]
+ [526 <./Images/grover.png>]
 Overfull \hbox (1.4765pt too wide) in paragraph at lines 14524--14526
 \OT1/cmr/m/n/12 Then we re-peat the fol-low-ing uni-tary trans-for-ma-tion a fi-nite num-ber of times ($\OMS/cmsy/m/n/12 O\OT1/cmr/m/n/12 ([])$
  []
@@ -2911,142 +2911,142 @@ Overfull \hbox (1.4765pt too wide) in paragraph at lines 14524--14526
 Overfull \vbox (42.7867pt too high) has occurred while \output is active []
 
  [530]
-<../Images/reflect_about_b.png, id=6402, 1023.825pt x 390.70969pt>
-File: ../Images/reflect_about_b.png Graphic file (type png)
-<use ../Images/reflect_about_b.png>
-Package pdftex.def Info: ../Images/reflect_about_b.png  used on input line 14563.
+<Images/reflect_about_b.png, id=6402, 1023.825pt x 390.70969pt>
+File: Images/reflect_about_b.png Graphic file (type png)
+<use Images/reflect_about_b.png>
+Package pdftex.def Info: Images/reflect_about_b.png  used on input line 14563.
 (pdftex.def)             Requested size: 430.00462pt x 164.09694pt.
 
 Overfull \hbox (5.35938pt too wide) detected at line 14579
 \OML/cmm/m/it/12 B[] [] [] \OT1/cmr/m/n/12 = []\OML/cmm/m/it/12 B[] [] [] \OMS/cmsy/m/n/12 ^^@ []\OML/cmm/m/it/12 B[] [] [] \OT1/cmr/m/n/12 = [] [] [] \OMS/cmsy/m/n/12 ^^@ [] [] []
  []
 
-[531 <../Images/reflect_about_b.png>] [532]
-<../Images/grov_condphase.png, id=6415, 423.83344pt x 480.29437pt>
-File: ../Images/grov_condphase.png Graphic file (type png)
-<use ../Images/grov_condphase.png>
-Package pdftex.def Info: ../Images/grov_condphase.png  used on input line 14648.
+[531 <./Images/reflect_about_b.png>] [532]
+<Images/grov_condphase.png, id=6415, 423.83344pt x 480.29437pt>
+File: Images/grov_condphase.png Graphic file (type png)
+<use Images/grov_condphase.png>
+Package pdftex.def Info: Images/grov_condphase.png  used on input line 14648.
 (pdftex.def)             Requested size: 215.0023pt x 243.64236pt.
-<../Images/condphaseshift.png, id=6418, 720.44156pt x 469.755pt>
-File: ../Images/condphaseshift.png Graphic file (type png)
-<use ../Images/condphaseshift.png>
-Package pdftex.def Info: ../Images/condphaseshift.png  used on input line 14655.
+<Images/condphaseshift.png, id=6418, 720.44156pt x 469.755pt>
+File: Images/condphaseshift.png Graphic file (type png)
+<use Images/condphaseshift.png>
+Package pdftex.def Info: Images/condphaseshift.png  used on input line 14655.
 (pdftex.def)             Requested size: 215.0023pt x 140.1893pt.
- [533] [534 <../Images/grov_condphase.png>] [535 <../Images/condphaseshift.png>] [536] [537] [538] [539] [540] [541]
-<../Images/groverfig.png, id=6473, 324.2514pt x 307.8702pt>
-File: ../Images/groverfig.png Graphic file (type png)
-<use ../Images/groverfig.png>
-Package pdftex.def Info: ../Images/groverfig.png  used on input line 14826.
+ [533] [534 <./Images/grov_condphase.png>] [535 <./Images/condphaseshift.png>] [536] [537] [538] [539] [540] [541]
+<Images/groverfig.png, id=6473, 324.2514pt x 307.8702pt>
+File: Images/groverfig.png Graphic file (type png)
+<use Images/groverfig.png>
+Package pdftex.def Info: Images/groverfig.png  used on input line 14826.
 (pdftex.def)             Requested size: 258.00539pt x 244.96703pt.
-<../Images/grovercircuit.png, id=6475, 901.9296pt x 430.7292pt>
-File: ../Images/grovercircuit.png Graphic file (type png)
-<use ../Images/grovercircuit.png>
-Package pdftex.def Info: ../Images/grovercircuit.png  used on input line 14853.
+<Images/grovercircuit.png, id=6475, 901.9296pt x 430.7292pt>
+File: Images/grovercircuit.png Graphic file (type png)
+<use Images/grovercircuit.png>
+Package pdftex.def Info: Images/grovercircuit.png  used on input line 14853.
 (pdftex.def)             Requested size: 387.00153pt x 184.82217pt.
-<../Images/reflecpoitns.png, id=6477, 469.00218pt x 230.36063pt>
-File: ../Images/reflecpoitns.png Graphic file (type png)
-<use ../Images/reflecpoitns.png>
-Package pdftex.def Info: ../Images/reflecpoitns.png  used on input line 14860.
+<Images/reflecpoitns.png, id=6477, 469.00218pt x 230.36063pt>
+File: Images/reflecpoitns.png Graphic file (type png)
+<use Images/reflecpoitns.png>
+Package pdftex.def Info: Images/reflecpoitns.png  used on input line 14860.
 (pdftex.def)             Requested size: 322.50346pt x 158.40416pt.
-<../Images/tworeflect.png, id=6478, 489.32813pt x 221.32687pt>
-File: ../Images/tworeflect.png Graphic file (type png)
-<use ../Images/tworeflect.png>
-Package pdftex.def Info: ../Images/tworeflect.png  used on input line 14867.
+<Images/tworeflect.png, id=6478, 489.32813pt x 221.32687pt>
+File: Images/tworeflect.png Graphic file (type png)
+<use Images/tworeflect.png>
+Package pdftex.def Info: Images/tworeflect.png  used on input line 14867.
 (pdftex.def)             Requested size: 322.50346pt x 145.87354pt.
-<../Images/reflecteffect.png, id=6479, 518.6878pt x 266.49562pt>
-File: ../Images/reflecteffect.png Graphic file (type png)
-<use ../Images/reflecteffect.png>
-Package pdftex.def Info: ../Images/reflecteffect.png  used on input line 14873.
+<Images/reflecteffect.png, id=6479, 518.6878pt x 266.49562pt>
+File: Images/reflecteffect.png Graphic file (type png)
+<use Images/reflecteffect.png>
+Package pdftex.def Info: Images/reflecteffect.png  used on input line 14873.
 (pdftex.def)             Requested size: 322.50346pt x 165.7054pt.
- [542 <../Images/groverfig.png>] [543] [544 <../Images/grovercircuit.png>]
+ [542 <./Images/groverfig.png>] [543] [544 <./Images/grovercircuit.png>]
 Overfull \hbox (76.4631pt too wide) detected at line 14923
 []
  []
 
-[545 <../Images/reflecpoitns.png> <../Images/tworeflect.png>]
+[545 <./Images/reflecpoitns.png> <./Images/tworeflect.png>]
 Overfull \hbox (65.07877pt too wide) detected at line 14932
 []
  []
 
-[546 <../Images/reflecteffect.png>] [547] [548]
-<../Images/grov_examp.png, id=6526, 564.1075pt x 106.3975pt>
-File: ../Images/grov_examp.png Graphic file (type png)
-<use ../Images/grov_examp.png>
-Package pdftex.def Info: ../Images/grov_examp.png  used on input line 14960.
+[546 <./Images/reflecteffect.png>] [547] [548]
+<Images/grov_examp.png, id=6526, 564.1075pt x 106.3975pt>
+File: Images/grov_examp.png Graphic file (type png)
+<use Images/grov_examp.png>
+Package pdftex.def Info: Images/grov_examp.png  used on input line 14960.
 (pdftex.def)             Requested size: 322.50346pt x 60.82903pt.
-<../Images/grover_example.png, id=6528, 526.21594pt x 142.28156pt>
-File: ../Images/grover_example.png Graphic file (type png)
-<use ../Images/grover_example.png>
-Package pdftex.def Info: ../Images/grover_example.png  used on input line 14967.
+<Images/grover_example.png, id=6528, 526.21594pt x 142.28156pt>
+File: Images/grover_example.png Graphic file (type png)
+<use Images/grover_example.png>
+Package pdftex.def Info: Images/grover_example.png  used on input line 14967.
 (pdftex.def)             Requested size: 322.50346pt x 87.20412pt.
- [549 <../Images/grov_examp.png>] [550 <../Images/grover_example.png>] [551] [552] [553] [554] [555]
-<../Images/oracleop.png, id=6568, 441.90094pt x 207.77625pt>
-File: ../Images/oracleop.png Graphic file (type png)
-<use ../Images/oracleop.png>
-Package pdftex.def Info: ../Images/oracleop.png  used on input line 15141.
+ [549 <./Images/grov_examp.png>] [550 <./Images/grover_example.png>] [551] [552] [553] [554] [555]
+<Images/oracleop.png, id=6568, 441.90094pt x 207.77625pt>
+File: Images/oracleop.png Graphic file (type png)
+<use Images/oracleop.png>
+Package pdftex.def Info: Images/oracleop.png  used on input line 15141.
 (pdftex.def)             Requested size: 322.50346pt x 151.64368pt.
- [556 <../Images/oracleop.png>] [557] [558]
-<../Images/groveropt.png, id=6585, 258.21469pt x 74.52844pt>
-File: ../Images/groveropt.png Graphic file (type png)
-<use ../Images/groveropt.png>
-Package pdftex.def Info: ../Images/groveropt.png  used on input line 15206.
+ [556 <./Images/oracleop.png>] [557] [558]
+<Images/groveropt.png, id=6585, 258.21469pt x 74.52844pt>
+File: Images/groveropt.png Graphic file (type png)
+<use Images/groveropt.png>
+Package pdftex.def Info: Images/groveropt.png  used on input line 15206.
 (pdftex.def)             Requested size: 215.0023pt x 62.05759pt.
 
 Overfull \hbox (0.11731pt too wide) in paragraph at lines 15203--15208
 []\OT1/cmr/m/n/12 Assume that the func-tion is al-ways queried in the phase (as oc-curs with Grover's
  []
 
-[559 <../Images/groveropt.png>]
-<../Images/kquery.png, id=6595, 720.44156pt x 94.10156pt>
-File: ../Images/kquery.png Graphic file (type png)
-<use ../Images/kquery.png>
-Package pdftex.def Info: ../Images/kquery.png  used on input line 15215.
+[559 <./Images/groveropt.png>]
+<Images/kquery.png, id=6595, 720.44156pt x 94.10156pt>
+File: Images/kquery.png Graphic file (type png)
+<use Images/kquery.png>
+Package pdftex.def Info: Images/kquery.png  used on input line 15215.
 (pdftex.def)             Requested size: 322.50346pt x 42.12418pt.
-<../Images/kquerycirc.png, id=6596, 773.89125pt x 96.36pt>
-File: ../Images/kquerycirc.png Graphic file (type png)
-<use ../Images/kquerycirc.png>
-Package pdftex.def Info: ../Images/kquerycirc.png  used on input line 15232.
+<Images/kquerycirc.png, id=6596, 773.89125pt x 96.36pt>
+File: Images/kquerycirc.png Graphic file (type png)
+<use Images/kquerycirc.png>
+Package pdftex.def Info: Images/kquerycirc.png  used on input line 15232.
 (pdftex.def)             Requested size: 322.50346pt x 40.15625pt.
-<../Images/kqueryIcirc.png, id=6599, 771.63281pt x 88.83188pt>
-File: ../Images/kqueryIcirc.png Graphic file (type png)
-<use ../Images/kqueryIcirc.png>
-Package pdftex.def Info: ../Images/kqueryIcirc.png  used on input line 15243.
+<Images/kqueryIcirc.png, id=6599, 771.63281pt x 88.83188pt>
+File: Images/kqueryIcirc.png Graphic file (type png)
+<use Images/kqueryIcirc.png>
+Package pdftex.def Info: Images/kqueryIcirc.png  used on input line 15243.
 (pdftex.def)             Requested size: 322.50346pt x 37.12749pt.
 
 Overfull \hbox (14.3976pt too wide) in paragraph at lines 15239--15248
 \OT1/cmr/m/n/12 That is, $[]$ is the state that re-sults when the se-quence of op-er-a-tions $\OML/cmm/m/it/12 U[]; f[]; U[]; f[] [] ; U[]$
  []
 
-[560 <../Images/kquery.png>]
-<../Images/kqueryinterm.png, id=6614, 788.19469pt x 362.10281pt>
-File: ../Images/kqueryinterm.png Graphic file (type png)
-<use ../Images/kqueryinterm.png>
-Package pdftex.def Info: ../Images/kqueryinterm.png  used on input line 15262.
+[560 <./Images/kquery.png>]
+<Images/kqueryinterm.png, id=6614, 788.19469pt x 362.10281pt>
+File: Images/kqueryinterm.png Graphic file (type png)
+<use Images/kqueryinterm.png>
+Package pdftex.def Info: Images/kqueryinterm.png  used on input line 15262.
 (pdftex.def)             Requested size: 322.50346pt x 148.15921pt.
- [561 <../Images/kquerycirc.png> <../Images/kqueryIcirc.png>] [562 <../Images/kqueryinterm.png>]
-<../Images/circuitqueryopt.png, id=6628, 572.1375pt x 194.7275pt>
-File: ../Images/circuitqueryopt.png Graphic file (type png)
-<use ../Images/circuitqueryopt.png>
-Package pdftex.def Info: ../Images/circuitqueryopt.png  used on input line 15310.
+ [561 <./Images/kquerycirc.png> <./Images/kqueryIcirc.png>] [562 <./Images/kqueryinterm.png>]
+<Images/circuitqueryopt.png, id=6628, 572.1375pt x 194.7275pt>
+File: Images/circuitqueryopt.png Graphic file (type png)
+<use Images/circuitqueryopt.png>
+Package pdftex.def Info: Images/circuitqueryopt.png  used on input line 15310.
 (pdftex.def)             Requested size: 322.50346pt x 109.7657pt.
- [563] [564 <../Images/circuitqueryopt.png>] [565] [566] [567]
+ [563] [564 <./Images/circuitqueryopt.png>] [565] [566] [567]
 Overfull \hbox (6.51953pt too wide) in paragraph at lines 15385--15386
 \OT1/cmr/m/n/12 sam-ples uni-formly and in-de-pen-dently $\OML/cmm/m/it/12 k$ \OT1/cmr/m/n/12 times from the search space, and let $\OML/cmm/m/it/12 X[]; [] ; X[]$
  []
 
 [568]
-<../Images/quantumcounting.png, id=6662, 700.6175pt x 426.59375pt>
-File: ../Images/quantumcounting.png Graphic file (type png)
-<use ../Images/quantumcounting.png>
-Package pdftex.def Info: ../Images/quantumcounting.png  used on input line 15408.
+<Images/quantumcounting.png, id=6662, 700.6175pt x 426.59375pt>
+File: Images/quantumcounting.png Graphic file (type png)
+<use Images/quantumcounting.png>
+Package pdftex.def Info: Images/quantumcounting.png  used on input line 15408.
 (pdftex.def)             Requested size: 322.50346pt x 196.3722pt.
- [569] [570 <../Images/quantumcounting.png>] [571]
-<../Images/Acc_hadamardtest.png, id=6678, 366.87062pt x 145.04187pt>
-File: ../Images/Acc_hadamardtest.png Graphic file (type png)
-<use ../Images/Acc_hadamardtest.png>
-Package pdftex.def Info: ../Images/Acc_hadamardtest.png  used on input line 15480.
+ [569] [570 <./Images/quantumcounting.png>] [571]
+<Images/Acc_hadamardtest.png, id=6678, 366.87062pt x 145.04187pt>
+File: Images/Acc_hadamardtest.png Graphic file (type png)
+<use Images/Acc_hadamardtest.png>
+Package pdftex.def Info: Images/Acc_hadamardtest.png  used on input line 15480.
 (pdftex.def)             Requested size: 430.00462pt x 170.01256pt.
- [572] [573 <../Images/Acc_hadamardtest.png>] [574]
+ [572] [573 <./Images/Acc_hadamardtest.png>] [574]
 
 LaTeX Warning: Citation `ambainis2018quantumspeedupsexponentialtimedynamic' on page 575 undefined on input line 15575.
 
@@ -3056,16 +3056,16 @@ Overfull \hbox (8.74408pt too wide) in paragraph at lines 15594--15595
  []
 
 [577]
-<../Images/splitcpuparts.png, id=6712, 396.48125pt x 159.59625pt>
-File: ../Images/splitcpuparts.png Graphic file (type png)
-<use ../Images/splitcpuparts.png>
-Package pdftex.def Info: ../Images/splitcpuparts.png  used on input line 15611.
+<Images/splitcpuparts.png, id=6712, 396.48125pt x 159.59625pt>
+File: Images/splitcpuparts.png Graphic file (type png)
+<use Images/splitcpuparts.png>
+Package pdftex.def Info: Images/splitcpuparts.png  used on input line 15611.
 (pdftex.def)             Requested size: 322.50346pt x 129.82016pt.
- [578] [579 <../Images/splitcpuparts.png>] [580]
-<../Images/databaseunstruct.png, id=6730, 589.20125pt x 719.68875pt>
-File: ../Images/databaseunstruct.png Graphic file (type png)
-<use ../Images/databaseunstruct.png>
-Package pdftex.def Info: ../Images/databaseunstruct.png  used on input line 15646.
+ [578] [579 <./Images/splitcpuparts.png>] [580]
+<Images/databaseunstruct.png, id=6730, 589.20125pt x 719.68875pt>
+File: Images/databaseunstruct.png Graphic file (type png)
+<use Images/databaseunstruct.png>
+Package pdftex.def Info: Images/databaseunstruct.png  used on input line 15646.
 (pdftex.def)             Requested size: 215.0023pt x 262.61282pt.
  [581]
 Overfull \hbox (25.4588pt too wide) in paragraph at lines 15668--15669
@@ -3073,15 +3073,15 @@ Overfull \hbox (25.4588pt too wide) in paragraph at lines 15668--15669
  []
 
 [582] [583]
-<../Images/grover_tut_markedstates.png, id=6784, 313.6518pt x 172.0026pt>
-File: ../Images/grover_tut_markedstates.png Graphic file (type png)
-<use ../Images/grover_tut_markedstates.png>
-Package pdftex.def Info: ../Images/grover_tut_markedstates.png  used on input line 15739.
+<Images/grover_tut_markedstates.png, id=6784, 313.6518pt x 172.0026pt>
+File: Images/grover_tut_markedstates.png Graphic file (type png)
+<use Images/grover_tut_markedstates.png>
+Package pdftex.def Info: Images/grover_tut_markedstates.png  used on input line 15739.
 (pdftex.def)             Requested size: 215.0023pt x 117.90767pt.
-<../Images/grover_op.png, id=6786, 623.6901pt x 180.675pt>
-File: ../Images/grover_op.png Graphic file (type png)
-<use ../Images/grover_op.png>
-Package pdftex.def Info: ../Images/grover_op.png  used on input line 15752.
+<Images/grover_op.png, id=6786, 623.6901pt x 180.675pt>
+File: Images/grover_op.png Graphic file (type png)
+<use Images/grover_op.png>
+Package pdftex.def Info: Images/grover_op.png  used on input line 15752.
 (pdftex.def)             Requested size: 258.00539pt x 74.73886pt.
 
 Overfull \hbox (3.80096pt too wide) in paragraph at lines 15749--15757
@@ -3089,20 +3089,20 @@ Overfull \hbox (3.80096pt too wide) in paragraph at lines 15749--15757
  []
 
 [584]
-<../Images/grover_circuit.png, id=6816, 383.7537pt x 218.9781pt>
-File: ../Images/grover_circuit.png Graphic file (type png)
-<use ../Images/grover_circuit.png>
-Package pdftex.def Info: ../Images/grover_circuit.png  used on input line 15777.
+<Images/grover_circuit.png, id=6816, 383.7537pt x 218.9781pt>
+File: Images/grover_circuit.png Graphic file (type png)
+<use Images/grover_circuit.png>
+Package pdftex.def Info: Images/grover_circuit.png  used on input line 15777.
 (pdftex.def)             Requested size: 258.00539pt x 147.22244pt.
 
 Underfull \hbox (badness 10000) in paragraph at lines 15781--15782
 
  []
 
-<../Images/grover_step2_optimize.png, id=6818, 1283.5152pt x 1391.1975pt>
-File: ../Images/grover_step2_optimize.png Graphic file (type png)
-<use ../Images/grover_step2_optimize.png>
-Package pdftex.def Info: ../Images/grover_step2_optimize.png  used on input line 15794.
+<Images/grover_step2_optimize.png, id=6818, 1283.5152pt x 1391.1975pt>
+File: Images/grover_step2_optimize.png Graphic file (type png)
+<use Images/grover_step2_optimize.png>
+Package pdftex.def Info: Images/grover_step2_optimize.png  used on input line 15794.
 (pdftex.def)             Requested size: 258.00539pt x 279.6356pt.
 
 Underfull \hbox (badness 10000) in paragraph at lines 15810--15811
@@ -3110,12 +3110,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 15810--15811
  []
 
 [585]
-<../Images/grover_result.png, id=6852, 446.6286pt x 320.8788pt>
-File: ../Images/grover_result.png Graphic file (type png)
-<use ../Images/grover_result.png>
-Package pdftex.def Info: ../Images/grover_result.png  used on input line 15817.
+<Images/grover_result.png, id=6852, 446.6286pt x 320.8788pt>
+File: Images/grover_result.png Graphic file (type png)
+<use Images/grover_result.png>
+Package pdftex.def Info: Images/grover_result.png  used on input line 15817.
 (pdftex.def)             Requested size: 301.00192pt x 216.25089pt.
- [586] [587 <../Images/databaseunstruct.png>] [588 <../Images/grover_tut_markedstates.png> <../Images/grover_op.png> <../Images/grover_circuit.png>] [589 <../Images/grover_step2_optimize.png> <../Images/grover_result.png>] [590
+ [586] [587 <./Images/databaseunstruct.png>] [588 <./Images/grover_tut_markedstates.png> <./Images/grover_op.png> <./Images/grover_circuit.png>] [589 <./Images/grover_step2_optimize.png> <./Images/grover_result.png>] [590
 
 ]
 Chapter 22.
@@ -3171,12 +3171,12 @@ Overfull \hbox (274.18732pt too wide) has occurred while \output is active
  []
 
 [624] [625]
-<../Images/Ham-sim-circ.png, id=7053, 479.7925pt x 257.96375pt>
-File: ../Images/Ham-sim-circ.png Graphic file (type png)
-<use ../Images/Ham-sim-circ.png>
-Package pdftex.def Info: ../Images/Ham-sim-circ.png  used on input line 16662.
+<Images/Ham-sim-circ.png, id=7053, 479.7925pt x 257.96375pt>
+File: Images/Ham-sim-circ.png Graphic file (type png)
+<use Images/Ham-sim-circ.png>
+Package pdftex.def Info: Images/Ham-sim-circ.png  used on input line 16662.
 (pdftex.def)             Requested size: 215.0023pt x 115.59845pt.
- [626] [627 <../Images/Ham-sim-circ.png>]
+ [626] [627 <./Images/Ham-sim-circ.png>]
 Overfull \hbox (31.14214pt too wide) detected at line 16704
 []
  []
@@ -3201,36 +3201,36 @@ LaTeX Warning: Citation `shewchuk1994introduction' on page 633 undefined on inpu
 [633
 
 ] [634] [635] [636]
-<../Images/hhl_circuit.png, id=7116, 716.6775pt x 323.2075pt>
-File: ../Images/hhl_circuit.png Graphic file (type png)
-<use ../Images/hhl_circuit.png>
-Package pdftex.def Info: ../Images/hhl_circuit.png  used on input line 16926.
+<Images/hhl_circuit.png, id=7116, 716.6775pt x 323.2075pt>
+File: Images/hhl_circuit.png Graphic file (type png)
+<use Images/hhl_circuit.png>
+Package pdftex.def Info: Images/hhl_circuit.png  used on input line 16926.
 (pdftex.def)             Requested size: 387.00153pt x 174.53438pt.
- [637 <../Images/hhl_circuit.png>] [638]
-<../Images/qpe.png, id=7131, 1299.85625pt x 284.06125pt>
-File: ../Images/qpe.png Graphic file (type png)
-<use ../Images/qpe.png>
-Package pdftex.def Info: ../Images/qpe.png  used on input line 16970.
+ [637 <./Images/hhl_circuit.png>] [638]
+<Images/qpe.png, id=7131, 1299.85625pt x 284.06125pt>
+File: Images/qpe.png Graphic file (type png)
+<use Images/qpe.png>
+Package pdftex.def Info: Images/qpe.png  used on input line 16970.
 (pdftex.def)             Requested size: 301.00192pt x 65.77914pt.
- [639 <../Images/qpe.png>] [640]
-<../Images/Controlledrotation.png, id=7146, 944.52875pt x 374.39874pt>
-File: ../Images/Controlledrotation.png Graphic file (type png)
-<use ../Images/Controlledrotation.png>
-Package pdftex.def Info: ../Images/Controlledrotation.png  used on input line 17028.
+ [639 <./Images/qpe.png>] [640]
+<Images/Controlledrotation.png, id=7146, 944.52875pt x 374.39874pt>
+File: Images/Controlledrotation.png Graphic file (type png)
+<use Images/Controlledrotation.png>
+Package pdftex.def Info: Images/Controlledrotation.png  used on input line 17028.
 (pdftex.def)             Requested size: 430.00462pt x 170.4488pt.
- [641 <../Images/Controlledrotation.png>]
-<../Images/Cr.png, id=7155, 2329.70375pt x 698.61pt>
-File: ../Images/Cr.png Graphic file (type png)
-<use ../Images/Cr.png>
-Package pdftex.def Info: ../Images/Cr.png  used on input line 17057.
+ [641 <./Images/Controlledrotation.png>]
+<Images/Cr.png, id=7155, 2329.70375pt x 698.61pt>
+File: Images/Cr.png Graphic file (type png)
+<use Images/Cr.png>
+Package pdftex.def Info: Images/Cr.png  used on input line 17057.
 (pdftex.def)             Requested size: 430.00462pt x 128.94234pt.
- [642 <../Images/Cr.png>]
-<../Images/Hhl.png, id=7163, 2146.0175pt x 709.65125pt>
-File: ../Images/Hhl.png Graphic file (type png)
-<use ../Images/Hhl.png>
-Package pdftex.def Info: ../Images/Hhl.png  used on input line 17097.
+ [642 <./Images/Cr.png>]
+<Images/Hhl.png, id=7163, 2146.0175pt x 709.65125pt>
+File: Images/Hhl.png Graphic file (type png)
+<use Images/Hhl.png>
+Package pdftex.def Info: Images/Hhl.png  used on input line 17097.
 (pdftex.def)             Requested size: 430.00462pt x 142.1876pt.
- [643] [644 <../Images/Hhl.png>]
+ [643] [644 <./Images/Hhl.png>]
 Overfull \hbox (60.30937pt too wide) detected at line 17139
 []
  []
@@ -3287,12 +3287,12 @@ Overfull \hbox (2.93594pt too wide) in paragraph at lines 17828--17830
  []
 
 [671] [672] [673] [674] [675]
-<../Images/qwalkcirc.png, id=7325, 361.35pt x 138.5175pt>
-File: ../Images/qwalkcirc.png Graphic file (type png)
-<use ../Images/qwalkcirc.png>
-Package pdftex.def Info: ../Images/qwalkcirc.png  used on input line 17948.
+<Images/qwalkcirc.png, id=7325, 361.35pt x 138.5175pt>
+File: Images/qwalkcirc.png Graphic file (type png)
+<use Images/qwalkcirc.png>
+Package pdftex.def Info: Images/qwalkcirc.png  used on input line 17948.
 (pdftex.def)             Requested size: 215.0023pt x 82.41786pt.
- [676] [677 <../Images/qwalkcirc.png>] [678] [679]
+ [676] [677 <./Images/qwalkcirc.png>] [678] [679]
 Overfull \hbox (81.23787pt too wide) detected at line 18047
 [] [] [] \OT1/cmr/m/n/12 = [] [] = [](\OML/cmm/m/it/12 a \OT1/cmr/m/n/12 + (\OML/cmm/m/it/12 N \OMS/cmsy/m/n/12 ^^@ \OT1/cmr/m/n/12 1)\OML/cmm/m/it/12 b\OT1/cmr/m/n/12 ) [] = [] []
  []
@@ -3304,316 +3304,316 @@ LaTeX Warning: Reference `' on page 685 undefined on input line 18174.
 
 LaTeX Warning: Reference `' on page 685 undefined on input line 18174.
 
-<../Images/implD.png, id=7371, 451.6875pt x 148.555pt>
-File: ../Images/implD.png Graphic file (type png)
-<use ../Images/implD.png>
-Package pdftex.def Info: ../Images/implD.png  used on input line 18177.
+<Images/implD.png, id=7371, 451.6875pt x 148.555pt>
+File: Images/implD.png Graphic file (type png)
+<use Images/implD.png>
+Package pdftex.def Info: Images/implD.png  used on input line 18177.
 (pdftex.def)             Requested size: 215.0023pt x 70.71396pt.
 
 Overfull \hbox (13.30113pt too wide) in paragraph at lines 18184--18186
 \OT1/cmr/m/n/12 For each $[]$, the as-so-ci-ated ba-sis in the 2-dimensional sub-space is $\OMS/cmsy/m/n/12 B[] \OT1/cmr/m/n/12 = \OMS/cmsy/m/n/12 f[] [] \OML/cmm/m/it/12 ; []\OMS/cmsy/m/n/12 g$\OT1/cmr/m/n/12 .
  []
 
-[685] [686 <../Images/implD.png>] [687] [688] [689] [690]
+[685] [686 <./Images/implD.png>] [687] [688] [689] [690]
 Overfull \hbox (10.80746pt too wide) in paragraph at lines 18347--18348
 \OT1/cmr/m/n/12 We will now in-tro-duce continuous-time quan-tum walk as a nat-u-ral ana-log of continuous-
  []
 
 [691] [692]
 Chapter 27.
-<../Images/VQE_algo.png, id=7420, 961.5925pt x 1562.83875pt>
-File: ../Images/VQE_algo.png Graphic file (type png)
-<use ../Images/VQE_algo.png>
-Package pdftex.def Info: ../Images/VQE_algo.png  used on input line 18388.
+<Images/VQE_algo.png, id=7420, 961.5925pt x 1562.83875pt>
+File: Images/VQE_algo.png Graphic file (type png)
+<use Images/VQE_algo.png>
+Package pdftex.def Info: Images/VQE_algo.png  used on input line 18388.
 (pdftex.def)             Requested size: 322.50346pt x 524.15637pt.
 [693
 
-] [694 <../Images/VQE_algo.png>] [695] [696] [697]
-<../Images/ref_state.png, id=7448, 661.47125pt x 336.25626pt>
-File: ../Images/ref_state.png Graphic file (type png)
-<use ../Images/ref_state.png>
-Package pdftex.def Info: ../Images/ref_state.png  used on input line 18467.
+] [694 <./Images/VQE_algo.png>] [695] [696] [697]
+<Images/ref_state.png, id=7448, 661.47125pt x 336.25626pt>
+File: Images/ref_state.png Graphic file (type png)
+<use Images/ref_state.png>
+Package pdftex.def Info: Images/ref_state.png  used on input line 18467.
 (pdftex.def)             Requested size: 107.50114pt x 54.64355pt.
-<../Images/ref_state_dia.png, id=7449, 127.1952pt x 172.0026pt>
-File: ../Images/ref_state_dia.png Graphic file (type png)
-<use ../Images/ref_state_dia.png>
-Package pdftex.def Info: ../Images/ref_state_dia.png  used on input line 18482.
+<Images/ref_state_dia.png, id=7449, 127.1952pt x 172.0026pt>
+File: Images/ref_state_dia.png Graphic file (type png)
+<use Images/ref_state_dia.png>
+Package pdftex.def Info: Images/ref_state_dia.png  used on input line 18482.
 (pdftex.def)             Requested size: 107.50114pt x 145.37878pt.
- [698 <../Images/ref_state.png>]
-<../Images/ref_state_quantum.png, id=7464, 174.1707pt x 172.0026pt>
-File: ../Images/ref_state_quantum.png Graphic file (type png)
-<use ../Images/ref_state_quantum.png>
-Package pdftex.def Info: ../Images/ref_state_quantum.png  used on input line 18503.
+ [698 <./Images/ref_state.png>]
+<Images/ref_state_quantum.png, id=7464, 174.1707pt x 172.0026pt>
+File: Images/ref_state_quantum.png Graphic file (type png)
+<use Images/ref_state_quantum.png>
+Package pdftex.def Info: Images/ref_state_quantum.png  used on input line 18503.
 (pdftex.def)             Requested size: 107.50114pt x 106.16545pt.
 
 Overfull \hbox (1.42996pt too wide) in paragraph at lines 18508--18508
 |[]\OT1/cmr/bx/n/14.4 Constructing Ref-er-ence States us-ing tem-plate cir-cuits| 
  []
 
-[699 <../Images/ref_state_dia.png>]
-<../Images/ref_state_template.png, id=7483, 220.4235pt x 125.7498pt>
-File: ../Images/ref_state_template.png Graphic file (type png)
-<use ../Images/ref_state_template.png>
-Package pdftex.def Info: ../Images/ref_state_template.png  used on input line 18524.
+[699 <./Images/ref_state_dia.png>]
+<Images/ref_state_template.png, id=7483, 220.4235pt x 125.7498pt>
+File: Images/ref_state_template.png Graphic file (type png)
+<use Images/ref_state_template.png>
+Package pdftex.def Info: Images/ref_state_template.png  used on input line 18524.
 (pdftex.def)             Requested size: 215.0023pt x 122.65639pt.
- [700 <../Images/ref_state_quantum.png> <../Images/ref_state_template.png>]
-<../Images/ref_state_zzfmap.png, id=7497, 546.3612pt x 125.7498pt>
-File: ../Images/ref_state_zzfmap.png Graphic file (type png)
-<use ../Images/ref_state_zzfmap.png>
-Package pdftex.def Info: ../Images/ref_state_zzfmap.png  used on input line 18544.
+ [700 <./Images/ref_state_quantum.png> <./Images/ref_state_template.png>]
+<Images/ref_state_zzfmap.png, id=7497, 546.3612pt x 125.7498pt>
+File: Images/ref_state_zzfmap.png Graphic file (type png)
+<use Images/ref_state_zzfmap.png>
+Package pdftex.def Info: Images/ref_state_zzfmap.png  used on input line 18544.
 (pdftex.def)             Requested size: 215.0023pt x 49.48354pt.
-<../Images/prep_ansatz.png, id=7498, 661.47125pt x 336.25626pt>
-File: ../Images/prep_ansatz.png Graphic file (type png)
-<use ../Images/prep_ansatz.png>
-Package pdftex.def Info: ../Images/prep_ansatz.png  used on input line 18557.
+<Images/prep_ansatz.png, id=7498, 661.47125pt x 336.25626pt>
+File: Images/prep_ansatz.png Graphic file (type png)
+<use Images/prep_ansatz.png>
+Package pdftex.def Info: Images/prep_ansatz.png  used on input line 18557.
 (pdftex.def)             Requested size: 215.0023pt x 109.29224pt.
- [701 <../Images/ref_state_zzfmap.png>]
-<../Images/param_qc.png, id=7515, 174.1707pt x 172.0026pt>
-File: ../Images/param_qc.png Graphic file (type png)
-<use ../Images/param_qc.png>
-Package pdftex.def Info: ../Images/param_qc.png  used on input line 18578.
+ [701 <./Images/ref_state_zzfmap.png>]
+<Images/param_qc.png, id=7515, 174.1707pt x 172.0026pt>
+File: Images/param_qc.png Graphic file (type png)
+<use Images/param_qc.png>
+Package pdftex.def Info: Images/param_qc.png  used on input line 18578.
 (pdftex.def)             Requested size: 107.50114pt x 106.16545pt.
-<../Images/param_ex1.png, id=7516, 174.1707pt x 172.0026pt>
-File: ../Images/param_ex1.png Graphic file (type png)
-<use ../Images/param_ex1.png>
-Package pdftex.def Info: ../Images/param_ex1.png  used on input line 18594.
+<Images/param_ex1.png, id=7516, 174.1707pt x 172.0026pt>
+File: Images/param_ex1.png Graphic file (type png)
+<use Images/param_ex1.png>
+Package pdftex.def Info: Images/param_ex1.png  used on input line 18594.
 (pdftex.def)             Requested size: 107.50114pt x 106.16545pt.
-<../Images/param_ex2.png, id=7517, 174.1707pt x 172.0026pt>
-File: ../Images/param_ex2.png Graphic file (type png)
-<use ../Images/param_ex2.png>
-Package pdftex.def Info: ../Images/param_ex2.png  used on input line 18600.
+<Images/param_ex2.png, id=7517, 174.1707pt x 172.0026pt>
+File: Images/param_ex2.png Graphic file (type png)
+<use Images/param_ex2.png>
+Package pdftex.def Info: Images/param_ex2.png  used on input line 18600.
 (pdftex.def)             Requested size: 107.50114pt x 106.16545pt.
- [702 <../Images/prep_ansatz.png> <../Images/param_qc.png>] [703 <../Images/param_ex1.png> <../Images/param_ex2.png>] [704]
-<../Images/5q_ansatz_ex.png, id=7555, 918.5517pt x 265.2309pt>
-File: ../Images/5q_ansatz_ex.png Graphic file (type png)
-<use ../Images/5q_ansatz_ex.png>
-Package pdftex.def Info: ../Images/5q_ansatz_ex.png  used on input line 18653.
+ [702 <./Images/prep_ansatz.png> <./Images/param_qc.png>] [703 <./Images/param_ex1.png> <./Images/param_ex2.png>] [704]
+<Images/5q_ansatz_ex.png, id=7555, 918.5517pt x 265.2309pt>
+File: Images/5q_ansatz_ex.png Graphic file (type png)
+<use Images/5q_ansatz_ex.png>
+Package pdftex.def Info: Images/5q_ansatz_ex.png  used on input line 18653.
 (pdftex.def)             Requested size: 215.0023pt x 62.07834pt.
  [705]
-<../Images/2local_ansatz.png, id=7567, 918.5517pt x 265.2309pt>
-File: ../Images/2local_ansatz.png Graphic file (type png)
-<use ../Images/2local_ansatz.png>
-Package pdftex.def Info: ../Images/2local_ansatz.png  used on input line 18671.
+<Images/2local_ansatz.png, id=7567, 918.5517pt x 265.2309pt>
+File: Images/2local_ansatz.png Graphic file (type png)
+<use Images/2local_ansatz.png>
+Package pdftex.def Info: Images/2local_ansatz.png  used on input line 18671.
 (pdftex.def)             Requested size: 215.0023pt x 62.07834pt.
-<../Images/efficientsu2_ansatz.png, id=7568, 406.8801pt x 218.9781pt>
-File: ../Images/efficientsu2_ansatz.png Graphic file (type png)
-<use ../Images/efficientsu2_ansatz.png>
-Package pdftex.def Info: ../Images/efficientsu2_ansatz.png  used on input line 18688.
+<Images/efficientsu2_ansatz.png, id=7568, 406.8801pt x 218.9781pt>
+File: Images/efficientsu2_ansatz.png Graphic file (type png)
+<use Images/efficientsu2_ansatz.png>
+Package pdftex.def Info: Images/efficientsu2_ansatz.png  used on input line 18688.
 (pdftex.def)             Requested size: 215.0023pt x 115.71033pt.
- [706 <../Images/5q_ansatz_ex.png> <../Images/2local_ansatz.png>]
-<../Images/graph.png, id=7587, 476.982pt x 360.6273pt>
-File: ../Images/graph.png Graphic file (type png)
-<use ../Images/graph.png>
-Package pdftex.def Info: ../Images/graph.png  used on input line 18714.
+ [706 <./Images/5q_ansatz_ex.png> <./Images/2local_ansatz.png>]
+<Images/graph.png, id=7587, 476.982pt x 360.6273pt>
+File: Images/graph.png Graphic file (type png)
+<use Images/graph.png>
+Package pdftex.def Info: Images/graph.png  used on input line 18714.
 (pdftex.def)             Requested size: 215.0023pt x 162.55592pt.
 
 Overfull \hbox (12.00339pt too wide) in paragraph at lines 18719--18720
 []\OT1/cmr/m/n/12 To uti-lize QAOA al-go-rithm from a max-cut prob-lem, we re-quire a Pauli-Hamiltonian
  []
 
-[707 <../Images/efficientsu2_ansatz.png>]
-<../Images/QAOA_circ.png, id=7606, 1244.4894pt x 451.6875pt>
-File: ../Images/QAOA_circ.png Graphic file (type png)
-<use ../Images/QAOA_circ.png>
-Package pdftex.def Info: ../Images/QAOA_circ.png  used on input line 18736.
+[707 <./Images/efficientsu2_ansatz.png>]
+<Images/QAOA_circ.png, id=7606, 1244.4894pt x 451.6875pt>
+File: Images/QAOA_circ.png Graphic file (type png)
+<use Images/QAOA_circ.png>
+Package pdftex.def Info: Images/QAOA_circ.png  used on input line 18736.
 (pdftex.def)             Requested size: 215.0023pt x 78.03334pt.
- [708 <../Images/graph.png> <../Images/QAOA_circ.png>]
-<../Images/ansatz_reps1.png, id=7626, 1244.4894pt x 218.9781pt>
-File: ../Images/ansatz_reps1.png Graphic file (type png)
-<use ../Images/ansatz_reps1.png>
-Package pdftex.def Info: ../Images/ansatz_reps1.png  used on input line 18746.
+ [708 <./Images/graph.png> <./Images/QAOA_circ.png>]
+<Images/ansatz_reps1.png, id=7626, 1244.4894pt x 218.9781pt>
+File: Images/ansatz_reps1.png Graphic file (type png)
+<use Images/ansatz_reps1.png>
+Package pdftex.def Info: Images/ansatz_reps1.png  used on input line 18746.
 (pdftex.def)             Requested size: 215.0023pt x 37.83055pt.
-<../Images/qml_circ.png, id=7627, 918.5517pt x 125.7498pt>
-File: ../Images/qml_circ.png Graphic file (type png)
-<use ../Images/qml_circ.png>
-Package pdftex.def Info: ../Images/qml_circ.png  used on input line 18769.
+<Images/qml_circ.png, id=7627, 918.5517pt x 125.7498pt>
+File: Images/qml_circ.png Graphic file (type png)
+<use Images/qml_circ.png>
+Package pdftex.def Info: Images/qml_circ.png  used on input line 18769.
 (pdftex.def)             Requested size: 215.0023pt x 29.43224pt.
-<../Images/ansatz.png, id=7628, 563.10374pt x 352.31625pt>
-File: ../Images/ansatz.png Graphic file (type png)
-<use ../Images/ansatz.png>
-Package pdftex.def Info: ../Images/ansatz.png  used on input line 18777.
+<Images/ansatz.png, id=7628, 563.10374pt x 352.31625pt>
+File: Images/ansatz.png Graphic file (type png)
+<use Images/ansatz.png>
+Package pdftex.def Info: Images/ansatz.png  used on input line 18777.
 (pdftex.def)             Requested size: 215.0023pt x 134.52129pt.
- [709 <../Images/ansatz_reps1.png>]
-<../Images/Costfunc.png, id=7648, 655.44875pt x 337.26pt>
-File: ../Images/Costfunc.png Graphic file (type png)
-<use ../Images/Costfunc.png>
-Package pdftex.def Info: ../Images/Costfunc.png  used on input line 18792.
+ [709 <./Images/ansatz_reps1.png>]
+<Images/Costfunc.png, id=7648, 655.44875pt x 337.26pt>
+File: Images/Costfunc.png Graphic file (type png)
+<use Images/Costfunc.png>
+Package pdftex.def Info: Images/Costfunc.png  used on input line 18792.
 (pdftex.def)             Requested size: 322.50346pt x 165.94328pt.
- [710 <../Images/qml_circ.png> <../Images/ansatz.png>] [711 <../Images/Costfunc.png>] [712] [713]
-<../Images/QH1.png, id=7675, 162.6075pt x 110.4125pt>
-File: ../Images/QH1.png Graphic file (type png)
-<use ../Images/QH1.png>
-Package pdftex.def Info: ../Images/QH1.png  used on input line 18885.
+ [710 <./Images/qml_circ.png> <./Images/ansatz.png>] [711 <./Images/Costfunc.png>] [712] [713]
+<Images/QH1.png, id=7675, 162.6075pt x 110.4125pt>
+File: Images/QH1.png Graphic file (type png)
+<use Images/QH1.png>
+Package pdftex.def Info: Images/QH1.png  used on input line 18885.
 (pdftex.def)             Requested size: 107.50114pt x 72.99545pt.
-<../Images/aux_circ_cost.png, id=7676, 467.7475pt x 174.6525pt>
-File: ../Images/aux_circ_cost.png Graphic file (type png)
-<use ../Images/aux_circ_cost.png>
-Package pdftex.def Info: ../Images/aux_circ_cost.png  used on input line 18894.
+<Images/aux_circ_cost.png, id=7676, 467.7475pt x 174.6525pt>
+File: Images/aux_circ_cost.png Graphic file (type png)
+<use Images/aux_circ_cost.png>
+Package pdftex.def Info: Images/aux_circ_cost.png  used on input line 18894.
 (pdftex.def)             Requested size: 215.0023pt x 80.27982pt.
- [714 <../Images/QH1.png> <../Images/aux_circ_cost.png>]
-<../Images/aux_circ2.png, id=7711, 467.7475pt x 174.6525pt>
-File: ../Images/aux_circ2.png Graphic file (type png)
-<use ../Images/aux_circ2.png>
-Package pdftex.def Info: ../Images/aux_circ2.png  used on input line 18903.
+ [714 <./Images/QH1.png> <./Images/aux_circ_cost.png>]
+<Images/aux_circ2.png, id=7711, 467.7475pt x 174.6525pt>
+File: Images/aux_circ2.png Graphic file (type png)
+<use Images/aux_circ2.png>
+Package pdftex.def Info: Images/aux_circ2.png  used on input line 18903.
 (pdftex.def)             Requested size: 215.0023pt x 80.27982pt.
- [715 <../Images/aux_circ2.png>] [716] [717] [718] [719]
-<../Images/cost_func_1.png, id=7809, 499.8675pt x 174.6525pt>
-File: ../Images/cost_func_1.png Graphic file (type png)
-<use ../Images/cost_func_1.png>
-Package pdftex.def Info: ../Images/cost_func_1.png  used on input line 19104.
+ [715 <./Images/aux_circ2.png>] [716] [717] [718] [719]
+<Images/cost_func_1.png, id=7809, 499.8675pt x 174.6525pt>
+File: Images/cost_func_1.png Graphic file (type png)
+<use Images/cost_func_1.png>
+Package pdftex.def Info: Images/cost_func_1.png  used on input line 19104.
 (pdftex.def)             Requested size: 215.0023pt x 75.12042pt.
- [720] [721 <../Images/cost_func_1.png>]
-<../Images/graph_costexp.png, id=7890, 662.475pt x 500.87125pt>
-File: ../Images/graph_costexp.png Graphic file (type png)
-<use ../Images/graph_costexp.png>
-Package pdftex.def Info: ../Images/graph_costexp.png  used on input line 19178.
+ [720] [721 <./Images/cost_func_1.png>]
+<Images/graph_costexp.png, id=7890, 662.475pt x 500.87125pt>
+File: Images/graph_costexp.png Graphic file (type png)
+<use Images/graph_costexp.png>
+Package pdftex.def Info: Images/graph_costexp.png  used on input line 19178.
 (pdftex.def)             Requested size: 215.0023pt x 162.55194pt.
- [722] [723 <../Images/graph_costexp.png>] [724]
-<../Images/circ_exp.png, id=7925, 1728.4575pt x 627.34375pt>
-File: ../Images/circ_exp.png Graphic file (type png)
-<use ../Images/circ_exp.png>
-Package pdftex.def Info: ../Images/circ_exp.png  used on input line 19243.
+ [722] [723 <./Images/graph_costexp.png>] [724]
+<Images/circ_exp.png, id=7925, 1728.4575pt x 627.34375pt>
+File: Images/circ_exp.png Graphic file (type png)
+<use Images/circ_exp.png>
+Package pdftex.def Info: Images/circ_exp.png  used on input line 19243.
 (pdftex.def)             Requested size: 322.50346pt x 117.0523pt.
 
 Overfull \hbox (2.24785pt too wide) in paragraph at lines 19255--19256
 \OT1/cmr/m/n/12 With the Run-time Es-ti-ma-tor di-rectly tak-ing a Hamil-to-nian and pa-ram-e-ter-ized ansatz,
  []
 
-[725 <../Images/circ_exp.png>] [726]
-<../Images/measstrat_speedvsacc.png, id=8008, 824.07875pt x 537.00626pt>
-File: ../Images/measstrat_speedvsacc.png Graphic file (type png)
-<use ../Images/measstrat_speedvsacc.png>
-Package pdftex.def Info: ../Images/measstrat_speedvsacc.png  used on input line 19332.
+[725 <./Images/circ_exp.png>] [726]
+<Images/measstrat_speedvsacc.png, id=8008, 824.07875pt x 537.00626pt>
+File: Images/measstrat_speedvsacc.png Graphic file (type png)
+<use Images/measstrat_speedvsacc.png>
+Package pdftex.def Info: Images/measstrat_speedvsacc.png  used on input line 19332.
 (pdftex.def)             Requested size: 430.00462pt x 280.21176pt.
  [727]
-<../Images/err_sup_circ.png, id=8019, 370.38374pt x 174.6525pt>
-File: ../Images/err_sup_circ.png Graphic file (type png)
-<use ../Images/err_sup_circ.png>
-Package pdftex.def Info: ../Images/err_sup_circ.png  used on input line 19365.
+<Images/err_sup_circ.png, id=8019, 370.38374pt x 174.6525pt>
+File: Images/err_sup_circ.png Graphic file (type png)
+<use Images/err_sup_circ.png>
+Package pdftex.def Info: Images/err_sup_circ.png  used on input line 19365.
 (pdftex.def)             Requested size: 215.0023pt x 101.38379pt.
- [728 <../Images/measstrat_speedvsacc.png>]
+ [728 <./Images/measstrat_speedvsacc.png>]
 Overfull \hbox (5.50696pt too wide) in paragraph at lines 19392--19393
 []\OT1/cmr/m/n/12 Note that in the present case, we will do this twice: once with op-ti-miza-tion[]level=0,
  []
 
-[729 <../Images/err_sup_circ.png>] [730]
-<../Images/error_miti.png, id=8100, 822.07124pt x 645.41125pt>
-File: ../Images/error_miti.png Graphic file (type png)
-<use ../Images/error_miti.png>
-Package pdftex.def Info: ../Images/error_miti.png  used on input line 19450.
+[729 <./Images/err_sup_circ.png>] [730]
+<Images/error_miti.png, id=8100, 822.07124pt x 645.41125pt>
+File: Images/error_miti.png Graphic file (type png)
+<use Images/error_miti.png>
+Package pdftex.def Info: Images/error_miti.png  used on input line 19450.
 (pdftex.def)             Requested size: 430.00462pt x 337.59526pt.
  [731]
-<../Images/fig_Trex.png, id=8114, 600.2425pt x 121.45375pt>
-File: ../Images/fig_Trex.png Graphic file (type png)
-<use ../Images/fig_Trex.png>
-Package pdftex.def Info: ../Images/fig_Trex.png  used on input line 19467.
+<Images/fig_Trex.png, id=8114, 600.2425pt x 121.45375pt>
+File: Images/fig_Trex.png Graphic file (type png)
+<use Images/fig_Trex.png>
+Package pdftex.def Info: Images/fig_Trex.png  used on input line 19467.
 (pdftex.def)             Requested size: 322.50346pt x 65.25786pt.
- [732 <../Images/error_miti.png> <../Images/fig_Trex.png>]
-<../Images/zne.png, id=8126, 813.0375pt x 236.885pt>
-File: ../Images/zne.png Graphic file (type png)
-<use ../Images/zne.png>
-Package pdftex.def Info: ../Images/zne.png  used on input line 19483.
+ [732 <./Images/error_miti.png> <./Images/fig_Trex.png>]
+<Images/zne.png, id=8126, 813.0375pt x 236.885pt>
+File: Images/zne.png Graphic file (type png)
+<use Images/zne.png>
+Package pdftex.def Info: Images/zne.png  used on input line 19483.
 (pdftex.def)             Requested size: 215.0023pt x 62.64047pt.
- [733 <../Images/zne.png>] [734] [735]
-<../Images/zne-plot.png, id=8220, 591.20876pt x 420.57124pt>
-File: ../Images/zne-plot.png Graphic file (type png)
-<use ../Images/zne-plot.png>
-Package pdftex.def Info: ../Images/zne-plot.png  used on input line 19598.
+ [733 <./Images/zne.png>] [734] [735]
+<Images/zne-plot.png, id=8220, 591.20876pt x 420.57124pt>
+File: Images/zne-plot.png Graphic file (type png)
+<use Images/zne-plot.png>
+Package pdftex.def Info: Images/zne-plot.png  used on input line 19598.
 (pdftex.def)             Requested size: 322.50346pt x 229.42818pt.
-<../Images/summ_cost.png, id=8221, 788.9475pt x 341.275pt>
-File: ../Images/summ_cost.png Graphic file (type png)
-<use ../Images/summ_cost.png>
-Package pdftex.def Info: ../Images/summ_cost.png  used on input line 19610.
+<Images/summ_cost.png, id=8221, 788.9475pt x 341.275pt>
+File: Images/summ_cost.png Graphic file (type png)
+<use Images/summ_cost.png>
+Package pdftex.def Info: Images/summ_cost.png  used on input line 19610.
 (pdftex.def)             Requested size: 322.50346pt x 139.50185pt.
- [736 <../Images/zne-plot.png>]
-<../Images/Opti_loops_vqe.png, id=8238, 655.44875pt x 336.25626pt>
-File: ../Images/Opti_loops_vqe.png Graphic file (type png)
-<use ../Images/Opti_loops_vqe.png>
-Package pdftex.def Info: ../Images/Opti_loops_vqe.png  used on input line 19634.
+ [736 <./Images/zne-plot.png>]
+<Images/Opti_loops_vqe.png, id=8238, 655.44875pt x 336.25626pt>
+File: Images/Opti_loops_vqe.png Graphic file (type png)
+<use Images/Opti_loops_vqe.png>
+Package pdftex.def Info: Images/Opti_loops_vqe.png  used on input line 19634.
 (pdftex.def)             Requested size: 322.50346pt x 165.4494pt.
- [737 <../Images/summ_cost.png>]
-<../Images/ansatz_oplopps.png, id=8253, 499.8675pt x 174.6525pt>
-File: ../Images/ansatz_oplopps.png Graphic file (type png)
-<use ../Images/ansatz_oplopps.png>
-Package pdftex.def Info: ../Images/ansatz_oplopps.png  used on input line 19663.
+ [737 <./Images/summ_cost.png>]
+<Images/ansatz_oplopps.png, id=8253, 499.8675pt x 174.6525pt>
+File: Images/ansatz_oplopps.png Graphic file (type png)
+<use Images/ansatz_oplopps.png>
+Package pdftex.def Info: Images/ansatz_oplopps.png  used on input line 19663.
 (pdftex.def)             Requested size: 430.00462pt x 150.24886pt.
- [738 <../Images/Opti_loops_vqe.png>] [739 <../Images/ansatz_oplopps.png>] [740]
-<../Images/vqe_grad-based.png, id=8332, 719.68875pt x 508.90125pt>
-File: ../Images/vqe_grad-based.png Graphic file (type png)
-<use ../Images/vqe_grad-based.png>
-Package pdftex.def Info: ../Images/vqe_grad-based.png  used on input line 19760.
+ [738 <./Images/Opti_loops_vqe.png>] [739 <./Images/ansatz_oplopps.png>] [740]
+<Images/vqe_grad-based.png, id=8332, 719.68875pt x 508.90125pt>
+File: Images/vqe_grad-based.png Graphic file (type png)
+<use Images/vqe_grad-based.png>
+Package pdftex.def Info: Images/vqe_grad-based.png  used on input line 19760.
 (pdftex.def)             Requested size: 322.50346pt x 228.05609pt.
  [741]
-<../Images/vqe_barrenplatuea.png, id=8363, 629.35126pt x 488.57532pt>
-File: ../Images/vqe_barrenplatuea.png Graphic file (type png)
-<use ../Images/vqe_barrenplatuea.png>
-Package pdftex.def Info: ../Images/vqe_barrenplatuea.png  used on input line 19790.
+<Images/vqe_barrenplatuea.png, id=8363, 629.35126pt x 488.57532pt>
+File: Images/vqe_barrenplatuea.png Graphic file (type png)
+<use Images/vqe_barrenplatuea.png>
+Package pdftex.def Info: Images/vqe_barrenplatuea.png  used on input line 19790.
 (pdftex.def)             Requested size: 430.00462pt x 333.8222pt.
-<../Images/vqe_barrenplateaus.png, id=8364, 721.94719pt x 485.56406pt>
-File: ../Images/vqe_barrenplateaus.png Graphic file (type png)
-<use ../Images/vqe_barrenplateaus.png>
-Package pdftex.def Info: ../Images/vqe_barrenplateaus.png  used on input line 19795.
+<Images/vqe_barrenplateaus.png, id=8364, 721.94719pt x 485.56406pt>
+File: Images/vqe_barrenplateaus.png Graphic file (type png)
+<use Images/vqe_barrenplateaus.png>
+Package pdftex.def Info: Images/vqe_barrenplateaus.png  used on input line 19795.
 (pdftex.def)             Requested size: 430.00462pt x 289.20685pt.
- [742 <../Images/vqe_grad-based.png>] [743 <../Images/vqe_barrenplatuea.png>] [744 <../Images/vqe_barrenplateaus.png>]
-<../Images/vq_img.png, id=8401, 722.7pt x 359.09157pt>
-File: ../Images/vq_img.png Graphic file (type png)
-<use ../Images/vq_img.png>
-Package pdftex.def Info: ../Images/vq_img.png  used on input line 19831.
+ [742 <./Images/vqe_grad-based.png>] [743 <./Images/vqe_barrenplatuea.png>] [744 <./Images/vqe_barrenplateaus.png>]
+<Images/vq_img.png, id=8401, 722.7pt x 359.09157pt>
+File: Images/vq_img.png Graphic file (type png)
+<use Images/vq_img.png>
+Package pdftex.def Info: Images/vq_img.png  used on input line 19831.
 (pdftex.def)             Requested size: 430.00462pt x 213.6594pt.
- [745] [746 <../Images/vq_img.png>]
-<../Images/vqe_impl.png, id=8416, 499.8675pt x 174.6525pt>
-File: ../Images/vqe_impl.png Graphic file (type png)
-<use ../Images/vqe_impl.png>
-Package pdftex.def Info: ../Images/vqe_impl.png  used on input line 19879.
+ [745] [746 <./Images/vq_img.png>]
+<Images/vqe_impl.png, id=8416, 499.8675pt x 174.6525pt>
+File: Images/vqe_impl.png Graphic file (type png)
+<use Images/vqe_impl.png>
+Package pdftex.def Info: Images/vqe_impl.png  used on input line 19879.
 (pdftex.def)             Requested size: 322.50346pt x 112.68597pt.
- [747 <../Images/vqe_impl.png>] [748] [749]
-<../Images/ssvqe.png, id=8531, 721.19438pt x 360.59718pt>
-File: ../Images/ssvqe.png Graphic file (type png)
-<use ../Images/ssvqe.png>
-Package pdftex.def Info: ../Images/ssvqe.png  used on input line 19988.
+ [747 <./Images/vqe_impl.png>] [748] [749]
+<Images/ssvqe.png, id=8531, 721.19438pt x 360.59718pt>
+File: Images/ssvqe.png Graphic file (type png)
+<use Images/ssvqe.png>
+Package pdftex.def Info: Images/ssvqe.png  used on input line 19988.
 (pdftex.def)             Requested size: 430.00462pt x 215.00092pt.
- [750 <../Images/ssvqe.png>] [751] [752]
-<../Images/vqd_fig.png, id=8563, 718.93594pt x 355.3275pt>
-File: ../Images/vqd_fig.png Graphic file (type png)
-<use ../Images/vqd_fig.png>
-Package pdftex.def Info: ../Images/vqd_fig.png  used on input line 20056.
+ [750 <./Images/ssvqe.png>] [751] [752]
+<Images/vqd_fig.png, id=8563, 718.93594pt x 355.3275pt>
+File: Images/vqd_fig.png Graphic file (type png)
+<use Images/vqd_fig.png>
+Package pdftex.def Info: Images/vqd_fig.png  used on input line 20056.
 (pdftex.def)             Requested size: 430.00462pt x 212.53123pt.
- [753 <../Images/vqd_fig.png>] [754] [755]
-<../Images/vqd_circ.png, id=8586, 435.6275pt x 174.6525pt>
-File: ../Images/vqd_circ.png Graphic file (type png)
-<use ../Images/vqd_circ.png>
-Package pdftex.def Info: ../Images/vqd_circ.png  used on input line 20124.
+ [753 <./Images/vqd_fig.png>] [754] [755]
+<Images/vqd_circ.png, id=8586, 435.6275pt x 174.6525pt>
+File: Images/vqd_circ.png Graphic file (type png)
+<use Images/vqd_circ.png>
+Package pdftex.def Info: Images/vqd_circ.png  used on input line 20124.
 (pdftex.def)             Requested size: 322.50346pt x 129.29678pt.
- [756 <../Images/vqd_circ.png>] [757] [758] [759]
-<../Images/qsr_fig.png, id=8715, 718.18312pt x 345.54094pt>
-File: ../Images/qsr_fig.png Graphic file (type png)
-<use ../Images/qsr_fig.png>
-Package pdftex.def Info: ../Images/qsr_fig.png  used on input line 20255.
+ [756 <./Images/vqd_circ.png>] [757] [758] [759]
+<Images/qsr_fig.png, id=8715, 718.18312pt x 345.54094pt>
+File: Images/qsr_fig.png Graphic file (type png)
+<use Images/qsr_fig.png>
+Package pdftex.def Info: Images/qsr_fig.png  used on input line 20255.
 (pdftex.def)             Requested size: 430.00462pt x 206.8938pt.
- [760 <../Images/qsr_fig.png>] [761] [762]
+ [760 <./Images/qsr_fig.png>] [761] [762]
 Overfull \hbox (18.27832pt too wide) in paragraph at lines 20329--20330
 []\OT1/cmr/m/n/12 Qiskit SDK 1.0 or later, with vi-su-al-iza-tion sup-port (pip in-stall `qiskit[visulaization]' 
  []
 
 [763]
-<../Images/VQE_ansatz.png, id=8737, 592.614pt x 125.7498pt>
-File: ../Images/VQE_ansatz.png Graphic file (type png)
-<use ../Images/VQE_ansatz.png>
-Package pdftex.def Info: ../Images/VQE_ansatz.png  used on input line 20376.
+<Images/VQE_ansatz.png, id=8737, 592.614pt x 125.7498pt>
+File: Images/VQE_ansatz.png Graphic file (type png)
+<use Images/VQE_ansatz.png>
+Package pdftex.def Info: Images/VQE_ansatz.png  used on input line 20376.
 (pdftex.def)             Requested size: 322.50346pt x 68.43536pt.
- [764] [765 <../Images/VQE_ansatz.png>]
-<../Images/VQE_optimized_ansatz.png, id=8789, 1293.633pt x 265.2309pt>
-File: ../Images/VQE_optimized_ansatz.png Graphic file (type png)
-<use ../Images/VQE_optimized_ansatz.png>
-Package pdftex.def Info: ../Images/VQE_optimized_ansatz.png  used on input line 20411.
+ [764] [765 <./Images/VQE_ansatz.png>]
+<Images/VQE_optimized_ansatz.png, id=8789, 1293.633pt x 265.2309pt>
+File: Images/VQE_optimized_ansatz.png Graphic file (type png)
+<use Images/VQE_optimized_ansatz.png>
+Package pdftex.def Info: Images/VQE_optimized_ansatz.png  used on input line 20411.
 (pdftex.def)             Requested size: 322.50346pt x 66.12138pt.
- [766 <../Images/VQE_optimized_ansatz.png>] [767] [768]
-<../Images/VQE_results.png, id=8878, 417.7206pt x 312.2064pt>
-File: ../Images/VQE_results.png Graphic file (type png)
-<use ../Images/VQE_results.png>
-Package pdftex.def Info: ../Images/VQE_results.png  used on input line 20521.
+ [766 <./Images/VQE_optimized_ansatz.png>] [767] [768]
+<Images/VQE_results.png, id=8878, 417.7206pt x 312.2064pt>
+File: Images/VQE_results.png Graphic file (type png)
+<use Images/VQE_results.png>
+Package pdftex.def Info: Images/VQE_results.png  used on input line 20521.
 (pdftex.def)             Requested size: 322.50346pt x 241.03802pt.
- [769 <../Images/VQE_results.png>]
+ [769 <./Images/VQE_results.png>]
 Appendix A.
 [770
 
@@ -3738,44 +3738,44 @@ Appendix B.
 [858
 
 ] [859] [860] [861] [862] [863]
-<../Images/compute.png, id=9504, 946.53625pt x 622.325pt>
-File: ../Images/compute.png Graphic file (type png)
-<use ../Images/compute.png>
-Package pdftex.def Info: ../Images/compute.png  used on input line 23400.
+<Images/compute.png, id=9504, 946.53625pt x 622.325pt>
+File: Images/compute.png Graphic file (type png)
+<use Images/compute.png>
+Package pdftex.def Info: Images/compute.png  used on input line 23400.
 (pdftex.def)             Requested size: 344.005pt x 226.1734pt.
  [864]
-<../Images/classical_circ.png, id=9512, 376.40625pt x 185.69376pt>
-File: ../Images/classical_circ.png Graphic file (type png)
-<use ../Images/classical_circ.png>
-Package pdftex.def Info: ../Images/classical_circ.png  used on input line 23426.
+<Images/classical_circ.png, id=9512, 376.40625pt x 185.69376pt>
+File: Images/classical_circ.png Graphic file (type png)
+<use Images/classical_circ.png>
+Package pdftex.def Info: Images/classical_circ.png  used on input line 23426.
 (pdftex.def)             Requested size: 215.0023pt x 106.07037pt.
- [865 <../Images/compute.png>] [866 <../Images/classical_circ.png>] [867] [868]
+ [865 <./Images/compute.png>] [866 <./Images/classical_circ.png>] [867] [868]
 Appendix C.
-<../Images/Qiskit.png, id=9535, 900.36375pt x 341.77687pt>
-File: ../Images/Qiskit.png Graphic file (type png)
-<use ../Images/Qiskit.png>
-Package pdftex.def Info: ../Images/Qiskit.png  used on input line 23478.
+<Images/Qiskit.png, id=9535, 900.36375pt x 341.77687pt>
+File: Images/Qiskit.png Graphic file (type png)
+<use Images/Qiskit.png>
+Package pdftex.def Info: Images/Qiskit.png  used on input line 23478.
 (pdftex.def)             Requested size: 430.00462pt x 163.23225pt.
 [869
 
-] [870 <../Images/Qiskit.png>] [871] [872] [873]
-<../Images/AnatomyofQC.png, id=9582, 1005.7575pt x 537.00626pt>
-File: ../Images/AnatomyofQC.png Graphic file (type png)
-<use ../Images/AnatomyofQC.png>
-Package pdftex.def Info: ../Images/AnatomyofQC.png  used on input line 23539.
+] [870 <./Images/Qiskit.png>] [871] [872] [873]
+<Images/AnatomyofQC.png, id=9582, 1005.7575pt x 537.00626pt>
+File: Images/AnatomyofQC.png Graphic file (type png)
+<use Images/AnatomyofQC.png>
+Package pdftex.def Info: Images/AnatomyofQC.png  used on input line 23539.
 (pdftex.def)             Requested size: 322.50346pt x 172.18965pt.
- [874 <../Images/AnatomyofQC.png>]
-<../Images/results_example.png, id=9589, 510.90875pt x 394.47375pt>
-File: ../Images/results_example.png Graphic file (type png)
-<use ../Images/results_example.png>
-Package pdftex.def Info: ../Images/results_example.png  used on input line 23547.
+ [874 <./Images/AnatomyofQC.png>]
+<Images/results_example.png, id=9589, 510.90875pt x 394.47375pt>
+File: Images/results_example.png Graphic file (type png)
+<use Images/results_example.png>
+Package pdftex.def Info: Images/results_example.png  used on input line 23547.
 (pdftex.def)             Requested size: 322.50346pt x 249.0013pt.
 
 Underfull \hbox (badness 10000) in paragraph at lines 23553--23555
 
  []
 
-[875 <../Images/results_example.png>] [876]
+[875 <./Images/results_example.png>] [876]
 Underfull \hbox (badness 10000) in paragraph at lines 23590--23592
 
  []
@@ -3802,12 +3802,12 @@ Package rerunfilecheck Info: File `notes.out' has not changed.
  ) 
 Here is how much of TeX's memory you used:
  81008 strings out of 474824
- 1986673 string characters out of 5750976
- 3020295 words of memory out of 5000000
+ 1980991 string characters out of 5750976
+ 3020289 words of memory out of 5000000
  97965 multiletter control sequences out of 15000+600000
  579203 words of font info for 116 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 84i,22n,97p,3067b,2255s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 84i,22n,97p,3085b,2255s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\nihar\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1000.pk> <C:\Users\nihar\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1200.pk><C:/Users/nihar/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/nihar/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx8.pfb><C:/Users/nihar/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbxti10.pfb><C:/Users/nihar/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/nihar/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cmextra/cmex8.pfb><C:/Users/nihar/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/nihar/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Users/nihar/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi6.pfb><C:/Users/nihar/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Users/nihar/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/nihar/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/nihar/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Users/nihar/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr6.pfb><C:/Users/nihar/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/nihar/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsl12.pfb><C:/Users/nihar/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/nihar/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy6.pfb><C:/Users/nihar/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Users/nihar/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti12.pfb><C:/Users/nihar/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt12.pfb><C:/Users/nihar/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb><C:/Users/nihar/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm7.pfb>
 Output written on notes.pdf (896 pages, 10425591 bytes).
 PDF statistics:

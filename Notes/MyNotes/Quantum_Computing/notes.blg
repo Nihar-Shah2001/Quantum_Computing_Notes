@@ -3,8 +3,8 @@ Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: notes.aux
 Reallocating 'name_of_file' (item size: 1) to 6 items.
 The style file: plain.bst
-Reallocating 'name_of_file' (item size: 1) to 11 items.
-Database file #1: references.bib
+Reallocating 'name_of_file' (item size: 1) to 14 items.
+Database file #1: references_qc.bib
 Warning--I didn't find a database entry for "cooley1965algorithm"
 Warning--I didn't find a database entry for "ambainis2018quantumspeedupsexponentialtimedynamic"
 Warning--I didn't find a database entry for "harrow2009quantum"
@@ -12,7 +12,7 @@ Warning--I didn't find a database entry for "shewchuk1994introduction"
 Warning--I didn't find a database entry for "dervovic2018quantumlinearsystemsalgorithms"
 You've used 4 entries,
             2118 wiz_defined-function locations,
-            520 strings with 4545 characters,
+            520 strings with 4548 characters,
 and the built_in function-call counts, 891 in all, are:
 = -- 76
 > -- 34
