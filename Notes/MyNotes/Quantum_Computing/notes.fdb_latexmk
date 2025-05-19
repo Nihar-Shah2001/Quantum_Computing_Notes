@@ -1,13 +1,13 @@
 # Fdb version 4
-["bibtex notes"] 1747670930 "notes.aux" "notes.bbl" "notes" 1747670965 0
+["bibtex notes"] 1747671882 "notes.aux" "notes.bbl" "notes" 1747671930 0
   "./references_qc.bib" 1719226196 829 6e18589a2567e5e721532f0af16a06ce ""
   "C:/Users/nihar/AppData/Local/Programs/MiKTeX/bibtex/bst/bibtex/plain.bst" 1291864736 20613 bd3fbfa9f64872b81ac57a0dd2ed855f ""
-  "notes.aux" 1747670963 185815 0850d5b6d86cd50f82e0034e1d0cac17 "pdflatex"
+  "notes.aux" 1747671927 185815 0850d5b6d86cd50f82e0034e1d0cac17 "pdflatex"
   (generated)
   "notes.bbl"
   "notes.blg"
   (rewritten before read)
-["pdflatex"] 1747670931 "c:/Users/nihar/OneDrive - Indian Institute of Science/Indian Institute of Science/MTech_Thesis/Notes/MyNotes/Quantum_Computing/notes.tex" "notes.pdf" "notes" 1747670965 0
+["pdflatex"] 1747671882 "c:/Users/nihar/OneDrive - Indian Institute of Science/Indian Institute of Science/MTech_Thesis/Notes/MyNotes/Quantum_Computing/notes.tex" "notes.pdf" "notes" 1747671930 0
   "C:/Users/nihar/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1735200300 857234 e8a1a9d86e493b5630a833b8f14f22c6 ""
   "C:/Users/nihar/AppData/Local/MiKTeX/fonts/pk/ljfour/jknappen/ec/dpi600/tcrm1000.pk" 1697895613 11548 713c9676616bbafc2931a09738654aa2 ""
   "C:/Users/nihar/AppData/Local/MiKTeX/fonts/pk/ljfour/jknappen/ec/dpi600/tcrm1200.pk" 1701119847 14064 4c991fe2c8dc029152f3d8c217ba8f62 ""
@@ -611,12 +611,12 @@
   "Images/vqe_impl.png" 1747651111 10085 87681d4d298fe0ce22669a4a63746cae ""
   "Images/zne-plot.png" 1747651110 38826 634e2a530a673d47b571619c22982421 ""
   "Images/zne.png" 1747651110 23512 31f1ac86fae4504508fcc41073281498 ""
-  "c:/Users/nihar/OneDrive - Indian Institute of Science/Indian Institute of Science/MTech_Thesis/Notes/MyNotes/Quantum_Computing/notes.tex" 1747670809 1799893 4a666022d156e0069fe52f3a24ddbff5 ""
-  "notes.aux" 1747670963 185815 0850d5b6d86cd50f82e0034e1d0cac17 "pdflatex"
-  "notes.bbl" 1747670930 627 ede98de0118dd1b4d0b06ae2855ff293 "bibtex notes"
-  "notes.out" 1747670964 77333 4ce3d79ea54b06dec6aa50f504e705ca "pdflatex"
-  "notes.tex" 1747670809 1799893 4a666022d156e0069fe52f3a24ddbff5 ""
-  "notes.toc" 1747670964 49035 667a9e6d0f224abb0378cd96dfc4e68b "pdflatex"
+  "c:/Users/nihar/OneDrive - Indian Institute of Science/Indian Institute of Science/MTech_Thesis/Notes/MyNotes/Quantum_Computing/notes.tex" 1747671674 1799893 4a666022d156e0069fe52f3a24ddbff5 ""
+  "notes.aux" 1747671927 185815 0850d5b6d86cd50f82e0034e1d0cac17 "pdflatex"
+  "notes.bbl" 1747671882 627 ede98de0118dd1b4d0b06ae2855ff293 "bibtex notes"
+  "notes.out" 1747671928 77333 4ce3d79ea54b06dec6aa50f504e705ca "pdflatex"
+  "notes.tex" 1747671674 1799893 4a666022d156e0069fe52f3a24ddbff5 ""
+  "notes.toc" 1747671928 49035 667a9e6d0f224abb0378cd96dfc4e68b "pdflatex"
   (generated)
   "notes.aux"
   "notes.log"
