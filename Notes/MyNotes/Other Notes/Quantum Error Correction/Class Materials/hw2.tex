@@ -1,0 +1,86 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{times}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{braket}
+
+\renewcommand{\baselinestretch}{1.2}
+\setlength{\oddsidemargin}{-0.3in}
+\setlength{\evensidemargin}{-0.3in}
+\setlength{\textwidth}{7in} %old value 6.3in
+\setlength{\textheight}{10in} %old value 8.6in
+\setlength{\topmargin}{-0.75in} %old value -0.5in
+\setlength{\parskip}{1.2ex}
+
+\def\c{\mathbf{c}}
+\def\e{\mathbf{e}}
+\def\r{\mathbf{r}}
+\def\u{\mathbf{u}}
+\def\x{\mathbf{x}}
+\def\y{\mathbf{y}}
+\def\z{\mathbf{z}}
+\def\0{\boldsymbol{0}}
+
+\def\Z{{\mathbb Z}}
+\def\F{{\mathbb F}}
+\def\R{{\mathbb R}}
+
+\def\bar{\overline}
+\DeclareMathOperator{\tr}{tr}
+
+\def\cC{\mathcal{C}}
+\def\cD{\mathcal{D}}
+\def\cE{\mathcal{E}}
+\def\cH{\mathcal{H}}
+\def\cY{\mathcal{Y}}
+
+\pagestyle{empty}
+
+%\topmargin=0mm
+\begin{document}
+
+
+\begin{center}
+{\Large \bf E2 210 (Jan.--Apr.\ 2025)} \\[6pt]
+
+{\large\bf Homework Assignment 2} \\[6pt]
+
+{\bf Submission deadline: Monday, Feb.\ 10, 11:59pm}
+\end{center}
+
+\vspace{2ex}
+% \noindent \textsf{\small This assignment consists of two pages.}
+% \noindent \textsf{\small Questions marked with * will not be discussed in the tutorial sessions. You have to solve them on your own.}
+
+\noindent
+\begin{enumerate}
+\item Fidelity is a distance measure between two density matrices, defined as $F(\rho,\sigma) := \tr \sqrt{\rho^{\frac12} \sigma \rho^{\frac12}}$. 
+\begin{enumerate}
+\item Let $F(|\psi\rangle,\rho)$ denote the fidelity between the density matrix, $|\psi\rangle\langle\psi|$, of a pure state $|\psi\rangle$ and an arbitrary density $\rho$. Show that $F(|\psi\rangle,\rho) = \sqrt{\langle\psi|\rho|\psi\rangle}$. \ \ 
+{[\emph{Hint\/}: Note that ${(|\psi\rangle\langle\psi|)}^2 = |\psi\rangle\langle\psi|$.]}
+\item If $\rho$ and $\sigma$ commute (i.e., $\rho\sigma = \sigma\rho$), then show that $F(\rho,\sigma) = \sum\limits_i\sqrt{\lambda_i \mu_i}$, where the $\lambda_i$'s and $\mu_i$'s are the eigenvalues of $\rho$ and $\sigma$, respectively. \\[4pt]
+{[\emph{Hint}\/: Since $\rho$ and $\sigma$ commute, they are simultaneously diagonalizable, i.e., they are diagonalizable in the same ON basis.]}
+\end{enumerate}
+
+\item Quantum noise and fidelity.
+\begin{enumerate}
+\item Consider the depolarizing noise channel:
+$$\mathcal{E}(\rho) = (1-p) \rho + \frac{p}{3} \, \bigl(X \rho X + Y \rho Y + Z \rho Z\bigr).$$ 
+Show that if a qubit in state $\ket\psi$ passes through the depolarizing noise channel, then the fidelity between $\ket\psi$ and $\sigma := \mathcal{E}(\ket\psi\!\!\bra\psi)$ is $F(\ket\psi,\sigma) = \sqrt{1-2p/3}$.
+\item Consider the amplitude damping channel with parameter $\gamma$:
+$$
+\cE_{\text{AD}}(\rho) = E_0 \rho E_0^{\dag} + E_1 \rho E_1^\dag,
+$$
+where $E_0 = \begin{bmatrix} 1 & 0 \\ 0 & \sqrt{1-\gamma} \end{bmatrix}$ and $E_1 = \begin{bmatrix} 0 & \sqrt\gamma \\ 0 & 0 \end{bmatrix}$. \ Let $\sigma :=  \cE_{\text{AD}} (\ket\psi\!\!\bra\psi)$ be the density matrix of a qubit $\ket\psi$ after it passes through the amplitude damping channel. Show that 
+$$
+F(\ket\psi,\sigma) \ge \sqrt{1-\gamma} \, ,
+$$
+with equality if and only if $\ket\psi = \ket{1}$.
+\end{enumerate}
+
+\item The $S$ gate is a single-qubit gate that applies a $\pi/2$ phase shift to the $\ket{1}$ state while leaving $\ket{0}$ unaffected: $S\ket{0} = \ket{0}$ and $S\ket{1} = i\ket{1}$. Consider the $2$-qubit quantum code $\mathcal{Q} = \text{span}(\ket{++}, \ket{--})$. Can this code recover from a single $\pi/2$ phase shift error? In other words, is there a recovery operation that allows any quantum state $|\varphi\rangle \in \mathcal{Q}$ to be recovered from any error in the set $\mathcal{E} = \{I \otimes I,S \otimes I, I \otimes S\}$? 
+
+\end{enumerate}
+
+
+\end{document}

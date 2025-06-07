@@ -1,0 +1,94 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{times}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\renewcommand{\baselinestretch}{1.2}
+\setlength{\oddsidemargin}{-0.3in}
+\setlength{\evensidemargin}{-0.3in}
+\setlength{\textwidth}{7in} %old value 6.3in
+\setlength{\textheight}{10in} %old value 8.6in
+\setlength{\topmargin}{-0.75in} %old value -0.5in
+\setlength{\parskip}{1.2ex}
+
+\def\c{\mathbf{c}}
+\def\e{\mathbf{e}}
+\def\r{\mathbf{r}}
+\def\u{\mathbf{u}}
+\def\x{\mathbf{x}}
+\def\y{\mathbf{y}}
+\def\z{\mathbf{z}}
+\def\0{\boldsymbol{0}}
+
+\def\Z{{\mathbb Z}}
+\def\F{{\mathbb F}}
+\def\R{{\mathbb R}}
+
+\def\bar{\overline}
+
+\def\cC{\mathcal{C}}
+\def\cD{\mathcal{D}}
+\def\cE{\mathcal{E}}
+\def\cH{\mathcal{H}}
+\def\cY{\mathcal{Y}}
+
+\pagestyle{empty}
+
+%\topmargin=0mm
+\begin{document}
+
+
+\begin{center}
+{\Large \bf E2 210 (Jan.--Apr.\ 2025)} \\[6pt]
+
+{\large\bf Homework Assignment 1} \\[6pt]
+
+{\bf Submission deadline: Wednesday, Jan.\ 29, 11:59pm}
+\end{center}
+
+\vspace{2ex}
+% \noindent \textsf{\small This assignment consists of two pages.}
+% \noindent \textsf{\small Questions marked with * will not be discussed in the tutorial sessions. You have to solve them on your own.}
+
+\noindent
+\begin{enumerate}
+\item Let $\cC$ be a linear code with minimum distance $d$, and let
+$s,t$ be non-negative integers such that $2t + s \le d-1$.
+Describe a decoder for $\cC$ that can correct every error-and-erasure
+pattern that contains at most $t$ errors along with at most $s$ erasures.
+
+\item Let $\F_{11}$ be the field of integers modulo-$11$, i.e., the set of integers $\{0,1,2,\ldots,9,10\}$ with mod-$11$ arithmetic.
+Consider the ISBN code over $\F_{11}$:
+$$
+\cC_\text{ISBN} = \biggl\{(c_1,c_2,\ldots,c_{10}) \in {(\F_{11})}^{10}:\
+ \sum_{i=1}^{10} (11-i) \cdot c_i \equiv 0 \pmod{11}\biggr\}.
+$$
+\begin{enumerate}
+\item Verify that $\cC_\text{ISBN}$ is a linear code by providing a parity-check matrix for it.
+\item Determine the dimension and minimum distance of $\cC_\text{ISBN}$.
+\item Derive a generator matrix for $\cC_\text{ISBN}$.
+\end{enumerate}
+
+\item Consider a new and improved ISBN code $\cC_\text{ISBN}^{\#}$ that consists of all codewords $(c_1,c_2,\ldots,c_{10})$ of the ISBN code $\cC_\text{ISBN}$ that \underline{additionally} satisfy the requirement that $c_1+c_2+\cdots+c_{10} \equiv 0 \pmod{11}$.  
+\begin{enumerate}
+\item Determine the dimension and minimum distance of $\cC_\text{ISBN}^{\#}$.
+\item How many errors can this code correct?
+\end{enumerate}
+
+\item
+An international publishing house is seeking to design a linear code of length 10 over $\F_{11}$ to be used as an 
+enhanced International Standard Book Number (ISBN) scheme. 
+Their requirement is that the code, with a suitable choice of decoder,
+should be able to \underline{correct} single transposition errors.
+These are errors in which \emph{exactly one} pair $(c_i,c_j)$ of coordinates
+in a codeword $\c = (c_1,c_2,\ldots,c_{10})$ gets interchanged; for example,
+the codeword $(1,2,3,4,5,6,7,8,9,10)$ may get transformed to 
+$(1,2,\mathbf{6},4,5,\mathbf{3},7,8,9,10)$. Other kinds of errors may be ignored.
+
+Does the code $\cC_\text{ISBN}^{\#}$ of Problem~3, under syndrome decoding, meet the requirements of the enhanced ISBN scheme? \\[0pt]
+[\emph{Hint\/}: All the error vectors that are to be corrected must lie in distinct cosets, so that they can be chosen to be coset leaders for the purposes of syndrome decoding. Identify the error vectors $\e$ obtainable as $\e = \y-\c$, where $\c$ is a codeword,
+and $\y$ is obtained by interchanging some two coordinates of $\c$. How many such error vectors are there? How many cosets does $\cC_\text{ISBN}^{\#}$ have?]
+
+\end{enumerate}
+
+
+\end{document}

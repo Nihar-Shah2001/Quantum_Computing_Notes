@@ -1,0 +1,96 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{times}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{braket}
+
+\renewcommand{\baselinestretch}{1.2}
+\setlength{\oddsidemargin}{-0.3in}
+\setlength{\evensidemargin}{-0.3in}
+\setlength{\textwidth}{7in} %old value 6.3in
+\setlength{\textheight}{10in} %old value 8.6in
+\setlength{\topmargin}{-0.75in} %old value -0.5in
+\setlength{\parskip}{1.2ex}
+
+\def\a{\mathbf{a}}
+\def\b{\mathbf{b}}
+\def\c{\mathbf{c}}
+\def\e{\mathbf{e}}
+\def\h{\mathbf{h}}
+\def\r{\mathbf{r}}
+\def\u{\mathbf{u}}
+\def\x{\mathbf{x}}
+\def\y{\mathbf{y}}
+\def\z{\mathbf{z}}
+\def\0{\boldsymbol{0}}
+
+\def\C{{\mathbb C}}
+\def\F{{\mathbb F}}
+\def\R{{\mathbb R}}
+\def\Z{{\mathbb Z}}
+
+\def\bar{\overline}
+\DeclareMathOperator{\tr}{tr}
+
+\def\cC{\mathcal{C}}
+\def\cD{\mathcal{D}}
+\def\cE{\mathcal{E}}
+\def\cH{\mathcal{H}}
+\def\cP{\mathcal{P}}
+\def\cQ{\mathcal{Q}}
+\def\cS{\mathcal{S}}
+\def\cY{\mathcal{Y}}
+
+\pagestyle{empty}
+
+%\topmargin=0mm
+\begin{document}
+
+
+\begin{center}
+{\Large \bf E2 210 (Jan.--Apr.\ 2025)} \\[6pt]
+
+{\large\bf Homework Assignment 3} \\[6pt]
+
+{\bf Submission deadline: Monday, March 3, 11:59pm}
+\end{center}
+
+\vspace{2ex}
+% \noindent \textsf{\small This assignment consists of two pages.}
+% \noindent \textsf{\small Questions marked with * will not be discussed in the tutorial sessions. You have to solve them on your own.}
+
+\noindent
+\begin{enumerate}
+\item Show that the set of Pauli matrices $\bigl\{X(\a) Z(\b): \a, \b \in \{0,1\}^n\bigr\}$ is an orthonormal basis for the vector space, $\C^{N \times N}$, of $N \times N$ complex matrices, under the Hilbert-Schmidt inner product: $(A,B) \stackrel{\text{def}}{=} \frac{1}{N} \tr(A^\dag B)$. (Here, as usual $N = 2^n$.)
+
+\item Let $G$ be a graph on the vertex set $[n] := \{1,2,\ldots,n\}$ having edge set $E \subseteq \binom{[n]}{2}$. (Here, $\binom{[n]}{2}$ denotes the set of all $2$-subsets of $[n]$, so that edges are certain $2$-subsets of $[n]$. In particular, the graph has no self-loops, i.e., edges that connect a vertex to itself.) 
+
+Let $A$ be the adjacency matrix of $G$; this is the $n \times n$ matrix with $0/1$ entries, whose $(i,j)$-th entry is $1$ iff $\{i,j\}$ is an edge of $G$. Set $H = [I \mid A]$, where $I$ is the $n \times n$ identity matrix. Thus, $H$ is an $n \times 2n$ matrix having rank $n$.
+\begin{enumerate}
+\item Show that the symplectic product between any pair of rows of $H$ is $0$. 
+\item If $\cS$ is the stabilizer group defined by the check matrix $H$, what is $\dim \cQ_{\cS}$?
+\end{enumerate}
+
+\item In this exercise, we will prove the following proposition:
+
+\textbf{Proposition}: Let $\cC_1$ and $\cC_2$ be, respectively, $[n,k_1]$ and $[n,k_2]$ binary linear codes such that $\cC_1^{\perp} \subseteq \cC_2$. Let $A_0 := \cC_1^{\perp}$, $A_1$, \ldots, $A_{K-1}$ be a listing of the $K = 2^{k_1+k_2-n}$ cosets of $\cC_1^{\perp}$ within $\cC_2$. Then, the quantum states 
+$$
+\ket{\phi_j} := \frac{1}{\sqrt{2^{n-k_1}}} \sum_{\x \in A_j} \ket{\x}, \ \ \ j = 0,1,\ldots,K-1,
+$$
+form an orthonormal basis of the quantum code $\mathcal{Q}$ obtained via the CSS construction from $\cC_1$ and $\cC_2$.
+
+\begin{itemize}
+\item[(a)] Show that $\braket{\phi_i | \phi_j} = \delta_{i,j}$. \\ {[\emph{Hint\/}: Note that $\braket{\b|\b'} = 0$ for any pair of distinct binary $n$-tuples  $\b$ and $\b'$. Now, use the fact that cosets $A_i$ and $A_j$ are disjoint for $i \ne j$.]} 
+\end{itemize}
+
+Let $H_1$ and $H_2$ be any pair of parity-check matrices for $\cC_1$ and $\cC_2$, respectively, of full row-rank. Thus, $H_1$ and $H_2$ are, respectively, $(n-k_1) \times n$ and $(n-k_2) \times n$ binary matrices such that $H_1 H_2^T = \boldsymbol{0}$ over $\F_2$. By the CSS construction, the stabilizer generators are $X(\h)$ and $Z(\h')$, where $\h$ and $\h'$ range over the rows of $H_1$ and $H_2$, respectively.
+
+\begin{itemize}
+\item[(b)]  Argue that, for any binary $n$-tuples $\x$, $\h$ and $\h'$, we have $X(\h)\ket{\x} = \ket{\x \oplus \h}$ and $Z(\h') \ket{\x} = (-1)^{\h' \cdot \x}\ket{\x}$. In other words, the Pauli operator $X(\h)$ applied to $\ket{\x}$ yields $\ket{\x \oplus \h}$, and the Pauli operator $Z(\h')$ applied to $\ket{\x}$ yields $(-1)^{\h' \cdot \x}\ket{\x}$.
+\item[(c)] Show, using (b), that for any row $\h$ of $H_1$, we have $X(\h) \ket{\phi_j} = \ket{\phi_j}$, and for any row $\h'$ of $H_2$, we have $Z(\h') \ket{\phi_j} = \ket{\phi_j}$. \\ {[\emph{Hint\/}: Write the sum $\displaystyle \sum\limits_{\x \in A_j} \ket{\x}$ as $\displaystyle \sum\limits_{\c \in \cC_1^\perp} \ket{\a \oplus \c}$, where $\a$ is a fixed binary vector (a ``coset leader'') in $A_j$.]}
+\end{itemize}
+
+\end{enumerate}
+
+
+\end{document}
