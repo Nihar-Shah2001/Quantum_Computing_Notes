@@ -1,0 +1,317 @@
+\chapter{Discrete log Problem}
+The quantum ``algorithms" that we've seen up until now are not algorithms in usual sense. They are in the black-box model, where one is given an unknown function and the goal is to extract information about the functions with as few queries to the function as possible. Often, the unknown function is promised to have a special king of structure (such as the function arising in Simon's problem).
+
+In the next section I will described a remarkable algorithm for solving the discrete log problem (DLP). This is not a black box problem! It is a conventional computational problem where the input is given as a binary string and the output is also a binary string. No classical polynomial algorithm is known for this problem. In fact, the presumed hardness of this problem has been the basis of crypto systems (such as the Diffie-Hellman key exchange protocol). In 1994, Peter Shor discovered a polynomial algorithm for this problem, and it's based on the underlying methodologies used in Simon's algorithm - which may sound surprising, since Simon's problem is a black-box problem.
+
+In this section, I define the discrete log problem. In the next section I will describe Shor's polynomial quantum algorithm for this problem. In order to define the discrete log problem, we first need to be familiar with two sets, called $\mathbb{Z}_m$ and $\mathbb{Z}_m^*$.
+
+\section{Definition of \texorpdfstring{$\mathbb{Z}_m$ and $\mathbb{Z}_m^*$}{Zm and Zm*}}
+\begin{definition}
+    (of the ring $\mathbb{Z}_m$) For any positive integer $m\geq 2$, define $\mathbb{Z}_m$ as the set $\{0,1,\ldots,m-1\}$, equipped with addition and multiplication modulo m.
+\end{definition}
+
+A familiar example of a ring is the set of all integer $\mathbb{Z}$ equipped with ``ordinary" addition and multiplication. Note that there are only two elements of $\mathbb{Z}$ that have multiplicative inverses (namely $+1$ and $-1$). What are the elements of $\mathbb{Z}_m$ that have multiplicative inverses? It depends on $m$. Let's look at the case where $m=9$. The elements of $\mathbb{Z}_9$ that have multiplicative inverses are $1,2,4,5,7$ and $8$ ($0,3$ and $6$ do not have multiplicative inverses). Here, $2$ and $5$ are multiplicative inverses for each other since, $2\times 5 =10 (\text{mod} 9) = 1$. Similarly, $4 \times 7 =28 (\text{mod} 1) = 1$, $1\times 1 = 1 (\text{mod} 9)=1$, $8 \times 8 = 64 (\text{mod} 9 )$ 
+
+\begin{definition}
+    (of the group $\mathbb{Z}_m^*$). For any positive integer $m\geq 2$, the set $\mathbb{Z}_m^*$ consists of all elements of $\mathbb{Z}_m$ that have multiplicative inverses. $\mathbb{Z}_m^*$ is a group.
+\end{definition}
+For the purposes of DLP, we need only consider $\mathbb{Z}_p^*$ for prime $p$. In that case, it's known that every non-zero element of $\mathbb{Z}_p^*$ has a multiplicative inverse. Therefore we can use this simple definition of the group $\mathbb{Z}_p^*$ for case where $p$ is prime.
+
+\begin{definition}
+    (of the group $\mathbb{Z}_p^*$). For any prime $p$, define $\mathbb{Z}_p^*$ as the group with elements $\{1,\ldots,p-1\}$, where the operations is multiplication modulo $p$.
+\end{definition}
+
+\section{Generators of \texorpdfstring{$\mathbb{Z}_p^*$ and the exponential/log functions}{Zp* and exponential/log functions}}
+An element $g$ of the group $\mathbb{Z}_p^*$ is called a generator of the group if the set of all powers $g$ is the group. Whenever a group has such an element, it is called cyclic.
+
+Let's consider the case where $p=7$ as an example. $\mathbb{Z}_7^*=\{1,2,3,4,5,6\}$. Obviously $1$ is not a generator, since all powers of 1 are just 1. What about 2? 2 is not a generator either, because if we list the powers of $2$, which are $2^0,2^1,2^2,$ and so on, we get the sequence, $1,2,4,1,2,4,\ldots$ so we only get the set $\{1,2,4\}$, which is a proper subgroup of $\mathbb{Z}_7^*$. What about $3$? $3$ is a generator, since the powers of $3$ are $1,2,3,6,4,5,1,3,2,\ldots$, which is the entire set of $\mathbb{Z}_7^*$. It turns out that $\mathbb{Z}_p^*$ is cyclic for any prime $p$.
+
+\begin{theorem}
+    For any prime $p$, there exists $g \in\mathbb{Z}_p^*$ such that
+    \[
+    Z_p^*=\{g^k:k\in\{0,1,\ldots,p-2\}\}
+    \]
+\end{theorem}
+Notice that the exponents run from $0$ to $p-2$. This makes sense because the size of $\mathbb{Z}_p^*$ is $p-1$ (it's not $p$ because $0\neq \mathbb{Z}_p^*).$ So the set of exponents of a generator is $\mathbb{Z}_{p-1}$ (it's not $\mathbb{Z}_p$). And, if the elements of $\mathbb{Z}_p^*$ are expressed as powers of a generator $g$, then $g^xg^y=g^{x+y mod p-1}$ holds for any $x,y \in\mathbb{Z}_{p-1}$. In other words, multiplication in $\mathbb{Z}_p^*$ corresponds between the additive group $\mathbb{Z}_{p-1}$ and the multiplicative group $\mathbb{Z}_p^*$.
+
+\begin{definition}
+    (discrete exp function). Relative to a prime modulus $p$ and a generator $g$ of $\mathbb{Z}_p^*$, let's first define the discrete exponential function $exp_g:\mathbb{Z}_{p-1}\rightarrow \mathbb{Z}_p^*$ as, for all $r \in\mathbb{Z}_{p-1}$,
+    \[
+    exp_g(r)=g^r
+    \]
+\end{definition}
+\begin{definition}
+    (discrete log function). Relative to a prime modulus $p$ and a generator $g$  of $\mathbb{Z}_p^*$, define the discrete log function  $\log_g:\mathbb{Z}_p^*\rightarrow \mathbb{Z}_{p-1}$ as the inverse of the discrete exponential function $exp_g$. The input to $\log_g$ is some $s\in\mathbb{Z}_p^*$, and the output is the value of $r\in\mathbb{Z}_{p-1}$ such that $g^r=s$.
+\end{definition}
+
+\section{Discrete exponential problem}
+For the discrete exp problem, the input is $(p,g,r)$, where
+\begin{itemize}
+    \item $p$ is an n-bit prime
+    \item $g$ is a generator of $\mathbb{Z}_p^*$
+    \item $r \in \mathbb{Z}_{p-1}$
+\end{itemize}
+And the output is: $exp_g(r)$, which is $g^r$.
+
+How hard is it to compute this function? of course, $g^r$ is equal to $g$ multiplied by itself $r$ times. So $exp_g(r)$ can obviously computed by $r$ multiplications (the precise number is actually $r-1$). But $r$ is an $n$-bit number, so $r$ can be roughly as large as $2^n$. That's an exponentially large number of multiplcation operations!. Using this approach, the circuit size would be exponential in $n$. But there's a simple trick for doing this more efficiently, called repeated squring trick.
+
+\subsection{Repeated Squaring Trick}
+\label{subsec:repeated_squaring_trick}
+The idea is the following. You multiply $g$ by itself to get $g^2$. Then you multiply $g^2$ by itself of get $g^4$. And then you multiply $g^4$ by itself of get $g^8$, and so on. This way you can compute $g^{2n}$ at the cost of only $n$ multiplications. That's how the repeated squaring trick works when the exponent $r$ is a power of $2$.
+
+What if $r$ is not a power of 2? Then above idea can be adjusted to compute any $n-bit$ exponent $r$ with fewer than $2n$ multiplications. The idea is based on the fact that $g^r$ can be written as
+\[
+g^{r_n\ldots r_3r_2r_1}=((\ldots(g^{r_n})^2 \ldots g^{r_3})^2g^{r_2})^2g^{r_1}
+\]
+where $r_n\ldots r_3r_2r_1$ is the binary representation of an $n$-bit exponent $r$.
+
+Note that $O(n)$ multiplications, at cost $O(n\log n)$ gates each, leads to a classical gate cost of order $O(n^2 \log n)$ for computing the discrete exponential problem.
+
+\section{Discrete log problem}
+For the discrete log problem (DLP), the input is $(p,g,s)$, where
+\begin{itemize}
+    \item $p$ is an $n$ bit prime.
+    \item $g$ is a generator of $\mathbb{Z}_p^*$.
+    \item $s \in \mathbb{Z}_p^*$
+\end{itemize}
+And the output is $\log_g(s)$, which is the $r \in \mathbb{Z}_{p-1}$ for which $g^r=s$.
+
+\section{Shor's Algorithm for the discrete log problem}
+The overall idea behind Shor's algorithm is to convert the discrete log problem (DLP) into a generalization of Simon's problem, and then to solve the generalization of Simon's problem. Since DLP is not a black-box problem, how can such a conversion work? It works by creating a function with a property similar to Simon's that can be efficiently implemented so as to simulate black-box queries to the function. This is Shor's function.
+
+\subsection{Shor's function with a property similar to Simon's}
+Recall that an instance of the discrete log problem consists of three n-bit numbers: $p$ (an n-bit prime), $g$(a generator of $\mathbb{Z}_p^*$), and $s$ (an element of $\mathbb{Z}_p^*$).
+Shor's function $f:\mathbb{Z}_{p-1}\times \mathbb{Z}_{p-1} \rightarrow \mathbb{Z}_p^*$ is defined as
+\[
+f(a_1,a_2)=g^{a_1}s^{-a_2}
+\]
+for all $a_1,a_2 \in\mathbb{Z}_{p-1}$. What's interesting about this function is where the collisions are. When is $f(a_1,a_2)=f(b_1,b_2)?$
+\begin{theorem}
+    For an instance $(p,g,s)$ of DLP, the function $f:\mathbb{Z}_{p-1}\times \mathbb{Z}_{p-1}\rightarrow \mathbb{Z}_p^*$ defined by equation above has the property that
+    \[
+    f(a_1,a_2)=f(b_1,b_2) \quad \text{if and only if $(a_1,a_2)-(b_1,b_2)$ is a multiple of $(r,1)$}
+    \]
+    where $r=\log_g(s)$.
+\end{theorem}
+The significance of this is that it resembles the Simon property. It's the analogue of the Simon property when we switch from mod 2 arithmetic to mod $p-1$ arithmetic. To see this, recall that the simon property can be state as: $f(a)=f(b)$ is and only if $a \oplus b$ is either a string on $n$ zeroes or the string $r$. Notice that: $a\oplus b$ is the same as $a-b$ $a-b$ in the mod 2 arithmetic. So we can write the Simon property as:
+
+Simon property for $f:\mathbb{Z}_2^n\rightarrow \mathbb{Z}_2^n$
+$f(a_1,\ldots,a_n)=f(b_1,\ldots,b_n)$ if and only if $(a_1,\ldots,a_n)-(b_1,\ldots,b_n)$ is a multiple of $(r_1,\ldots,r_n)$ in mod 2 arithmetic.
+
+And here's again is the property that Shor's function has:
+
+\textbf{Property of Shor's function for} $f:\mathbb{Z}_{p-1}\times \mathbb{Z}_{p-1}\rightarrow \mathbb{Z}_p^*$ $f(a_1,a_2)=f(b_1,b_2)$ if and only if $(a_1,a_2)-(b_1,b_2)$ is a multiple of $(r,1)$ in mod $p-1$ arithmetic.
+
+\begin{proof}
+    The proof is elementary, but we'll go through it carefully. Although we do not know what $r$ is, we do know that an $r$ exists such that $s=g^r$. This means that $s^{a_2}=g^{ra_2}$. Therefore, $f(a_1,a_2)=g^{a_1}g^{-ra_2}=g^{a_1-ra_2}$. It's nice that to write $f$ this way, because then
+    \begin{align*}
+    f(a_1,a_2)&=f(b_1,b_2)\\
+    \text{if and only if} a_1-ra_2&=b_1-rb_2\\
+    \text{if and only if} (a_1,a_2)\cdot(1,-r)&=(b_1,b_2)\cdot(1,-r)\\
+    \text{if and only if }((a_1,a_2)-(b_1,b_2))\cdot(1,-r)=0
+    \end{align*}
+    In this equation, the dot product being zero is like an orthogonality relation between the vector $(a_1,a_2)-(b_1,b_2)$ and the vector $(1,-r)$. here's a schematic sketch of the vector $(1,-r)$.
+
+    Notice that the vector $(r,1)$ is orthogonal to the vector $(1,-r)$ in that their dot product is zero. Now, in a two-dimensional space,the vectors that are orthogonal to a particular vector are all multiples of one of the orthogonal vectors. So, we might expect $(a_1,a_2)-(b_1,b_2)$ to be a multiple of $(r,1)$. This intuition (valid for vector spaces with inner products) is confirmed in our context by a simple calculation:
+    \begin{align*}
+        (v_1,v_2)\cdot(1-r)&=0\\
+        \text{if and only if } v_1&=rv_2\\
+        \text{if and only if } v_2&=k \text{ and } v_1=rk, \text{ for some $k\in \mathbb{Z}_{p-1}$}\\
+        \text{if and only if } (v_1,v_2)&=k(r,1), \text{ for some $k\in \mathbb{Z}_{p-1}$}
+    \end{align*}
+    Therefore, $f(a_1,a_2)=f(b_1,b_2)$ if and only if $f(a_1,a_2)-(b_1,b_2)$ is a multiple of $(r,1)$.
+\end{proof}
+\subsection{The Simon mod $m$ problem}
+We've established that Shor's function satisfies a variant of Simon's property where the domain of the function is changed from $\{0,1\}^n=(\mathbb{Z}_2)^n$ to $(\mathbb{Z}_{p-1})^2$.
+
+Now, what we're going to do is digress from DLP to investigate the generalization of Simon's problem, where the modulus is changed from $2$ to $m$. We'll first find an efficient quantum black-box algorithm for the Simon mod $m$ problem, where we are given a function
+\[
+f:(\mathbb{Z}_m)^d \rightarrow T
+\]
+where $T$ can be any set-but for convenience we'll assume that $T=\{0,1\}^k$ for some $k$ (any $T$ can be enlarged so that it's size is a power of $2$).
+
+\begin{definition}
+    (of an $m$-to-$1$ function). A function is $m$-to$1$ if, for every value attained by the function there are exactly $m$ preimages. In other words, all colliding sets are of size $m$.
+\end{definition}
+Recall that, in the Simon;s original problem, we had colliding paris. Now, here is a mod $m$ analogue of the original Simon property.
+
+\begin{definition}
+    (Simon mod $m$ property). An $m$-to-$1$ function $f:(\mathbb{Z}_m)^d\rightarrow T$ satisfies the Simon mod $m$ property, if there exists a non-zero $r\in(\mathbb{Z}_m)^d$ such that: for all $a,b\in(\mathbb{Z}_m)^d$, it holds that $f(a)=f(b)$ if and only if $a-b$ is a multiple of $r$.
+\end{definition}
+Notice that the Simon mod $m$ property is equivalent to the property that every colliding set of $f$ is of the form $\{a,a+r,a+2r,\ldots,a+(m-1)r\}=\{a+kr:k\in\mathbb{Z}_m\}$, for some $a\in(\mathbb{Z}_m)^d$.
+Think of $\{kr:k\in\mathbb{Z}_m\}$ as a line in $(\mathbb{Z}_m)^d$ passing through the origin. And think of $\{a+kr:k\in\mathbb{Z}_m\}$ as an offset of the line by $a\in(\mathbb{Z}_m)^d$. Each colliding set is an offset. Recall that, for the original Simon property, the colliding pairs were of the form $\{a,a\oplus r\}$, which are offsets of $\{0,r\}$. 
+
+\begin{definition}
+For a function $f:\{(\mathbb{Z}_m)^d \rightarrow T$, define an $f$-query as unitary operation $U_f$ such that, for every $(a_1,a_2,\ldots,a_n)\in(\mathbb{Z}_m)^d$ and $b\in\mathbb{T}$,
+\[
+U_f(\ket{a_1}\ket{a_2}\ldots\ket{a_n}\ket{b})=\ket{a_1}\ket{a_2}\ldots\ket{a_n}\ket{b\oplus f(a_1,a_2,\ldots,a_n)}
+\]
+where the $\oplus$ operation denotes bit-wise XOR (recall our assumption that $T=\{0,1\}^k$).
+\end{definition}
+We use the following notation for $f$-queries.
+\begin{figure}[h]
+    \centering
+    \begin{quantikz}
+        \lstick{$\ket{a_1}$} & \gate[4]{U_f} & \rstick{$\ket{a_1}$}\\
+        \vdots & & \vdots \\
+        \lstick{$\ket{a_d}$} & & \rstick{$\ket{a_d}$}\\
+        \lstick{$\ket{b}$} &  & \rstick{$\ket{b+f(a)}$}
+    \end{quantikz}
+    \caption{Notation for a quantum f-query gate for $f:(\mathbb{Z}_m)^d \rightarrow T$}
+    \label{fig:simon_f}
+\end{figure}
+Note the fact that the data flowing through these lines is generally not qubits, but states of dimension higher than $2$. The first $d$ lines are carrying an $m$-dimensional quantum states, and the last line is carrying a $|T|$ -dimensional state.
+
+\begin{definition}
+    (Simon mod $m$ problem). For Simon's problem mod $m$, you're given a black-box that computes an $f$-query for an unknown function $f$ that is promised to have the Simon mod $m$ property, and your goal is to determine the parameter $r$, based on queries to $f$.
+\end{definition}
+
+How do we solve
+ Simon mod $m$ problem? Let's start by recalling the algorithm for the original Simon's problem. It was based on the repeated runs of this circuit that makes a single $f$-query. Recall the circuit for simon's problem in figure~\ref{fig:simon_circ}. Each run of the circuit produces a uniformly random element of the orthogonal component of $r$. After a few runs, we obtain enough such $b$'s to be able to deduce $r$ by solving a system of linear equations in mod $2$ arithmetic.
+
+ Notice all the one-qubit Hadamard gates in the simon's circuit. Come to think of it, the Hadamard gate has been a very prominent part of every quantum algorithm and communication protocol that we've seen so far. For Simon mod $m$, the registers are not binary. A unitary operation on an $m$-dimensional register is an $m \times m$ matrix. it turns out that the hadamard transform has a natural $m$-dimensional generalization, the Fourier transform $F_m$, which will be explained in the later chapters.
+
+ The algorithm for the Simon mod $m$ problem will be based on a quatnum circuit similar to the one in figure~\ref{fig:simon_circ}, but with Fourier transforms in place of hadamard transforms.
+ \begin{figure}[h]
+     \centering
+     \begin{quantikz}
+         \lstick{$\ket{0}$} & \gate{QFT_m} & \gate[4]{U_f} & \gate{QFT_m^{\dagger}} & \meter{}\\
+         \vdots & \gate{QFT_m} & & \gate{QFT_m^{\dagger}} & \meter{}\\
+         \lstick{$\ket{0}$} & \gate{QFT_m} & & \gate{QFT_m^{\dagger}} & \meter{}\\
+         \lstick{$\ket{0}$} & & & & 
+     \end{quantikz}
+     \caption{Circuit for Simon mod $m$ problem}
+     \label{fig:simonmodm_circ}
+ \end{figure}
+ (In the $m=2$ case, since $H^{\dagger}=H$, the distinction between $QFT_1$ and $QFT_1^{\dagger}$ didn't matter.) 
+
+ What's the output of this circuit? We'll analyze this for the case, where $d=2$, which is the following circuit:
+ \begin{figure}[h] 
+     \centering
+\begin{quantikz}[slice all]
+    \lstick{$\ket{0}$} & \gate{QFT_m} & \gate[3]{U_f} & \gate{QFT_m^{\dagger}} & \meter{}\\
+    \lstick{$\ket{0}$} & \gate{QFT_m} & & \gate{QFT_m^{\dagger}} & \meter{}\\
+    \lstick{$\ket{0}$} & & & & 
+\end{quantikz}
+     \caption{Circuit for Simon mod $m$ problem in the case where $d=2$}
+     \label{fig:simonmodm_example}
+ \end{figure}
+ Since $QFT_m\ket{0}=\frac{1}{\sqrt{m}}(\ket{0}+\ket{1}+\ldots +\ket{m-1})$, this state is
+ \[
+ \frac{1}{\sqrt{m^2}}\sum_{a\in\mathbb{Z}_m\times\mathbb{Z}_m} \ket{a_1,a_2}\ket{0}
+ \]
+ Since the query maps each basis state $\ket{a_1,a_2}\ket{0}$ to $\ket{a_1,a_2}\ket{f(a_1,a_2)}$, when the input is superposition, the output of the query is
+ \[
+ \frac{1}{\sqrt{m^2}} \sum_{a\in\mathbb{Z}_m\times \mathbb{Z}_m}\ket{a_1,a_2}\ket{f(a_1,a_2)}
+ \]
+ Recall that we can use the principle of deferred measurement~\ref{subsec:princ_deffer_meas} and the principle of implicit measurement~\ref{subsec:princ_implicit_meas} to simplify the analysis. From the principle of implicit measurement allows us to measure any unterminated wires at the end of the circuit may be assumed to be measured and the principle of deferred measurement which allow us to move measurement from an intermediate stage of a quantum circuit. Thus applying these principles. Measuring the state of third register causes its state to collapse to some value of $f$ and the state of the first two registers to collapse to a uniform superposition of all the pre-images of that value of $f$. This preimage is one the collapsing sets of $f$. Therefore, the state after this measurement is
+ \[
+ \frac{1}{\sqrt{m}}\sum_{k\in\mathbb{Z}_m}\ket{(a_1,a_2)+k(r_1,r_2)}
+ \]
+ for some $(a_1,a_2)\in\mathbb{Z}_m\times \mathbb{Z}_m$.
+ This state is identical to the state that is the outcome of the following process:
+ \begin{enumerate}
+     \item randomly choose one of the colliding ets.
+     \item Take the uniform superposition of the elements of that colliding set.
+ \end{enumerate}
+Now applying inverse fourier transform 
+\begin{align*}
+    QFT_m^{\dagger} \otimes QFT_m^{\dagger}& \left(\frac{1}{\sqrt{m}}\sum_{k\in\mathbb{Z}_m} \ket{(a_1,a_2)+k(r_1,r_2)}\right)\\
+    &=\frac{1}{\sqrt{m}}\sum_{k\in\mathbb{Z}_m}QFT_m^{\dagger}\ket{a_1+kr_1} QFT_m^{\dagger} \ket{a_2+kr_2}\\
+    &=\frac{1}{\sqrt{m}}\sum_{k\in\mathbb{Z}_m}\frac{1}{\sqrt{m}}\sum_{p\in\mathbb{Z}_m}e^{-2\pi\iota p(a_1+kr_1)/m}\ket{p}\frac{1}{\sqrt{m}}\sum_{q\in\mathbb{Z}_m}e^{-2\pi\iota q(a_2+kr_2)/m}\ket{q}\\
+    &=\frac{1}{m\sqrt{m}}\sum_{k\in\mathbb{Z}_m}\sum_{p,q\in\mathbb{Z}_m} e^{-2\pi\iota (a_1p +kpr_1+qa_2+qkr_2)/m}\ket{p}\ket{q}\\
+    &=\frac{1}{m\sqrt{m}}\sum_{k\in\mathbb{Z}_m}\sum_{p,q\in\mathbb{Z}_m}e^{-2\pi\iota ((a_1,a_2)\cdot (p,q) + k(r_1,r_2)\cdot (p,q))/m}\\
+    &=\frac{1}{m\sqrt{m}}\sum_{k\in\mathbb{Z}_m}\sum_{p,q\in\mathbb{Z}_m}\omega^{-((a_1,a_2)\cdot (p,q) + k(r_1,r_2)\cdot (p,q))}\\
+    &=\frac{1}{m\sqrt{m}}\sum_{k\in\mathbb{Z}_m}\sum_{b\in\mathbb{Z}_m\times \mathbb{Z}_m}\omega^{-a\cdot b + -kr \cdot b} \ket{b}\\
+    &=\frac{1}{\sqrt{m}}\sum_{b\in\mathbb{Z}_m\times \mathbb{Z}_m}  \omega^{-a\cdot b}\left( \frac{1}{m}\sum_{k\in\mathbb{Z}_m}\omega^{-kr\cdot b}\right)\ket{b}
+\end{align*}
+Note that this equation contains an expression for the amplitude of $\ket{b}$ for any $b\in\mathbb{Z}_m\times \mathbb{Z}_m$. Since $|\omega^{-a\cdot b}|=1$, we can simplify the expression as
+\[
+\frac{1}{m}\sum_{k\in\mathbb{Z}_m}\omega^{-k(r\cdot b)}=\begin{cases}
+    1 &\text{if $(r_1,r_2)\cdot (b_1,b_2)=0$}\\
+    0&\text{if $(r_1,r2)\cdot (b_1,b_2)\neq 0$}
+\end{cases}
+\]
+This implies that, for any $(b_1,b_2)\in\mathbb{Z}_m\times \mathbb{Z}_m$,
+\[
+Pr[(b_1,b_2)]=\begin{cases}
+    \frac{1}{m}&\text{if $(r_1,r_2)\cdot (b_1,b_2)=0$}\\
+    0&\text{if $(r_1,r_2)\cdot (b_1,b_2)\neq 0$}
+\end{cases}
+\]
+Therefore the output of the circuit in figure~\ref{fig:simonmodm_example} is a uniformly random sample from the set $\{(b_1,b_2)\in\mathbb{Z}_m\times \mathbb{Z}_m : b_1r_1+b_2r_2=0\}$, which we loosely call the orthogonal complement of $(r_1,r_2)$.
+
+All of the preceeding analysis generalizes in a straightforward way from two dimensions to $d$ dimensions. In that case, output from the first $d$ registers is a uniformly random element of the set $\{b\in\mathbb{Z}_m^d: b\cdot r=0\}$(the orthogonal complement of r).
+As with Simon;s algorithm, after repeated runs of the circuit, we obtain several $b$'s, from which we can hope to deduce $r$ by solving a system of linear equations in mod $m$ arithmetic.
+
+\subsection{Returning to the discrete log problem}
+Now that we've analyzed te Simon mod $m$ problem, let's get back to the original problem that we're encountered with, which is the discrete log problem. The input is: $p$, an $n$-bit prime number; $g$, a generator of $\mathbb{Z}_p^*$; and $s$, an element of $\mathbb{Z}_p^*$ (all three inputs are binary of length $n$). And the goal to produce $\log_g(s)$, which is the unique $r\in\mathbb{Z}_{p-1}$ for which $s=g^r$.  
+
+The reason why we turned our attention to the Simon mod $m$ problem is that there is a special Shor function that satisfies the Simon mod $m$ property (with $m$ set to $p-1$), and a solution to that instance of Simon mod $p-1$ yields $r=\log_g(s)$.
+
+How can we use our solution to Simon mod $m$ to solve an instance of DLP, which is not in the query framework? the idea is to efficiently implement the query gate of the Shor function, as well as the other parts of the query circuit in terms of qubits and elementary gates (1- and 2- qubit gates). The elements of $\mathbb{Z}_{p-1}$ and $\mathbb{Z}_p^*$ can be represented by their $n$-bit binary representations as $n$-bit strings. Imagine a $3n$-qubit quantum circuit of the form figure~\ref{fig:simonmodm_circuit_ex}, where we represent a quantum circuit consisting of elementary gates acting on qubits.
+\begin{figure}
+    \centering
+    \begin{quantikz}
+    \lstick{$\ket{00\ldots0}$} & \gate{QFT_{p-1}} & \gate[3]{U_f} & \gate{QFT_{p-1}^*} & \meter{} & \rstick{$b_1$}\\
+    \lstick{$\ket{00\ldots 0}$} & \gate{QFT_{p-1}} & & \gate{QFT_{p-1}^{\dagger}} & \meter{} & \rstick{$b_2$}\\
+    \lstick{$\ket{00\ldots 0}$} & & & &
+    \end{quantikz}
+    \caption{Implementation of the query algorithm}
+    \label{fig:simonmodm_circuit_ex}
+\end{figure}
+A property of the Shor function $f$ that's crucial to make this work is that $f(a_1,a_2)=g^{a_1}s^{a_2}$ can be computed efficiently by a classical circuit. The exponentiations can be computed efficiently using the repeated squaring trick.
+
+That's the overall idea behind Shor;s algorithm for the discrete log problem. 
+
+\subsection{Loose ends}
+\subsubsection{How to extract $r$}
+One loose end is that covers technicalities in extracting $r$ from repeated runs of the circuit in figure~\ref{fig:simonmodm_circ}. As was done for the original Simon problem, we can set up a system of linear equations in mod $m$ arithmetic. However, a complication arises when $\mathbb[{Z}_m$ is not a field and in fact, it's not a field in our case of interest, where $m=p-1$ for a prime $p$.
+
+Recall that, for DLP, the quanutm circuit in figure~\ref{fig:simonmodm_circ} produces a uniformly random sample $(b_1,b_2)$ such that
+\[
+(b_1,b_2)\cdot (r,1)=0 \qquad (\bmod p-1)
+\]
+How do we calculate $r$ from this? We can solve for $r$ as
+\[
+r=-b_2/b_1 \bmod p-1
+\]
+But, for this to work, $b_1$ must have an inverse modulo $p-1$. It might not.
+
+It can be proven that the fraction of elements of $\mathbb{Z}_{p-1}$ that have inverses is not too small. As a result of this, we can simply repeat the process of running the circuit in figure~\ref{fig:simonmodm_circ} a few times until we obtain a $(b_1,b_2)$ where $b_1$ has an inverse in $\mathbb{Z}_{p-1}$.
+
+\subsubsection{How to compute the Fourier transform $QFT_{p-1}$}
+Another issue, is how to compute the Fourier transform $\bmod p-1$. It's an exponentially large matrix, and we need to compute it with a polynomial number of elementary gates acting on $n$ qubits.
+
+In fact, for modulus $p-1$, computing $QFT_{p-1}$ is tricky. Shor's algorithm doesn't actually computes this. Rather, it uses a fourier transform with modulus a power of $2$, which is easy to compute efficiently. The power of $2$ is set so as to be close to $p-1$ (within a factor of $2$ of $p-1$).
+
+\begin{importantnote}
+    Recall that if there is an efficient classical circuit $f$ that computes a function $f$ then we know that any classical circuit can be reversibly simulated by a quantum computer with the same efficiency (up to a constant factor). However, that simulation used ancilla qubits and resulted in a quantum circuit that mapped each computational basis state of the form $\ket{a}\ket{b}\ket{0^m}$ to $\ket{a}\ket{f(a)\oplus b}\ket{g(a)}$, where $\ket{0^m}$ is a string of several $\ket{0}$ qubits that are used as ancillas, and $g(a)$ consists of some intermediate results of the computation.
+
+    This leads to a problem if the $f$-query is applied to a state that's a superposition of computational basis states such as
+    \[
+    \sum_{a,b}\alpha_{a,b}\ket{a}\ket{b}\ket{0^m}
+    \]
+    f-query maps this state to
+    \[
+    \sum_{a,b}\alpha_{a,b}\ket{a}\ket{b\oplus f(a)}\ket{g(a)} \neq \left(\sum_{a,b}\ket{a}\ket{b\oplus f(a)}\right)\ket{g(a)}
+    \]
+    The state of the first two registers need not be
+    \[
+    \sum_{a,b}\alpha_{a,b}\ket{a}\ket{b\oplus f(a)}
+    \]
+    This problem has a simple remedy. The first step is to compute $f$ with the anciall registers. After that, the computation is reversed, so as to restore the ancilla registers back to state $\ket{0}$. But just before the reversal, the answer is XORed to another register, using CNOT gates.
+
+    The resulting circuit computes the f-query and restores the ancilla qubits back to their original states. Therefore, this works even if the f-query is applied to a superposition of computational basis states as
+    \[
+    \sum_{a,b}\ket{a}\ket{b\oplus f(a)}\ket{0^m}=\left(\sum_{a,b}\alpha_{a,b}\ket{a}\ket{b\oplus f(a)}\right)\ket{0^m}
+    \]
+    The garbage register ends up in a product state with the other registers. Computing the function this way roughly doubles the number of gates needed.
+    
+\end{importantnote}
+
+So Shor's algorithm uses the ``wrong" Fourier transform. But it's not too wrong. Shor uses careful error analysis to show that, if the modulus is only off by a factor of two then the resulting wrong output state of the circuit is not too wrong. Th result of the measurement still succeeds with some constant probability.
+
+
+
+

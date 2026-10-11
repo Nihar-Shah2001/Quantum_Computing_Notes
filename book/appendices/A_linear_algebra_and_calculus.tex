@@ -1,0 +1,2576 @@
+\chapter{Linear Algebra and Calculus Prerequisites}
+The following content assumes a high school level understanding of Linear Algebra, Complex numbers, Probability, single-variable Calculus 
+(Multi-Variable Calculus will be a plus) and
+Differential Equations. 
+It contain all the pre-requisites required for understanding the contents of the given 
+Book. The following references \cite{nielsen2001quantum}, \cite{dewolf2023quantum}, \cite{shankar2012principles}
+and \cite{lin2022lecture} have been extensively used for the preparation for this appendix. 
+Note that this content assumes that the reader has only high school level 
+exposure of the Quantum Mechanics (De broglie Hypothesis, Schrodinger Equation, Young's Double Slit Experiment, Heisenberg's Uncertainty Principle) but still the important concepts of Quantum Mechanics are explained 
+upto the required depth whenever it
+is found to be necessary for the explanation of Quantum computing concepts. A college level
+exposure of Quantum Mechanics will be a plus.
+
+For a quick revision of the concepts of Linear Algebra the 
+reader is suggested to watch \href{https://www.youtube.com/watch?v=fNk_zzaMoSs&list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab}{youtube lectures by 3 Blue 1 Brown}. If it still feels 
+difficult to follow the material, \href{https://www.youtube.com/watch?v=7UJ4CFRGd-U&list=PL221E2BBF13BECF6C}{lectures by MIT Prof. Gilbert
+Strang Lectures on Linear Algebra} are highly recommended. For basic Quantum Mechanics
+concepts, the reader is suggested to watch the \href{https://www.youtube.com/watch?v=lZ3bPUKo5zc&list=PLUl4u3cNGP61-9PEhRognw5vryrSEVLPr}{lectures by MIT Prof. Allan Adams} and for the mathematics
+of Quantum Mechanics, the \href{https://www.youtube.com/watch?v=jANZxzetPaQ&list=PLUl4u3cNGP60cspQn3N9dYRPiyVWDd80G}{lectures by MIT Prof. Barton Zwiebach} are highly recommended. For the 
+mathematics of Quantum Computing the short \href{https://www.youtube.com/watch?v=3nvbBEzfmE8&list=PL8ER5-vAoiHAWm1UcZsiauUGPlJChgNXC}{YouTube lectures by Quantum Sense} and \href{https://www.youtube.com/watch?v=zm64o27eHYw&list=PLxP0p--aBHmIe--9rczWe4AZmw03e2bz0}{Advanced Maths} will be helpful. Hope that this
+notes help in understanding the basics of Quantum Computing. 
+For the coding part, you can also follow lectures by \href{https://www.youtube.com/watch?v=Rs2TzarBX5I&list=PLOFEBzvs-VvrXTMy5Y2IqmSaUjfnhvBHR}{Qiskit} and \href{https://www.youtube.com/watch?v=42OiBzfdE2o&list=PLOFEBzvs-VvqKKMXX4vbi4EB1uaErFMSO}{John Watrous}.
+Many more such YouTube lectures are available, lectures by \href{https://www.youtube.com/watch?v=w08pSFsAZvE&list=PL0ojjrEqIyPy-1RRD8cTD_lF1hflo89Iu}{John preskill} 
+% where he speaks in a monotonous voice along with his notes on Quantum Computing.
+Short YouTube lectures covering the maths by \href{https://www.youtube.com/watch?v=mpkYPEaifUg&list=PLqdVnC7OWuEcfKRZXsrooK_EPzwmWSi-N}{David Deutsch} and \href{https://www.youtube.com/watch?v=X2q1PuI2RFI&list=PL1826E60FD05B44E4}{Michael Nielsen}.
+% Some good high level view introductory lectures by \href{https://www.youtube.com/watch?v=s1bxNomtaTE}{Scott Aaronson} and some amazing videos by \href{https://www.youtube.com/results?search_query=Quantum+Compting+Seth+lloyd}{Seth Lloyd} on the importance of Quantum Computers.
+% Lectures by \href{https://www.youtube.com/watch?v=jwHM8AHOtJ0&list=PL_rDPTSJrz8eFc6lb8twvsV39cxSwpJ6r}{CERN} and many more lecture series on \href{https://www.youtube.com/watch?v=vOo1rI_RRJo&list=PLDOlG2kTN3Z4xwQmnjSQomAqr3YDyCreJ}{Advanced Quantum Computing} and on
+% Quantum Simulations by \href{https://www.youtube.com/watch?v=a2ZxgUc20LE&list=PLf3vbYicbcT_l-qgpta8_K8gYH0JVmoL8}{APCTP}.
+
+
+\section{Linear Algebra}
+\subsection{Mathematical Notation}
+For a complex number $c=a+\iota b \in \mathbb{C}$ with $a,b\in \mathbb{R}$ and $\iota =\sqrt{-1}$, we use $c^*=a-\iota b$ (or $\overline{c}$) to denote its complex conjugate. We will also need mathematical notation that is used throughout quantum information. Here we write vectors in a specially way known as the "bra-ket" notation. While it may look a little cumbersome at first sight, it turns out to provide a convenient way of dealing with the many operations we will perform with such vectors. Let's start with two examples,. We write $\ket{v} \in \mathbb{C}^2$ to denote a vector in a 2-dimensional vector space. For example,
+\[
+\ket{v}=\begin{pmatrix} 1 \\ 0 \end{pmatrix}
+\]
+The "bra"of this vector is the conjugate transpose, which for our example looks like
+\[
+\bra{v} = ((\ket{v})*)^T=\begin{pmatrix} 1^* \\ 0^* \end{pmatrix}^T=\begin{pmatrix} 1 & 0 \end{pmatrix}
+\]
+The genera definition of the "bra-ket" notation is as follows:
+\begin{definition}
+    \textbf{Ket and Bra notation.} A ket, denoted $\ket{.}$, represents a d-dimensional column vector in the complex vector space $\mathbb{C}^d$. A bra, denoted $\bra{.}$, is a d-dimensional row vector equal to the complex conjugate of the corresponding ket, namely
+    \[
+    \bra{.}=(\ket{.}^*)^T
+    \]
+    where * denotes the entry-wise conjugate, and T denotes the transpose.
+\end{definition}
+
+
+\subsection{Basics of Linear Algebra}
+
+\begin{definition}
+    Linear Transformation: A function $T:V\rightarrow W$ is called a linear transformation if for all $\ket{v},\ket{w}\in V$ and $a\in\mathbb{F}$ the following properties hold:
+    \begin{enumerate}
+        \item $T(\ket{v}+\ket{w})=T(\ket{v})+T(\ket{w})$
+        \item $T(a\ket{v})=aT(\ket{v})$
+    \end{enumerate}
+\end{definition}
+
+\begin{example}
+    Let $V$ be a vector space over a field $\mathbb{F}$ and let $A$ be a matrix in $\mathbb{F}^{m\times n}$. The function $T:\mathbb{F}^{n}\rightarrow\mathbb{F}^{m}$ defined by $T(\ket{v})=A\ket{v}$ is a linear transformation.
+\end{example}
+
+\begin{example}
+    Differentiation, Integration, Laplace transform are examples of linear transformations.
+\end{example}
+
+\begin{definition}
+    Composition Transformation: Let $T:V\rightarrow W$ and $U:W\rightarrow X$ be linear transformations. The composition transformation $UT:V\rightarrow X$ is defined by $(UT)(\ket{v})=U(T(\ket{v}))$
+    If the composition transformation is also a linear transformation then it is called a composite linear transformation. Here, if $T$ and $U$ are linear transformations then $UT$ is also a linear transformation.
+\end{definition}
+
+\begin{definition}
+    Inverse Transformation: Let $T:V\rightarrow W$ be a linear transformation. A linear transformation $T^{-1}:W\rightarrow V$ is called the inverse transformation of $T$ if $TT^{-1}=T^{-1}T=I$ where $I$ is the identity transformation.
+\end{definition}
+
+\begin{definition}
+    Field ($\mathbb{F}$): A field is a set of elements that is closed under two operations, addition and multiplication, and satisfies the following axioms:
+    Let $a,b,c\in\mathbb{F}$
+    \begin{enumerate}
+        \item Commutative Property of Addition: $a+b=b+a$
+        \item Associative Property of Addition: $(a+b)+c=a+(b+c)$
+        \item Distributive Property of Addition: $a(b+c)=ab+ac$
+        \item Additive Identity: There exists an element $0$ in the field such that $a+0=a$
+        \item Additive Inverse: For every element $a$ in the field, there exists an element $-a$ such that $a+(-a)=0$
+        \item Commutative Property of Multiplication: $ab=ba$
+        \item Associative Property of Multiplication: $(ab)c=a(bc)$
+        \item Distributive Property of Multiplication: $(a+b)c=ac+bc$
+        \item Multiplicative Identity: There exists an element $1$ in the field such that $a1=a$
+        \item Multiplicative Inverse: For every element $a$ in the field, there exists an element $a^{-1}$ such that $aa^{-1}=1$
+    \end{enumerate}
+\end{definition}
+
+Note that it is upto us how we define the addition and multiplication operations on the field $\mathbb{F}$ 
+but for the purpose of this notes we will assume that the operations are the usual addition and multiplication operations unless stated otherwise.
+A more formal definition of Field can be defined using group theory but the above definition is sufficient for the purpose of this notes.
+The complications and more precise definition is left to Mathematicians which can be found in any standard textbook on Abstract Algebra.
+\begin{example}
+    Set of Rational Numbers ($\mathbb{Q}$), Set of Real Numbers ($\mathbb{R}$),
+    Set of Complex Numbers ($\mathbb{C}$) are examples of fields.
+\end{example}
+
+\begin{example}
+    Set of Integers ($\mathbb{Z}$) is not a field as it does not satisfy the multiplicative inverse axiom.
+    Set of Natural Numbers and Whole numbers is not a filed because it does not satisfy the additive inverse axiom.
+\end{example}
+
+Generally, we have represented vectors as: $\vec{v}$, or with bold letter $\mathbf{v}$. but for the 
+purpose of Quantum Mechanics and Quantum Computing we prefer Dirac notation which represents vectors as $\ket{v}$ 
+solely for the purpose of simplifying the notation. The Dirac notation is also called as bra-ket notation. The 
+symbol $\ket{v}$ represents a column vector v called as ket-v and the symbol $\bra{v}$ represents a 
+row vector called as bra-v. 
+
+\begin{definition}
+    Vector Space: A vector space over a field $\mathbb{F}$ is a set $V$ of elements called vectors, that is closed
+    under two operations, addition and scalar multiplication:
+    \begin{enumerate}
+        \item Vector Addition: For every pair of vectors $\ket{u},\ket{v}\in V$, there exists a vector $\ket{u}+\ket{v}\in V$ called the sum of $\ket{u}$ and $\ket{v}$
+        \item Scalar Multiplication: For every vector $\ket{u}\in V$ and every scalar $a\in\mathbb{F}$, there exists a vector $a\ket{u}\in V$ called the scalar multiple of $\ket{u}$ by $a$
+    \end{enumerate}
+    and satisfies the following axioms:
+    Let $\ket{u},\ket{v},\ket{w}\in V$ and $a,b\in\mathbb{F}$
+    \label{def:Axioms of Vector Space}
+    \begin{enumerate}
+        \item Closure Property over Vector Addition: $\ket{u}+\ket{v}\in V$
+        \item Commutative Property of Addition: $\ket{u}+\ket{v}=\ket{v}+\ket{u}$
+        \item Associative Property of Addition: $(\ket{u}+\ket{v})+\ket{w}=\ket{u}+(\ket{v}+\ket{w})$
+        \item Additive Identity: There exists a vector $\ket{0}$ in $V$ such that $\ket{u}+\ket{0}=\ket{u}$
+        \item Additive Inverse: For every vector $\ket{u}$ in $V$, there exists a vector $-\ket{u}$ in $V$ such that $\ket{u}+(-\ket{u})=\ket{0}$
+        \item Closure Property over Scalar Multiplication: $a\ket{u}\in V$
+        \item Distributive Property of Scalar Multiplication over Vector Addition: $a(\ket{u}+\ket{v})=a\ket{u}+a\ket{v}$
+        \item Distributive Property of Scalar Multiplication over Field Addition: $(a+b)\ket{u}=a\ket{u}+b\ket{u}$
+        \item Associative Property of Scalar Multiplication: $a(b\ket{u})=(ab)\ket{u}$
+        \item Multiplicative Identity: There exists a scalar $1$ in $\mathbb{F}$ such that $1\ket{u}=\ket{u}$
+    \end{enumerate}
+\end{definition}
+
+The above axioms imply
+\begin{enumerate}
+    \item $\ket{0}$ is unique i.e. if $\ket{0'}$ has all the properties of $\ket{0}$ then $\ket{0'}=\ket{0}$
+    \item $\ket{-u}=-\ket{u}$ 
+    \item $\ket{-u}$ is the unique additive inverse of $\ket{u}$
+\end{enumerate}
+
+\begin{example}
+    The set of Real numbers $\mathbb{R}$ is a vector space over the field of Real numbers $\mathbb{R}$. It is called Real Vector Space.
+    The set of Complex numbers $\mathbb{C}$ is a vector space over the field of Complex numbers $\mathbb{C}$. It is called Complex 
+    Vector Space.
+\end{example}
+Note the adjective Real and Complex before a vector space is used to denote the field over which the vector space is defined.
+In this notes we will be mostly dealing with the Complex Vector Space since the Real Vector Space is a special case of the Complex Vector Space.
+
+Any element that satisfies the above said axioms (\ref{def:Axioms of Vector Space}) of a vector space is called a vector. When we generally refer to a vector, picture of arrow comes to our mind but
+arrows are just one of the manifestation of a representation of a Real Vector Space. Thus to make the reader digress from thinking of vectors as arrows, and be more general, 
+below given are few examples of manifestations of vectors in a vector space.
+
+\begin{example}
+    Matrices are vectors in the vector space of $n\times n$ matrices over a field $\mathbb{F}$. The vector addition is defined as the element-wise addition of the matrices and the scalar multiplication
+    is defined as the element-wise multiplication of the matrix by the scalar. It satisfies the axioms of vector space (refer definition \ref{def:Axioms of Vector Space}).
+    Thus, they are elements of vector space. Note that matrices have no notion of length (magnitude) and direction unlike arrows.
+\end{example}
+
+\begin{example}
+    Functions are vectors in the vector space of functions over a field $\mathbb{F}$. The vector addition and scalar multiplication is defined as the usual addition of two functions
+    and scalar multiplication is simply multiplying the function by the scalar respectively. It satisfies the above said axioms of vector space.
+    Thus, they are elements of vector space. Note that functions have no notion of length (magnitude) and direction unlike arrows. The functions are an example of infinite 
+    dimensional vector space unlike discrete dimensional vector space (such as matrices, vectors).
+\end{example}
+
+Thus when we say vector we refer to any element of a vector space and not just the arrows. The arrows are just one of the manifestations of vectors in a vector space and the other
+examples include matrices, functions. In Quantum mechanics we generally deal with Hilbert Space (Complex Vector Space with inner product defined, more about it later). 
+In Quantum Computing, we deal with finite dimensional complex vector spaces. Thus, it could not be imagined as arrows since they deal with real vector spaces (but imagining as arrows helps in general).
+
+\begin{definition}
+    \textbf{Subspace:} A subset $W$ of a vector space $V$ over a field $\mathbb{F}$ is called a subspace of $V$ if $W$ is itself a vector space over $\mathbb{F}$
+    with the same operations of addition and scalar multiplication defined on $V$.
+    Note that a subspace must always contain zero vector $\ket{0}$ of the vector space $V$ to satisfy the additive identity axiom.
+\end{definition}
+
+\begin{example}
+    Set of all real symmetric matrices is a subspace of the vector space of all real matrices.
+\end{example}
+
+\begin{definition}
+    \textbf{Linear Combination:} Let $V$ be a vector space over a field $\mathbb{F}$ and let $\ket{v_1},\ket{v_2},\ldots,\ket{v_n}$ be vectors in $V$. A vector of the form
+    \begin{equation}
+        a_1\ket{v_1}+a_2\ket{v_2}+\ldots+a_n\ket{v_n}
+    \end{equation}
+    where $a_1,a_2,\ldots,a_n\in\mathbb{F}$ is called a linear combination of $\ket{v_1},\ket{v_2},\ldots,\ket{v_n}$
+\end{definition}
+
+\begin{example}
+    $3x^2+2x+1=0$ is a linear combination of $\ket{v_1}=x^2$, $\ket{v_2}=x$ and $\ket{v_3}=1$ in the vector space of polynomials with
+    coefficients in $\mathbb{R}$ as the field.
+    \[
+        3x^2+2x+1=3\ket{v_1}+2\ket{v_2}+1\ket{v_3}
+    \]
+\end{example}
+
+\begin{example}
+    Consider the matrix $\begin{pmatrix} 1 & 2 \\ 3 & 4 \end{pmatrix}$ in the vector space of $2\times 2$ matrices over the field $\mathbb{R}$. It can be written as a linear combination of the matrices
+    $\begin{pmatrix} 1 & 0 \\ 0 & 0 \end{pmatrix}$, $\begin{pmatrix} 0 & 1 \\ 0 & 0 \end{pmatrix}$, $\begin{pmatrix} 0 & 0 \\ 1 & 0 \end{pmatrix}$ and $\begin{pmatrix} 0 & 0 \\ 0 & 1 \end{pmatrix}$ as
+    \[
+        \begin{pmatrix} 1 & 2 \\ 3 & 4 \end{pmatrix}=1\begin{pmatrix} 1 & 0 \\ 0 & 0 \end{pmatrix}+2\begin{pmatrix} 0 & 1 \\ 0 & 0 \end{pmatrix}+3\begin{pmatrix} 0 & 0 \\ 1 & 0 \end{pmatrix}+4\begin{pmatrix} 0 & 0 \\ 0 & 1 \end{pmatrix}
+    \]
+\end{example}
+
+\begin{definition}
+    \textbf{Span:} Let $V$ be a vector space over a field $\mathbb{F}$ and 
+    let $\ket{v_1},\ket{v_2},\ldots,\ket{v_n}$ be vectors in $V$. 
+    The set of all linear combinations of $\ket{v_1},\ket{v_2},\ldots,\ket{v_n}$ 
+    is called the span of $\ket{v_1},\ket{v_2},\ldots,\ket{v_n}$ 
+    and is denoted by $Span(\ket{v_1},\ket{v_2},\ldots,\ket{v_n})$
+\end{definition}
+
+\begin{definition}
+    \textbf{Linear Independence:} Let $V$ be a vector space over a field $\mathbb{F}$ and let $\ket{v_1},\ket{v_2},\ldots,\ket{v_n}$ be vectors in $V$. The vectors $\ket{v_1},\ket{v_2},\ldots,\ket{v_n}$ are said to be linearly independent if the only solution to the equation
+    \begin{equation}
+        a_1\ket{v_1}+a_2\ket{v_2}+\ldots+a_n\ket{v_n}=\ket{0}
+        \label{eq:Linear Independence}
+    \end{equation}
+    is trivial solution $a_1=a_2=\ldots=a_n=0$
+\end{definition}
+
+If the vector equation has non-trivial solution (e.e infinitely many solutions or at least one of the $a_i \neq 0$) then the vectors are said to be linearly dependent.
+
+\begin{corollary}
+    A set S with two or more vectors is not linearly independent i.e. linearly dependent iff at least one vector is expressible as a linear combination of other vectors in S
+\end{corollary}
+
+\begin{corollary}
+    If finite set S contains zero vector $\ket{0}$ then the set S is linearly dependent.
+\end{corollary}
+
+\begin{example}
+    \textbf{Linear dependence: example} Show that $(1,-1)$, $(1,2)$ and $(2,1)$ are linearly dependent.
+    Recall, that the vectors $\ket{v_1},\ket{v_2}, \ldots, \ket{v_n}$ are said to be linearly dependent if the only solution to the equation
+    \[
+    a_1\ket{v_1}+a_2\ket{v_2}+\ldots +a_n\ket{v_n}=0
+    \]
+    is trivial solutions $a_1=a_2=\ldots=a_n=0$.
+    Thus, writing the equation,
+    \begin{align*}
+    a_1(1,-1)+a_2(1,2)+a_3(2,1)&=(0,0)\\
+    (a_1,-a_1)+(a_2,2a_2)+(2a_3,a_3)&=(0,0)\\
+    (a_1+a_2+2a_3,-a_1+2a_2+a_3)&=(0,0)\\
+    \implies a_1+a_2+2a_3&=0\\
+    \implies -a_1+2a_2+a_3&=0
+    \end{align*}
+    Thus, we have two independent equations and three variables hence, infinite solutions exist. Thus, along with trivial many other non-trivial solutions exists. Hence the vectors are linearly dependent.
+    We can also observe that, putting $a_1=1,a_2=1,a_3=-1$, we get,
+    \[
+    \begin{bmatrix} 1 \\ -1 \end{bmatrix}+ \begin{bmatrix} 1 \\ 2 \end{bmatrix}
+    -\begin{bmatrix} 2 \\ 1 \end{bmatrix}=
+    \begin{bmatrix} 0 \\ 0 \end{bmatrix}
+    \]
+    Thus, recall that if the finite set $S$ contains zero vector $\ket{0}$ then the set $S$ is linearly dependent. Thus, clearly the set shown here contains the zero vector, hence, its linearly dependent.
+
+    We can also apply the theorem that for any vector space $V$ with $dim(V)=n$. Any set of vectors $m>n$ in V will be linearly dependent.Here, $V=\mathbb{R}^2, n=2,m=3$.
+\end{example}
+
+\begin{definition}
+    Basis: Let $V$ be a vector space over a field $\mathbb{F}$. A set of vectors $\ket{v_1},\ket{v_2},\ldots,\ket{v_n}$ in $V$ is called a basis of $V$ if
+    \begin{enumerate}
+        \item $\ket{v_1},\ket{v_2},\ldots,\ket{v_n}$ are linearly independent
+        \item $Span(\ket{v_1},\ket{v_2},\ldots,\ket{v_n})=V$
+    \end{enumerate}
+\end{definition}
+
+\begin{example}
+    A collection of n linearly independent vector alswas spans $\mathbb{R}^n$ and is called a basis of $\mathbb{R}^n$.
+\end{example}
+
+\begin{definition}
+    Dimension: Let $V$ be a vector space over a field $\mathbb{F}$. The number of vectors in a basis of $V$ is called the dimension of $V$ and is denoted by $dim(V)$
+    Note that this is because the number of vectors in a basis of any Vector space is unique.
+\end{definition}
+
+\begin{theorem}
+    The coefficients of expansion $v_i$ of vector $\ket{v}$ in terms of linearly independent basis $\ket{i}$ are called components of the vector in that basis.
+    It is always a unique expansion in a given basis since the basis is linearly independe and only a trivial linear relation 
+    between them can exist. Given a basis components are unique, but if we change the basis, the components will change.
+\end{theorem}
+
+Note that $\ket{v}$ is an abstract which satisfies various relations. When we choose a basis the vectors assume a concrete form and the relation between 
+vectors is satisfied by the components. On changing basis, the components will change in numerical value, but the relation between them expressing the equality
+still holds between the set of new components. \\
+\\
+Addition of two vectors in a basis (both the vectors are expressed in the same basis): 
+\[
+    \ket{v}=\sum_{i=1}^{n}v_i\ket{i}, \ket{w}=\sum_{i=1}^{n}w_i\ket{i}
+\]
+\[
+    \ket{v}+\ket{w}=\sum_{i=1}^{n}(v_i+w_i)\ket{i}
+\]
+To add two vectors, add their corresponding components in the same basis. \\
+Scalar multiplication of a vector in a basis:
+\[
+    a\ket{v}=a\sum_{i=1}^{n}v_i\ket{i}=\sum_{i=1}^{n}(av_i)\ket{i}
+\]
+To multiply a vector by a scalar, multiply each component by the scalar. \\
+
+\subsection{Inner Product}
+Similar to the definition of dot product defined in $\mathbb{R}^n$ we define inner product in a vector space. The inner product is a generalization of the dot product in $\mathbb{C}^n$.
+The inner product is a function that takes two vectors as input and returns a scalar as output. The inner product is denoted by $\braket{u|v}$ and is defined as follows:
+\begin{definition}
+    Inner Product: Let $V$ be a vector space over a field $\mathbb{F}$. An inner product on $V$ is a function that assigns to each pair of vectors $\ket{u},\ket{v}\in V$ a scalar $\braket{u|v}\in\mathbb{F}$ such that for all $\ket{u},\ket{v},\ket{w}\in V$ and $a,b\in\mathbb{F}$ the following properties hold:
+    \begin{enumerate}
+        \item Conjugate Symmetry: $\braket{u|v}={\braket{v|u}}^*$
+        \item Linearity in the second argument: $\braket{v|au+bw}=a\braket{v|u}+b\braket{v|w}$
+        \item Positive Definite: $\braket{v|v}\geq 0$ and $\braket{v|v}=0$ iff $\ket{v}=\ket{0}$
+    \end{enumerate}
+\end{definition}
+
+\textbf{A vector space with an inner product defined is called an inner product space.}
+
+\begin{example}
+    In $\mathbb{R}^n$ as Field the inner product is defined as $\braket{u|v}=\sum_{i=1}^{n}u_iv_i$
+    and holds the following properties:
+    \begin{enumerate}
+        \item Symmetry: $\braket{u|v}=\braket{v|u}^*$
+        \item Linearity: $\braket{au+bw|v}=a\braket{u|v}+b\braket{w|v}=\braket{v|au+bw}$
+        \item Positive Definite: $\braket{v|v}=\sum_{i=1}^{n}v_i^2\geq 0$ and $\braket{v|v}=0$ iff $\ket{v}=\ket{0}$
+    \end{enumerate}
+    Here the properties of inner product are reduced since it is defined on Real numbers. The conjugate symmetry Property
+    is reduced to Symmetry Property. The Linearity in first argument reduces to Linearity in both arguments. 
+    The Positive Definite property remains the same.
+\end{example}
+\begin{example}
+    Verify that $\braket{|}$ defined is an inner product on $\mathbb{C}^n$.
+
+    Recall that on $\mathbb{C}^n$ was defined as:
+    \[
+    \braket{}=\sum_i y_i^*z_i=\begin{bmatrix} y_1^* & y_2^* & \ldots & y_n^* \end{bmatrix} \begin{bmatrix} z_1 \\ \vdots \\ z_n \end{bmatrix}
+    \]
+    Furthermore, recall the three conditions for the inner product, $\braket{|}:V \times V \rightarrow \mathbb{C}$ to be considered an inner product:
+    \begin{enumerate}
+        \item $\braket{|}$ is linear in the second argument.
+        \item $\braket{v|w} =\braket{w|v}^*$
+        \item $\braket{v|v}\geq 0$ with equality if and only if $\ket{v}=0$. 
+    \end{enumerate}
+    We check that $\braket{|}:\mathbb{C}^n \times \mathbb{C}^n\rightarrow \mathbb{C}$ satisfies he three conditions:
+    \begin{enumerate}
+    \item 
+    \begin{align*}
+    \braket{y|\sum_i \lambda_i z_i}&=\sum_iy_i^* ]sum_k \lambda_k z_{ik}\\
+    &=\sum_k \lambda_k \sum_i y_i^* z_{ik}\\
+    &=\sum_k \lambda_k \braket{y|z_i}
+    \end{align*}    
+    \item
+    \begin{align*}
+        \braket{y|z} &= \sum_i y_i^* z_i\\
+        &= \sum_i (y_iz_i^*)^*\\
+        &=\left(\sum_i z_i^*y_i\right)^*\\
+        &=\braket{z|y}^*
+    \end{align*}
+    \item Observe, $\mathbf{0}=\begin{pmatrix} 0 & \ldots & 0 \end{pmatrix}$
+    \[
+    \braket{0|0}=\sum_i 0 \cdot 0 = 0
+    \]
+    For $y\neq 0$ we have that at least on $y_i$ is non zero, and hence
+    \[
+    \braket{y|y}=\sum_i y_i^*y_i=\sum_i|y_i|^2 \geq 0
+    \]
+    which proves the claim.
+    \end{enumerate}
+\end{example}
+\begin{example}
+    Show that any inner product is conjugate-linear in the fist argument
+    \[
+    \braket{\left(\sum_i \lambda_i \ket{w_i}\right)|v}
+    \]  
+    This property is called \textbf{Antilinearity: The inner product is linear in the second argument and antilinear in the first argument. the antilinearity in the first argument is defined as follows:}
+
+    Using property 1: Conjugate Symmetry we get,
+    \[
+    \braket{\left(\sum_i \lambda_i \ket{w_i}\right)|v}=
+    \braket{v|\left(\sum_i \lambda_i \ket{w_i}\right)}^*
+    \]
+    Using Property 2: Linearity in second argument we get,
+    \[
+    = \left(\sum_i \lambda_i \braket{v|w_i} \right)^*
+    \]
+    using the properties of Complex Conjugate we get,
+    \[
+    = \sum_i \lambda_i^* \braket{w_i|v}
+    \]
+    where $\lambda_i^*$ is the complex conjugate of $\lambda_i$.
+\end{example}   
+Inner products of a linear superposition with another vector is the corresponding superposition of inner products if the superposition
+occus in second factor, while it is the superposition with all coefficients conjugated if the superposition occurs in the first factor.
+
+\textbf{Another way in which inner product can be thought of is as projections. The inner product $\braket{u|v}$ is the projection 
+of $\ket{v}$ onto $\ket{u}$. Similarly, we can say that the inner product $\braket{v|u}$ is the projection of $\ket{u}$ onto $\ket{v}$. Note that unlike in 
+the case of real vector spaces here the projections of a on b is not the same as the projection of b on a. here, the projections are complex conjugates of each other as 
+can be clearly observed since the inner product is conjugate symmetric ($\braket{u|v}=\braket{v|u}^*$). Thus, the projection of u on v is a complex conjugate of 
+the projection of v on u.}
+\begin{definition}
+    \textbf{Absolute value of a complex number}. Consider a complex number $z\in\mathbb{C}$ expressed as $z=x+\iota y$ where $x,y \in \mathbb{R}$ are real numbers representing the real and imaginary parts of $z$ respectively. The absolute value, or otherwise known as modulus of $z$ is given by
+    \[
+    |z|=\sqrt{z^*z}=\sqrt{x^2+y^2}
+    \]
+\end{definition}
+\begin{example}
+    For example, for $z=1_\iota 2$ its absolute value is given by $|z|=\sqrt{1^2+2^2}=\sqrt{5}$.
+\end{example}
+
+\begin{definition}
+    Norm (length) of a vector: Let $V$ be a vector space over a field $\mathbb{F}$. The norm of a vector $\ket{v}\in V$ is defined as $\|\ket{v}\|=\sqrt{\braket{v|v}}$.
+    A vector which has a norm of 1 is called a unit vector.
+\end{definition}
+
+\begin{example}
+    Consider a ket $\ket{v}=\frac{1}{2}\begin{pmatrix} 1+\iota \\ 1-\iota \end{pmatrix} \in \mathbb{C}^2$. The corresponding bra is given by $\bra{v} =\frac{1}{2}\begin{pmatrix} 1-\iota & 1+\iota \end{pmatrix}$, and the length of $\ket{v}$ is
+    \[
+    \sqrt{\braket{v|v}} =\sqrt{\frac{1}{4}2(1+\iota)(1-\iota)}=\sqrt{\frac{1}{2}(1+\iota -\iota -\iota^2)}=\sqrt{\frac{1}{2}2}=1
+    \]
+\end{example}
+
+\begin{definition}
+    Orthogonality: Let $V$ be a vector space over a field $\mathbb{F}$. Two vectors $\ket{u},\ket{v}\in V$ are said to be orthogonal if $\braket{u|v}=0$
+\end{definition}
+
+\begin{definition}
+    Orthonormal: Let $V$ be a vector space over a field $\mathbb{F}$. Two vectors $\ket{u},\ket{v}\in V$ are said to be orthonormal if they are orthogonal and have unit norm.
+\end{definition}
+
+\begin{definition}
+    Orthonormal Basis: Let $V$ be a vector space over a field $\mathbb{F}$. A basis $\ket{v_1},\ket{v_2},\ldots,\ket{v_n}$ of $V$ is called an orthonormal basis if
+    \begin{enumerate}
+        \item $\ket{v_1},\ket{v_2},\ldots,\ket{v_n}$ are orthogonal
+        \item $\|\ket{v_i}\|= \sqrt{\braket{v|v}} = 1$ for all $i=1,2,\ldots,n$
+    \end{enumerate}
+\end{definition}
+
+\begin{example}
+    A general formula of Inner Product: Let $\ket{u}=\sum_{i=1}^{n}u_i\ket{i}$ and $\ket{v}=\sum_{j=1}^{n}v_j\ket{j}$ be two vectors in a vector space $V$ over a field $\mathbb{F}$. Then the inner product of $\ket{u}$ and $\ket{v}$ is given by
+    \[
+        \braket{u|v}=\sum_{j=1}^{n} \sum_{i=1}^{n}u_i^*v_j \braket{i|j}
+    \]
+    If the basis is orthonormal then the $\braket{i|j}$ evaluates as follows:
+    \[
+    \braket{i|j}= 
+\begin{cases}
+    1, & \text{if } i=j\\
+    0, & \text{otherwise}
+\end{cases}
+\]
+Thus, in the orthonormal basis this gets simplified to 
+\[ \braket{u|v}=\sum_{i=1}^{n}u_i^*v_i \]
+Thus, defined inner product satisfies the above axioms of inner product.
+For norm of a vector $\ket{v}$ in an orthonormal basis is given by
+\[
+    \|\ket{v}\|=\sqrt{\braket{v|v}}=\sqrt{\sum_{i=1}^{n}v_i^*v_i}=\sqrt{\sum_{i=1}^{n}|v_i|^2}
+\]
+\[ \braket{v|v}=\sum_{i=1}^{n}|v_i|^2 \geq 0 \]
+thus, it is used to define the length of the vector. Also note that $|v_i|$ is the modulus of a complex number (thus $|v_i| \geq 0$).
+\end{example}
+\begin{example} 
+Verify that $\ket{w}=(1,1)$ and $\ket{v}=(1,-1)$ are orthogonal. What are the normalized forms of these vectors?
+\[
+\braket{w|v}=1\cdot 1 + 1 \cdot -1 = 1 + (-1) = 0
+\]
+Thus, clearly since $\braket{v|w}=0$ they are orthogonal. Now, $\|\ket{v}\|=\sqrt{\braket{v|v}}=\sqrt{1^2+1^2} = \sqrt{2}$ and $\|\ket{w}\|=\sqrt{\braket{w|w}}=\sqrt{1^2+1^2}=\sqrt{2}$. Thus, their normalized forms are: $\ket{v}/\|\ket{v}\|= \frac{1}{\sqrt{2}}(1,1)$ and $\ket{w}/\|\ket{w}\|=\frac{1}{\sqrt{2}}(1,-1)$.
+\end{example}
+Now note that the inner product can be written as matrix multiplication between two vectors. Let $\ket{u}=\begin{pmatrix} u_1 \\ u_2 \\ \vdots \\ u_n \end{pmatrix}$ 
+and $\ket{v}=\begin{pmatrix} v_1 \\ v_2 \\ \vdots \\ v_n \end{pmatrix}$ be two vectors in a 
+vector space $V$ over a field $\mathbb{C}$ with basis vectors as $\ket{i}=\begin{pmatrix} 0 \\ \vdots \\ 0 \\ 1 \\ 0 \\ \vdots \\ 0 \end{pmatrix}$ where 1 is in the ith row position. Then the inner product of $\ket{u}$ and $\ket{v}$ is given by
+\[
+    \braket{u|v}=\begin{pmatrix} u_1^* & u_2^* & \ldots & u_n^* \end{pmatrix} \begin{pmatrix} v_1 \\ v_2 \\ \vdots \\ v_n \end{pmatrix}=\begin{pmatrix} u_1^* & u_2^* & \ldots & u_n^* \end{pmatrix} \begin{pmatrix} v_1 \\ v_2 \\ \vdots \\ v_n \end{pmatrix}=\sum_{i=1}^{n}u_i^*v_i
+\]
+
+Thus, the inner product can be written as matrix multiplication between two vectors. 
+Note that here $\bra{u}$ is called a bra vector and we can think of it as lying in some other vector space defined by the basis vectors:
+$\bra{i}=\begin{pmatrix} 0 & \ldots & 0 & 1 & 0 & \ldots & 0 \end{pmatrix}$ where 1 is in the ith column position. Thus we have a vector space of $\ket{v}$ and another vector space
+of $\bra{v}$, this two spaces are called dual spaces. We can convert a vector from one space to other by performing the adjoint operation (transpose conjugate operation). Thus, $\bra{v}=((\ket{v})^{T})^{*}$ or $\ket{v}=((\bra{v})^{T})^{*}$. \\
+\\
+Properties of Adjoint Operation:
+\begin{enumerate}
+    \item $(a\ket{v}+b\ket{w})^{\dagger}=\bra{v}a^{*}+\bra{w}b^{*}$
+    \item $(\ket{v}^{\dagger})^{\dagger}=\ket{v}$
+\end{enumerate}
+
+\begin{example}
+    note that the inner product of two vectors $\ket{v_1},\ket{v_2} \in \mathbb{C}^d$ is in general a complex number. Later on, we shall see that the modulus squared of the inner product $|\braket{v_1|v_2}|^2$ is of much significance. As an example, let us consider the inner product of the vectors $\ket{v}$ and $\ket{w}$ given as
+    \[
+    \ket{v}=\begin{pmatrix} 1 \\0 \end{pmatrix},\ket{w}=\begin{pmatrix} 2 \\ 3 \end{pmatrix}
+    \]
+    We have
+    \[
+    \braket{v|w}=\begin{pmatrix} 1 & 0 \end{pmatrix} \begin{pmatrix}2 \\3 \end{pmatrix}=1\cdot 2+0\cdot 3 =2
+    \]
+    Note that $|\braket{v_1|v_2}|^2=\braket{v_1|v_2}\braket{v_2|v_1}$.
+\end{example}
+\subsection{Gram-Schmidt Orthogonalization}
+Given a set of linearly independent vectors $\ket{v_1},\ket{v_2},\ldots,\ket{v_n}$ in a vector space $V$ over a field $\mathbb{F}$, the Gram-Schmidt orthogonalization process constructs an orthonormal basis $\ket{u_1},\ket{u_2},\ldots,\ket{u_n}$ of $V$ from the given set of linearly independent vectors. The process is as follows:
+\begin{enumerate}
+    \item Let $\ket{u_1}=\frac{\ket{v_1}}{\|v_1\|}$
+    \item For $i=2,3,\ldots,n$ do
+    \begin{enumerate}
+        \item Let $\ket{u_i}=\ket{v_i}-\sum_{j=1}^{i-1}\braket{u_j|v_i}\ket{u_j}$
+        \item Normalize the vector $\ket{u_i}$: $\ket{u_i}=\frac{\ket{u_i}}{\|\ket{u_i}\|}$
+    \end{enumerate}
+\end{enumerate}
+
+\begin{proof}
+    Proof that Gram-Scmidt Orthogonalization process constructs an orthonormal basis of $V$ from a given set of linearly independent vectors $\ket{v_1},\ket{v_2},\ldots,\ket{v_n}$ in a vector space $V$ over a field $\mathbb{F}$.
+    The proof can be shown by using induction.\\
+    \textbf{Base Case}\\
+    For $i=1$, $\ket{u_1}=\frac{\ket{v_1}}{\|v_1\|}$ is a unit vector and thus is an orthonormal basis.\\
+    \textbf{Inductive Hypothesis}\\
+    Assume that for some $k\geq 1$, the vectors $\ket{u_1},\ket{u_2},\ldots,\ket{u_k}$ are orthonormal.\\
+    \textbf{Inductive Step}\\
+    We need to show that the vector $\ket{u_{k+1}}$ is orthonormal. We have
+    \[
+        \braket{u_i|u_j}=\delta_{ij}=
+        \begin{cases}
+            1, & \text{if } i=j\\
+            0, & \text{otherwise}
+        \end{cases}
+    \]
+    for $i,j=1,2,\ldots,k$. Thus, we need to show that $\braket{u_i|u_{k+1}}=0$ for $i=1,2,\ldots,k$. We have
+    \[
+        \braket{u_i|u_{k+1}}=\braket{u_i|v_{k+1}}-\sum_{j=1}^{k}\braket{u_j|v_{k+1}}\braket{u_i|u_j}
+    \]
+    Now, $\braket{u_i|u_j}=\delta_{ij}$ and thus the above equation becomes,
+    \[
+        =\braket{u_i|v_{k+1}}-\braket{u_i|v_{k+1}}\braket{u_i|u_i}
+    \]
+    Using the fact that $\ket{u_i}$ is a unit vector (from inductive hypothesis that $\ket{u_1}, \ldots, \ket{u_k}$ is an orthonormal basis), we have
+    \[
+        =\braket{v_{k+1}|u_i}-\braket{u_i|v_{k+1}}
+    \]
+    \[
+        =0
+    \]
+    Thus, $\ket{u_{k+1}}$ is orthogonal to $\ket{u_1},\ket{u_2},\ldots,\ket{u_k}$. Now, we need to show that $\ket{u_{k+1}}$ is a unit vector. We have
+    \[
+        \|\ket{u_{k+1}}\|=\|\frac{\ket{v_{k+1}}}{\|v_{k+1}\|}\|=\frac{\bra{v_{k+1}}}{\|v_{k+1}\|}\frac{\ket{v_{k+1}}}{\|v_{k+1}\|}=\frac{\braket{v_{k+1}|v_{k+1}}}{\|v_{k+1}\|^2}=\frac{\|v_{k+1}\|^2}{\|v_{k+1}\|^2}=1
+    \]
+    Thus, $\ket{u_{k+1}}$ is a unit vector. Thus, by induction, the Gram-Schmidt orthogonalization process constructs an orthonormal basis of $V$ from a given set of linearly independent vectors $\ket{v_1},\ket{v_2},\ldots,\ket{v_n}$ in a vector space $V$ over a field $\mathbb{F}$.
+
+\end{proof}
+
+\subsection{Cauchy-Schwarz and Traingle Inequalities}
+\begin{theorem}
+    The Schwarz inequality: Dot product of two vectors cannot exceed the product of their lengths.
+    \[|\braket{V|W}| \leq \sqrt{\braket{V|V}\braket{W|W}}\]
+\end{theorem}
+\begin{proof}
+    Note that this is obviously true for arrows. Now say,
+    \[\ket{Z}=\ket{V}-\frac{\braket{W|V}}{|W|^2}\ket{W}\]
+    \[\bra{Z}=\bra{V}-\frac{\braket{V|W}}{|W|^2}\bra{W}\]
+    Note  here we are required to find $\braket{Z|Z}$. Thus we can either write the bra form and then proceed solving with direct 
+    inner product or we can use the ket version in the first factor and then use the antilienearity axiom (for superposition in the first factor) to proceed further. Then, we have
+    \[\braket{Z|Z}=\braket{V|V}-\frac{\braket{V|W}\braket{W|V}}{|W|^2}-\frac{\braket{W|V}\braket{V|W}}{|W|^2}+\frac{\braket{V|W}\braket{W|V}\braket{W|W}}{|W|^4}\]
+    Now $\braket{Z|Z}\geq 0$ from axiom. ($\braket{W}|W=|W|^2$)Thus,
+    \[|\braket{V|V}| \geq \frac{\braket{V|W} \braket{W|V}}{|W|^2}\]
+    \[\braket{V|V}\braket{W|W}\geq |{\braket{V|W}}|^2\]
+    \[|\braket{V|W}|^2 \leq \braket{V|V}\braket{W|W}\]
+    \[|{\braket{V|W}}| \leq \sqrt{\braket{V|V}\braket{W|W}}\]
+    Hence proved.
+\end{proof}
+\begin{theorem}
+    The Triangle Inequality: the length of a sum cannot exceed the sum of the lengths.
+    \[|V+W| \leq |V| + |W|\]
+\end{theorem}
+\begin{proof}
+    Note that this is obviously true for arrows. Now say,
+    \[\ket{Z}=\ket{V}+\ket{W}\]
+    \[\bra{Z}=\bra{V}+\bra{W}\]
+    Thus, we have
+    \[\braket{Z|Z}=|Z|^2=\bra{V}\ket{V}+\bra{W}\ket{W}+\bra{V}\ket{W}+\bra{W}\ket{V}\]
+    \[|V+W|^2=|V|^2 + |W|^2 + 2Re(\braket{V|W})\]
+    Now using, $Re(\braket{V|W}) \leq |{\braket{V|W}}|$, we get
+    \[|{V+W}|^2 \leq |{V}|^2 + |{W}|^2 + 2|{\braket{V|W}}|\]
+    Using Schwarz Inequality, we get
+    \[|{V+W}|^2 \leq |{V}|^2 + |{W}|^2 + 2|{V}||{W}|\]
+    \[|{V+W}|^2 \leq (|{V}|+|{W}|)^2\]
+    \[|{V+W}| \leq |{V}| + |{W}|\]
+    Hence, proved.
+\end{proof}
+
+\subsection{Linear Operators and Matrix Representation}
+\begin{definition}
+    Linear Operator: Let $V$ and $W$ be vector spaces over a field $\mathbb{F}$. A function $A:V\rightarrow W$ is called a linear operator if for all $\ket{v},\ket{w}\in V$ and $a\in\mathbb{F}$ the following properties hold:
+    \begin{enumerate}
+        \item $A(\ket{v}+\ket{w})=A(\ket{v})+A(\ket{w})$
+        \item $A(a\ket{v})=aA(\ket{v})$
+    \end{enumerate}
+\end{definition}
+
+In general, when we say a linear operator is defined on a vector space V, we mean that A is a
+linear operator from V to V. 
+
+Once the action of Linear Operators on the basis vectors is known,
+their action on any vector space is determined. For basis $\ket{1},\ket{2},\ldots,\ket{n}$ of a vector space $V$ over a field $\mathbb{F}$, the action of a linear operator $A$
+on any vector $\ket{v}=\sum_{i=1}^n v_i\ket{i}$ say transforms the basis vectors to $\ket{1'}, \ket{2'}, \ldots, \ket{m'}$ and thus, the vector $\ket{v}$ to $\ket{v'}$ as follows:
+\[A(\ket{v})=A\left(\sum_{i=1}^n v_i\ket{i}\right)=\sum_{i=1}^n v_iA(\ket{i})=\sum_{i=1}^n v_i \ket{i'}=\ket{v'}\]
+This can be explained as follows:
+\begin{align*}
+A\ket{v}&=\sum_{i=1}^n Av_i\ket{i}\\
+\braket{j|A|v}&=\sum_{i=1}^n v_i \braket{j|A|i}
+\end{align*}
+For each $\{\ket{i}\}_{i=1}^n$ and each $\{\ket{j'}\}_{j=1}^m$. Thus, the inner product with one of the basis vectors of the output basis results in as shown above. This can be written in the matrix form as follows:
+\[ 
+A\ket{v}=\begin{bmatrix} \braket{1'|A|1} & \braket{1'|A|2} & \ldots & \braket{1'|A|n} \\ \braket{2'|A|1} & \braket{2'|A|2} & \ldots & \braket{2'|A|n} \\ \vdots & \vdots & \ddots & \vdots \\ \braket{m'|A|1} & \braket{m'|A|2} & \ldots & \braket{m'|A|n} \end{bmatrix} \begin{bmatrix} v_1 \\ v_2 \\ \vdots \\ v_n \end{bmatrix} 
+\]
+where the input basis is $\ket{1},\ket{2},\ldots,\ket{n}$ and the output basis is $\ket{1'},\ket{2'},\ldots,\ket{m'}$. Thus, we have a matrix representation of $A$ in the given input $\ket{1},\ket{2},\ldots,\ket{n}$ and output basis $\ket{1'},\ket{2'},\ldots,\ket{m'}$.
+
+Thus, once if we know the action of a linear operator on the basis vectors, we can determine the action of the linear operator on any vector in the vector space. It is the same linear combination
+of the vector in the new basis as it was in the old basis. Note we haven't talked anything about writing this operators in matrix format till now and so one must not think in terms of matrix and confuse. 
+The above statement simply says that say given a basis vectors of Vector Space V and a linear operator A, then the action of A on any vector in the vector space is determined by the action of A on the basis vectors.
+In other words, given the basis vectors $\ket{1},\ket{2},\ldots,\ket{n}$ of Vector space V and a linear operator A and its transformed basis vectors $\ket{1'},\ket{2'},\ldots,\ket{m'}$ of Vector Space W, we can find what the any vector in the 
+Vector Space V will be in the Vector Space W when we apply the Operator A on the vector. 
+The matrix representation and operators are equivalent for the purpose of this notes and is applicable in 
+Quantum Computing.
+
+\begin{definition}
+    \textbf{Matrix Representation of a Linear Operator}: Let $V$ be a vector space over a field 
+    $\mathbb{F}$ with basis $\ket{1},\ket{2},\ldots,\ket{n}$ and let $W$ be a vector 
+    space over $\mathbb{F}$ with basis $\ket{1'},\ket{2'},\ldots,\ket{m'}$. Let $A$ be 
+    a linear operator from $V$ to $W$. The matrix representation of $A$ with respect to 
+    the basis $\ket{1},\ket{2},\ldots,\ket{n}$ of $V$ and the basis $\ket{1'},\ket{2'},
+    \ldots,\ket{m'}$ of $W$ is the $m\times n$ matrix $[A]$ whose elements are given by
+    \[[A]_{ij}=\braket{i'|A|j}\]
+    which is the ith row and jth column entry.
+\end{definition}
+
+To explain this in more depth. We must know what the operator does to the basis vectors. Then
+to represent this operator in some matrix representation we must first specify the input and ouput basis
+for the matrix to map. In general, the input and ouput basis are the same and they are the same standard orthonormal
+basis that we use (i.e. $\ket{1}=1,0,0,\ldots,0$, $\ket{2}=0,1,0,\ldots,0$ and so on). 
+Thus, the matrix representation of the operator in this basis will be given as follows:
+\[ [A]=\begin{pmatrix} \braket{1'|A|1} & \braket{1'|A|2} & \ldots & \braket{1'|A|n} \\ \braket{2'|A|1} & \braket{2'|A|2} & \ldots & \braket{2'|A|n} \\ \vdots & \vdots & \ddots & \vdots \\ \braket{m'|A|1} & \braket{m'|A|2} & \ldots & \braket{m'|A|n} \end{pmatrix} \]
+
+this indicates that the input basis here is chosen as $\ket{1},\ket{2},\ldots,\ket{n}$ and the output basis is chosen as $\ket{1'},\ket{2'},\ldots,\ket{m'}$.
+Note that the jth column represents the components of the jth transformed basis vector $\ket{j'}=A\ket{j}$. 
+Thus the value $\bra{i'}A\ket{j}$ is a scalar value which is the component of the jth basis vector $\ket{j}$ after being transformed by the action of opertor 
+A to $A\ket{j}$ on the ith transformed basis vector $\ket{i'}$.
+
+Generally for the purpose of this notes and for the most of the applications we assume the input and output basis to 
+be the standard orthonormal basis. Thus, the problems we will face will be of the kind that we will be given operations of 
+an operator on some vectors (sufficient enough to find its matrix representation) and then 
+we will be asked to find its matrix representation in some input and output basis. Consider the following example for more
+clarity.
+
+\begin{example}
+\textbf{(Matrix representations: example)}
+    Suppose V is a vector space with basis vectors $\ket{0}$ and $\ket{1}$, and A is a linear operator from
+    V to V such that $A\ket{0}=\ket{1}$ and $A\ket{1}=\ket{0}$. Find the matrix representation of A in the basis $\ket{0}$ and $\ket{1}$ 
+    (since it doesn't say input and ouput basis, we assume that the input and ouput basis are the same and they are $\ket{0}$ and $\ket{1}$).
+    Also find the matrix representation of A in the basis $\ket{+}=\frac{1}{\sqrt{2}}\begin{pmatrix} 1 \\ 1 \end{pmatrix}$ and $\ket{-}=\frac{1}{\sqrt{2}}\begin{pmatrix} 1 \\ -1 \end{pmatrix}$
+    represented in the standard orthonormal basis. Note that the basis $\ket{+}$ and $\ket{-}$ are orthonormal.
+
+    Solution: Identifying $ket{0}=\begin{bmatrix} 1 \\ 0 \end{bmatrix}$ and $\ket{1}=\begin{bmatrix} 0 \\ 1 \end{bmatrix}$. The matrix representation of A in the basis $\ket{0}$ and $\ket{1}$ is given by
+    \[[A]=\begin{pmatrix} \braket{0|A|0} & \braket{0|A|1} \\ \braket{1|A|0} & \braket{1|A|1} \end{pmatrix}=\begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix}\]
+    The matrix representation of A in the basis $\ket{+}$ and $\ket{-}$ is given by
+    \[[A]=\begin{pmatrix} \braket{+|A|+} & \braket{+|A|-} \\ \braket{-|A|+} & \braket{-|A|-} \end{pmatrix}\]
+    Note that now we are not given the action of operator A on the vector $\ket{+}$ and $\ket{-}$, thus we must find it first.
+    \[A\ket{+}=A\left(\frac{1}{\sqrt{2}}\begin{pmatrix} 1 \\ 1 \end{pmatrix}\right)=\begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix}\frac{1}{\sqrt{2}}\begin{pmatrix} 1 \\ 1 \end{pmatrix}=\frac{1}{\sqrt{2}}\ket{0}+\frac{1}{\sqrt{2}}\ket{1}=\ket{+}\]
+    \[A\ket{-}=A\left(\frac{1}{\sqrt{2}}\begin{pmatrix} 1 \\ -1 \end{pmatrix}\right)=\begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix}\frac{1}{\sqrt{2}}\begin{pmatrix} -1 \\ 1 \end{pmatrix}=-\frac{1}{\sqrt{2}}\ket{0}+\frac{1}{\sqrt{2}}\ket{1}=-\ket{-}\]
+    Thus the matrix representation of A in the basis $\ket{+}$ and $\ket{-}$ using $A\ket{+}=\ket{+}$ and $A\ket{-}=-\ket{-}$ is given by
+    \[[A]=\begin{pmatrix} \braket{+|A|+} & \braket{+|A|-} \\ \braket{-|A|+} & \braket{-|A|-} \end{pmatrix}=\begin{pmatrix} 1 & 0 \\ 0 & -1 \end{pmatrix}\]
+\end{example}
+
+\textbf{Thus, given action of linear operators on some vectors (assumed sufficient enough to find the matrix representation) we can find its 
+matrix representation in any input and output basis as shown by the above procedure. The matrix may be numerically different in different basis. 
+Note that once the matrix is specified in a given input and output basis it can operate only on the vectors that are specified in the same input basis and the 
+output of the operation will result in a vector specified in the given output basis. Note that to make the connection between matrices and linear operators one must specify
+a set of input and output basis states for the input and output vectors spaces of the linear operator. The 
+matrix representation can thus be found for a linear operator using the above mentioned procedure. On a side note, note that it is not
+at all necessary for the input and output basis to be the same or even orthonormal as that property has not been used anywhere while deriving the formulation, the condition that needs to be satisfied is just that the 
+basis vectors must be specified for the linear operator's input and output vector spaces.}\\
+\begin{importantnote}
+    \begin{remark}
+    If we choose the output and the input basis to be different we can even represent $A$ as an identity matrix. Specifically, if the input basis is chosen as $\{\ket{0},\ket{1}\}$ and the output basis as $\{\ket{1}\,\ket{0}\}$, the matrix representation of $A$ looks like:
+    \[
+    \begin{bmatrix} \braket{1|A|0} & \braket{1|A|1} \\
+    \braket{0|A|0} & \braket{0|A|1} \end{bmatrix} = 
+    \begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix}
+    \]
+    \textbf{Note that this implies that even the order of input and output basis matters!!}
+    \end{remark}
+\end{importantnote}
+\begin{example}
+    \textbf{(Basis Changes)} Suppose $A'$ and $A''$ are matrix representation of an operator $A$ on a vector space $V$ with respect to two different orthonormal basis $\ket{v_i}$ and $\ket{w_i}$. Then the elements of $A'$ and $A''$ are $A_{ij}'=\braket{v_i|A|v_j}$ and $A_{ij}''= \braket{w_i|A|w_j}$. Characterize the relationship between $A'$ and $A''$.
+
+    \begin{align*}
+        A_{ij}'=\braket{v_i|A|v_j}=\braket{v_i|IAI|v_j}&=\braket{v_i|\left(\sum_{i'}\ket{w_{i'}}\bra{w_{i'}}\right)A\left(\sum_{j'}\ket{w_{j'}}\bra{w_{j'}}\right)|v_j}\\
+        &=\sum_{i'}\sum_{j'}\braket{v_i|w_{i'}}\braket{w_{i'}|A|w_{j'}}\braket{w_{j'}|v_j}\\
+&=\sum_{i'}\sum_{j'}\braket{v_i|w_{i'}}A_{ij}''\braket{w_{j'}|v_j}
+    \end{align*}
+\end{example}
+\begin{example}
+    \textbf{(Matrix representation for identity)} Show that the identity operator on a vector space $V$ has a matrix representation which is one along the diagonal and zero everywhere else, if the matrix representation is takes with respect to the same output and input bases. This matrix is known as the identity matrix.
+
+    Let the basis for the vector space $V$ be $\ket{v_i}$ then the identity operator is such that $I\ket{v_i}=\ket{v_i}$. Let $A:V\rightarrow V$ be a linear operator, and let its matrix representation taken to be with respect to $\ket{v_i}$ as the input and output bases. Thus, its matrix representation with respect to the same input and output bases is given as
+    \begin{align*}
+    I_{ij}&=\braket{v_i|I|v_j}\\
+    &=\braket{v_i|v_j}\\
+    I_{ij}&=\delta_{ij}
+    \end{align*}
+    Thus, it is one along the diagonal where $i=j$ and 0 every where else where $i\neq j$.
+\end{example}
+From now on, when we speak of a matrix representation for a linear operator, we mean a matrix representation with respect to orthonormal input and output bases. We also use the convention that if the input and output spaces for a linear operator are the same,
+then the input and output bases are the same, unless noted otherwise.
+Some of the Important linear Operators: 
+\begin{enumerate}
+    \item Identity Operator: The identity operator $I$ is defined as $I\ket{v}=\ket{v}$ for all $\ket{v}\in V$. The matrix representation of the identity operator in any basis is the identity matrix.
+    \[\bra{i}I\ket{j}=\braket{i|j}=\delta_{ij}\] 
+    where $\delta_{ij}$ is the Kronecker delta function.
+    \item Zero Operator: The zero operator $0$ is defined as $0\ket{v}=\ket{0}$ for all $\ket{v}\in V$. The matrix representation of the zero operator in any basis is the zero matrix.
+    \item Projection Operator: Consider a vector $\ket{v}$ which can be written in some basis as:
+    \[ \ket{v}=\sum_{i=1}^{n}v_i\ket{i} \]
+    This can be further simplified using the inner product definition as $v_i$ is the projection of the $\ket{v}$ onto the ith basis vector $\ket{i}$.
+    Thus, $v_i=\braket{i|v}$. On substituting we get,
+    \[ \ket{v}=\sum_{i=1}^{n}\braket{i|v}\ket{i} \]
+    Rearranging we get,
+    \[ \ket{v}=\sum_{i=1}^{n}\ket{i}\braket{i|v} =\left(\sum_{i=1}^n \ket{i}\bra{i} \right) \ket{v}\]
+    Let $\mathbb{P}_i = \ket{i}\bra{i}$ be the projection operator which projects any vector $\ket{v}$ onto the subspace spanned by the basis vector $\ket{i}$.
+    Thus, $\mathbb{P}_i\ket{v}=\ket{i}\braket{i|v}$. Thus, $\mathbb{P}=\sum_{i=1}^n \mathbb{P}_i = \sum_{i=1}^n \ket{i}\bra{i} = I$ (Identity Operator) is called the \textbf{Completeness Relation}, and $\mathbb{P}\ket{v}=\ket{v}$. Thus, $\mathbb{P}$ is a projection operator which projects any vector $\ket{v}$ 
+    onto the subspace spanned by the basis vectors $\ket{i}$. Projection operator acting on bra $\bra{v}$ is 
+    $\bra{v}\mathbb{P}_i=\bra{i}v_i^*$.
+    Now, 
+    \[\mathbb{P}_i\mathbb{P}_j=\ket{i}\braket{i|j}\bra{j}=\delta_{ij}\mathbb{P}_j\]
+    this equation indicates that once $\mathbb{P}_i$ projects out the part of $\ket{V}$ along $\ket{i}$, further applications
+    of $\mathbb{P}_i$ make no difference; and the subsequent applications of $\mathbb{P}_i (i \neq j)$ will result in zero, since 
+    a vector entirely along $\ket{i}$ cannot have a projection along a perpendicular direction $\ket{j}$. Thus, $P^2=P$ property must be satisfied by any projection matrix. Note that here we have assumed that the vectors to be projected
+    are on orthonormal basis.
+
+    In the standard orthonormal basis the projection operator $\mathbb{P}_i=\ket{i}\bra{i}$ will be 1 at the ith position in the diagonal and zero every where else. 
+    \[\mathbb{P}_i= \ket{i}\bra{i} = \begin{pmatrix} 0 \\ \vdots \\ 0 \\ 1 \\0 \\ \vdots \end{pmatrix} \begin{pmatrix} 0 & \ldots & 0 & 1 & 0 & \ldots & 0 \end{pmatrix} = \begin{pmatrix} 0 & \ldots & 0 & 0 \\ \vdots & 1 & \ldots & 0 \\ 0 & \ldots & 0 & 0 \end{pmatrix}\]
+    Thus, 
+    upon adding all the individual projection operator on i we get the identity operator. The matrix element of the projection operators are thus given as:
+    \[(\mathbb{P}_i)_{kl}=\braket{k|i}\braket{i|l}=\delta_{ki}\delta_{il}=\delta_{kl} \]
+    $I-P$ is also a projection operator which projects onto the subspace orthogonal to the subspace spanned by the basis vector $\ket{i}$ and is called orthogonal complement. Suppose $W$ is a k-dimensional vector subspace of the d-dimensional vector space $V$. using the gram-Schmidt procedure it is possible to construct an orthonormal basis $\ket{1},\ldots,\ket{d}$ for V such that $\ket{1},\ldots,\ket{k}$ is an orthonormal basis for W. By definition,
+    \[
+    P=\sum_{i=1}^k \ket{i}\bra{i}
+    \]
+    is the projector onto the subspace $W$. It is easy to check that this definition is independent of the orthonormal basis $\ket{1},\ldots,\ket{k}$ used for $W$. From the definition, it can be shown that $\ket{v}\bra{v}$ is hermitian for any vector $\ket{v}$, so $P$ is Hermitian, $P^{\dagger}=P$. We will often refer to the vector space P, as shorthand for vector space onto which $P$ is a projector. The orthogonal complement of $P$ is the operator $Q=I-P$. It is easy to see that $Q$ is a projector onto the vector space spanned by $\ket{k+1},\ldots,\ket{d}$, which we also refer to as the orthogonal complement of $p$ , and may denote by $Q$. 
+    \item Rotation operator: $R(\theta)$ on $\mathbb{R}^n$ is defined as rotation by an angle $\theta = |\theta|$ about the axis parallel
+    to the unit vector $\hat{\theta}=\theta/|\theta|$. For example, $R(\frac{\pi}{2} i)$ rotates the vector by $\frac{\pi}{2}$ about the x-axis. The matrix representation of the rotation operator in the standard orthonormal basis is given by
+    \[ [R(\theta)]=\begin{pmatrix} \cos(\theta) & -\sin(\theta) & 0 \\ \sin(\theta) & \cos(\theta) & 0 \\ 0 & 0 & 1 \end{pmatrix} \]
+    Note that the Unitary operators are generalization of Rotation operator in $\mathbb{V}^n$ which will be seen later.
+\end{enumerate}
+
+\subsubsection{Matrix Representation for Product of Operators}
+Given two linear operators $A$ and $B$ acting on a vector space $V$ over a field $\mathbb{F}$, the product of the operators $AB$ is defined as the operator that results from applying $A$ followed by $B$ on any vector $\ket{v}\in V$.
+\[[AB]_{ij}=\bra{i}AB\ket{j}=\sum_{k=1}^n \bra{i}A\ket{k}\bra{k}B\ket{j}=\sum_{i=1}^n A_{ik}B_{kj}=[A][B]\]
+where $[A]$ and $[B]$ are the matrix representations of the operators $A$ and $B$ respectively. Note that the order of the product of the operators is important and the product of the matrices is not commutative in general. 
+Thus, the matrix representation of the product of the operators $AB$ is given by the product of the matrix representations of the operators $A$ and $B$.
+
+\begin{example}
+\textbf{(Matrix representation of operator products)} Suppose $A$ is a linear operator from vector space $V$ to vector space $W$, and $B$ is a linear operator from vector space $W$ to vector space to vector space $X$. Let $\ket{v_i},\ket{w_j}$, and $\ket{x_k}$ be bases for the vector space $V,W$ and $X$, respectively. Show that the matrix representation for the linear transformations $BA$ is the matrix product of the of the matrix representations of $B$ and $A$, with respect to the appropriate bases.
+
+Recall that the matrix-vector multiplication choosing the input bases itself as the vector, along with the projection on the output bases can be written as
+\[
+A\ket{v_i}=\sum_j \braket{w_j|A|v_i} \ket{w_j} \quad B\ket{w_j}=\sum_k \braket{x_k|B|w_j} \ket{x_k}
+\]
+\begin{align*}
+BA\ket{v_i}&=B\left(\sum_j \braket{w_j|A|v_i} \ket{w_j}\right)\\
+&=\sum_j \braket{w_j|A|v_i} \left( B\ket{w_j}\right)\\
+&=\sum_j \braket{w_j|A|v_i} \left(\sum_k \braket{x_k|B|w_j}\ket{x_k}\right)\\
+&= \sum_{j} \sum_k \braket{w_j|A|v_i} \braket{x_k|B|w_j} \ket{x_k}\\
+&= \sum_{jk} A_{ji}B_{kj} \ket{x_k}\\
+&=\sum_{jk} B_{kj} A_{ji} \ket{x_k}\\
+&=\sum_k \left(\sum_j B_{kj}A_{ji} \right) \ket{x_k}\\
+BA\ket{v_i}&=\sum_k (BA)_{ki} \ket{x_k}
+\end{align*}
+which shows that the matrix representation of $BA$ is indeed the matrix product of the representations of $B$ and $A$.
+\end{example}
+
+\subsubsection{Outer Product Representation of Operators}
+Suppose we are required to represent an operator A action on input vector space V and output vector space W as some linear 
+combination of outer products. Suppose $A:V\rightarrow W$ is a linear operator with $\ket{v_i}$ as orthonormal basis for V, and $\ket{w_j}$ as
+orthonormal basis for W. Thus, we obtain
+\[ A = I_w A I_v = \sum_{i=1}^n \sum_{j=1}^m \ket{w_j}\bra{w_j}A\ket{v_i}\bra{v_i}=\sum_{i=1}^n \sum_{j=1}^m \bra{w_j}A\ket{v_i} \ket{w_j}\bra{v_i} \]
+Thus, the operator A can be represented as a linear combination of outer products of the basis vectors of the input and output vector spaces.
+\begin{example}
+    Suppose $\ket{v_i}$ is an orthonormal basis for an inner product space $V$. What is the matrix representation for the operator $\ket{v_j}\bra{v_k}$, with respect to the $\ket{v_i}$ basis.
+
+    The $l,m$ element of the matrix will be
+    \begin{align*}
+    A_{lm}&=\braket{v_l|v_j}\braket{v_k|v_m}\\
+    &=\delta_{lj}\delta_{km}
+    \end{align*}
+   Thus, the matrix will be 1 at the $j,m$ entry of the matrix and 0 everywhere else.
+
+\end{example}
+\subsubsection{Properties of Adjoint of an Operator}
+We know, for a given ket
+\[A\ket{v}=\ket{Av}\]
+and for the corresponding bra
+\[\bra{Av}=\bra{v}A^{\dagger}\]
+Thus, the adjoint of an operator is defined as
+\[ (A^{\dagger})_{ij}=\bra{i}A^{\dagger}\ket{j}=\bra{j}A\ket{i}^*=(A_{ji})^* \]
+Also,
+\[ (AB)^{\dagger}=B^{\dagger}A^{\dagger} \]
+\begin{example}
+    \[\alpha_1\ket{V_1}=\alpha_2\ket{V_2}+\alpha_3\ket{v_3}\braket{V_4|V_5} + \alpha_4AB\ket{V_6}\]
+    It's adjoint will be given as:
+    \[\alpha_1^*\bra{V_1}=\alpha_2^*\bra{V_2}+\alpha_3^*\bra{v_3}\braket{V_5|V_4} + \alpha_4^*\bra{V_6}B^{\dagger}A^{\dagger}\]
+    \textbf{Anti-linearity of the adjoint} The adjoint operation i s anti-linear
+    \[
+        \left(\sum_ia_iA_i\right)^{\dagger}=\sum_i a_i^* A_i^{\dagger}
+    \]
+    In words, when a product of operators, bras, kets and explicit numerical coefficients is encountered, reverse the order of all factors 
+    and make the substitutions $A \rightarrow A^{\dagger}$ and $\ket{} \rightarrow \bra{}$ and $\alpha \rightarrow \alpha^*$.
+\end{example}
+
+\subsection{Hermitian and Unitary Operators}
+Note that both the Hermitian and Unitary operators are defined only for a Square Matrices.
+
+\subsubsection{Hermitian Operators (or Self-Adjoint operators)}
+\begin{definition}
+\textbf{Hermitian Operator} is defined as:
+\[A^{\dagger}=A\]
+Skew-Hermitian/Anti-Hermitian operator is defined as:
+\[A^{\dagger}=-A\]
+\end{definition}
+
+\textbf{Properties of Hermitian operators: }
+\begin{itemize}
+    \item Since $A^{\dagger}=A$, thus the principal diagonal elements will be $a_{ii}=a_{ii}^*$, thus the principal diagonal elements of a Hermitian operator are real.
+    \item Principal Diagonal elements for a skew hermitian matrix will satisfy $a_{ii}=-a_{ii}^*$, thus the principal diagonal elements of a skew hermitian operator are imaginary or zero.
+    \item Any Matrix can be represented as a sum of Hermitian and skew-Hermitian matrices.
+    \[ A = \frac{A+A^{\dagger}}{2} + \frac{A-A^{\dagger}}{2} \] 
+    where the $\frac{A + A^{\dagger}}{2}$ is Hermitian and $\frac{A-A^{\dagger}}{2}$ is skew-Hermitian. In other words, any Complex matrix can be expressed as $P+ \iota Q$ where P and Q are Hermitian.
+    \item If A and B are Hermitian matrices and commute (i.e. $AB=BA$), then their product is also Hermitian i.e. $AB$ is Hermitian.
+    Let,
+    \[ (AB)^{\dagger}=B^{\dagger}A^{\dagger}=BA=AB \]
+    Thus, $AB$ is Hermitian.
+    \item If A and B are Hermitian then $A+B$ and $A-B$ are also Hermitian.
+\end{itemize}
+\begin{example}
+    If $\ket{w}$ and $\ket{v}$ are any two vectors, show that $(\ket{w}\bra{v})^{\dagger}=\ket{v}\bra{w}$.
+
+    We observe that:
+    \begin{align*}
+\braket{(\ket{w}\bra{v})^{\dagger}\ket{x}|y}&=\braket{x|\braket{v|y}|w}\\
+        &=\braket{x|w}\braket{v|y}\\
+        &=\braket{\braket{x|w}^{*}\ket{v}|y}\\
+        &=\braket{\braket{w|x}\ket{v}|y}\\
+        &=\braket{(\ket{v}\bra{w})\ket{x}|y}
+    \end{align*}
+    Where in the third to last equality we use the conjugate linearity in the first argument and in the second-to-last equality we use that $\braket{a|b}=\braket{b|a}^*$. Comparing the first and last expressions, we conclude that $(\ket{w}\bra{v})^{\dagger}=\ket{v}\bra{w}$.
+\end{example}
+\begin{example}
+    show that the adjoin operator is anti-linear,
+    \[
+    \left(\sum_i a_iA_i \right)^{\dagger} = \sum_i a_i^* A_i^{\dagger}
+    \]
+    We observe that:
+    \begin{align*}
+        \braket{\left(\sum_i a_iA_i\right)^{\dagger}\ket{a}|b}=\braket{a\sum_ia_iA_i|b}&=\sum_i a_i \braket{a|A_i\ket{b}}\\
+        &=\sum_i a_i\braket{A_i^{\dagger}\ket{a}|b}\\
+        &=\braket{\sum_i a_i^*A_i^{\dagger}\ket{a}|b}
+    \end{align*}
+    where we invoke the definition of the adjoin in the first and third equalities, the linearity in the second argument in the second equality, and the conjugate linearity in the first argument in the last equality. The claim is proven by comparing the first and last expressions.
+\end{example}
+
+\begin{example}
+    Show that $(A^{\dagger})^{\dagger}=A$.
+
+    Applying the definition of the Adjoint twice (and using the conjugate symmetry of the inner product) we have that:
+    \[
+\braket{(A^{\dagger})^{\dagger}\ket{a}|b}=\braket{a|A^{\dagger}|b}=\braket{A^{\dagger}\ket{b}|a}^*=\braket{b|A|a}^*=\left(\braket{A\ket{a}|b}^*\right)^*=\braket{A\ket{a}|b}
+    \]
+    The claim follows by comparison of the first and last expressions.
+\end{example}
+
+\subsubsection{Unitary Operators}\label{subsubsec:Unitary Operators}
+\begin{definition}
+\textbf{Unitary operator} is defined as:
+\[U^{\dagger}U=UU^{\dagger}=I\]
+i.e. $U^{\dagger}=U^{-1}$\\
+\end{definition}
+
+\textbf{Properties of Unitary operators: }
+\begin{itemize}
+    \item Product of two unitary matrix is unitary.
+    Say $U_1$ and $U_2$ are unitary matrices, then $U_1U_2$ is also unitary.
+    \[(U_1U_2)^{\dagger}U_1U_2=U_2^{\dagger}U_1^{\dagger}U_1U_2=U_2^{\dagger}U_2=I\]
+    \item Unitary Operators Preserve inner Products:
+    \[ \braket{Uv|Uw}=\bra{v}U^{\dagger}U\ket{w}=\braket{v|w} \]
+    \item Unitary Operators Preserve Norms:
+    \[ \|v\|=\sqrt{\braket{v|v}} \]
+    \[ \implies \|Uv\|=\sqrt{\braket{Uv|Uv}}=\sqrt{\bra{v}U^{\dagger}U\ket{v}}=\sqrt{\braket{v|v}}=\|v\| \]
+    Thus, \textbf{Unitary operators preserve inner product and norms and hence are generalizations of rotation operators in $\mathbb{V}^n$.
+    Thus action of a Unitary operator on any vector just rotates the vector in the vector space and the vector neither scales up or down in norm.}
+    \item Columns of a $n \times n$ unitary matrix are orthonormal and form a basis for $\mathbb{C}^n$.
+    Similarly rows of a Unitary matrix are orthonormal and form a basis for $\mathbb{C}^n$.
+    \[\delta_{ij}=\bra{i}I\ket{j}=\bra{i}U^{\dagger}U\ket{j}=\sum_{k=1}^n \bra{i}U^{\dagger}\ket{k}\bra{k}U\ket{j}=\sum_{k=1}^nU_{ki}^*U_{kj}\]
+    Thus, it is 1 only if $i=j$ and 0 otherwise. Thus, the columns of a unitary matrix are orthonormal. Simliary, it can be 
+    proved that the rows of a unitary matrix are orthonormal.
+    \item Determinant of a Unitary Matrix is a complex number of unit modulus.
+    \[ UU^{\dagger}=I\]
+    Taking determinant on both sides we get,
+    \[ \det(UU^{\dagger})=\det(I) \]
+    \[ \det(U)\det(U^{\dagger})=1 \]
+    \[ |\det(U)|^2=1\]
+    \[ |\det(U)| = 1 \]
+    Thus, the determinant of a unitary matrix is a complex number of unit modulus.
+\end{itemize}
+
+\subsubsection{Unitarily Diagonziable}
+\begin{definition}
+Unitarily Diagonizable: A matrix $A$ is said to be unitarily diagonizable if there exists a unitary matrix $U$ such that $U^{\dagger}AU=D$ where $D$ is a diagonal matrix.
+Here, U is a unitary matri whose columns are the orthonormal eigen vectors of A. The matrix D is a diagonal matrix whose entries are the eigen values of A corresponding to the 
+eigen vectors of A written in U.
+\textbf{Note that the matrix is diagonal in the basis of the eigen vectors of the matrix A.}
+Note that any matrix with n (n is the dimension of the square matrix) linearly independent Eigen vectors can be written as:
+\[ AV=V\Lambda\]
+where V is the matrix whose columns are the eigen vectors of A and $\Lambda$ is the diagonal matrix whose diagonal elements are the eigen values of A.
+Thus, on post-multiplying by $V^{\dagger}$ on both sides we get:
+\[ A= V\Lambda V^{\dagger} \]
+or,
+\[ V^{\dagger}AV=\Lambda \]
+Thus, the matrix A is diagonal in its Eigen basis (assuming no degeneracy i.e. it has n linearly independent eigen vectors.). 
+In the special case when the eigen vectors are orthonormal then the matrix V is unitary and the matrix A is unitarily diagonizable.
+\end{definition}
+\subsubsection{Normal Operators}
+\begin{definition}
+\textbf{Normal Operators}: A normal operator is an operator that commutes with its adjoint. i.e. $AA^{\dagger}=A^{\dagger}A$.\\
+\end{definition}
+\begin{theorem}
+    An operator is normal if and only if it is unitarily diagonizable or if a matrix is Unitarily diagonizable then it is always a normal operator.
+\end{theorem}
+\begin{proof}
+    Let A be Unitarily diagonalizable. Then,
+    \[ A=V\Lambda V^{\dagger} \]
+    \[ AA^{\dagger} - A^{\dagger}A  = V\Lambda V^{\dagger} V \Lambda^{\dagger} V^{\dagger} - V\Lambda^{\dagger} V^{\dagger} V\Lambda V^{\dagger} \]
+    Now since V is unitary matrix and $\Lambda$ is a diagonal matrix, thus $V^{\dagger}V=I$ and $\Lambda^{\dagger}\Lambda=\Lambda \Lambda^{\dagger}$. Thus, Substituting we get
+    \[ AA^{\dagger} - A^{\dagger}A = V\Lambda \Lambda^{\dagger} V^{\dagger} - V\Lambda^{\dagger} \Lambda V^{\dagger} = V\Lambda \Lambda^{\dagger} V^{\dagger} - V\Lambda \Lambda^{\dagger} V^{\dagger} = 0 \]
+    Thus, $AA^{\dagger}=A^{\dagger}A$ and thus A is a normal operator.\\
+    Hence if A is unitarily diagonalizable then it is a Normal operator.
+    Now let A be a normal operator. Then,
+    \[ AA^{\dagger}=A^{\dagger}A \]
+    Now we are required to show that A is unitarily diagonalizable. We know that any Matrix A can be decomposed onto a Hermitian and Skew Hermitian matrix as:
+    \[ A=\frac{A+A^{\dagger}}{2} + \frac{A-A^{\dagger}}{2} \]
+    where $\frac{A+A^{\dagger}}{2}$ is Hermitian and $\frac{A-A^{\dagger}}{2}$ is Skew Hermitian.
+    Now let $A_H=\frac{A+A^{\dagger}}{2}$ denote the Skew Hermitian matrix and $A_{SH}=\frac{A-A^{\dagger}}{2}$ denote the skew-Hermitian matrix.
+    Thus, $A=A_H+A_{SH}$. Now since A is a normal operator we get,
+    \[ AA^{\dagger}-A^{\dagger}A=(A_H + A_{SH})(A_H + A_{SH})^{\dagger}-(A_H + A_{SH})^{\dagger}(A_H + A_{SH})=0 \]
+    \[ A_HA_H^{\dagger}+A_{SH}A_{SH}^{\dagger}+A_HA_{SH}^{\dagger}+A_{SH}A_H^{\dagger}-A_H^{\dagger}A_H-A_{SH}^{\dagger}A_{SH}-A_H^{\dagger}A_{SH}-A_{SH}^{\dagger}A_H=0 \]
+    Now substituting the fact that $A_H$ $\implies A_{H}=A_H^{\dagger}$ is Hermitian and $A_{SH} \implies A_{SH}=-A_{SH}^{\dagger}$ is Skew Hermitian we get,
+    \[A_{SH}A_H=A_HA_{SH}\]
+    Thus, $A_H$ and $A_{SH}$ commute. Now since $A_H$ and $A_{SH}$ are Hermitian and Skew Hermitian respectively, they are both unitarily diagonalizable.
+    \textbf{Using the fact that two matrices commute if and only if they have the same eigen vectors. Thus, both $A_H$ and $A_{SH}$ have the same eigen vectors and also the fact that 
+    $A_H$ and $A_{SH}$ are both unitarily diagonalizable}, thus we get the same
+    unitary matrix V:
+    \[ A_H=V\Lambda_H V^{\dagger} \]
+    \[ A_{SH}=V\Lambda_{SH} V^{\dagger} \]
+    Now $A=A_H+A_{SH}$, thus
+    \[ A=V\Lambda_H V^{\dagger} + V\Lambda_{SH} V^{\dagger} = V(\Lambda_H + \Lambda_{SH})V^{\dagger} \]
+    Now, $\Lambda_H$ and $\Lambda_{SH}$ are diagonal matrices, thus $\Lambda_H + \Lambda_{SH}$ is also a diagonal matrix.
+    \[ A = V\Lambda V^{\dagger} \]
+    Thus, A is unitarily diagonalizable where V are the orthonormal eigen vectors of A and $\Lambda$ is the diagonal matrix
+    with entries as the corresponding eigen values. Hence, proved.
+    \textbf{Thus the statement that a matrix is normal if and only if it is unitarily diagonalizable.}
+\end{proof}
+\textbf{Properties of the Normal operators: }
+\begin{itemize}
+    \item Hermitian and Unitary operators are both special cases of Normal Operators. Thus, both are unitarily 
+    diagonalizable and hence have n linearly independent Eigen vectors.
+    \item A normal matrix is Hermitian if and only if it has real eigen values.
+\end{itemize}
+\begin{example}
+    Show that a normal matrix is Hermitian if and only if it has real eigenvalues.
+
+    Let $A$ be a Normal and Hermitian matrix. Then, it has a diagonal representation $A=\lambda_i\ket{i}\bra{i}$ where $\ket{i}$ is an orthonormal basis for $V$ and each $\ket{i}$ is an eigenvector of $A$ with eigenvalue $\lambda_i$. by the Hermicity of $A$, we have that $A=A^{\dagger}$. Therefore, we have that
+    \[
+    A^{\dagger}=\left(\sum_i \lambda_i \ket{i}\bra{i}\right)^{\dagger}=\sum_i \lambda_i^* \ket{i}\bra{i}=A=\sum_i \lambda_i \ket{i}\bra{i}
+    \]
+    where we used the results previously proved. Comparing the third and last expressions, we have that $\lambda_i=\lambda_i^*$ and hence the eigenvalues are real.
+
+    Let A be a normal matrix with real eigenvalues. Then, $A$ has diagonal representation $A=\sum_i \lambda_i \ket{i}\bra{i}$ where $\lambda_i$ are all real. We therefore have that:
+\[
+A^{\dagger}=\left(\sum_i \lambda_i \ket{i}\bra{i}\right)^{\dagger}=\lambda_i^* \ket{i}\bra{i}=\sum_i \ket{i}\bra{i}=A
+\]
+where in the third equality we use that $\lambda_i=\lambda_i^*$. We conclude that $A$ is Hermitian.
+\end{example}
+\subsection{Positive Operators}
+
+\begin{definition}
+\textbf{Positive Operators}: A positive operator is an operator such that for any vector $\ket{v}$ in the vector space, the inner product $\braket{v|A|v}$ is real, non-negative, if $\braket{v|A|v} > 0$, for all $\ket{v} \neq 0$, then we say $A$ is positive definite.
+i.e. $\braket{v|A|v} \geq 0$.\\
+\end{definition}
+
+\textbf{Properties of Positive Operators: }
+\begin{itemize}
+    \item A positive operator is necessarily Hermitian and hence by spectral decomposition can be written as $\sum_i \lambda_i\ket{\lambda_i}\bra{\lambda_i}$, with non-negative eigenvalue $\lambda_i$.\\
+    \textbf{Proof: } Recall that any operator $A$ can be written as sum of two Hermitian operators B, and C as
+    \[
+    A=B+\iota C
+    \]
+    where $B=\frac{A+A^{\dagger}}{2}$ is Hermitian and $C=-\iota\frac{A-A^{\dagger}}{2}$ is also Hermitian. Now since A is a positive operator $\implies \braket{v|A|v} > 0$, thus,
+    \begin{align*}
+    \braket{v|A|v}&=\braket{v|B|v} +\iota \braket{v|C|v} > 0\\
+    &\implies \braket{v|C|v}=0 \quad \forall \ket{v} \neq 0\\
+    &\implies C=0\\
+    &\implies -\iota \frac{A-A^{\dagger}}{2}=0\\
+    &\implies A=A^{\dagger}
+    \end{align*}
+    Thus, a positive operator necessarily implies Hermitian.
+    \item For any operator $A$, $A^{\dagger}A$ is a positive operator.
+    \[ \braket{v|A^{\dagger}A|v} \geq 0 \]
+    \[ \braket{v|A^{\dagger}A|v}=\braket{Av|Av} = \braket{u|u} \geq 0 \]
+    Since, the inner product of any vector with itself is non-negative.
+\end{itemize}
+\subsection{Eigen Value Problems}
+Given a linear operator $A$ acting on a vector space $V$ over a field $\mathbb{F}$, the eigen value problem is to find the eigen values $\lambda$ and the corresponding eigen vectors $\ket{v}$ such that
+\[A\ket{v}=\lambda\ket{v}\]
+\[\implies (A-\lambda I)\ket{v}=0\]
+i.e. vectors such that upon the action of the operator $A$ the vector $\ket{v}$ is scaled by a factor $\lambda$ (could be positive or negative, a negative value indicates change in direction and a value less than $|1|$ indicates scaled
+down).
+Thus, the eigen values are the values of $\lambda$ for which the operator $A-\lambda I$ has a non-trivial null space. The eigen vectors are the vectors in the null space of the operator $A-\lambda I$.
+\[det(A-\lambda I)=0\]
+where det is the determinant function for matrices. This, results in a characteristic equation of the form:
+\[ P_A(\lambda)=det(A-\lambda I)=\lambda^n - \beta_1\lambda^{n-1} + \ldots + (-1)^{r} \beta_r\lambda^{n-r}+\ldots + (-1)^n\beta_n = 0 \]
+The solutions of the characteristic equations are the eigenvalues of the operator $A$. By fundamental theorem of algebra, every polynomial has at least one complex root, so every operator A has at least on eigenvalues, and a corresponding eigenvector. The eigenspace corresponding to an eigenvalue $v$ is the set of vectors which have eigenvalue $v$. It is the vector subspace of the vector space on which $A$ acts. When an eigenspace is more than one dimensional we say that it is degenerate. For example, 
+\[
+A=\begin{bmatrix} 2 & 0 & 0 \\ 0& 2 & 0 \\ 0 & 0 & 0 \end{bmatrix}
+\]
+In general, we represent eigen value as $\omega$ and the corresponding eigen vector as $\ket{\omega}$.
+
+\begin{example}
+    For the identity operator $I$, the eigen value equation is given as:
+    \[I\ket{v}=\lambda\ket{v}\]
+    \[\implies \ket{v}=\lambda\ket{v}\]
+    \[\implies \lambda=1\]
+    Thus, the eigen values of the identity operator are $\lambda=1$ and the corresponding eigen vectors are all the vectors in the vector space.
+\end{example}
+
+\begin{example}
+    Consider a projection operator $\mathbb{P}_v$ which projects any vector $\ket{v}$ onto the subspace spanned by the basis vector $\ket{v}$. Thus, $\mathbb{P}_v\ket{v}=\ket{v}$. Thus, the eigen value equation is given as:
+    \[\mathbb{P}_v\ket{v}=\lambda\ket{v}\]
+    \textbf{Case 1:} Consider any ket $\alpha \ket{v}$, parallel to $\ket{v}$ then $\mathbb{P}_v\ket{v}=\ket{v}=\lambda\ket{v}$. Thus, $\lambda=1$ is an eigen value of the projection operator $\mathbb{P}_v$.\\
+    \textbf{Case 2:} Consider any ket $\alpha \ket{v_{\perp}}$, perpendicular to $\ket{v}$ then $\mathbb{P}_v\ket{v_{\perp}}=0=\lambda\ket{v_{\perp}}$. Thus, $\lambda=0$ is an eigen value of the projection operator $\mathbb{P}_v$.\\
+    \textbf{Case 3:} Consider kets that are neither parallel nor perpendicular to $\ket{v}$, then $\mathbb{P}_v(\alpha \ket{v_{\perp}}+\beta \ket{v})=\beta \ket{v} \neq \lambda(\alpha \ket{v_{\perp}} + \beta \ket{v})$. Thus, $\lambda$ is not an eigen value of the projection operator $\mathbb{P}_v$.
+    Thus, we have considered every possible ket in the space and have found all the eigen values and eigen vectors. The eigen values of a projection matrix
+    are either $\lambda=0$ and $\lambda=1$ and their corresponding eigen vectors are the vectors parallel and perpendicular to the subspace spanned by the basis vector $\ket{v}$ respectively.
+\end{example}
+\begin{example}
+    Show that any projector $P$ satisfies the equation $P^2=P$.
+
+    Let $\ket{1},\ldots,\ket{k}$ be an orthonormal basis for the subspace $W$ of $V$. Then, using the definition of the projector onto $W$, we have that:
+    \[
+    P^2=P\cdots P=\left(\sum_{i=1}^k \ket{i}\bra{i}\right) \left(\sum_{i'=1}^k \ket{i'}\bra{i'}\right) = \sum_{i=1}^k \sum_{i'=1}^k \ket{i}\delta_{ii'}\bra{i'}=\sum_{i=1}^k \ket{i}\bra{i}=P
+    \]
+    where in the fourth/fifth equality we use the orthonormality of the basis to collaps the double sum.
+\end{example}
+\begin{example}
+    Consider the Rotation operator $R(\vec{\theta})$ which rotates any vector by an angle $\frac{\vec{\theta}}{|\theta|}$ about the $\vec{\theta}$ axis.
+    The eigen value equation is given as:
+    \[R(\vec{\theta})\ket{v}=\lambda\ket{v}\]
+    Clearly, any ket parallel to the axis of rotation will not change its direction upon rotation and thus will be an eigen vector of the rotation operator with eigen value $\lambda=1$. Thus, 
+    the corresponding eigen vector is $\vec{\theta}$. 
+    The other two eigen values are $\lambda=e^{\pm i\theta}$ and the corresponding eigen vectors are the vectors perpendicular to the axis of rotation.
+\end{example}
+
+
+\textbf{Properties of Eigen Roots: }
+\begin{itemize}
+    \item The sum of the eigen values is equal to the trace of the matrix.
+    \[ Tr(A)=\sum_{i=1}^n a_{ii}=\sum_{i=1}^n \lambda_i = (-1)^{n-1}\beta_{n-1} \]
+    \item The product of the eigen values is equal to the determinant of the matrix.
+    \[ det(A)=\prod_{i=1}^n \lambda_i = (-1)^n\beta_{n} \]
+    \item if $det(A)=0$ then at least one of the eigen value is zero.
+    \item For any triangular matrix, the eigen values are the principal diagonal elements.
+    \item Eigen values of Two Similar matrices are same.
+    \item Eigen Values of a Unitary matrix is a complex number with unit modulus and the Eigen vectors are mutually orthogonal
+    (Assuming no degeneracy).
+    Let, 
+    \[U\ket{u_i} = u_i\ket{u_i}\]
+    \[U\ket{u_j} = u_j\ket{u_j}\]
+    Taking adjoint of the second equation we get:
+    \[ \bra{u_j}U^{\dagger}=\bra{u_j}u_j^* \]
+    Taking inner product with the first equation we get:
+    \[ \bra{u_j}U^{\dagger}U\ket{u_i}=\bra{u_j}u_j^*u_i\ket{u_i} \]
+    \[ \braket{u_j|u_i}=u_j^*u_i \braket{u_j|u_i} \]
+    \[ (1-(u_j^*u_i))\braket{u_j|u_i} = 0\]
+    If i=j then $\braket{u_j|u_i} \neq 0$ thus $u_iu_i^*=|u_i|^2=1$ i.e. unit modulus eigen values i.e. $e^{\iota \theta}$ for some real $\theta$. If i $\neq$ j then $\braket{u_j|u_i}=0$ i.e. the eigen vectors are orthogonal.
+    
+    \textbf{Unitary matrix has complex eigen values of unit modulus and orthogonal eigen vectors.}
+    
+    \item If $\lambda$ is the Eigen root of $A$ then $f(\lambda)$ is the Eigen root of $f(A)$.
+    \item Suppose A is a matrix such that $A^k=0$ then the all the eigen values of A is zero.
+    \item Complex Eigen Values always exist in pairs.
+    \item Eigen Values of a Hermitian matrix are real.
+    Given A is a Hermitian matrix,
+    \[ A^{\dagger}=A \]
+    \[A\ket{v}=\lambda\ket{v} \]
+    Taking inner product with $\bra{v}$, we get:
+    \[\bra{v}A\ket{v}=\lambda\braket{v|v} \]
+    Now adjoint of the equation $A\ket{v}=\lambda\ket{v}$ is
+    \[ \bra{v}A^{\dagger}=\lambda^*\bra{v} \]
+    Taking inner product with $\ket{v}$, we get:
+    \[ \bra{v}A^{\dagger}\ket{v}=\lambda^*\braket{v|v} \]
+    \[ \bra{v}A\ket{v}=\lambda^*\braket{v|v} \quad \text{(since A is Hermitian, $A=A^{\dagger} $)}\]
+    Thus, equating the two equations we get:
+    \[ (\lambda - \lambda^*) \braket{v|v}=0 \]
+    Thus,
+    \[ \lambda=\lambda^* \]
+    Hence, the \textbf{Eigen Values of a Hermitian matrix are always real}.
+    \item The Eigen vectors of the Hermitian matrix with respect to distinct eigen values are orthogonal.
+    
+    Consider the matrix A with distinct eigen values $\lambda_i$ and $\lambda_j$ and the corresponding eigen vectors $\ket{v_i}$ and $\ket{v_j}$. Thus,
+    \[ A\ket{v_i}=\lambda_i\ket{v_i} \]
+    \[ A\ket{v_j}=\lambda_j\ket{v_j} \]
+    Taking inner product of the above two equations with $\bra{v_j}$ and $\bra{v_i}$ respectively, we get:
+    \[ \bra{v_j}A\ket{v_i}=\lambda_i\braket{v_j|v_i} \]
+    \[ \bra{v_i}A\ket{v_j}=\lambda_j\braket{v_i|v_j} \]
+    Taking adjoint of the above second equations, we get:
+    \[ \bra{v_j}A^{\dagger}\ket{v_i}=\lambda_j^*\braket{v_j|v_i} \]
+    Since A is Hermitian, $A=A^{\dagger}$, thus
+    \[ \bra{v_j}A\ket{v_i}=\lambda_j^*\braket{v_j|v_i} \]
+    Thus, equating the two equations, we get:
+    \[ \lambda_i\braket{v_j|v_i}=\lambda_j^*\braket{v_j|v_i} \]
+    \[ (\lambda_i-\lambda_j^*)\braket{v_j|v_i}=0 \]
+    Thus if $\lambda_i \neq \lambda_j$ then $\braket{v_j|v_i}=0$ i.e. the eigen vectors of a Hermitian matrix with respect to distinct eigen values are orthogonal.
+    If $i=j$ then $\braket{v_j|v_i} \neq 0$ thus, $\lambda_i=\lambda_j^* \implies \lambda_i=\lambda_i^*$ i.e. real eigen values.  
+
+    \textbf{The Hermitian matrices have all real eigen values and the eigen vectors corresponding to distinct eigen values are orthogonal.}
+
+\end{itemize}
+\begin{definition}
+\textbf{Geometric Multiplicity: }
+The number of linearly indepndent Eigen vectors associated with a particular $\lambda$ is called
+the Geometric multiplicity. Suppose
+$\lambda_i$ has geometric multiplicity k $\implies GM(\lambda_i)=k$ means that k linearly independent eigen vectors exist corresponding 
+to eigen value $\lambda$. These vectors form a vector space which is called Eigen Space. In the eigen space all the vectors are only scaled by $\lambda_i$ and not rotated.
+\end{definition}
+\begin{definition} \textbf{Algebraic Multiplicity: }
+The mupltiplicity of $\lambda$ as a root of the characteristic equation $P_A(x)=0$ is called the algebraic multiplicity. Suppose $\lambda_i$ has algebraic multiplicity k $\implies AM(\lambda_i)=k$ means that $\lambda_i$ is a root of the characteristic equation of multiplicity k.\\
+where n is the dimension of the matrix.
+\end{definition}
+For any matrix A, the algebraic multiplicity of an eigen value is always greater than or equal to the geometric multiplicity.\\
+\[1 \leq AM(\lambda_i) \leq GM(\lambda_i) \leq n\]
+Note that any matrix A will have n eigen values (may be repeated i.e. $AM(\lambda_i) \geq 1$), but it is not necessary for it to have n linearly independent eigen vectors. 
+Corresponding to each unique eigen value $\lambda$ there will be at least one eigen vector. If the $AM(\lambda_i)>1$ then 
+there could be more than one linearly independent eigen vector corresponding to the eigen value $\lambda_i$ but still the number of linearly independent eigen vectors
+will be less than or equal to the $AM(\lambda_i)$ i.e. $GM(\lambda_i)\leq AM(\lambda_i)$.\\ 
+
+
+\begin{theorem}
+    A Hermitian Matrix is always Unitarily Diagonalizable i.e. it has n linearly independent Eigen vectors. (AM($\lambda_i$)=GM($\lambda_i$)) for all $\lambda_i$.
+\end{theorem}
+\begin{proof}
+    Let A be a Hermitian matrix. Let the gemetric multiplicity for some eigen value of A be r ($<n$) where n is the dimension of the matrix.
+    Thus, $GM(\lambda)=r$. Thus, we can find r linearly independent eigen vectors (say $\{\ket{v_1},\ket{v_2},\ldots,\ket{v_r}\}$) correspoding to $\lambda$.
+    Let,
+    \[V^E=\begin{bmatrix} \vdots & \vdots & \vdots & \vdots \\ \ket{v_1} & \ket{v_2} & \ldots & \ket{v_r} \\ \vdots & \vdots & \vdots & \vdots \end{bmatrix}\]
+    which is the set of Linearly Independent Orthogonal Eigen vectors.
+    Let,
+    \[ V^{\perp} = \begin{bmatrix} \vdots & \vdots & \vdots & \vdots \\ \ket{v_{r+1}} & \ket{v_{r+2}} & \ldots & \ket{v_n} \\ \vdots & \vdots & \vdots & \vdots \end{bmatrix}\]
+    be the set of orthogonal vectors spanning space orthogonal to $V^E$. (Note that $V^E$ and $V^{\perp}$ are orthogonal subspaces to each other).
+    Let,
+    \[V=\begin{bmatrix} V^E & V^{\perp} \end{bmatrix} = \begin{bmatrix} \vdots & \vdots & \vdots & \vdots \\ \ket{v_1} & \ket{v_2} & \ldots & \ket{v_n} \\ \vdots & \vdots & \vdots & \vdots \end{bmatrix}\]
+    Now $A\ket{v_i}=\lambda\ket{v_i}$, for $i=1,2,\ldots,r$. Thus,
+    \[ AV=\begin{bmatrix} \ldots & \ldots & \ldots & \ldots & \ldots & \ldots & \ldots \\ \lambda\ket{v_1} & \lambda\ket{v_2} & \ldots & \lambda\ket{v_r} & A\ket{v_{r+1}} & \ldots & A\ket{v_n} \\ \ldots & \ldots & \ldots & \ldots & \ldots  & \ldots & \ldots \end{bmatrix}\]
+    Now, a vectors in $\mathbb{C}^n$ can be written as a linear combination of the columns of V. This, $Av_i=\sum_{j=1}^m c_{ij}v_j$ for $i=r+1,r+2,\ldots,n$.
+    Thus, in matrix form we can write this as:
+    \[A\begin{bmatrix} \ldots & \ldots & \ldots & \ldots & \ldots & \ldots & \ldots \\ \ket{v_1} & \ket{v_2} & \ldots & \ket{v_r} & \ket{v_{r+1}} & \ldots & \ket{v_n} \\ \ldots & \ldots & \ldots & \ldots & \ldots  & \ldots & \ldots \end{bmatrix} = V\begin{bmatrix} \lambda_1 & & & & & c_{r+1,1} & \ldots & c_{n,1} \\ & \lambda_2 & & & & c_{r+1,2} & \ldots & c_{n,2} \\ & & \lambda_3 & & & c_{r+1,3} & \ldots & c_{n,3} \\ & & & \ddots & & \vdots & \vdots & \vdots \\ & & & & \lambda_r & c_{r+1,r} & \ldots & c_{n,r} \\ 0 & 0 & 0 & \ldots & 0 & c_{r+1,r+1} & \ldots & c_{n,r+1} \\ 0 & 0 & 0 & \ldots & 0 & \vdots & \vdots & \vdots \\ 0 & 0 & 0 & \ldots & 0 & c_{r+1,n} & \ldots & c_{n,n} \end{bmatrix}\] 
+    \[AV=VM\]
+    Thus, pre-multiplying by $V^{\dagger}$ on both sides we get:
+    \[V^{\dagger}AV=V^{\dagger}VM \]
+    Now, $V^{\dagger}V=I$ since the columns of V are orthonormal ($V^E$ and $V^{\perp}$ are orthogonal subspaces, we have chosen the vectors in $V^E$ and $V^{\perp}$ such that they are orthonormal). Thus,
+    \[V^{\dagger}AV=M \]
+    Now taking adjoint on both sides we get:
+    \[V^{\dagger}A^{\dagger}V=M^{\dagger} \]
+    Using the fact that A is Hermitian, we get:
+    \[V^{\dagger}AV=M^{\dagger} \]
+    Thus, $M=M^{\dagger}$ i.e. M is Hermitian. Thus, M can be written as:
+    \[ M=\begin{bmatrix} \lambda & & & & & 0 & \ldots & 0 \\ & \lambda & & & & 0 & \ldots & 0 \\ & & \lambda & & & 0 & \ldots & 0 \\ & & & \ddots & & \vdots & \vdots & \vdots \\ & & & & \lambda & 0 & \ldots & 0 \\ 0 & 0 & 0 & \ldots & 0 & c_{r+1,r+1} & \ldots & c_{n,r+1} \\ 0 & 0 & 0 & \ldots & 0 & \vdots & \vdots & \vdots \\ 0 & 0 & 0 & \ldots & 0 & c_{r+1,n} & \ldots & c_{n,n} \end{bmatrix}\]
+    Thus, let the matrix C be:
+    \[ C=\begin{bmatrix} c_{r+1,r+1} & \ldots & c_{n,r+1} \\ \vdots & \vdots & \vdots \\ c_{r+1,n} & \ldots & c_{n,n} \end{bmatrix}\]
+    Since, M is a Hermitian Matrix thus C must also be a Hermitian Matrix. 
+    Now, since $M=V^{\dagger}AV=V^{-1}AV$, thus M and A are similar matrices. Thus, M and A must have the same Eigen values and Characteristic Polynomial.
+    Thus, 
+    \[P_M(z)=P_A(z)\]
+    \[(\lambda-z)^rdet(C-zI)=det(A-zI)\]
+    Thus, now we need to show that $\lambda$ is not an eigen value of C thus proving that $AM(\lambda)=GM(\lambda)=r$ for matrix A.
+    This is done using proof by contradiction.\\
+    Let $\lambda$ be a root of $det(C-zI)$. Thus,
+    \[Cu=\lambda u\]
+    where $u \in \mathbb{C}^{m-r}$ is an eignen vector of C. Thus, we can write $\hat{u} \in \mathbb{C}^m$ as:
+    \[\hat{u}=\begin{bmatrix} 0 \\ \vdots \\ 0 \\ u_{r+1} \\ \vdots \\ u_n \end{bmatrix}\]
+    Now,
+    \[V^{\dagger}AV \hat{u}=M\hat{u}=\begin{bmatrix} \lambda & & & & & 0 & \ldots & 0 \\ & \lambda & & & & 0 & \ldots & 0 \\ & & \lambda & & & 0 & \ldots & 0 \\ & & & \ddots & & \vdots & \vdots & \vdots \\ & & & & \lambda & 0 & \ldots & 0 \\ 0 & 0 & 0 & \ldots & 0 & c_{r+1,r+1} & \ldots & c_{n,r+1} \\ 0 & 0 & 0 & \ldots & 0 & \vdots & \vdots & \vdots \\ 0 & 0 & 0 & \ldots & 0 & c_{r+1,n} & \ldots & c_{n,n} \end{bmatrix}\begin{bmatrix} 0 \\ \vdots \\ 0 \\ u_{r+1} \\ \vdots \\ u_n \end{bmatrix}=\begin{bmatrix} 0 \\ \vdots \\ 0 \\ \lambda u_{r+1} \\ \vdots \\ \lambda u_n \end{bmatrix}\]
+    \[ \implies \begin{bmatrix} 0 \\ \vdots \\ 0 \\ \lambda u_{r+1} \\ \vdots \\ \lambda u_n \end{bmatrix}=\lambda \begin{bmatrix} 0 \\ \vdots \\ 0 \\ u_{r+1} \\ \vdots \\ u_n \end{bmatrix} = \lambda \hat{u} \]
+    Thus, 
+    \[V^{\dagger}AV\hat{u}=\lambda \hat{u}\] 
+    $\hat{u}$ is an eigen vector of $V^{\dagger}AV$ with eigen value $\lambda$.
+    Premultiplying by $V$ on both sides we get:
+    \[AV\hat{u}=\lambda V\hat{u}\]
+    Hence, $V\hat{u}$ is an eigen vector of A corresponding to $\lambda$. But, 
+    $V\hat{u}$ lies in the vector space of $\{\ket{v_{r+1}}, \ldots, \ket{v_n}\}$ which contradicts the assumption that 
+    $\{\ket{v_1},\ldots,\ket{v_r}\}$ are the only linearly independent eigen vectors of A corresponding to $\lambda$. Thus, $\lambda$ is not an eigen value of C.
+    \textbf{Thus, a Hermitian Matrix is always Unitarily diagonalizable. A similar proof can be used to show that a Skew Hermitian Matrix is also always Unitarily diagonalizable.}  
+\end{proof}
+
+\subsection{Spectral Decomposition}
+\begin{theorem} 
+    Any normal operator M on a vector space V is diaongal with repspect to some orthonormal basis for V. 
+    Conversely, any diagonizable operator is normal.
+\end{theorem}
+This means that M can be written as a sum of orthogonal projection operators onto the eigenspaces of M where $\ket{\lambda_i}$ are 
+eigen vectors of M.
+\[ M=\sum_{i=1}^n \lambda_i \mathbb{P}_i \]
+where $\lambda_i$ are the eigen values of M and 
+$\mathbb{P}_i = \ket{\lambda_i}\bra{\lambda_i}$ are the orthogonal projection operators onto the eigenspaces of M. 
+This can also be realised as the fact that any normal operator is always unitarily diagonalizable and hence can be written as
+an outer product representation. Thus, 
+\[M = V\Lambda V^{\dagger} = \sum_{i=1}^n \lambda_i \ket{\lambda_i}\bra{\lambda_i} = \sum_{i=1}^n \lambda_i \mathbb{P}_i \]
+where V is the matrix of orthogonal eigen vectors, $\Lambda$ is a diagonal matrix of corresponding eigen values.
+
+\begin{example}
+    Prove the the matrix
+    \[
+    \begin{bmatrix} 1 & 0 \\ 1 & 1 \end{bmatrix}
+    \]
+    is not diagonalizable.
+
+    A matrix is said to be not diagonalizable if it is a defective matrix i.e. $AM(\lambda_i)\neq GM(\lambda_i)$. The eigenvalues of the matrix are $\lambda=1,1$ since its a lower triangular matrix. The corresponding eigenvector is:
+    \[
+    \begin{bmatrix} 0 \\1 \end{bmatrix}
+    \]
+    Thus, the Geometric Multiplicity corresponding to $\lambda=1$ is $GM(\lambda=1)=1$ and the Algebraic Multiplicity is $AM(\lambda=1)=2$ which is not equal to the geometric multiplicity and hence the matrix is a defective matrix this, non-diagonalizable.
+\end{example}
+\subsection{Commutator and Anti-Commutator}
+\begin{definition}
+    The commutator of two operators $A$ and $B$ is defined as:
+    \[ [A,B]=AB-BA \]
+    The anti-commutator of two operators $A$ and $B$ is defined as:
+    \[ \{A,B\}=AB+BA \]
+\end{definition}
+\textbf{Properties of the Commutator}
+\begin{itemize}
+    \item $AB=\dfrac{[A,B]+\{A,B\}}{2}$
+    Verify that
+    \[
+    AB=\frac{[A,B]+\{A,B\}}{2}
+    \]
+    By algebraic manipulation we obtain:
+    \[
+    AB=\frac{AB+BA}{2}+\frac{AB-BA}{2}=\frac{[A,B]+\{A,B\}}{2}
+    \]
+
+    \item if $[A,B]=0,\{A,B\}=0$ and A is invertible then $B=0$.
+
+    We have that:
+    \[
+    [A,B]=AB-BA=0
+    \]
+    \[
+    \{A,B\}=AB+BA=0
+    \]
+    Adding the first line to the second we have:
+    \[
+    2AB=0 \implies AB=0
+    \]
+    $A^{-1}$ exists by the invertibility of $A$, so multiplying by $A^{-1}$ on the left we have:
+    \[
+    A^{-1}AB=0 \implies B=0
+    \]
+    \item $[A,B]^{\dagger}=[B^{\dagger},A^{\dagger}]$
+    Using the properties of the adjoint, we have:
+    \[
+    [A,B]^{\dagger}=(AB-BA)^{\dagger}=(AB)^{\dagger}-(BA)^{\dagger}=B^{\dagger}A^{\dagger}-A^{\dagger}B^{\dagger}=[B^{\dagger},A^{\dagger}]
+    \]
+    \item $[A,B]=-[B,A]$
+    By the definition of the commutator
+    \[
+    [A,B]=AB-BA=-(BA-AB)=-[B,A]
+    \]
+    \item If A and B are Hermitian then $\iota [A,B]$ is Hermitian.
+
+    Suppose $A,B$ are Hermitian. using the results, we have:
+    \[
+    (\iota[A,B])^{\dagger}=-\iota([A,B])^{\dagger}=-\iota[B^{\dagger},A^{\dagger}]=\iota[A^{\dagger},B^{\dagger}] =\iota[A,B]
+    \]
+\end{itemize}
+
+\subsection{Simultaneous Diagonalization of two Hermitian Operators}
+\begin{definition}
+    Suppose A and B are Hermitian operators, Then $[A,B]=0$ if and only if there exists an orthonormal basis
+    such that both A and B are diagonal with respect to that basis. We can say that A and B are simultaneously diagonalizable.    
+\end{definition}
+
+\subsection{Operator Functions}
+We restrict ourselves to functions that can be written as a power series. Consider a series
+\[ f(x)=\sum_{n=0}^{\infty} a_nx^n \]
+where $a_n$ are complex numbers. Note that it is a function from complex numbers to complex numbers. Then we can define the same function for an operator to be:
+\[ f(A)=\sum_{n=0}^{\infty} a_nA^n \]
+where $A^n$ is the product of the operator A with itself n times. 
+
+It is possible to define a corresponding matrix function on normal matrices (or some subclass, such as the Hermitian matrices) by the following construction. Let $A=\sum_a a\ket{a}\bra{a}$ be a spectral decomposition of a normal operator $A$. Define $f(A)=\sum_a f(a)\ket{a}\bra{a}$. A little though shows that $f(A)$ is uniquely defined. This procedure can be used, for example, to define the square root of a positive operator, the logarithm of a positive-definite operator, or the exponential of a normal operator. For example,
+\[
+exp(\theta Z)=\begin{bmatrix} e^{\theta} & 0 \\ 0 & e^{-\theta} \end{bmatrix}
+\]
+since $Z$ has eigenvectors $\ket{0}$ and $\ket{1}$.
+
+\begin{example}
+    Consider the exponential series:
+    \[ e^x=1+x+\dfrac{x^2}{2!}+\dfrac{x^3}{3!}+\ldots = \sum_{i=0}^{\infty} \dfrac{x^n}{n!}\]
+    Then the exponential of an operator A is defined as:
+    \[ e^A=I+A+\dfrac{A^2}{2!}+\dfrac{A^3}{3!}+\ldots = \sum_{i=0}^{\infty} \dfrac{A^n}{n!}\]
+    Note that $A$ must be a square matrix in order for the matrix multiplications and additions to be defined.
+\end{example}
+Note that matrix exponential is defined for all the kinds of matrices and not necessarily for Normal matrices or non-defective matrices (matrices with the full set of eigenvectors). A matrix to the 0th power is Identity matrix. Note that as we go for larger and larger powers of matrices it goes to null matrix. As we take highr and higher matrix powers we approach a stable value of a matrix (i.e. all the entries in the matrix reach a stable value).
+\begin{example}
+    Consider the matrix $A$ which does not have n independent eigen vectors.
+    \[
+    A=\begin{bmatrix} 0 & 1 \\ 0 & 0 \end{bmatrix} 
+    \]
+    Clearly, its eigen values are $\lambda=0,0$ since its a diagonal matrix and it has only one eigen vector corresponding to $\lambda=0$ which is $\ket{v_1}=\begin{bmatrix} 1 \\ 0 \end{bmatrix}$. Now in order to say find the exponential of this matrix $e^A$, we use the definition of the exponential series as
+    \[
+    e^A=I+A+\dfrac{A^2}{2!}+\dfrac{A^3}{3!}+\ldots = \sum_{i=0}^{\infty} \dfrac{A^n}{n!}
+    \]
+    Now calculating $A^2$ we get,
+    \[
+    A^2=\begin{bmatrix} 0 & 1 \\ 0 & 0 \end{bmatrix}\begin{bmatrix} 0 & 1 \\ 0 & 0 \end{bmatrix}=\begin{bmatrix} 0 & 0 \\ 0 & 0 \end{bmatrix}
+    \]
+    Thus, the series reduces to
+    \[
+    e^A=I+A=\begin{bmatrix} 1 & 1 \\ 0 & 1 \end{bmatrix}
+    \]
+\end{example}
+It is in general very difficult to calculate the matrix exponential (or matrix function), but in the case when we restrict ourselves to operator $A$ which is a non-defective matrix (i.e. has full independent set of eigenvectors), thus, $A=V\Lambda V^{-1}$, it becomes easy to compute the exponential of a matrix.
+\begin{align*} 
+e^A&=I+A+\dfrac{A^2}{2!}+\dfrac{A^3}{3!}+\ldots = \sum_{i=0}^{\infty} \dfrac{A^n}{n!}\\
+e^A&=I+V\Lambda V^{-1} +\dfrac{(V\Lambda V^{-1})^2}{2!}+ \dfrac{(V\Lambda V^{-1})^3}{3!}+\ldots = \sum_{i=0}^{\infty} \dfrac{(V\Lambda V^{-1})^n}{n!}\\
+&=V\left(I+\Lambda + \dfrac{\Lambda^2}{2!}+\dfrac{(\Lambda)^3}{3!}+\ldots\right)V^{-1} = V\left(\sum_{n=0}^{\infty} \dfrac{\Lambda^n}{n!}\right)V^{-1}\\
+&=Ve^{\Lambda}V^{-1}\\
+&=V\begin{pmatrix} e^{\lambda_1} & 0 & \ldots & 0 \\ 0 & e^{\lambda_2} & \ldots & 0 \\ \vdots & \vdots & \ddots & \vdots \\ 0 & 0 & \ldots & e^{\lambda_n} \end{pmatrix} V^{-1} 
+\end{align*}
+Note that  in the case of $A$ being a normal matrix (or Hermitian matrix) $A=V\Lambda V^T$.
+In other words,then in the eigen basis of A we can write: 
+\[ A=\begin{pmatrix} \lambda_1 & 0 & \ldots & 0 \\ 0 & \lambda_2 & \ldots & 0 \\ \vdots & \vdots & \ddots & \vdots \\ 0 & 0 & \ldots & \lambda_n \end{pmatrix} \]
+Thus, the $A^n$ in the exponential series will be given as:
+\[ A^n=\begin{pmatrix} \lambda_1^n & 0 & \ldots & 0 \\ 0 & \lambda_2^n & \ldots & 0 \\ \vdots & \vdots & \ddots & \vdots \\ 0 & 0 & \ldots & \lambda_n^n \end{pmatrix} \]
+Thus, the exponential of the Hermitian operator A will be given as:
+\[ e^A=\begin{pmatrix} \sum_{i=1}^{\infty} \frac{\lambda^n}{n!} & 0 & \ldots & 0 \\ 0 & \sum_{i=1}^{\infty} \frac{\lambda^n}{n!} & \ldots & 0 \\ \vdots & \vdots & \ddots & \vdots \\ 0 & 0 & \ldots & \sum_{i=1}^{\infty} \frac{\lambda^n}{n!} \end{pmatrix} \]
+\[ e^A = \begin{pmatrix} e^{\lambda_1} & 0 & \ldots & 0 \\ 0 & e^{\lambda_2} & \ldots & 0 \\ \vdots & \vdots & \ddots & \vdots \\ 0 & 0 & \ldots & e^{\lambda_n} \end{pmatrix} \]
+\begin{example}
+    The square root and logarithm of the matrix
+    \[
+    X=\begin{bmatrix} 4 & 3 \\ 3 & 4 \end{bmatrix}=7\begin{bmatrix} 1/\sqrt{2} \\ 1/\sqrt{2} \end{bmatrix} \begin{bmatrix} 1/\sqrt{2} & 1/\sqrt{2} \end{bmatrix} + \begin{bmatrix} 1/\sqrt{2} \\ -1/\sqrt{2} \end{bmatrix} \begin{bmatrix} 1/\sqrt{2} & -1/\sqrt{2} \end{bmatrix}
+    \]
+    Its square root can be given by
+    \[
+      \sqrt{X} = \sqrt{7}  \begin{bmatrix} 1/\sqrt{2} \\ 1/\sqrt{2} \end{bmatrix} \begin{bmatrix} 1/\sqrt{2} & 1/\sqrt{2} \end{bmatrix} + \begin{bmatrix} 1/\sqrt{2} \\ -1/\sqrt{2} \end{bmatrix} \begin{bmatrix} 1/\sqrt{2} & -1/\sqrt{2} \end{bmatrix}
+    \]
+    \[
+    \sqrt{X}=\begin{bmatrix} \frac{\sqrt{7}+1}{2} & \frac{\sqrt{7}-1}{2} \\ \frac{\sqrt{7}-1}{2} & \frac{\sqrt{7}+1}{2} \end{bmatrix}
+    \]
+    and similarly logarithm is:
+    \[
+    \log(X)=\begin{bmatrix} \frac{\log(7)}{2} & \frac{\log(7)}{2} \\ \frac{\log(7)}{2} & \frac{\log(7)}{2} \end{bmatrix}
+    \]
+\end{example}
+Some results:
+\begin{itemize}
+    \item $e^{A^{\dagger}}=(e^A)^{\dagger}$\\
+    \textbf{Proof: }
+    \begin{align*}
+        e^A&=\sum_{k=0}^{\infty} \frac{A^k}{k!}\\
+        \implies (e^A)^{\dagger}&=\sum_{k=0}^{\infty} \frac{1}{k!}(A^k)^{\dagger}\\
+        &=\sum_{k=0}^{\infty} \frac{(A^{\dagger})^k}{k!}\\
+        &=e^{A^{\dagger}}\\
+        \implies (e^A)^{\dagger}&=e^{A^{\dagger}}
+    \end{align*}
+    \item $e^{A+B}=e^Ae^B$ if $[A,B]=0$\\
+    \textbf{Proof: }
+    \begin{align*}
+    e^Ae^B&=\left(\sum_{k=0}^{\infty} \frac{A^k}{k!} \right)\left(\sum_{l=0}^{\infty} \frac{B^l}{l!}\right)\\
+    &=\sum_{k=0}^{\infty} \sum_{l=0}^{\infty} \frac{A^{k}B^{l}}{k!l!}\\
+    &=\sum_{m=0}^{\infty} \sum_{l=0}^{m} \frac{A^mB^{m-l}}{m!(m-l)!}\\
+    &=\sum_{m=0}^{\infty} \frac{1}{m!} \sum_{l=0}^m \frac{m!}{m!(m-l)!}A^mB^{m-l}\\
+    &=\sum_{m=0}^{\infty} \frac{(A+B)^m}{m!}\\
+    &=e^{A+B}
+    \end{align*}
+    If $[A,B]=0$ i.e. $A$ and $B$ commute.
+    \item $e^{\iota A}$ is unitary if A is Hermitian and $det(e^{\iota A})= e^{\iota Tr(H)}$.\\
+    \textbf{Proof: }\\
+    Since $A$ is hermitian ($A=A^{\dagger}$). Now to prove that $e^{\iota A}$ is unitary we need to show that $(e^{\iota A})^{\dagger}(e^{\iota A})=I$. Now, using the property that $(e^{A})^{\dagger}=e^{A^{\dagger}} \implies (e^{\iota A})^{\dagger}=e^{-\iota A^{\dagger}}=e^{-\iota A}$, since $A$ is Hermitian. Note that $(-\iota A)(\iota A)=(\iota A)(-\iota A)=A^2$, thus they commute. Hence, using the property that $e^A e^B=e^{A+B}$ if $[A,B]=0$ i.e. A and B commute, we get,
+    \[
+    e^{-\iota A}e^{\iota A}= e^{-\iota A +\iota A}=e^{0}=I
+    \]
+    Thus, $e^{\iota A}$ is Unitary if $A$ is Hermitian.
+    \item $(e^{A})^{-1}=e^{-A}$
+    \item $\dfrac{d}{dt}e^{At}y(0)=Ae^{At}y(0)=e^{At}Ay(0)$\\
+    \textbf{Proof: }\\
+    \begin{align*}
+    e^{At}y(0)&=\left(I+At+\dfrac{(At)^2}{2!}+\dfrac{(At)^3}{3!}+\ldots \right)y(0)= \sum_{i=0}^{\infty} \dfrac{(At)^n}{n!}y(0)\\
+    \frac{d}{dt}e^{At}y(0)&=\left(A+A^2t+\dfrac{A^3t^2}{2!}+\ldots\right)y(0)\\
+    &=A(I+At+\dfrac{(At)^2}{2!}+\dfrac{(At)^3}{3!}+\ldots)y(0)\\
+    &=Ae^{At}y(0)
+    \end{align*}
+    
+    \item $\int_0^t e^{At}dt=A^{-1}[e^{At}-I]=[e^{At}-I]A^{-1}$
+\end{itemize}
+
+\subsection{Trace of a Matrix}
+\begin{definition} 
+    The trace of a matrix is the sum of the diagonal elements of the matrix. It is denoted by $Tr(A)$.
+    \[ Tr(A)=\sum_{i=1}^n a_{ii} \]
+\end{definition}
+\textbf{Properties of Trace}
+\begin{itemize}
+    \item \textbf{Cyclic Property: }$Tr(AB)=Tr(BA)$.
+    
+    Let matrix $A=[a_{ij}]_{m \times n}$ and $B=[b_{ij}]_{n \times m}$, Then,
+    \[
+    tr(AB)=\sum_{i=1}^m \sum_{j=1}^n a_{ij}b_{ji}
+    \]
+    Similarly,
+    \[
+    tr(BA)=\sum_{i=1}^n \sum_{j=1}^m b_{ij}a_{ji}
+    \]
+    Now,
+    \begin{align*}
+    tr(BA)&=\sum_{i=1}^n \sum_{j=1}^m b_{ij}a_{ji}\\
+    &=\sum_{i=1}^n \sum_{j=1}^m a_{ji}b_{ij} \\
+    &=\sum_{j=1}^m \sum_{i=1}^n a_{ji}b_{ij} \\
+    &=\sum_{i=1}^m \sum_{j=1}^n a_{ij}b_{ji} \\
+    tr(BA)&=tr(AB)
+    \end{align*}
+    Hence, proved that $tr(AB)=tr(BA)$.
+    \item $Tr(A+B)=Tr(A)+Tr(B)$ and if $Tr(zA)=zTr(A)$ for some $z \in \mathbb{C}$.
+
+    \[
+    Tr(A+B)sum_i a_{ii}+b_{ii}=\sum_i a_{ii} + \sum_i b_{ii}=Tr(A)+Tr(B)
+    \]
+    and
+    \[
+    Tr(zA)=\sum_i za_{ii}=z\sum_i a_{ii}=zTr(A
+    \]
+    \item $Tr(A^{\dagger})=Tr(A)$
+    \item If $Tr(AA^{\dagger})=0$ then $A=0 \text{ (Null matrix)}$
+    \item $\|v\|^2=Tr(\ket{v}\bra{v})=\braket{v|v}$
+    \item $Tr(ABC)=Tr(BCA)=Tr(CAB)$
+    \item From the cyclic property it follows that the trace of matrix is invariant under the similarity transformation,
+    $A \rightarrow UAU^{\dagger}$, as $Tr(UAU^{\dagger})=Tr((U^{\dagger}UA)=Tr(A)$. Thus, trace of an operator is the trace of any matrix representation of $A$. The invariance of the trace under unitary similarity transformations ensures that the trace of an operator is well defined.
+    \item Suppose $\ket{\psi}$ is a unit vector and $A$ is an arbitrary operator. To evaluate $Tr(A\ket{\psi}\bra{\psi})$Using the Gram-Schmidt Procedure to extend $\ket{\psi}$ to an orthonormal basis $\ket{i}$ which includes $\ket{\psi}$ as the first element. Then we have
+    \begin{align*}
+    Tr(A\ket{\psi}\bra{\psi})&=\sum_i \braket{i|A|\psi}\braket{\psi|i}\\
+    &=\braket{\psi|A\psi}
+    \end{align*}
+\end{itemize}
+\subsection{Norms}
+\begin{definition}
+    A real valued function defined on a vector space $(\mathbb{C}^m \rightarrow \mathbb{R})$ is called a norm (denoted by $\|x\|$) 
+    if it satisfies the following properties:
+    \begin{itemize}
+        \item $\|x\| \geq 0$ and $\|x\|=0$ if and only if $x=0$.
+        \item $\|\alpha x\|=|\alpha|\|x\|$ for any scalar $\alpha$.
+        \item $\|x+y\| \leq \|x\|+\|y\|$ (Triangle Inequality).
+    \end{itemize}
+\end{definition}
+Thus, 
+\[\|\alpha_1x_1+\alpha_2x_2 + \cdots +\alpha_n x_n\| \leq |\alpha_1|\|x_1\|+|\alpha_2|\|x_2\| + \cdots + |\alpha_n|\|x_n\| \]
+where $\alpha_i$ are scalars and $x_i$ are vectors.\\
+In general, the norm of a vector is the measure of the length of the vector.
+The p-norm of a vector is defined as:
+\[ \|x\|_p=(\sum_{i=1}^n |x_i|^p)^{\frac{1}{p}} \]
+where $x=(x_1,x_2,\ldots,x_n)$ is a vector in $\mathbb{C}^n$. Here, $|x_i|$ is the modulus of the complex number $x_i$.\\
+The 1-norm of a vector is defined as:
+\[ \|x\|_1=\sum_{i=1}^n |x_i| \]
+The 2-norm of a vector is called the Euclidean norm and is defined as:
+\[ \|x\|_2=(\sum_{i=1}^n |x_i|^2)^{\frac{1}{2}} \]
+The $\infty$-norm of a vector is defined as:
+\[ \|x\|_{\infty}=\max_{1\leq i \leq n} |x_i| \]
+The $\infty$-norm is the maximum of the absolute values of the elements of the vector.\\
+
+\textbf{Properties of Norms}
+\begin{itemize}
+    \item $\|x\|_{\infty} \leq \|x\|_2 \leq \|x\|_1$
+    \item $\|x\|_2 \leq \sqrt{n}\|x\|_{\infty}$
+\end{itemize}
+where $x \in \mathbb{C}^n$.\\
+
+\subsection{Induce Matrix Norm}
+\begin{definition}
+    The induced matrix norm of a matrix A is defined as:
+    \[ \|A\|_p=\max_{\|v\|_p=1} \|Av\|_p \]
+    where $\|v\|_p$ is p-the norm of the vector v.
+\end{definition}
+In other words, it is the factor by which a matrix can scale a vector.It is 
+also called Spectral Norm. For the purpose of this notes, we will consider the
+induced 2-norm i.e. the Euclidean norm for the vectors.\\
+\textbf{Properties of Induced Matrix Norm}
+\begin{itemize}
+    \item $\|A\|=\max_{\|v\|=1} \|Av\|=\max_{\|v\|=1} \sqrt{\braket{Av|Av}}=\max_{\|v\|=1} \sqrt{\braket{v|A^{\dagger}A|v}}$
+    \item For a diagonal matrix D, $\|D\|_1 = \|D\|_2=\max_{1\leq i \leq n} |d_i|$ where $d_i$ are the diagonal elements of the matrix D.
+    \item For any matrix A, $\|A\|_1$ = maximum absolute column sum of the matrix A.
+    \item For any matrix A, $\|A\|_{\infty}$ = maximum absolute row sum of the matrix A.
+    \item For any matrix A, $\|A\|_2$ = maximum singular value of the matrix A.
+    \item For any matrix A, $\|A\|_2$ = $\sqrt{\rho(A^{\dagger}A)}$ where $\rho(A^{\dagger}A)$ is the maximum eigen value of the matrix $A^{\dagger}A$.
+    \item For any matrix A, $\|Ax\|\leq \|A\|\|x\|$. This is because $\|A\| =sup_{x\neq 0} \dfrac{\|Ax\|}{\|x\|}$.
+    \item Sub-Multiplicative Property: $\|AB\|\leq \|A\|\|B\|$
+    Let $\|x\|=1$ then,
+    \[ \|AB\|=sup_{\|x\|=1} \|ABx\|\]
+    Now, using the property that $\|Ax\|\leq \|A\|\|x\|$ we get:
+    \[ \|ABx\| \leq \|A\|\|Bx\| \leq \|A\|\|B\| \]
+    Now, for some $x=\hat{x}$, $\|AB\hat{x}\|=\|AB\|$.
+    Thus, $\|AB\|\leq \|A\|\|B\|$.
+    \item $\|A+B\|\leq \|A\|+\|B\|$
+    \item For a Unitary matrix U, $\|U\|=1$. Thus, $\|UA\|_2=\|A\|_2$. This is because Unitary Matrix preserves norm of a vector (it only rotates the vectors).
+\end{itemize}
+
+\subsection{Conditioning and Condition Number}In this section we find the condition number of a matrix times vector multiplication.
+
+Let $y=Ax$ where $A$ is matrix and $x,b$ are vectors. The input given is a vector and the output is $Ax$. Thus,
+\begin{align*}
+\kappa(x) &= \max_{\delta x}\dfrac{\frac{\|A(x+\delta x) - Ax\|}{\|Ax\|}}{\frac{\|\delta x\|}{\|x\|}}\\
+&=\max_{\delta x} \dfrac{\|A\delta x\|}{\|Ax\|}\frac{\|x\|}{\|\delta x\|}\\
+&=\max_{\delta x} \dfrac{\|A\delta x\|}{\|\delta x\|}\frac{\|x\|}{\|Ax\|}\\
+&=\frac{\|x\|}{\|Ax\|}\left(\max_{\delta x} \dfrac{\|A\delta x\|}{\|\delta x\|}\right)\\
+&=\frac{\|x\|}{\|Ax\|}\|A\|\\
+&=\frac{\|A\|\|x\|}{\|Ax\|}
+\end{align*}
+Let $A$ be a square matrix and non-singular. Then $A^{-1}$ exists, thus, $x=A^{-1}Ax \implies \|x\|=\|A^{-1}Ax\|\leq \|A^{-1}\|\|Ax\|$.
+Thus, $\frac{\|x\|}{\|Ax\|}\leq \|A^{-1}\|$. Substituting this, in e previous result, we get,
+\[
+\kappa(x)\leq \|A\|\|A^{-1}\|
+\]
+Thus, we define the condition number for a matrix vector multiplication $Ax$ with $\kappa(x)=\|A\|\|A^{-1}\|$.
+Building upon this, consider the problem of solving the system of linear equations $Ax=b$ by using $x=A^{-1}b$. Then the condition number will be given as $\kappa(b)=\|A^{-1}\|\|A\|$. Thus, we define the condition number of a matrix $A$ as $\kappa(A)=\|A\|\|A^{-1}\|$. In the 2-norm sense, 
+\[
+\kappa(A)=\|A\|_2\|A^{-1}\|_2=\dfrac{\sigma_{max}}{\sigma_{min}}=\sqrt{\dfrac{\lambda_{max}(A^{\dagger} A)}{\lambda_{min}(A^{\dagger}A)}}
+\]
+where $\sigma_{max}$ and $\sigma_{min}$ are the maximum and minimum singular values respectively. If $A$ is Hermitian then the condition number is given as:
+\[
+\kappa(A)=\dfrac{|\lambda_{max}(A)|}{|\lambda_{min}(A)|}
+\]
+Note that here $\lambda_{max}$ and $\lambda_{min}$ are in the absolute sense.
+
+\section{Tensor Products}
+It is a method for combining two vector spaces to obtain a new larger vector space. 
+\begin{definition}
+    Suppose V and W are vector spaces of dimensions m and n respectively. For convinence we also suppose that V and W are Hilbert Spaces. Then,
+    $V \otimes W$ (read as V tensor W) is a vector space of dimension $mn$ such that any vector in $V \otimes W$ can be written as a linear combination of the tensor products of the vectors in V and W. i.e 
+    The elements of $V \otimes W$ are linear combination of 'tensor products' $\ket{v} \otimes \ket{w}$ of elements $\ket{v}$ of $V$ and $\ket{w}$ of $W$. For example, if $\ket{i}$ and 
+    $\ket{j}$ are orthonormal bases for the spaces V and W then $\ket{i} \otimes \ket{j}$ is a basis fr $V \otimes W$. Note that we often use abbreviated notations $\ket{v}\ket{w},\ket{v,w}$ 
+    or $\ket{vw}$ for the tensor product $\ket{v} \otimes \ket{w}$. 
+    \begin{itemize}
+        \item For an arbitrary scalar z and elements of $\ket{v}$ of $V$ and $\ket{w}$ of $W$.
+        \[ z(\ket{v} \otimes \ket{w}) = (z\ket{v}) \otimes \ket{w} = \ket{v} \otimes (z\ket{w}) \]
+        \item For arbitrary $\ket{v_1}$ and $\ket{v_2}$ in V and $\ket{w}$ in W,
+        \[ (\ket{v_1}+\ket{v_2}) \otimes \ket{w} = \ket{v_1} \otimes \ket{w} + \ket{v_2} \otimes \ket{w} \]
+        \item For arbitrary $\ket{v}$ in V and $\ket{w_1}$ and $\ket{w_2}$ in W,
+        \[ \ket{v} \otimes (\ket{w_1}+\ket{w_2}) = \ket{v} \otimes \ket{w_1} + \ket{v} \otimes \ket{w_2} \]
+    \end{itemize}
+\end{definition}
+
+\begin{example}
+    if $V$ is a two-dimensional vector space with basis vectors $\ket{0}$ and $\ket{1}$ then $\ket{0} \otimes \ket{0} + \ket{1} \otimes \ket{1}$ is an element of 
+    $V \otimes V$.
+\end{example}
+
+Linear operators acting on the space $V\otimes W$. Suppose $\ket{v}$ and $\ket{w}$ are vectors in V and W, and A and B are linear operators 
+on V and W respectively. Then we can define a linear operator $A \otimes B$ on $V \otimes W$ by the equation
+\[ (A \otimes B)(\ket{v} \otimes \ket{w}) = A\ket{v} \otimes B\ket{w} \]
+Consider the tensor products \(X = A \otimes B\) and \(Y = C \otimes D\). We have:
+
+\[
+X = A \otimes B = \begin{pmatrix}
+a_{11} B & a_{12} B & \cdots & a_{1n} B \\
+a_{21} B & a_{22} B & \cdots & a_{2n} B \\
+\vdots & \vdots & \ddots & \vdots \\
+a_{m1} B & a_{m2} B & \cdots & a_{mn} B
+\end{pmatrix},
+\]
+
+\[
+Y = C \otimes D = \begin{pmatrix}
+c_{11} D & c_{12} D & \cdots & c_{1r} D \\
+c_{21} D & c_{22} D & \cdots & c_{2r} D \\
+\vdots & \vdots & \ddots & \vdots \\
+c_{n1} D & c_{n2} D & \cdots & c_{nr} D
+\end{pmatrix}.
+\]
+
+To find \((A \otimes B)(C \otimes D)\), we multiply these matrices.
+
+Expanding this product:
+\begin{align*}
+(A \otimes B)(C \otimes D) &= \begin{bmatrix}
+\sum_{i=1}^n a_{1i} c_{i1} BD & \sum_{i=1}^n a_{1i} c_{i2} BD & \cdots & \sum_{i=1}^n a_{1i} c_{ir} BD \\
+\sum_{i=1}^n a_{2i} c_{i1} BD & \sum_{i=1}^n a_{2i} c_{i2} BD & \cdots & \sum_{i=1}^n a_{2i} c_{ir} BD \\
+\vdots & \vdots & \ddots & \vdots \\
+\sum_{i=1}^n a_{ni} c_{i1} BD & \sum_{i=1}^n a_{ni} c_{i2} BD & \cdots & \sum_{i=1}^n a_{ni} c_{ir} BD
+\end{bmatrix}\\
+&=\begin{bmatrix}
+\sum_{i=1}^n a_{1i} c_{i1} & \sum_{i=1}^n a_{1i} c_{i2} & \cdots & \sum_{i=1}^n a_{1i} c_{ir} \\
+\sum_{i=1}^n a_{2i} c_{i1} & \sum_{i=1}^n a_{2i} c_{i2} & \cdots & \sum_{i=1}^n a_{2i} c_{ir} \\
+\vdots & \vdots & \ddots & \vdots \\
+\sum_{i=1}^n a_{ni} c_{i1} & \sum_{i=1}^n a_{ni} c_{i2} & \cdots & \sum_{i=1}^n a_{ni} c_{ir}
+\end{bmatrix} \otimes BD \\
+&=AC \otimes BD
+\end{align*}
+This simplifies to:
+\[
+(A \otimes B)(C \otimes D) = \left( AC \right) \otimes \left( BD \right).
+\]
+Thus, we have shown that:
+\[
+(A \otimes B)(C \otimes D) = (AC) \otimes (BD).
+\]
+
+
+It can be shown that $A \otimes B$ is a well-defined linear operator on $V\ otimes W$. The definition of $A \otimes B$ is then extended to all the elements of $V \otimes W$ in the natural way to ensure linearity of $A \otimes B$, that is,
+\[ (A \otimes B)(\sum_{i} a_{i} \ket{v_i} \otimes \ket{w_i}) = \sum_{i} a_i A\ket{v_i} \otimes B\ket{w_i} \]
+Consider the case where $A:V \rightarrow V'$ and $B:W \rightarrow W'$ are linear operators on the vector spaces V and W. Then, 
+an arbitrary linear operator C mapping $V \otimes W$ to $V' \otimes W'$ can be represented as a linear combination of tensor products of operators mapping 
+$V$ to $V'$ and $W$ to $W'$. That is,
+\[ C=\sum_{i} c_{i} A_i \otimes B_i \]
+where by definition,
+\[ \left( \sum_i c_i A_i \otimes B_i\right) \left(\ket{v} \otimes \ket{w}\right) = \sum_i c_i A_i \ket{v} \otimes B_i \ket{w} \]
+
+The inner product on the spaces V and W can be used to define a natural inner product on $V \otimes W$. Define
+\[ \left( \sum_i a_i\ket{v_i}\otimes \ket{w_i}, \sum_j b_j \ket{v'_j} \otimes \ket{w'_j}\right) \equiv \sum_{ij} a_i^*b_j\braket{v_i|v'_j}\braket{w_i|w'_j} \]
+It can be shown that the function so defined is a well-defined inner product. The inner product space $V \otimes W$ inherits the other structure we are familiar with such as notions of an adjoint , unitary, normality and Hermiticity.\\
+\\
+For say four matrices $A,B,C$ and $D$, we have
+\[
+    (A\otimes B)(C\otimes D)=(AC\otimes BD)
+\]
+given that $AC$ and $BD$ are defined.\\
+\\
+\textbf{Kronecker Product}\\
+Suppose A is a m by n matrix, and B is a p by q matrix. Then we have the matrix representation:
+\[ A \otimes B \equiv \begin{pmatrix} a_{11}B & a_{12}B & \ldots & a_{1n}B \\ a_{21}B & a_{22}B & \ldots & a_{2n}B \\ \vdots & \vdots & \ddots & \vdots \\ a_{m1}B & a_{m2}B & \ldots & a_{mn}B \end{pmatrix} \]
+In this representation terms like $a_11B$ denote p by q matrices whose entries are proportional to B, with overall proportionality constant $a_{11}$. 
+
+\textbf{Useful notation: $\ket{\psi}^{\otimes n}$ denotes $\psi$ tensored with itself k times. For example, $\ket{\psi}^{\otimes 2} = \psi \otimes \psi$. Similar notation can be used for operators/matrices.}
+\\
+\textbf{Properties of Tensor Products: }
+\begin{itemize}
+    \item Transpose, Complex conjugation and adjoint operations distributed over the tensor product,
+    \[ (A \otimes B)^T = A^T \otimes B^T \]
+    \[ (A \otimes B)^{*}=A^{*} \otimes B^{*} \]
+    \[ (A \otimes B)^{\dagger}=A^{\dagger} \otimes B^{\dagger} \]
+    \item Tensor product of two unitary operators is unitary.\\
+    \textbf{Proof: }Let $A$ and $B$ be two unitary matrices ($AA^{\dagger}=I$ and $BB^{\dagger}=I$). Thus,
+    \[
+    ((A\otimes B)^{\dagger})(A \otimes B)=(A^{\dagger} \otimes B^{\dagger})(A \otimes B) = (AA^{\dagger} \otimes BB^{\dagger})=(I \otimes I)= I
+    \]
+    Similarly, the other two properties given below can be proven.
+    \item Tensor product of two positive operators is positive.
+    \item Tensor product of two projectors is a projector.
+\end{itemize}
+\begin{example}
+    Consider one qubit $\ket{\psi}=\alpha \ket{0} + \beta \ket{1}$. Then the tensor product of $\ket{\psi}$ with itself is:
+    \[ \ket{\psi} \otimes \ket{\psi} = (\alpha \ket{0} + \beta \ket{1}) \otimes (\alpha \ket{0} + \beta \ket{1}) = \alpha^2 \ket{00} + \alpha \beta \ket{01} + \alpha \beta \ket{10} + \beta^2 \ket{11} \]
+    Thus, in matrix form:
+    \[ \begin{pmatrix} \alpha \\ \beta \end{pmatrix} \otimes \begin{pmatrix} \alpha \\ \beta \end{pmatrix} = \begin{pmatrix} \alpha \begin{pmatrix} \alpha \\ \beta \end{pmatrix} \\ \beta \begin{pmatrix} \alpha \\ \beta \end{pmatrix} \end{pmatrix} = \begin{pmatrix} \alpha^2 \\ \alpha \beta \\ \alpha \beta \\ \beta^2 \end{pmatrix} \]
+\end{example}
+
+\begin{example}
+    Consider the matrix $A=\begin{pmatrix} 1 & 2 \\ 3 & 4 \end{pmatrix}$ and $B=\begin{pmatrix} 5 & 6 \\ 7 & 8 \end{pmatrix}$. Then the Kronecker product of A and B is:
+    \[ A \otimes B = \begin{pmatrix} 1 \begin{pmatrix} 5 & 6 \\ 7 & 8 \end{pmatrix} & 2 \begin{pmatrix} 5 & 6 \\ 7 & 8 \end{pmatrix} \\ 3 \begin{pmatrix} 5 & 6 \\ 7 & 8 \end{pmatrix} & 4 \begin{pmatrix} 5 & 6 \\ 7 & 8 \end{pmatrix} \end{pmatrix} = \begin{pmatrix} 5 & 6 & 10 & 12 \\ 7 & 8 & 14 & 16 \\ 15 & 18 & 20 & 24 \\ 21 & 24 & 28 & 32 \end{pmatrix} \]
+\end{example}
+
+\begin{example}
+    Consider $\ket{\psi}=\iota \ket{0} + 7 \ket{1}$ and $\ket{\phi}=\ket{00}+3\ket{10}+7\ket{11}$.
+    Then, the tensor product $\ket{\psi}\otimes \ket{\phi} = \ket{\psi}\ket{\phi}=\ket{\psi\phi} = (\iota \ket{0} + 7\ket{1}) (\ket{00}+3\ket{10}+7\ket{11})= \iota \ket{0}\ket{00} + 3\iota \ket{0}\ket{10} + 7\iota \ket{0}\ket{11} + 7\ket{1}\ket{00} + 21\ket{1}\ket{10} + 49\ket{1}\ket{11}= \iota \ket{000} + 3\iota\ket{010} + 7\iota \ket{011} + 
+    7\ket{100} +21 \ket{110} + 49 \ket{111}$.
+    Thus, in matrix form:
+    \[ \begin{pmatrix} \iota \\ 7 \end{pmatrix} \otimes \begin{pmatrix} 1 \\ 0 \\ 3 \\ 7 \end{pmatrix} = \begin{pmatrix} \iota \begin{pmatrix} 1 \\ 0 \\ 3 \\ 7 \end{pmatrix} \\ 7 \begin{pmatrix} 1 \\ 0 \\ 3 \\ 7 \end{pmatrix} \end{pmatrix} = \begin{pmatrix} \iota \\ 0 \\ 3\iota \\ 7\iota \\ 7 \\ 0 \\ 21 \\ 49 \end{pmatrix} \]
+
+\end{example}
+
+\begin{example}
+    Say $\ket{\alpha}=3\ket{0}+\iota\ket{1}$ and $\ket{\beta}=\ket{00}+2 \ket{10}+7\ket{11}$ the the outer product $\ket{\alpha}\bra{\beta}$ is given as:
+    \[ \ket{\alpha}\bra{\beta}=(3\ket{0}+\iota\ket{1})(\bra{00}+2\bra{10}+7\bra{11})\] 
+    \[ =3\ket{0}\bra{00}+6\ket{0}\bra{10}+21\ket{0}\bra{11}+\iota\ket{1}\bra{00}+2\iota\ket{1}\bra{10}+7\iota\ket{1}\bra{11}\] 
+    In matrix form, it can be written as:
+    \[\begin{pmatrix} 3 & 0 & 6 & 21 \\\iota & 0 & 2\iota & 7\iota \end{pmatrix}\] 
+\end{example}
+
+\begin{example}
+    Say a matrix $A=\begin{pmatrix} 0 & 1\\3 & \iota \\7 & 0\\0 & 13\end{pmatrix}$. Then in the outer product form it can be written as:
+    \[ A = \ket{00}\bra{1} + 3\ket{01}\bra{0} + \iota \ket{01}\bra{1} + 7\ket{10}\bra{0} + 13 \ket{11}\bra{1}\] 
+\end{example}
+\begin{example}
+    Let $\ket{\psi}=(\ket{0}+\ket{1})/\sqrt{2}$. Write out $\ket{\psi}^{\otimes 2}$ and $\ket{\psi}^{\otimes 3}$ explicitly, both in terms of tensor products like $\ket{0}\ket{1}$, and using the Kronecker product.
+
+Using the definition of tensor product, we have:
+\[
+\ket{\psi}^{\otimes 2} = \frac{\ket{0}\ket{0}+\ket{0}\ket{1}+\ket{1}\ket{0}+\ket{1}\ket{1}}{2}=\begin{bmatrix} 1\sqrt{2}\begin{bmatrix} 1/\sqrt{2} \\ 1/\sqrt{2} \end{bmatrix} \\ 1/\sqrt{2} \begin{bmatrix} 1/\sqrt{2} \\ 1/\sqrt{2} \end{bmatrix} \end{bmatrix} = \begin{bmatrix} 1/2 \\ 1/2 \\ 1/2 \\1/2 \end{bmatrix}
+\]
+Similarly,
+\[
+\ket{\psi}^{\otimes 3}=\frac{\ket{0}\ket{0}\ket{0}+\ket{0}\ket{1}\ket{0}+\ket{0}\ket{1}\ket{1}+\ket{1}\ket{0}\ket{0}+\ket{1}\ket{0}\ket{1}+\ket{1}\ket{1}\ket{0}+\ket{1}\ket{1}\ket{1}}{2\sqrt{2}}
+\]
+\[
+=\ket{\psi}\otimes \ket{\psi}^{\otimes 2}=\begin{bmatrix} \frac{1}{\sqrt{2}} \begin{bmatrix} 1/2 \\1/2 \\ 1/2 \\ 1/2 \end{bmatrix} \\ \frac{1}{\sqrt{2}} \begin{bmatrix}1/2 \\ 1/2 \\ 1/2 \\ 1/2 \end{bmatrix} \end{bmatrix} = \begin{bmatrix} \frac{1}{2\sqrt{2}} \\ \frac{1}{2\sqrt{2}} \\\frac{1}{2\sqrt{2}}\\\frac{1}{2\sqrt{2}}\\\frac{1}{2\sqrt{2}}\\\frac{1}{2\sqrt{2}}\\\frac{1}{2\sqrt{2}}\\\frac{1}{2\sqrt{2}} \end{bmatrix}
+\]
+\end{example}
+
+\begin{example}
+    Show that the transpose, complex conjugation and adjoint operations distribute over the tensor product.
+    \[
+    (A \otimes B)^* = A^* \otimes B^*; (A \otimes B)^T = A^T \otimes B^T ; (A \otimes B)^{\dagger} =A^{\dagger} \otimes B^{\dagger}
+    \]
+
+    Using the Kronecker product of $A \otimes B$, we have:
+    \[
+    (A \otimes B)^* =\begin{bmatrix} A_{11}B & A_{12}B & \ldots & A_{1n}B \\ A_{21}B & A_{22}B & \ldots & A_{2n}B \\ \vdots & \vdots & \vdots & \vdots \\ A_{m1}B & A_{m2}B & \ldots & A_{mn}B \end{bmatrix}^* = \begin{bmatrix} A_{11}^*B^* & A_{12}^*B^* & \ldots & A_{1n}^*B^* \\ A_{21}^*B^* & A_{22}^*B^* & \ldots & A_{2n}^*B^* \\ \vdots & \vdots & \vdots & \vdots \\ A_{m1}^*B^* & A_{m2}^*B^* & \ldots & A_{mn}^*B^* \end{bmatrix}=A^* \otimes B^*
+    \]
+    \[
+    (A\otimes B)^T=\begin{bmatrix} A_{11}B & A_{12}B & \ldots & A_{1n}B \\ A_{21}B & A_{22}B & \ldots & A_{2n}B \\ \vdots & \vdots & \vdots & \vdots \\ A_{m1}B & A_{m2}B & \ldots & A_{mn}B \end{bmatrix}^T = \begin{bmatrix} A_{11}B^T & A_{21}B^T & \ldots & A_{n1}B^T \\ A_{12}B^T & A_{22}B^T & \ldots & A_{n2}B^T \\ \vdots & \vdots & \vdots & \vdots \\ A_{1m}B^T & A_{2m}B^T & \ldots & A_{nm}B^T \end{bmatrix}=A^T \otimes B^T 
+    \]
+    The relation for the distributivity of the hermitian conjugate over the tensor product then follows from the former two relations:
+    \[
+    (A \otimes B)^{\dagger}=((A\otimes B)^T)^*=(A^T\otimes B^T)^*=(A^T)^* \otimes (B^T)^*=A^{\dagger} \otimes B^{\dagger}
+    \]
+\end{example}
+\begin{example}
+Show that the tensor product of two unitary operators is unitary.
+
+Suppose $A,B$ are unitary. Then, $A^{\dagger}A=I$ and $B^{\dagger}B=I$.
+\[
+(A\otimes B)^{\dagger}(A\otimes B)=(A^{\dagger} \otimes B^{\dagger})=(A^{\dagger}A \otimes B^{\dagger}B)=I\otimes I
+\]
+\end{example}
+\begin{example}
+    Show that the tensor product of two Hermitian operators is Hermitian.
+
+    Suppose $A,B$ are Hermitian. Then, $A^{\dagger}=A$ and $B^{\dagger}=B$. Then, using the previous results, we have:
+    \[
+    (A\otimes B)^{\dagger} = A^{\dagger} \otimes B^{\dagger} =A \otimes B
+    \]
+\end{example}
+\begin{example}
+    Show that the tensor product of two positive operators is positive.
+
+    Suppose $A$ and $B$ are positive operators. We then have that $\braket{v|A|v}\geq 0$ and $\braket{w|B|w}\geq 0$. Therefore, for any $\ket{v}\otimes \ket{w}$:
+    \[
+    (\bra{v} \otimes \bra{w})(A \otimes B) (\ket{v} \otimes \ket{w})=(\braket{v|A|v} \otimes \braket{w|B|w})=\braket{v|A|v}\braket{w|B|w}\geq 0
+    \]
+\end{example}
+\begin{example}
+    Show that the tensor product of two projectors is a projector.
+
+    
+Let $P_1,P_2$ be projectors. We then have that $P_1^2=P_1$ and $P_2^2=P_2$. Therefore,
+\[
+(P_1\otimes P_2)^2=(P_1\otimes P_2)(P_1\otimes P_2)=P_1^2\otimes P_2^2=P_1 \otimes P_2
+\]
+so $P_1\otimes P_2$ is a projector.
+\end{example}
+\subsubsection{Factorizing Tensor Products}
+Consider a $\ket{\psi}=\frac{1}{2}\ket{00}-\frac{\iota}{2}\ket{10}+\frac{1}{\sqrt{2}}\ket{11}$, then we can factorize the tensor product by following the following procedure.
+Assume that the $\ket{\psi}=\ket{\phi}\ket{\chi}$ where $\ket{\phi}=a\ket{0}+b\ket{1}$ and $\ket{\chi}=c\ket{0}+d\ket{1}$ are vectors in the spaces V and W respectively. Then we can write:
+\[ \ket{\psi}=\ket{\phi}\otimes \ket{\chi}=\ket{\phi}\ket{\chi}=\ket{\phi\chi}=(a\ket{0}+b\ket{1})(c\ket{0}+d\ket{1})=ac\ket{00}+ad\ket{01}+bc\ket{10}+bd\ket{11} \]
+Now equating it with $\ket{\psi}$ we get:
+\[ \ket{\psi}=ac\ket{00}+ad\ket{01}+bc\ket{10}+bd\ket{11}=\frac{1}{2}\ket{00}-\frac{\iota}{2}\ket{10}+\frac{1}{\sqrt{2}}\ket{11} \]
+Thus,
+\[ ac=\frac{1}{2}, ad=0, bc=-\frac{\iota}{2}, bd=\frac{1}{\sqrt{2}} \]
+Thus, $a=\frac{1}{\sqrt{2}}, b=0, c=1, d=\frac{1}{\sqrt{2}}$. Thus, the tensor product can be factorized as $\ket{\psi}=\frac{1}{\sqrt{2}}\ket{0}\ket{1}+\frac{1}{\sqrt{2}}\ket{1}\ket{1}$.
+
+Consider a $\ket{\psi}=\frac{1}{\sqrt{2}}\ket{00}+\frac{1}{\sqrt{2}}\ket{01}$, then we can factorize the tensor product by foolowing the following procedure.
+Assume that the $\ket{\psi}=\ket{\phi}\ket{\chi}$ where $\ket{\phi}=a\ket{0}+b\ket{1}$ and $\ket{\chi}=c\ket{0}+d\ket{1}$ are vectors in the spaces V and W respectively. Then we can write:
+\[ \ket{\psi}=\ket{\phi}\otimes \ket{\chi}=\ket{\phi}\ket{\chi}=\ket{\phi\chi}=(a\ket{0}+b\ket{1})(c\ket{0}+d\ket{1})=ac\ket{00}+ad\ket{01}+bc\ket{10}+bd\ket{11} \]
+Now equating it with $\ket{\psi}$ we get:
+\[ \ket{\psi}=ac\ket{00}+ad\ket{01}+bc\ket{10}+bd\ket{11}=\frac{1}{\sqrt{2}}\ket{00}+\frac{1}{\sqrt{2}}\ket{01} \]
+Thus,
+\[ ac=\frac{1}{\sqrt{2}}, ad=0, bc=0, bd=\frac{1}{\sqrt{2}} \]
+Thus, no such values of a,b, c and d exist. Hence, it cannot be factorized.
+
+
+
+
+
+
+
+
+
+
+\section{Complex Numbers}
+\subsection{Complex Plane}
+The complex plane is as denoted in the figure below:
+\begin{center}
+    \begin{tikzpicture}
+        \draw[<->] (-2,0) -- (2,0) node[right] {$Re$};
+        \draw[<->] (0,-2) -- (0,2) node[above] {$Im$};
+        \draw[fill=black] (1,1) circle (0.05) node[above right] {$z=1+i$};
+        \draw[fill=black] (1,-1) circle (0.05) node[below right] {$z=1-i$};
+        \draw[fill=black] (-1,1) circle (0.05) node[above left] {$z=-1+i$};
+        \draw[fill=black] (-1,-1) circle (0.05) node[below left] {$z=-1-i$};
+    \end{tikzpicture}
+\end{center}
+With y axis as imaginary axis, and x axis as real axis. A complex number in cartesian coordinate form is denoted as 
+$z=a+\iota b$ where $\iota =\sqrt{-1}$ and $a,b \in \mathbb{R}$ which can be written as a column vector $z=\begin{pmatrix} a \\ b \end{pmatrix}$.
+
+\subsection{Addition of Complex Numbers}
+The addition of complex numbers is as follows:
+\[ z_1+z_2=(a_1+\iota b_1)+(a_2+\iota b_2)=(a_1+a_2)+\iota(b_1+b_2) \]
+Thus, the addition of complex numbers is the same as the addition of vectors in the complex plane.\\
+\textbf{Properties: }
+\begin{itemize}
+    \item Commutative: $z_1+z_2=z_2+z_1$
+    \item Associative: $(z_1+z_2)+z_3=z_1+(z_2+z_3)$
+    \item Identity: $z+0=z$ where $0=0+0\iota$
+    \item Inverse: $z+(-z)=0$
+    \item Distributive: $z_1(z_2+z_3)=z_1z_2+z_1z_3$
+\end{itemize}
+
+\subsection{Multiplication of Complex Numbers}
+The multiplication of complex numbers is as follows:
+\[ z_1z_2=(a_1+\iota b_1)(a_2+\iota b_2)=a_1a_2-a_1b_2+\iota(a_1b_2+a_2b_1) \]
+Thus, the multiplication of complex numbers is the same as the multiplication of vectors in the complex plane.\\
+\textbf{Properties: }
+\begin{itemize}
+    \item Commutative: $z_1z_2=z_2z_1$
+    \item Associative: $(z_1z_2)z_3=z_1(z_2z_3)$
+    \item Identity: $z1=1z=z$
+    \item Distributive: $z_1(z_2+z_3)=z_1z_2+z_1z_3$
+    \item Scalar Multiplication: $\alpha(z_1z_2)=\alpha z_1z_2$
+    \item Scalar Multiplication: $(\alpha+\beta)z=\alpha z+\beta z$
+    \item Scalar Multiplication: $\alpha(\beta z)=(\alpha \beta)z$
+    \item Existence of multiplicative idenetity: $1z=z$
+    \item Existence of Multiplicative inverse: $z\neq 0 \implies \dfrac{1}{z}=\dfrac{{z*}}{z\bar{z}}$
+\end{itemize}
+
+\subsection{Complex Conjugate}
+The complex conjugate of a complex number $z=a+\iota b$ is denoted by $\bar{z}=a-\iota b$. The complex conjugate of a complex number is the reflection of the complex number about the real axis.\\
+\textbf{Properties: }
+\begin{itemize}
+    \item ${(z_1+z_2)^*}=z_1^*+z_2^*$
+    \item ${(z_1z_2)^*}=z_1^*z_2^*$
+    \item ${(z^*)^*}=z$
+    \item $z+z^*=2Re(z)$
+    \item $z-z^*=2iIm(z)$
+    \item $zz^*=|z|^2$
+    \item $\dfrac{1}{z}=\dfrac{{z^*}}{zz^*}$
+    \item $z^{-1}=\dfrac{{z^*}}{|z|^2}$
+\end{itemize}
+
+\subsection{Modulus of a Complex Number}
+The modulus of a complex number $z=a+\iota b$ is denoted by $|z|=\sqrt{a^2+b^2}$. The modulus of a complex number is the distance of the complex number from the origin in the complex plane.\\
+\textbf{Properties: }
+\begin{itemize}
+    \item $|z|^2=zz^*$
+    \item $|z_1z_2|=|z_1||z_2|$
+    \item $|z_1+z_2|\leq |z_1|+|z_2|$
+    \item $|z_1-z_2|\geq ||z_1|-|z_2||$
+    \item $|z_1-z_2|^2=|z_1|^2+|z_2|^2-2Re(z_1z_2^*)$
+    \item $|z_1+z_2|^2=|z_1|^2+|z_2|^2+2Re(z_1z_2^*)$
+    \item $|z_1+z_2|^2+|z_1-z_2|^2=2(|z_1|^2+|z_2|^2)$
+    \item $|z_1+z_2|^2+|z_1-z_2|^2=4|z_1|^2|z_2|^2$
+    \item $|z_1+z_2|^2+|z_1-z_2|^2=4|z_1z_2|^2$
+    \item $|z_1+z_2|^2+|z_1-z_2|^2=4|z_1|^2|z_2|^2$
+\end{itemize}
+
+\subsection{Polar form}
+The polar form of a complex number $z=a+\iota b$ is denoted by $z=r(\cos(\theta)+\iota \sin(\theta))$ where $r=|z|$ and $\theta=\tan^{-1}(\dfrac{b}{a})$. The polar form of a complex number is the representation of the complex number in terms of its modulus and argument.\\
+\textbf{Properties: }
+\begin{itemize}
+    \item $z=r(\cos(\theta)+\iota \sin(\theta))=r(\cos(\theta+2\pi n)+\iota \sin(\theta+2\pi n))$ where n is an integer.
+    \item $z_1z_2=r_1r_2(\cos(\theta_1+\theta_2)+\iota \sin(\theta_1+\theta_2))$
+    \item $\dfrac{1}{z}=\dfrac{1}{r}(\cos(-\theta)+\iota \sin(-\theta))$
+    \item $z^n=r^n(\cos(n\theta)+\iota \sin(n\theta))$
+\end{itemize}
+
+\subsection{Euler's Formula}
+$z=a+\iota b=re^{\iota \theta}$. Recall that the expansion of $e^x$ using taylor series can be written as:
+\[ e^x=1+x+\dfrac{x^2}{2!}+\dfrac{x^3}{3!}+\ldots = \sum_{i=0}^{\infty} \dfrac{x^n}{n!}\]
+Now substituting $\iota \theta$ in place of x, we get:
+\[ e^{\iota \theta}=1+\iota \theta+\dfrac{(\iota \theta)^2}{2!}+\dfrac{(\iota \theta)^3}{3!}+\ldots = \sum_{i=0}^{\infty} \dfrac{(\iota \theta)^n}{n!}\]
+\[ e^{\iota \theta}=1+\iota \theta-\dfrac{\theta^2}{2!}-\iota \dfrac{\theta^3}{3!}+\ldots = \cos(\theta)+\iota \sin(\theta) \]
+On rearranging the terms we get:
+\[ e^{\iota \theta}= 1-\dfrac{\theta^2}{2!} + \dfrac{\theta^4}{4!} - \ldots + \iota(\theta-\dfrac{\theta^3}{3!}+\dfrac{\theta^5}{5!}-\ldots) \]
+Now recall that the expansion of $\sin$ and $\cos$ using taylor series expansion are:
+\[ \sin(\theta)=\theta-\dfrac{\theta^3}{3!}+\dfrac{\theta^5}{5!}-\ldots = \sum_{i=0}^{\infty} \dfrac{(-1)^i\theta^{2i+1}}{(2i+1)!} \]
+\[ \cos(\theta)=1-\dfrac{\theta^2}{2!}+\dfrac{\theta^4}{4!}-\ldots = \sum_{i=0}^{\infty} \dfrac{(-1)^i\theta^{2i}}{(2i)!} \]
+Thus, Euler's formula states that $e^{\iota \theta}=\cos(\theta)+\iota \sin(\theta)$.
+Hence, on substituting this in the polar form of a complex number we get:
+\[ z=a+\iota b = \sqrt{a^2 + b^2} (\cos \left(\tan^{-1}\frac{b}{a}\right) + \iota \sin \left(\tan^{-1}\frac{b}{a}\right))=r(\cos(\theta)+\iota \sin(\theta))=re^{\iota \theta} \]
+where $r=|z|$ and $\theta=\tan^{-1}(\dfrac{b}{a})$.
+Using, this we can also write:
+\[ \cos \theta = \frac{e^{\iota \theta}+e^{-\iota \theta}}{2} \] 
+\[ \sin \theta = \frac{e^{\iota \theta}-e^{-\iota \theta}}{2\iota} \]
+
+
+
+
+
+
+\newpage
+
+\section{Probability Theory}
+
+
+
+
+
+\section{Calculus}
+Exponential of matrices generally arise in Quantum mechanics in the form of solution to Schrodinger equation when the matrix $H$ is constant. Schrodinger equation is given as
+\[
+\iota \hbar\frac{\partial}{\partial t}\ket{\psi}=\hat{H}\ket{\psi}
+\]
+with the initial condition at $t=0$ as $\ket{\psi(0)}$.
+In the case, when the Hamiltonian $\hat{H}$ is a constant matrix, the above equation can be simplified to
+\begin{align*}
+\frac{\partial}{\partial t}\ket{\psi(t)}&=- \frac{\iota\hat{H}}{\hbar}\ket{\psi}\\
+\ket{\psi(t)}&=\int_0^t - \frac{\iota\hat{H}}{\hbar}\ket{\psi} dt\\
+\ket{\psi(t)}&=e^{-\iota \hat{H}t/\hbar }\ket{\psi(0)}
+\end{align*}
+
+
+
+
+
+
+
+
+\section{Group Theory}
+The mathematical theory of groups is useful at several points in the study of quantum computation and quantum information. the generalization of the order-finding, factoring, and period finding algorithms is based on the hidden subgroup problem; the stabilizer formalism for quantum error -correction is based on some elementary group theory. The number theory uses the properties of the group $Z_n^*$. And, implicitly, the quantum circuits used throughout the book are an example of the use of Lie groups. In this appendix we review some basic material on group theory. We summarize many of the fundamental concepts and provide important definitions, but do not attempt to explain very much, as group theory is a vast subject!
+
+\subsection{Basic Definitions}
+\begin{definition} 
+\textbf{Group:} A group $(G,\cdot)$ is a non-empty set $G$ with a binary group multiplication operation $`\cdot'$, with the following properties:
+\begin{itemize}
+    \item \textbf{(Closure)}: $g_1 \cdot g_2 \in G$ for all $g_1,g_2 \in G$
+    \item \textbf{(Associativity)} $(g_1 \cdot g_2) \cdot g_3 = g_1 \cdot (g_2 \cdot g_3)$., for all $g_1,g_2,g_3 \in G$
+    \item \textbf{(Identity)} There exists $e\in G$ such that $\forall g\in G, g\cdot e =e\cdot g =g$ 
+    \item \textbf{(Inverses)} $\forall g \in G$, there exists $g^{-1} \in G$ such that $g\cdot g^{-1}=e$ and $g^{-1}\cdot g=e$.
+\end{itemize}
+Note we often leave out $\cdot$ and write $g_1\cdot g_2$ as simply $g_1g_2$. We also often refer to the group $G$ without referring explicitly to its multiplication operation, but it must be defined.
+\end{definition}
+A group $G$ is \textit{finite} if the number of elements in $G$ is finite. The order of a finite group $G$ is the number of elements it contains, denoted as $|G|$. A group $G$ is said to be abelian if $g_1g_2=g_2g_1$ for all $g_a,g_2 \in G$. A simple example of a finite Abelian group is the additive group $\mathbb{Z}_n$ of integers modulo $n$, with `multiplication' operation the operation of modular addition. It is easily checked that this operation satisfies the closure and associativity axioms; there is an identity element, $0$, since $x+0=x (\text{mod }n)$ for all $x$, and every $x \in G$ has an inverse, $n-x$ sine $x + (n-x) = 0$ (mod $n$).
+
+The order of an element $g \in G$ is the smallest positive integer $r$ such that $g^r$ (g multiple with itself $r$ times) equals the identity element $e$.
+
+A subgroup $H$ of $G$ is a subset of $G$ which forms a group under the same group multiplication operation as $G$.
+
+\begin{theorem}
+    \textbf{(Lagrange's Theorem)} If $H$ is a subgroup of a finite group $G$ then $|H|$ divides $|G|$.
+\end{theorem}
+\begin{proof}
+    
+\end{proof}
+\begin{example}
+    Prove that for any element $g$ of a finite group, there always exists a positive integer $r$ such that $g^r=e$. That is, every element of such a group has an order.
+\end{example}
+
+\begin{example}
+    Show that the order of an element $g\in G$ divides $|G|$.
+\end{example}
+
+If $g_1$ and $g_2$ are elements of $G$, then the conjugate of $g_2$ with respect to $g_1$ is the element $g_1^{-1}g_2g_1$. If $H$ is a subgroup of $G$, then it is known as normal group if $g^{-1}Hg=H$ for all $g \in G$. The conjugacy class $G_x$ of an element $x$ in a group $G$ is defined by $G_x \equiv \{g^{-1}xg|g\in G\}$.
+\begin{example}
+    Show that if $y\in G_x$ then $G_y=G_x$.
+\end{example}
+\begin{example}
+    Show that if $x$ is an element of an Abelian group $G$ then $G_x=\{x\}$.
+
+    Since $x\in G$ is an Abelian group, it follows the property that $g_1g_2=g_2g_1$ for all $g_1,g_2 \in G$. Thus, $G_x = \{g^{-1}xg|g\in G\}$ which implies that $G_x=\{g^{-1}gx|g\in G\} = \{x|g\in G\}$ since $g^{-1}g=e$. Thus, $G_x = \{x\}$.
+\end{example}
+
+An interesting example of a group which is not Abelian is the Pauli group on $n$ qubits. For a single qubit, the pauli group is defined to consist of all the Pauli matrices, with multiplicative factors $\pm 1,\pm \iota$ allowed by the definition:
+\[
+G_1 \equiv \{\pm I,\pm \iota I,\pm X, \pm \iota X,\pm Y,\pm \iota Y,\pm Z, \pm \iota Z\}
+\]
+This set of matrices forms a group under the operation of matrix multiplication. You might wonder why we don't omit the multiplicative factors $\pm 1$ and $\pm \iota$; the reason these are included is to ensure that $G_1$ is closed under multiplication, and thus forms a legitimate group. The general Pauli group on $n$ qubits is defined to consist of all $n$-fold tensor products of Pauli matrices, and again we allow multiplicative factors of $\pm 1, \pm \iota$.
+
+\subsection{Generators}
+The study of groups if often greatly simplified by the use of a set of group generators for the group being studied. A set of elements $g_1,\ldots,g_l$ in a group $G$ is said to generate the group $G$ if every element of $G$ can be written as a product of (possibly repeated) elements from the list $g_1,\ldots, g_l$, and we write $G=\braket{g_1,\ldots,g_l}$. For example, $G_1=\braket{X,Z,\iota I}$, since very element in $G$ can be written as a product of $X$,$Z$ and $\iota I$. On the other hand, $\braket{X}=\{I,X\}$, a subgroup of $G_1$, since not every element of $G_1$ can be written as a power of $X$.  The notation $\braket{\ldots}$ which we use for group generators and may potentially be confused with the notation for observable averages; however, in practice it is always clear context how the notation is being used,
+
+The great advantage of using generators to describe groups is that they provide a compact means of describing the group. Suppose $G$ has size $|G|$. The it is pretty easy to show that there is a set of $\log(|G|)$ generators generating $G$. To see this, suppose $g_1,\ldots,g_l$ is a set of elements in a group $G$, and $g$ is not an element of $\braket{g_1,\ldots,g_l}$. Let $f \in\braket{g_1,\ldots,g_l}$. Then $fg\notin \braket{g_1,\ldots,g_l}$, since if it were then we would have $g=f^{-1}fg \in \braket{g_1\ldots,g_l}$, which we would know is false by assumption. Thus for each element $f \in \braket{g_1,\ldots,g_l}$ there is an element $fg$ which is in $\braket{g_1,\ldots,g_l,g}$ but not in $\braket{g_1,\ldots,g_l}$. Thus adding the generator $g$ to $\braket{g_1,\ldots,g_l}$ doubles (or more) the size of group being generated, from which we conclude that $G$ must have a set of generators containing at most $\log(|G|)$ elements.
+
+
+
+\section{Number Theory}
+The following section will be very useful in understanding the concepts behind Order finding algorithm and will form the foundation for the Shor's algorithm.
+
+\subsection{Fundamentals}
+We will start off by agreeing about a few conventions for nomenclature and notation. The set of integers is the set $\{\ldots,-2,-1,0,1,2,\ldots\}$, denoted $\mathbf{Z}$. We may occasionally refer to the natural numbers, meaning non-negative integer, but more often we'll say non-negative integer or positive integer, in order to make distinction between the case when zero is included, and when zero is not included.
+
+Suppose $n$ is an integer. An integer $d$ divides $n$ (written as $d|n$) if there exists an integer $k$ such that $n=dk$. We say in this case that $d$ is a factor or divisor of $n$. Notice that $1$ and $n$ are always factors of $n$. When $d$ does not divide (is not a factor of) $n$ we write $d\nmid n$. For example, $3|6$ and $3|18$, but $3\nmid 5$ and $3\nmid 7$.
+
+\begin{example}
+    \textbf{(Transitivity)} If $a|b$ and $b|c$ then $a|c$. As $a|b \implies b=pa$ and $b|c \implies c=qb$ for some integers $q$ and $p$. Thus, substituting the value of $b$ gives $c=qb=(qp)a \implies a|c$ for some integer $pq = p\times q$ (since multiplication of two integers is an integer).
+\end{example}
+
+\begin{example}
+    Show that if $d|a$ and $d|b$ then $d$ also divides linear combination of $a$ and $b$, $ax+by$, where $x$ and $y$ are integers.
+
+    
+$d|a \implies a=pd$ and $d|b \implies b=qd$ for some integers $p$ and $q$. Thus, $ax+by= pdx+qdy = (px+qy)d \implies d|(ax+by)$, since $px+qy$ is also an integer where $p,q,x,y$ are all integers.
+\end{example}
+\begin{example}
+    Suppose $a$ and $b$ are positive integers. Show that if $a|b$ then $a\leq b$. Conclude that if $a|b$ and $b|a$ then $a=b$.
+
+    Since $a|b$ and $a,b$ are both positive integers thus, $b = pa$ for some positive integer $p$. Thus, $p\geq 1$, thus $pa\geq a \implies b\geq a$ (since $p,a,b$ are all positive integers. Hence, proved. 
+    
+    If $a|b$ and $b|a$ then $b=pa$ and $a=qb$ for some positive integers $p,q$. Upon substituting, we get, $b=pqb \implies pq=1$. Now since both $p$ and $q$ are positive integers such that $p\geq 1$ and $q\geq 1$ and $pq=1$. Thus, the only solution satisfying this equation is $p=q=1$. Hence, $a=b$.
+\end{example}
+
+\begin{definition}
+    A prime number is an integer greater than $1$ which has only itself and $1$ as factors. The first few prime numbers are $2,3,5,7,11,13,17,\ldots$.
+\end{definition}
+The most important single fact about positive integers is that they may be represented uniquely as a produce of factors which are prime numbers. This result is called the fundamental theorem of arithmetic.
+
+\begin{theorem}
+    \textbf{(Fundamental Theorem of Arithmetic)} Let $a$ be any integer greater than $1$. Then $a$ has a prime factorization of the form
+    \[
+    a=p_1^{a_1}p_2^{a_2}\ldots p_n^{a_n}
+    \]
+    where $p_1,p_2,\ldots,p_n$ are distinct prime numbers, and $a_1,\ldots,a_n$ are positive integers. Moreover, this prime factorization is unique, up to the order of the factors.
+\end{theorem}
+\begin{proof}
+    Either $n$ is a prime or it is composite; in the former case, there is nothing more to prove. If $n$ is composite, then there exists an integer $d$ satisfying $d|n$ and $1,d<n$. Among all such integers $d$, choose $p_1$ to be the smallest (this is possible by the Well-Ordering principle). Then $p_1$ ust be a prime number. Otherwise it too would have a divisor $q$ with $1<q<p_1$; but then $q|p_1$ and $p_1|n$ imply that $q|n$, which contradicts the choice of $p_1$ as the smallest divisor, not equal to $1$, of $n$.
+
+    We therefore may write $n=p_1n_1$ where $p_1$ is prime and $1<n_1<n$. If $n_1$ happens to be a prime, then we have our representation. In the contrary case, the argument is repeated to produce a second prime $p_2$ such that $n_1 = p_2n_2$: that is,
+    \[
+    n=p_1p_2n_2\quad 1<n_2<n_1
+    \]
+    If $n_2$ is prime, then it is not necessary to go further. Otherwise, write $n_2 = p_3n_3$, with $p_3$ is a prime:
+    \[
+    n=p_1p_2p_3n_3\quad 1<n_3<n_2
+    \]
+    The decreasing sequence
+    \[
+    n>n_1>n_2>\ldots >1
+    \]
+    cannot continue indefinitely, so that after a finite number of steps $n_{k-1}$ is a prime, call it, $p_k$. This leads to the prime factorization
+    \[
+    n=p_1p_2\ldots p_k
+    \]
+    To establish the second part of the proof - the uniqueness of the prime factorization - let us suppose that the integer $n$ dcan be represented as a product of primes in two ways: say
+    \[
+    n=p_1p_2 \ldots p_r = q_1q_2 \ldots q_s\quad r\leq s
+    \]
+    where the $p_i$ and $q_i$ are all primes, written in increasing magnitude so that
+    \[
+    p_1 \leq p_2 \leq \ldots \leq p_r\quad  q_1 \leq q_2 \leq \ldots \leq q_s
+    \]
+    Because $p_1 |q_1q_2 \ldots q_s$, tells us that $p_1=q-k$ sor some $k$: but then $p_1\geq q_1$. Similar reasoning gives $q_1 \geq p_1$, whence $p_1=q_1$. We may cancel this common factor and obtain
+    \[
+    p_2p_3 \ldots p_r = q_2q_3 \ldots q_s
+    \]
+    Now repeat the process to get $p_2=q_2$ and, in turn
+    \[
+    p_3p_4\ldots p_r=q_3q_4\ldots q_s
+    \]
+    Continue in this fashion. If the inequality $r<s$ were to hold, we would eventually arrive at
+    \[
+    1=q_{r+1}q_{r+2} \ldots q_s
+    \]
+    which is absurd, because each $q_j >1$. Hence, $r=s$ and
+    \[
+    p_1=q_1 \quad p_2 =q_2, \ldots, p_r=q_r
+    \]
+    making the two factorizations of $n$ identical.
+\end{proof}
+
+\begin{example}
+    Find the prime factorization of $697$ and $36300$.
+
+    Prime factorization of $697=17\times 41$ and $36300 = 2^2\times 3\times 5^2 \times 11^2$.
+\end{example}
+\subsection{Modular Arithmetic and Euclid's Algorithm}
+We're all thoroughly familiar with the techniques of ordinary arithmetic. Another type of arithmetic, modular arithmetic, is extremely useful in understanding the properties of numbers. We assume that you are familiar with the elementary ideas of modular arithmetic, and so will quickly breeze through the basic ideas and notation, before coming to more advanced theory.
+
+Modular arithmetic can be thought of as the arithmetic of remainders. If we divide $18$ by $7$ we get the answer $2$, with a remainder $4$. More formally, given any positive integers $x$ and $n$, $x$ can be written (uniquely) in the form
+\[
+x=kn+r
+\]
+where $k$ is a non-negative integer, the result of dividing $x$ by $n$, and the remainder $r$ lies in the range $0$ to $n-1$, inclusive. Modular arithmetic is simply ordinary arithmetic in which we only pay attention to remainders. We use the notation (mod $n$) to indicate that we are working in modular arithmetic. For instance $2=5=8=11$ (mod $3$), because $2,5,8$ and $11$ all have the same remainder $2$ when divided by $3$. The appellation (mod $n$) reminds us that we are working in modular arithmetic, with respect to the number $n$.
+The congruence relation satisfies all the conditions of an equivalence relation:
+
+\textbf{Reflexivity:} \( a \equiv a \pmod{m} \)
+
+\textbf{Symmetry:} \( a \equiv b \pmod{m} \) if \( b \equiv a \pmod{m} \).
+
+\textbf{Transitivity:} If \( a \equiv b \pmod{m} \) and \( b \equiv c \pmod{m} \), then \( a \equiv c \pmod{m} \).
+
+If \( a_1 \equiv b_1 \pmod{m} \) and \( a_2 \equiv b_2 \pmod{m} \), or if \( a \equiv b \pmod{m} \), then:
+
+\begin{itemize}
+    \item \( a + k \equiv b + k \pmod{m} \) for any integer \( k \) (compatibility with translation),
+    \item \( k a \equiv k b \pmod{m} \) for any integer \( k \) (compatibility with scaling),
+    \item \( k a \equiv k b \pmod{k m} \) for any integer \( k \),
+    \item \( a_1 + a_2 \equiv b_1 + b_2 \pmod{m} \) (compatibility with addition),
+    \item \( a_1 - a_2 \equiv b_1 - b_2 \pmod{m} \) (compatibility with subtraction),
+    \item \( a_1 a_2 \equiv b_1 b_2 \pmod{m} \) (compatibility with multiplication),
+    \item \( a^k \equiv b^k \pmod{m} \) for any non-negative integer \( k \) (compatibility with exponentiation),
+    \item \( p(a) \equiv p(b) \pmod{m} \), for any polynomial \( p(x) \) with integer coefficients (compatibility with polynomial evaluation).
+\end{itemize}
+
+If \( a \equiv b \pmod{m} \), then it is generally false that \( k^a \equiv k^b \pmod{m} \). However, the following is true:
+
+\begin{itemize}
+    \item If \( c \equiv d \pmod{\varphi(m)} \), where \( \varphi \) is Euler's totient function, then \( a^c \equiv a^d \pmod{m} \)—provided that \( a \) is coprime with \( m \).
+\end{itemize}
+
+For cancellation of common terms, we have the following rules:
+
+\begin{itemize}
+    \item If \( a + k \equiv b + k \pmod{m} \), where \( k \) is any integer, then \( a \equiv b \pmod{m} \).
+    \item If \( k a \equiv k b \pmod{m} \) and \( k \) is coprime with \( m \), then \( a \equiv b \pmod{m} \).
+    \item If \( k a \equiv k b \pmod{k m} \) and \( k \neq 0 \), then \( a \equiv b \pmod{m} \).
+\end{itemize}
+
+The last rule can be used to move modular arithmetic into division. If \( b \) divides \( a \), then 
+\[
+\frac{a}{b} \pmod{m} = \frac{a \pmod{bm}}{b}.
+\]
+
+The modular multiplicative inverse is defined by the following rules:
+
+\begin{itemize}
+    \item \textbf{Existence:} There exists an integer denoted \( a^{-1} \) such that \( a a^{-1} \equiv 1 \pmod{m} \) if and only if \( a \) is coprime with \( m \). This integer \( a^{-1} \) is called a modular multiplicative inverse of \( a \) modulo \( m \).
+    \item If \( a \equiv b \pmod{m} \) and \( a^{-1} \) exists, then \( a^{-1} \equiv b^{-1} \pmod{m} \) (compatibility with multiplicative inverse, and, if \( a = b \), uniqueness modulo \( m \)).
+    \item If \( ax \equiv b \pmod{m} \) and \( a \) is coprime to \( m \), then the solution to this linear congruence is given by \( x \equiv a^{-1} b \pmod{m} \).
+\end{itemize}
+
+The multiplicative inverse \( x \equiv a^{-1} \pmod{m} \) may be efficiently computed by solving Bézout's equation \( a x + m y = 1 \) for \( x, y \), by using the Extended Euclidean algorithm.
+
+In particular, if \( p \) is a prime number, then \( a \) is coprime with \( p \) for every \( a \) such that \( 0 < a < p \); thus, a multiplicative inverse exists for all \( a \) that is not congruent to zero modulo \( p \).
+
+
+\subsection{Advanced Properties:}
+Some of the more advanced properties of congruence relations are the following:
+
+\textbf{Fermat's Little Theorem:} If \( p \) is prime and does not divide \( a \), then
+\[
+a^{p-1} \equiv 1 \pmod{p}.
+\]
+
+\textbf{Euler's Theorem:} If \( a \) and \( m \) are coprime, then
+\[
+a^{\varphi(m)} \equiv 1 \pmod{m},
+\]
+where \( \varphi \) is Euler's totient function.
+
+A simple consequence of Fermat's Little Theorem is that if \( p \) is prime, then
+\[
+a^{-1} \equiv a^{p-2} \pmod{p}
+\]
+is the multiplicative inverse of \( 0 < a < p \). More generally, from Euler's Theorem, if \( a \) and \( m \) are coprime, then
+\[
+a^{-1} \equiv a^{\varphi(m)-1} \pmod{m}.
+\]
+Hence, if \( ax \equiv 1 \pmod{m} \), then
+\[
+x \equiv a^{\varphi(m)-1} \pmod{m}.
+\]
+
+Another simple consequence is that if \( a \equiv b \pmod{\varphi(m)} \), where \( \varphi \) is Euler's totient function, then
+\[
+ka \equiv kb \pmod{m}
+\]
+provided \( k \) is coprime with \( m \).
+
+\textbf{Wilson's Theorem:} \( p \) is prime if and only if
+\[
+(p - 1)! \equiv -1 \pmod{p}.
+\]
+
+\textbf{Chinese Remainder Theorem:} For any integers \( a \), \( b \) and coprime integers \( m \), \( n \), there exists a unique \( x \pmod{mn} \) such that
+\[
+x \equiv a \pmod{m} \quad \text{and} \quad x \equiv b \pmod{n}.
+\]
+In fact, the solution is given by
+\[
+x \equiv b \cdot m^{n-1} \pmod{mn} + a \cdot n^{m-1} \pmod{mn},
+\]
+where \( m^{n-1} \) is the inverse of \( m \) modulo \( n \) and \( n^{m-1} \) is the inverse of \( n \) modulo \( m \).
+
+\textbf{Lagrange's Theorem:} If \( p \) is prime and \( f(x) = a_0 x^d + \dots + a_d \) is a polynomial with integer coefficients such that \( p \) is not a divisor of \( a_0 \), then the congruence
+\[
+f(x) \equiv 0 \pmod{p}
+\]
+has at most \( d \) non-congruent solutions modulo \( p \).
+
+\textbf{Primitive Root Modulo \( m \):} A number \( g \) is a primitive root modulo \( m \) if, for every integer \( a \) coprime to \( m \), there is an integer \( k \) such that
+\[
+g^k \equiv a \pmod{m}.
+\]
+A primitive root modulo \( m \) exists if and only if \( m \) is equal to 2, 4, \( p^k \) or \( 2p^k \), where \( p \) is an odd prime number and \( k \) is a positive integer. If a primitive root modulo \( m \) exists, then there are exactly \( \varphi(\varphi(m)) \) such primitive roots, where \( \varphi \) is Euler's totient function.
+
+\textbf{Quadratic Residue:} An integer \( a \) is a quadratic residue modulo \( m \) if there exists an integer \( x \) such that
+\[
+x^2 \equiv a \pmod{m}.
+\]
+Euler's criterion asserts that, if \( p \) is an odd prime, and \( a \) is not a multiple of \( p \), then \( a \) is a quadratic residue modulo \( p \) if and only if
+\[
+a^{\frac{p-1}{2}} \equiv 1 \pmod{p}.
+\]
+
+Addition, multiplication, and subtraction operations for modular arithmetic may all be defined in the obvious way, but it is perhaps not so obvious how to define a division operation. To understand how this may be done we introduces another key concept from number theory, that of the greatest common divisor of two integers. The greatest common divisor of integers $a$ and $b$ is the largest integer which is a divisor of both $a$ and $b$. We write this number as $gcd(a,b)$. For example, the greatest common divisor of $18$ and $12$ is $6$. An easy way of seeing this is to enumerate the positive divisors of $18$ ($1,2,3,6,9,18$) and $12$ ($1,2,3,4,6,12$), and then pick out the largest common element in the two lists. This method is quite inefficient and impractical for large numbers. Fortunately, there is a much more efficient way of working out the greatest common divisor, a method known as Euclid's algorithm.
+
+\begin{theorem}
+    \textbf{(Representation theorem for the gcd)} The greatest common divisor of two integers $a$ and $b$ is the least positive integer that can be written in the form $ax+by$, where $x$ and $y$ are integers.
+\end{theorem}
+\begin{proof}
+    Let $s = ax+by$ be the smallest positive integer that can be written in this form. Since $gcd(a,b)$ is a divisor of both $a$ and $b$ it is also a divisor of $s$. It follows that $gcd(a,b) \leq s$. To complete the proof we demonstrate that $s \leq gcd(a,b)$ by showing that $s$ is a divisor of both $a$ and $b$. The proof is by contradiction. Suppose $s$ is not a divisor of $a$. Then $a =ks+r$, where the remainder $r$ is in the range $1$ to $s-1$. rearranging this equation and using $s=ax+by$ we see that $r=a(1-kx)+b(-ky)$ is a positive integer that can be written as a linear combination of $a$ and $b$, which is smaller than $s$. But this contradicts the definition of $s$ as the smallest positive integer that can be written as a linear combination of $a$ and $b$. We conclude that $s$ must divide $a$. By symmetry $s$ must also be a divisor of $b$, which completes the proof.
+\end{proof}
+
+\begin{corollary}
+    Suppose $c$ divides both $a$ and $b$. Then $c$ divides $gcd(a,b)$.
+\end{corollary}
+\begin{proof}
+    From previous theorem, $gcd(a,b)=ax+by$ for some integers $x$ and $y$. Since $c$ divides $a$ and $b$ it must also divide $ax+by$.
+\end{proof}
+
+When does a number, $a$, have a multiplicative inverse in modular arithmetic? That is, given $a$ and $n$, when does there exist a $b$ such that $ab=1$ (mod $n$)? For example, note that $2 \times 3 = 1$ (mod $5$), so the number $2$ have multiplicative inverse $3$ in arithmetic modulo $5$. On the other hand, trial and error shows that $2$ has no multiplicative inverse modulo $4$. finding multiplicative inverse in modular arithmetic turns out to be related to the gcd by the notion of co-primality: integers $a$ and $b$ are said to be co-prime it their greatest common divisor is $1$. For example, $14$ and $9$ are co-prime, since the positive divisors of $14$ are $1,2,7$ and $14$, while $1,3$ and $9$ are the positive divisors of $9$. The following corollary characterizes the existence of multiplicative inverses in modular arithmetic using co-primality.
+
+\begin{corollary}
+    Let $n$ be an integer greater than $1$. An integer $a$ has a multiplicative inverse modulo $n$ if and only if $gcd(a,n) =1$, that is, $a$ and $n$ are co-prime.
+\end{corollary}
+\begin{proof}
+    Suppose $a$ has a multiplicative inverse, which we denote $a^{-1}$, modulo $n$. Then $aa^{-1}=1+kn$ for some integer $k$, and thus $aa^{-1}+(-k)n=1$ (since gcd is defined as the smallest positive integer which is 1). From the previous theorem we conclude that $gcd(a,n)=1$. Conversely, if $gcd(a,n)=1$ then there must exist integers $a^{-1}$ and $b$ such that $aa^{-1} + bn=1$, and therefore $aa^{-1}$ (mod $n$).
+\end{proof}
+
+\begin{example}
+    For $p$ a prime prove that all the integers in the range $1$ to $p-1$ have multiplicative inverse modulo $p$. Which integers in the range $1$ to $p^2-1$ do not have multiplicative inverses modulo $p^2$?
+    
+    From the previous example we see that an integer $a$ has a multiplication inverse modulo $n$ if and only if $gcd(a,n)=1$. For a prime $p$ it has factors as $1$ and itself. Thus, $gcd(a,p)=1$ for all $a$ in the range $1$ to $p-1$ since $p\nmid a$ as $a<p$. Hence, as shown earlier a number $a$ has a multiplication inverse modulo $n$ if and only if $gcd(a,n)=1$. Thus, $\forall a$ in the range $1$ to $p-1$ for a prime $p$ have a multiplication inverse modulo $p$.
+    
+    The integers which have $gcd(a,p^2)=1$ for $a$ in the range $1$ to $p^2-1$ will have multiplicative inverses modulo $p^2$. $p^2$ has its prime factorization as $p^2 = 1 \times p\times p$. Thus, we are looking for $a$ such that $gcd(a,p^2)=1$ for all the $a$ in the range $1$ to $p-1$. Clearly, for $a=p,2p,3p,\ldots, p(p-1)$, $gcd(a,p^2) =p$. Thus, except for $a=rp$ for $r$ in the range $1$ to $p-1$, all the others will have $gcd(a,p^2)=1$. Thus, $\forall a$ and integer $r$, $a \neq rp; 1\leq r <p$, $gcd(a,p^2)=1$ and hence will have a multiplication modulo inverse.
+\end{example}
+
+\begin{example}
+Find the multiplicative inverse of $17$ modulo $24$. 
+
+Clearly, $gcd(17,24)=1$, hence a multiplicative inverse exists. The multiplicative inverse is $17$ itself. Because $17\times 17 = 289 = 24\times 12 + 1$. Thus, the multiplicative inverse of $17$ is $17$.
+
+This can also be found out using Euclid's algorithm as follows:
+\begin{align*}
+    24 &=17 \times 1 +7\\
+    17 &= 7 \times 2 + 3\\
+    7 &= 3\times 2 + 1\\
+    3 &= 3 \times 1\\
+    7 - 3 \times 2 &=1\\
+    - 17 \times 2 + 7 \times 5 &=1\\
+    24 \times 5 +17 \times (-7)&=1
+\end{align*}
+Thus, $17 \times (-7) = 1 (\text{mod }24$, hence $-7$ is a multiplicative inverse of $17 \implies -7 + 24 = 17$. Thus, $-7 \equiv 17 (\text{mod }24)$.
+\end{example}
+
+\begin{example}
+    Find the multiplicative inverse of $n+1$ modulo $n^2$, where $n$ is any integer greater than $1$.
+    
+Since $(n+1)(n-1)\equiv(-1)(\text{mod } n^2)$ and since $(-1)2\equiv1(\text{mod } n^2)$, you have that
+\[
+[(n+1)(n-1)]^2 \equiv 1 \text{ mod }n^2
+\]
+Therefore, the inverse of $(n+1)$ is $[(n+1)(n-1)^2]$.
+\end{example}
+
+\begin{example}
+    (Uniqueness of the inverse) Suppose $b$ and $b'$ are multiplicative inverses of $a$, modulo $n$. Prove that $b=b'$ (mod $n$).
+
+    Since $b$ and $b'$ are both multiplicative inverses of $a$, thus, $ab\equiv ab' = 1 \text{ mod }n$. Thus, $gcd(a,n)=1$
+    \begin{align*}
+        ab&=1 (\text{mod }n)\\
+        ab' &=1(\text{mod }n)\\
+        \implies a(b-b')&=0(\text{mod }n)
+    \end{align*}
+    Now, since $n \nmid a$. Thus, $n|(b-b')$. Hence, $b\equiv b' (\text{ mod }n)$. This is because congruent values are considered as same in modular arithmetic. For example, $3\times 2=6 =1 (\text{mod } 5)$ and $3\times 7=21=1 (\text{mod }5)$. Thus, what we mean by unique is that $2=7 (\text{mod }5)$. They belong to the same class i.e. same in congruence. thus congruent values are considered as same in modular arithmetic.
+\end{example}
+
+The next theorem is the key to Euclid's efficient algorithm for finding the greatest common divisor of two positive integers.
+
+\begin{theorem}
+Let $a$ and $b$ be integers, and let $r$ be the remainder when $a$ is divided by $b$. Then provided $r\neq 0$.
+\[
+gcd(a,b)=gcd(b,r)
+\]
+\end{theorem}
+\begin{proof}
+    We prove the equality by showing that each sided divides the other. To prove that the left hand side divides the right note that $r=a-kb$ for some integer $k$. Since $gcd(a,b)$ divides $a,b$ and linear combinations of these it follows that $gcd(a,b)$ divides $r$. Using the fact that if some integer $c|a$ and $c|b$ then $c|gcd(a,b)$. Thus, $gcd(a,b)$ divides $gcd(b,r)$. To prove that the right hand side divides the left note that $gcd(b,r)$ divides $b$ and $r$, and since $a=r+kb$ is a linear combination of $b$ and $r$ it follows that $gcd(b,r)$ also divides $a$. Thus, $gcd(b,r)$ divides $gcd(a,b)$.
+\end{proof}
+
+\begin{example} 
+Explain how to find $gcd(a,b)$ if the prime factorization of $a$ and $b$ are known. find the prime factorizations of $6825$ and $1430$, and use them to compute $gcd(6825,1430)$.
+
+Suppose the prime factorization of $a = a_1^{\alpha_1}a_2^{\alpha_2} \ldots a_p^{\alpha_p}$ and $b=b_1^{\beta_1}b_2^{\beta_2} \ldots b_q^{\beta_q}$. Clearly, all the $a_i^{\alpha_i}$ for $i=1,\ldots,p$ divides $a$ and all the $b_i^{\beta_i}$ for $i=1,\ldots,q$ divides $b$. We should choose $a_i$ and $b_i$ such that $a_i=b_i$ along with their highest powers possible so that they divide both $a$ and $b$. Thus, we can get the $gcd(a,b)$ by this method. Let us now see this through  an example by finding $gcd(6825,1430)$.
+
+Note that we can write $6825 = 3\times 5\times 5 \times 7 \times 13$ and $1430 = 2 \times 5 \times 11 \times 13$. Thus, taking the common prime factors along with their possible highest powers we get their $gcd$ as $5 \times 13 = 65$. Thus, $gcd(1430,6825)=65$.
+\end{example}
+
+Euclid's algorithm for finding the greatest common divisor of positive integers $a$ and $b$ works as follows. first, order $a$ and $b$ so that $a>b$. Divide $b$ into $a$, with result $k_1$ and remainder $r_1: a=k_1b+r_1$. Now using the theorem $gcd(a,b)=gcd(b,r_1)$. Next, we perform a second division $b$ playing the role of $a$, and $r_1$ playing the role of $b: b=k_2r_1+r_2$. By Theorem, $gcd(a,b)=gcd(b,r_1)=gcd(r_1,r_2)$. Next, we perform a third divisor with $r_1$ playing the role of $b: r_1 = k_3r_2+r_3$. By theorem, $gcd(a,b)=gcd(b,r_1)=gcd(r_1,r_2)=gcd(r_2,r_3)$. We continue in this manner, each time dividing the most recent remainder by the second most recent remainder, obtaining a new result and remainder. The algorithm by the second most recent remainder, obtaining a new result and remainder. the algorithm halts when we obtain a remainder that is zero, that is, $r_m=k_{m+1}r_{m+1}$ for some $m$. We have $gcd(a,b)=gcd(r_m,r_{m+1})=r_{m+1}$, so the algorithm returns $r_{m+1}$.
+
+As an example of the us of Euclid's algorithm we find $gcd(6825,1430)$
+\begin{align*}
+    6825&=4\times 1430 + 1105\\
+    1430 &=1\times 1105 + 325\\
+    1105 &=3 \times 325 + 130\\
+    325 &=2 \times 130 + 65\\
+    130 &= 2 \times 65
+\end{align*}
+From this we see that $gcd(6825,1430)=65$.
+
+An adaptation of Euclid's algorithm may be used to efficiently find the integers $x$ and $y$ such that $ax+by=gcd(a,b)$. The first stage is to run through the steps of Euclid's algorithm, as before. The second stage begins at the second last line of the running of Euclid's algorithm, and involves successive substitution of the lines higher up in the algorithm as illustrated by the following example:
+\begin{align*}
+    65 &=325-2\times 130\\
+    &=325 - 2 \times (1105 - 3 \times 325) =-2\times 1105 + 7 \times 325\\
+    &= -2 \times 1105 + 7 \times (1430 - 1 \times 1105) =7\times 1430 - 9 \times 1105\\
+    &= 7 \times 1430 - 9 \times (6825 - 4 \times 1430) = -9 \times 6825 + 37 \times 1430
+\end{align*}
+That is, $65 = 6825 \times (-9) + 1430 \times 37$, which is the desired representation.
+
+What resources are consumed by Euclid's algorithm? Suppose $a$ and $b$ may be represented as bit strings of at most $L$ bits each. It is clear that none of the divisors $k_i$ or remainders $r_i$ can be more than $L$ bits long, so we may assume that all computations are done in $L$ bit arithmetic. The key observation to make in a resource analysis is that $r_{i+2} \leq r_i/2$. To prove this we consider two cases:
+\begin{itemize}
+    \item $r_{i+1} \leq r_{i}/2$. It is clear that $r_{i+2}\leq r_{i+1}$ so we are done.
+    \item $r_{i+1} > r_i/2$. In this case $r_i=1 \times r_{i+1} + r_{i+2}$, so $r_{i+2} = r_i - r_{i+1} \leq r_i/2$.
+\end{itemize}
+Since $r_{i+2} \leq r_i/2$, it follows that the divide and remainder operation at the heart of Euclid's algorithm need be performed at most $2\lceil \log_2 a\rceil = \mathcal{O}(L)$ times. Each divide-and-remainder operation requires $\mathcal{O}(L^2)$ operations, so that the total cost of Euclid's algorithm is $\mathcal{O}(L^3)$. Finding $x$ and $y$ such that $ax+by = gcd(a,b)$ incurs a minor additional cost: $\mathcal{O}(L)$ substitutions are performed, at a cost of $\mathcal{O}(L^2)$ per substitutions to do the arithmetic involved, for a total resource cost of $\mathcal{O}(L^3)$.
+
+Euclid's algorithm may also be used to efficiently find multiplicative inverses in modular arithmetic. This is implicit in the proof of corollary; we make it explicit. Suppose $a$ is co-prime to $n$, and we wish to find $a^{-1}$, modulo $n$. To do so, use Euclid's algorithm and the co-primality of $a$ and $n$ to find integers $x$ and $y$ such that
+\[
+ax+ny=1
+\]
+Note then that $ax = (1-ny) = 1 (\text{mod }n) =1 (\text{mod } n)$, that is, $x$ is the multiplicative inverse of $a$, modulo $n$. Furthermore, this algorithm is computationally efficient, taking only $\mathcal{O}(L^3)$ steps, where $L$ is the length in bits of $n$.
+
+Now that we know how to efficiently find inverses in modular arithmetic, it is only a short step to solve simple linear equations, such as
+\[
+ax+b = c (\text{mod } n)
+\]
+Suppose $a$ and $n$ are co-prime. Then using Euclid's algorithm we may efficiently find the multiplicative inverse $a^{-1}$ of $a$, modulo $n$, and thus the solution to the previous equation,
+\[
+x=a^{-1}(c-b) (\text{mod } n)
+\]
+An important result known as the Chinese remainder theorem extends the range of equations we must solve much further, allowing us to efficiently solve system of equations in modular arithmetic.
+
+\begin{theorem}
+    \textbf{(Chinese remainder theorem)} Suppose $m_1,\ldots,m_n$ are positive integers such that any pair $m_i$ and $m_j$ ($i\neq j$) are co-prime. Then the system of equations 
+    \begin{align*}
+        x &= a_1 (\text{mod }m_1)\\
+        x &= a_2 (\text{mod }m_2)\\
+        \vdots\\
+        x &= a_n(\text{mod } m_n)
+    \end{align*}
+    has a solution. Moreover, any two solutions to this system of equations are equal modulo $M=m_1m_2\ldots m_n$.
+\end{theorem}
+\begin{proof}
+    The proof is to explicitly construct a solution to the system of equations. Define $M_i \equiv M/m_i$, and observe that $m_i$ and $M_i$ are co-prime. it follows that $M_i$ has an inverse modulo $m_i$, which we denote $N_i$. Define $x \equiv \sum_i a_iM_iN_i$. To see that $x$ is a solution to the system of equations, note that $M_iN_i=1 (\text{mod } m_i)$ and $M_iN_I=0(\text{mod }m_j)$ when $i\neq j$, so $x=a_i(\text{mod } m_i)$, which demonstrates the existence of a solution.
+
+    Suppose $x$ and $x'$ are both solutions to the system of equations. it follows that $x-x'=0 (\text{mod } m_i)$ for each $i$, and thus $m_i$ divides $x-x'$ for each $i$. Since the $m_i$ are co-prime, it follows that the product $M=m_1\ldots m_n$ also divides $x-x'$, so $x=x'(\text{mod } M)$ as we set out to show.
+\end{proof}
+
+\begin{example}
+    Consider the following system of linear equations
+    \begin{align*}
+        x &\equiv 2 (\text{mod }3)\\
+        x &\equiv 3 (\text{mod }5)\\
+        x&\equiv 2 (\text{mod }7)
+    \end{align*}
+
+    Thus, here $M=3\times 5\times 7 = 105$. where $m_1=3, m_2=5,m_3=7$. Thus, 
+    \[
+    M_1 = \frac{M}{m_1}=\frac{105}{3} = 35\quad M_2 = \frac{M}{m_2}=\frac{105}{5} =21 \quad M_3 = \frac{M}{m_3} = \frac{105}{7} = 15
+    \]
+    Now finding the inverses of the following linear congruences we get,
+    \[
+    35N_1 = 1(\text{mod }3)\quad 21N_2=1 (\text{mod }5)\quad 15N_3 =1(\text{mod }7)
+    \]
+    The solutions to the above equations is $N_1=2,N_2=1,N_3=1$. Thus, the solution to the above equation is given as $x=\sum_ia_iM_iN_i$.
+    \[
+    x=2\times 35 \times 2 + 3\times 21 \times 1 + 2 \times 15 \times 1 = 233
+    \]
+    Thus, $x=233 (\text{mod }105) \implies x=23 (\text{mod }105)$.
+\end{example}
+
+Euclid's algorithm and the Chinese remainder theorem are two of the signal triumphs of algorithmic number theory. how ironic that they should play a role in the sequence of ideas leading up to the RSA cryptosystem, whose presumed security is based on the difficulty of performing certain algorithmic tasks in number theory. Nevertheless, this is indeed the case! We turn now to the number-theoretic background necessary to understand the RSA cryptosystem. The key ideas are a famous result of classical number theory, Fermat's little theorem - not to be confused with Fermat's last theorem and a generalization of Fermat's little theorem due to Euler. The proof of Fermat's little theorem relies on the following elegant lemma.
+
+\begin{lemma}
+    Suppose $p$ is prime and $k$ is an integer in the range $1$ to $\binom{p}{k}$.
+\end{lemma}
+\begin{proof}
+    Consider the identitiy
+    \[
+    p(p-1)\ldots (p-k+1) = \binom{p}{k} k!
+    \]
+    Since $k \geq 1$ the left hand side (and thus the right) is divisible by $p$. Since $k\leq p-1$ the term $k!$ is not divisible by $p$. It follows that $\binom{p}{k}$ must be divisible by $p$.
+\end{proof}
+
+\begin{theorem}
+    \textbf{(Fermat's little theorem)} Suppose $p$ is a prime, and $a$ is any integer. Then $a^p = a (\text{mod }p)$. If $a$ is not divisible by $p$ then $a^{p-1} = 1 (\text{mod }p)$.
+\end{theorem}
+\begin{proof}
+    The second part of the theorem follows from the first, since if $a$ is not divisible by $p$ then $a$ has an inverse modulo $p$, so $a^{p-1}=a^{-1}a^p = a^{-1}a =1 (\text{mod }p)$. We prove the first part of the theorem for positive $a$ (the case of non-positive $a$ follows easily) by induction on $a$. When $a=1$ we have $a^p=1=a(\text{mod }p)$, as required. Suppose the result holds true for $a$, that is, $a^p=a(\text{mod }p)$ and consider the case of $a+1$. By the binomial expansion,
+    \[
+    (1+a)^p = \sum_{k=0}^p \binom{p}{k} a^k
+    \]
+    By the previous lemma, $p$ divides $^pC_k$ whenever $1\leq k \leq p-1$, so all the terms except the first and last vanish from the sum modulo $p$, $(1+a)^p = (1+a^p) (\text{mod }p)$. Applying the inductive hypothesis $a^p =a (\text{mod }p)$ we see that $(1+a)^p = (1+a) (\text{mod }p)$, as required.
+\end{proof}
+
+There is a remarkable generalization of Fermat's little theorem due to Euler, based on the Euler $\varphi$ function. $\varphi(n)$ is defined to be the number of positive integers less than $n$ which are co-prime to $N$. As an example, note that all positive integers less than $n$ which are co-prime to $n$, and thus $\varphi(p)=p-1$. The only integers less than $p^{\alpha}$ which are not co-prime to $p^{\alpha}$ are the multiples of $p: p,2p,3p,\ldots (p^{\alpha -1}-1)p$, from which we deduce
+\[
+\varphi(p^{\alpha}) =(p^{\alpha}-1) - (p^{\alpha -1}-1)=p^{\alpha-1} (p-1)
+\]
+Furthermore, if $a$ and $b$ are co-prime, then the chinese remainder theorem can be used to show that
+\[
+\varphi(ab)=\varphi(a)\varphi(b)
+\]
+To see this, consider the system of equations $x=x_a (\text{mod }a)$, $x=x_b (\text{mod }b)$. Applying the chinese remainder theorem to this set of equations we see that there is a one-to-one correspondence between pairs ($x_a,x_b$) such that $1 \leq x_a <a, 1\leq x_b < b$, $gcd(x_a,a)=1, gcd(x_b,b)=1$, and integers $x$ such that $1\leq x <ab$, $gcd(x,ab)=1$. There are $\varphi(a)\varphi(b)$ such pairs $(x_a,x_b)$ and $varphi(ab)$ such $x$.
+
+Thus, together they imply a formula for $\varphi(n)$ based on the prime factorization of $n$, $n=p_1^{\alpha_1}\ldots p_k^{\alpha_k}$:
+\[
+\varphi(n)=\prod_{j=1}^k p_j^{\alpha_j-1}(p_j-1)
+\]
+\begin{example}
+    What is $\varphi(187)$?
+
+Note that the prime factorization of $187 = 11 \times 17$
+    \begin{align*}
+        \varphi{187}=\varphi(11)\varphi(17)
+    \end{align*}
+    We know that $\varphi(p)=p-1$ where $p$ is prime. Thus, $\varphi(11)=10$ and $\varphi(17)=16$. Thus,
+    $\varphi(187) =10 \times 16 = 160$.
+\end{example}
+\begin{example}
+    Prove that
+    \[
+    n = \sum_{d|n} \varphi(d)
+    \]
+    where the sum is over all positive divisors $d$ of $n$, including $1$ and $n$.
+\end{example}
+
+Fermat's little theorem ha the following beautiful generalization, due to Euler:
+\begin{theorem}
+    Suppose $a$ is co-prime to $n$. Then $a^{\varphi(n)}=1 (\text{mod }n)$.
+\end{theorem}
+\begin{proof}
+    We firs tshow by induction on $\alpha$ that $a^{\varphi(p^{\alpha})} = 1 (\text{mod }p^{\alpha})$. For $\alpha=1$ the result is just Fermat's little theorem. Assume the result is true for $\alpha \geq 1$, so
+    \[
+    a^{\varphi(p^{\alpha})} = 1 +kp^{\alpha}
+    \]
+    for some integer $k$. Then, using $\varphi(p^{\alpha}) = p^{\alpha-1}(p-1)$,
+    \begin{align*}
+        a^{\varphi(p^{\alpha+1})} &= a^{p^{\alpha}(p-1)}\\
+        &=a^{p\varphi(p^{\alpha})}\\
+        &=(1+kp^{\alpha})^p\\
+        &=1+\sum_{j=1}^p \binom{p}{k} k^j p^{j\alpha}
+    \end{align*}
+    Using the fact that $p$ divides $^pC_k$ where $1\leq k \leq p-1$, it is easy to see that $p^{\alpha+1}$ divides every term in the sum, so
+    \[
+    a^{\varphi(p^{\alpha+1})} =1 (\text{mod }p^{\alpha+1})
+    \]
+    which completes the induction. The proof of the theorem is completed by noting that for arbitrary $n = p_1^{\alpha_1}\ldots p_m^{\alpha_m}$, $a^{\varphi(n)}$ is a multiple of $\varphi(p_j^{\alpha_j})$. Applying the construction in the proof of the Chinese remainder theorem we find that any solution to the set of equations $x=1(\text{mod }p_j^{\alpha_j})$. Applying the construction in the proof of the Chinese remainder theorem we find that any solution to the set of equations $x = 1 (\text{mod }p_j^{\alpha_j})$ must satisfy $x=1(\text{mod }n)$, and thus $a^{\varphi(n)}=1(\text{mod }n)$.
+\end{proof}
+
+Define $Z_n^*$ to be the set of all elements in $Z_n$ which have inverses modulo $n$, that is, the set of all elements in $Z_n$ are co-prime to $n$. $Z_n^*$ is easily seen to form a group of size $\varphi(n)$ under multiplication, that is, it contains multiplicative identity, products of elements in $Z_n^*$ are in $Z_n^*$, and $Z_n^*$ is closed under the multiplicative inverse operation. For an overview of elementary group theory see the previous section. What is not so obvious is the remarkable structure in $Z_n^*$ has when $n$ is a power of an odd prime $p$, $n=p^{\alpha}$. It turns out that $Z_{p^{\alpha}}^*$ is a cyclic group, that is, there is an element $g$ in $Z_{p^{\alpha}}^*$ which generates $Z_{p^{\alpha}}^*$ in the sense that any other element $x$ may be written $x=g^k (\text{mod } n)$ for some non-negative integer $k$.
+
+
+\begin{theorem}
+    Let $p$ be an odd prime, $\alpha$ a positive integer. Then $Z_{p^{\alpha}}^*$ is cyclic.
+\end{theorem}
+
+\section{Reduction of factoring to order-finding}
+The problem of factoring numbers on a classical computer turns out to be equivalent to another problem, the order-finding problem. this equivalence is important as it turns out that quantum computers are able to quickly solve the order-finding problem, and thus can factor quickly. In this section we explain the equivalence between these two problems, focusing on reduction of factoring to order-finding.
+
+Suppose $N$ is a positive integer, and $x$ is co-prime to $N$, $1\leq x <N$. The order of $x$ modulo $N$ is defined to be the least positive integer $r$ such that $x^r =1$ (mod $N$). The order-finding problem is to determine $r$ given $x$ and $N$.
+
+\begin{example}
+    Show that the order of $x$ modulo $N$ must divide $\varphi(N)$.
+
+    We know that from Euler's generalization of Fermat's little theorem that $a^{\varphi(N)} = 1 (\text{mod }N)$ where $a$ is co-prime to $N$. Now given that 
+\end{example}
+The reduction of factoring to to order finding proceeds in two basic steps. The first step is to show that we can compute a factor of $N$ if we can find a non-trivial solution $x\neq 1$(mod $N$) to the equation $x^2 = 1$(mod $N$). The second step is to show that a randomly chosen $y$ co-prime to $N$ is quite likely to have an order $r$ which is even, and such that $y^{r/2} \neq \pm1$ (mod $N$), and thus $x=y^{r/2}$(mod $N$) is a solution to $x^2=1$(mod $N$).
+
+\begin{theorem}
+    Suppose $N$ is a composite number $L$ bits long, and $x$ is a non-trivial solution to the equation $x^2=1$(mod $N$) in the range $1\leq x \leq N$, that is, neither $x =1$(mod $N$) nor $x=N-1=-1$(mod $N$). Then at least one of $gcd(x-1,N)$ and $gcd(x+1,N)$ is a non-trivial factor of $N$ that can be computed using $\mathcal{O}(L^3)$ operations.
+\end{theorem}
+\begin{proof}
+    Since $x^2=1$(mod $N$), it must be that $N$ divides $x^2-1=(x+1)(x-1)$, and thus $N$ must have a common factor with one or the other of $(x+1)$ and $(x-1)$. But $1<x<N-1$ by assumption, so $x-1<x+1<N$, from which we see that the common factor cannot be $N$ itself. Using Euclid's algorithm we may compute $gcd(x-1,N)$ and $gcd(x+1,N)$ and thus obtain a non-trivial factor of $N$, using $\mathcal{O}(L^3)$ operations.
+\end{proof}
+
+\begin{lemma}
+    Let $p$ be an odd prime. Let $2^d$ be the largest power of $2$ dividing $\varphi(p^{\alpha})$. Then with probability exactly one-half $2^d$ divides the order modulo $p^{\alpha}$ of a randomly chosen element of $\mathbf{Z}_{p^{\alpha}}^*$.
+\end{lemma}
+\begin{proof}
+    Note that $\varphi(p^\alpha)=p^{\alpha-1}(p-1)$ is even, since $p$ is odd, and thus $d \geq 1$. by theorem that there for an odd prime $p$, $\alpha$ a positive integer, $\mathbf{Z}_{p^{\alpha}}^*$ is cyclic, there exists a generator $g$ for $\mathbf{Z}_{p^{\alpha}}^*$, so an arbitrary element may be written in the form $g^k$(mod $p^{\alpha})$ for some $k$ in the range $1$ through $\varphi(p^{\alpha})$. Let $r$ be the order of $g^k$ modulo $p^{\alpha}$ and conside two cases. the first case when $k$ is odd. from $g^{kr}=1$(mod $p^{\alpha})$ we deduce that $\varphi(p^{\alpha})|kr$, and thus $2^d|r$, since $k$ is odd. The second case is when $k$ is even.
+
+    Then
+    \[
+    g^{k\varphi(p^{\alpha}/2}=(g^{\varphi(p^{\alpha})})^{k/r}=1^{k/2}=1(\text{mod }p^{\alpha})
+    \]
+    Thus $r|\varphi(p^{\alpha})/2$ from which we deduce that $w^d$ does not divide $r$.
+
+    Summarizing, $\mathbf{Z}_{p^{\alpha}}^*$ may be partitioned into two sets of equal size; those which may be written $g^k$ with $k$ odd, for which $2^d|r$, where $r$ is the order of $g^k$, and those which may be written $g^k$ with $k$ even, for which $2^d \nmid r$. Thus, with probability $1/2$ the integer $2^d$ divides the order $r$ of a randomly chosen element of $\mathbf{Z}_p^{*}$, and with probability $1/2$ it does not.
+\end{proof}
+
+\section{Continued fractions}
+There are many remarkable connections between the continuum of real numbers and the integers. One such connection is the beautiful theory of continued fractions. In this section we develop a few elements  of the theory of continued fractions, elements crucial to the application of the fast quantum algorithms for order-finding and factoring.
+
+As an example of continued fraction, consider the number $s$ defined by the expression
+\[
+s=\frac{1}{2+\frac{1}{2+\frac{1}{2+\ldots}}}
+\]
+Informally, note that $s=\frac{1}{2+s}$, from which it is easy to satisfy one self that $s=\sqrt{2}-1$. The idea of the continued fractions method is to describe real numbers in terms of integers alone, using expressions such as above. A finite simple continued fraction is defined by a collection $a_0,\ldots,a_N$ of positive integers,
+\[
+[a_0,\ldots,a_N] = a_0 + \frac{1}{a_1+\frac{1}{a_2+\frac{1}{\ldots+\frac{1}{a_N}}}}
+\]
+We define the $n$th convergent $(0\leq n\leq N)$ to this continued fraction to be $[a_0,\ldots,a_n]$.
+\begin{theorem}
+    Suppose $x$ is a rational number greater than or equal to one. Then $x$ has a represented as a continued fraction, $x=[a_0,\ldots,a_N]$, which may be found by the continued fractions algorithm.
+\end{theorem}
+\begin{proof}
+    The continued fractions algorithm is best understood by example. Suppose we are trying to decompose $31/13$ as a continued fraction. The first step of the ontinued fraction is to split $31/13$ into its integer and fractional part,
+    \[
+    \frac{31}{13}=2+\frac{5}{13}
+    \]
+    Next we invert the fractional part, obtaining
+    \[
+    \frac{31}{13}=2+\frac{1}{\frac{13}{5}}
+    \]
+    These steps -split the invert are now applied to $13/5$, giving
+    \[
+    \frac{31}{13}=2+\frac{1}{2+\frac{3}{5}}=2+\frac{1}{2+\frac{1}{\frac{5}{3}}}
+    \]
+    next we split and invert $5/3$:
+    \[
+    \frac{31}{13}=2+\frac{1}{2+\frac{1}{1+\frac{1}{1+\frac{1}{2}}}}
+    \]
+    The decomposition into a continued fraction now terminates, since $3/2=1+1/2$ may be written with a $1$ in the numerator without any need to invert, giving a final continued fraction representation of $31/13$ as 
+    \[
+    \frac{31}{13}=2+\frac{1}{2+\frac{1}{1+\frac{1}{1+\frac{1}{2}}}}
+    \]
+    It's clear that the continued fractions algorithm terminates after a finite number of split and invert steps for any rational number, since the numerators which appear $(31,23,2,1)$ in the example are strictly decreasing. How quickly does the termination occur? We'll come back to the question shortly.
+\end{proof}
+
+The theorem above has been stated for $x\geq1$; however, in practice it is convenient to relax the requirement that $a_0$ to be positive and allow it to be any integer, which results in the restriction $x\geq1$ becoming superfluous. In particular, if $x$ is in the range $0$ through $1$ as occurs in applications to quantum algorithms, then the continued fraction expansion has $a_0=0$..
+
+The continued fractions algorithm provides an unambiguous method for obtaining a continued fraction expansion of a given rational number. The only possible ambiguity comes at the final stage, because it is possible to split an integer in two ways, either $a_n=a_n$ or $a_n=(a_n-1)+1/1$, giving two alternate continued fraction expansions. This ambiguity is actually useful, since it allows us to assume without the loss of generality that the continued fraction expansion of a given rational number has either odd or even number of convergent, as desired.
+
+\begin{example}
+    Find the continued fraction expansion for $x=19/17$ and $x=77/65$.
+    \[
+    \frac{19}{17}=1+\frac{1}{8+\frac{1}{2}}
+    \]
+    and
+    \[
+    \frac{77}{65}=1+\frac{1}{5+\frac{1}{2+\frac{1}{2+\frac{1}{2}}}}
+    \]
+\end{example}
+
+\begin{theorem}
+    Let $a_0,\ldots,a_N$ be a sequence of positive numbers. Then
+    \[
+    [a_0,\ldots,a_n]=\frac{p_n}{q_n}
+    \]
+    where $p_n$ and $q_n$ are real numbers defined inductively by $p_0=a_0,q_0=1$ and $p_1=1+a_0a_1,q_1=a_1$, and for $2\leq n\leq N$,
+    \begin{align*}
+    p_n&=a_np_{n-1}+p_{n-2}\\
+q_n&=a_nq_{n-1}+a_{n-2}
+    \end{align*}
+    In the case where $a_j$ are positive integers, so too are the $p_j$ and $q_j$.
+\end{theorem}
+\begin{proof}
+    We induct on $n$. the result is easily checked directly for the cases $n=0,n=1,2$. By definition, for $n\geq3$.
+    \[
+    [a_0,\ldots,a_n]=[a_0,\ldots,a_{n-2},a_{n-1}+1/a_n]
+    \]
+    Applying the inductive hypothesis, let $\tilde{p_j}/\tilde{q_j}$ be the sequence of convergents associated with the continued fraction on the right hand side:
+    \[
+    [a_0,\ldots,a_{n-2},a_{n-1}+1/a_n]=\frac{\tilde{p}_{n-1}}{\tilde{q}_{n-1}}
+    \]
+    It is clear that $\tilde{p}_{n-3}=p_{n-3}$,$\tilde{p}_{n-2}=p_{n-2}$ and $\tilde{q}_{n-2}=q_{n-2}$, so
+    
+\end{proof}
+
+
+

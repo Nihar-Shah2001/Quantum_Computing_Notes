@@ -1,0 +1,12 @@
+# Companion notebooks were written against Qiskit 1.x (Python 3.12).
+# Qiskit 2.0 removed APIs used here (e.g. qiskit.primitives.Estimator), so stay on 1.x.
+qiskit>=1.2,<2.0
+qiskit-aer
+qiskit-ibm-runtime
+numpy
+scipy
+sympy
+matplotlib
+pylatexenc
+rustworkx
+import-ipynb

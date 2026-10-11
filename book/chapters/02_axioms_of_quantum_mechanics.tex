@@ -1,0 +1,648 @@
+\chapter{Axioms of Quantum Mechanics}
+\section{Dynamical Collapse}
+If quantum mechanics doesn't make sense to us, it's worth at least considering the possibility that it's not a complete theory. That is, maybe it does a good job of describing microscopic systems but there are additional unaccounted for rules needed to describe reality as a whole. Perhaps there maybe some physics that we haven't discovered yet which show that qubits normally evolve via unitary transformations, but that for sufficiently large systems the superposition states tend to spontaneously to some classical state. In that case, we could view collapse as a straightforward physical process that turns pure states into mixed states. Theories which posit the existences of such an undiscovered collapse mechanism generally referred to as Dynamical Collapse Theories. In order to make contact with existing quantum theory, dynamical collapse theories generally suppose that the new mechanism has the effect of physically instantiating the collapse of superposition states to classical outcomes with probabilities given by the Born rule. That is,
+\[
+\sum_i\alpha_i\ket{i}\rightarrow \ket{i}\quad \text{with probability $|\alpha_i|^2$}
+\]
+In the Schrodinger's cat example, dynamical collapse theories would say that it doesn't. matter how isolated the box is, there is some yet-unknown physical law that says that a system that big would quickly evolve into a mixed state.
+
+Note that in principle, there's a measurement that can distinguish the two states above. Such a measurement would admittedly be absurdly hard to implement. In fact, a recent result by Aaronson Scott says informally that if you have the technological capability to distinguish the two states above, they you also have the technological capability to rotate between the cat's ``alive" and ``dead" states. For this reason, the Schrodinger's cat experiment involves far less animal cruelty that most people say!! If you do the experiment at all and prove that you did it, then you can also bring a dead cat back to life.
+
+Setting aside technological difficulties, for us the relevant point is that in saying that a superposition state can evolve to a mixed state we're necessarily proposing new physics. This prediction is different from what we'd find using standard quantum mechanics and so in principle has testable implications. In other words, this isn't really interpreting quantum mechanics so much as it's proposing a rival theory! Physicists have a high bar for such proposals; the burden of proof is on the person proposing the new law to explain in quantitative detail how it works. In this case that would mean giving a criterion for exactly which systems are `` big" enough, or whatever, to trigger a collapse like the above -ideally deriving that criterion from more fundamental laws. Some suggestions include:
+\begin{itemize}
+    \item Collapse happens when some number of atoms get involved.
+    \item Collapse happens after a certain total mass is reached.
+    \item Collapse happens when a system reaches a certain level of complexity.
+\end{itemize}
+On their face all these view seem contradictory to our understanding of physics which relies on reductionism; each atom's dynamics obey the same set of simple equations regardless of how big or complicated a system of atom might be part of.
+\section{Postulate 1: The State Space Postulate}
+The state of an isolated quantum mechanical system is completely specified by a state vector $\ket{\psi}$ 
+which is a unit vector that belongs to a complex vector space with inner product (a Hilbert Space) $\mathbb{C}^{n}$, where $n$ is the 
+dimension of the state space of the system. 
+
+Consider some physical system that can be in N different, mutually exclusive classical states (it means a state in which the system can be found 
+if we observe it) $\ket{0},\ket{1},\ldots,\ket{N-1}$. Then, a \textit{pure quantum state} (or \textit{state}) $\ket{\psi}$ is a superposition of classical states, written as:
+\[
+    \ket{\psi}=\alpha_0\ket{0}+\alpha_1\ket{1}+\ldots+\alpha_{N-1}\ket{N-1} = \sum_{i=0}^{N-1}\alpha_i\ket{i}
+\]
+where $\alpha_i$ are complex numbers called amplitude of $\ket{i}$ in $\ket{\psi}$. A system in quantum state
+$\ket{\psi}$ is in a superposition of the classical states $\ket{0},\ket{1},\ldots,\ket{N-1}$ with amplitudes $\alpha_0,\alpha_1,\ldots,\alpha_{N-1}$ respectively.
+Mathematically, the states $\ket{0}$, $\ket{1}$, $\ldots$, $\ket{N-1}$ forms an N-dimensional Hilbert space (i.e. N dimensional complex vector space with inner product defined).
+We write the quantum state $\ket{\psi}$ as a N-dimensional column vector of its amplitudes in the Hilbert Space.
+\[ 
+    \ket{\psi}=\begin{pmatrix} \alpha_0 \\ \alpha_1 \\ \vdots \\ \alpha_{N-1} \end{pmatrix}
+\]
+Consider a Hilbert space $\mathcal{H_A}$ with orthonormal basis $\ket{0},\ket{1},\ldots,\ket{N-1}$
+and another Hilbert space $\mathcal{H_B}$ with an orthonormal basis $\ket{0'},\ket{1'},\ldots,\ket{M-1}$. Then we can
+combine the two Hilbert spaces using tensor products to form a new Hilbert space $\mathcal{H}=\mathcal{H_A}\otimes\mathcal{H_B}$ which
+is a $N\times M$ dimensional Hilbert space with basis $\ket{i}\otimes\ket{j}$ where $\ket{i}$ is a basis vector of $\mathcal{H_A}$ ($\ket{i} \in \{0,\ldots,N-1\}$) 
+and $\ket{j}$ is a basis vector of $\mathcal{H_B}$ ($\ket{j} \in \{0',\ldots,M-1\})$. The basis vectors of $\mathcal{H}$ are $\ket{i}\otimes\ket{j}$ where $i \in \{0,\ldots,N-1\}$ and $j \in \{0',\ldots,M-1\}$.
+Thus, an arbitrary state of $\mathcal{H}$ can be written as:
+\[
+    \ket{\psi}=\sum_{i=0}^{N-1}\sum_{j=0'}^{M-1}\alpha_{ij}\ket{i}\otimes\ket{j}
+\]
+where $\alpha_{ij}$ are complex numbers called amplitudes of $\ket{i}\otimes\ket{j}$ in $\ket{\psi}$.
+Such a state is called $\mathit{bipartite}$. Similarly, this can be extended to tripartite states which is a tensor product of three Hilbert spaces and so on.
+
+The simplest system is qubit - a quantum mechanical system with two - dimensional state space. Suppose $\ket{0}$ and $\ket{1}$ are two orthonormal basis vectors also generally called as \textbf{computational basis} of the state space of the qubit. Then the arbitrary state of the qubit can be represented as
+\[
+    \ket{\psi}=\alpha\ket{0}+\beta\ket{1}
+\]
+where $\alpha$ and $\beta$ are complex numbers such that $|\alpha|^2+|\beta|^2=1$ (since its a unit vector). The condition 
+$|\alpha|^2+|\beta|^2=1$ is called the \textit{normalization condition}. The complex numbers $\alpha$ and $\beta$ are called probability amplitudes
+for the states $\ket{0}$ and $\ket{1}$ respectively.
+
+Intuitively, one can think of the state $\ket{0}$ and $\ket{1}$ as the analogous to the classical bit states $0$ and $1$. 
+The qubit differs from the classical bit in the sense that the qubit can exist in a superposition of the states $\ket{0}$ and $\ket{1}$,
+i.e. of the form $\alpha\ket{0}+\beta\ket{1}$ where $\alpha$ and $\beta$ are complex numbers, which is neither in state $\ket{0}$ or in $\ket{1}$ (or in both the sates 
+simultaneously)  which does not happen for a classical bit. This is the essence of quantum superposition which can be taken advantage of in quantum computing.
+
+\begin{example}
+    A qubit can exist in a state such as 
+    \[\dfrac{\ket{0}-\ket{1}}{\sqrt{2}}\]
+    which is a superposition of the states $\ket{0}$ and $\ket{1}$ with amplitude $1/\sqrt{2}$ for being in state $\ket{0}$ and 
+    amplitude $-1/\sqrt{2}$ for being in the state $\ket{1}$.
+\end{example}
+\begin{example}
+    Say a state of a qubit is $\ket{\psi}=7\ket{0}+(3+5\iota)\ket{1}$. In the matrix form, it can be written as:
+    \[
+        \ket{\psi}=\begin{pmatrix} 7 \\ 3+5\iota \end{pmatrix}
+    \]
+\end{example}
+
+In general we say that any linear combination $\sum_i \alpha_i \ket{\psi_i}$ is a superposition of the states $\ket{\psi_i}$ with amplitudes 
+$\alpha_i$ for the state $\ket{\psi_i}$.
+
+\textbf{There are two things we can do with a quantum state: Measure it or let it evolve (without measuring it).}
+
+\section{Postulate 2: Evolution Postulate}\label{subsection:Postulate 2}
+The time evolution of a closed Quantum System is described by the Schrodinger equation as:
+\[
+    i\hbar\frac{d}{dt}\ket{\psi(t)}=H\ket{\psi(t)}
+\]
+where $\ket{\psi(t)}$ is the state of the system at time $t$, $H$ is the Hamiltonian operator of the system and $\hbar$ is the reduced Planck's constant.
+The Hamiltonian operator is an operator that corresponds to the total energy of the system. The Schrodinger equation is a linear differential equation and is the quantum analog of Newton's second law of motion.
+The solution to the Schrodinger equation gives the state of the system at any time $t$ given the initial state of the system.
+If we know the Hamiltonian of a system, we can predict the future state of the system. For the purpose of Quantum computing, we are interested in the time evolution of a quantum system. Thus, we will
+always assume that the Hamiltonian of a quantum system is known. Thus, simplifying the Schrodinger equation, we can write it as:
+\[
+    \frac{d}{dt}\ket{\psi(t)}=-\frac{i}{\hbar}H\ket{\psi(t)}
+\]
+Rearranging the above equation, we get:
+\[
+    \int_{\psi_{t_1}}^{\psi_{t_2}} \frac{d\ket{\psi}}{\ket{\psi}}=-\int_{t_1}^{t_2}\frac{i}{\hbar}Hdt
+\]
+Integrating, the above equation we get,
+\[
+    \ln\left(\frac{\ket{\psi_{t_2}}}{\ket{\psi_{t_1}}}\right)=-\frac{i}{\hbar}H(t_2-t_1)
+\]
+\[\ket{\psi_{t_2}}=e^{-\frac{i}{\hbar}H(t_2-t_1)}\ket{\psi_{t_1}}\]
+Now we know that the Hamiltonian operator H is Hermitian and as proved in the appending we know that $e^{A}$ is unitary for any Hermitian operator A.
+Thus, the time evolution operator $U(t_2,t_1)=e^{-\frac{i}{\hbar}H(t_2-t_1)}$ is unitary.
+Hence, we can write the time evolution of a quantum state as:
+\[
+    \ket{\psi(t_2)}=U(t_1,t_2)\ket{\psi(t_1)}
+\]
+where U is a Unitary time evolution Operator. Thus, we have described a discrete time description of the dynamics using unitary operators.
+Since the Hamiltonian $H$ is Hermitian, it is normal and hence has spectral decomposition:
+\[
+H=\sum_E E\ket{E}\bra{E}
+\]
+where all $E$ are real by the Hermicity of $H$, and $\ket{E}$ is an orthonormal basis of the Hilbert space. We then have that:
+\begin{align*}
+    U(t_1,t_2)=exp\left(\frac{-\iota H(t_2-t_1)}{\hbar}\right) &=exp\left(\frac{-\iota \sum_E E\ket{E}\bra{E}(t_2-t_1)}{\hbar}\right)\\
+    &=\sum_E exp\left(\frac{-\iota E(t_2-t_1)}{\hbar}\right)\ket{E}\bra{E}
+\end{align*}
+Hence calculating $U^{\dagger}(t_1,t_2)$ we have
+\begin{align*}
+U^{\dagger}(t_1,t_2)&=\left(\sum_E exp\left(\frac{-\iota E(t_2-t_1)}{\hbar}\right)\ket{E}\bra{E}\right)^{\dagger}\\
+&=\sum_E \left(exp\left(\frac{\iota E(t_2-t_1)}{\hbar}\right)\right)^* (\ket{E}\bra{E})^{\dagger}\\
+&=\sum_E exp\left(\frac{\iota E(t_2-t_1)}{\hbar}\right) \ket{E}\bra{E}
+\end{align*}
+Therefore computing $U^{\dagger}(t_1,t_2)U(t_1,t_2)$ we have:
+\begin{align*}
+    U^{\dagger}(t_2,t_1)U(t_2,t_1)&=\left(\sum_E exp\left(\frac{-\iota E(t_2-t_1)}{\hbar}\right)\ket{E}\bra{E}\right)\left(\sum_{E'}exp\left(\frac{\iota E'(t_2-t_1)}{\hbar}\right)\ket{E'}\bra{E'}\right)\\
+    &=\sum_E\sum_{E'}exp\left(\frac{-\iota E(t_2-t_1)}{\hbar} \right) exp\left(\frac{\iota E(t_2-t_1)}{\hbar}\right)\ket{E}\bra{E}\\
+    &=\sum_E exp\left(\frac{-\iota E(t_2-t_1)}{\hbar}\right) exp\left(\frac{\iota E'(t_2-t_1)}{\hbar}\right)\ket{E}\bra{E}\\
+    &=\sum_E \ket{E}\bra{E}\\
+    &=I
+\end{align*}
+where in the second equality we use the fact that the eigenstates are orthogonal. We conclude that $U$ is unitary.
+For the purpose of Quantum Computing, we will deal with discrete time evolution of the quantum system described by the exponential of the Hamiltonian (Hermitian operator) 
+which is a unitary operator as shown and not the continuous time evolution of the quantum system described by the Hamiltonian. Thus, we restate the postulate for Quantum Computing as:
+\textbf{The evolution of a closed quantum system is described by a Unitary transformation. That is, the two states at times $t_1$ and time $t_2$ are related by
+a unitary operator $U(t_2,t_1)$ such that $\ket{\psi(t_2)}=U(t_2,t_1)\ket{\psi(t_1)}$}.
+
+\begin{example}
+    Use the spectral decomposition to show that $K=-\iota \log(U)$ is Hermitian for any unitary $U$, and thus $U=exp(\iota K)$ for some Hermitian $K$.
+
+    Suppose $U$ is unitary. Then, $U$ is normal and hence has spectral decomposition:
+    \[
+    U=\sum_j \lambda_j \ket{j}\bra{j}
+    \]
+    where $\ket{j}$ are the eigenvectors of $U$ with eigenvalues $\lambda_j$, and $\ket{j}$ forms an orthonormal basis of the Hilbert space. Recall that all the eigenvalues of unitary operators have eigenvalues of modulus 1, so we can let $\lambda_j=exp(\iota \theta_j)$ where $\theta_j \in \mathbb{R}$ and hence write the above as:
+    \[
+    U=\sum_j exp(\iota \theta_j) \ket{j}\bra{j}
+    \]
+    We then have that:
+    \[
+    K=-\iota \log(U)=-\log \left(\sum_j exp(\iota \theta_j)\ket{j}\bra{j}\right)=\sum_j -\iota \log(exp(\iota \theta_j))\ket{j}\bra{j}=\sum_j-\iota (\iota \theta_j)\ket{j}\bra{j}
+    \]
+    \[
+    =\sum_j \theta_j \ket{j}\bra{j}
+    \]
+    We then observe that:
+    \[
+    K^{\dagger}=\left(\sum_j \theta_j \ket{j}\bra{j}\right)^{\dagger}=\sum_j \theta_j \ket{j}\bra{j}
+    \]
+    as the $\theta_j$s are real and $(\ket{j}\bra{j})^{\dagger}=\ket{j}\bra{j}$. Hence $K$ is Hermitian. Then, multiplying both sides in $K=-\iota\log(U)$ by $\iota$ and exponentiating both sides, we obtain the desired relation. 
+\end{example}
+\textbf{Note that in quantum computing we often apply a unitary operator to a closed quantum state. This is contradictory statement.
+The act of applying a unitary operator is in itself an external interaction with the quantum system, thus it no longer remains closed. 
+It turns out, that it is possible to write down a time-varying Hamiltonian for a Quantum system, in which the Hamiltonian for the system is not constant,
+but varies according to some external control parameters which are under experimentalist's control, and could be changed during the 
+course of an experiment. The system is therefore not closed, but it does evolve according to Schrodinger's equation with a time varying Hamiltonian, to some good
+approximation. Thus we will describe the evolution of a quantum system even those system's which aren't closed using unitary operators.}
+
+\section{Postulate 3: Measurement Postulate}
+\textbf{Measurement in the computational basis}\\
+Consider a Quantum System in a state $\ket{\psi} = \sum_{j=0}^{N-1} \alpha_j \ket{j}$ which is some unknown superposition of the classical states $\ket{j}$. We cannot know exactly what the superposition of the states $\ket{\psi}$ is
+since we can see only the classical states. Thus if we measure the state $\ket{\psi}$ it will collapse to one of the classical states
+(say $\ket{j}$). To which classical state will it collapse to (which will we see)? This is not known in advance, we can
+only predict the probability of the state collapsing to a particular classical state. The probability of the state $\ket{\psi}$ collapsing to the classical state $\ket{j}$ is given by
+\textbf{Born's Rule} as:
+\[
+    P(j)=|\braket{j|\psi}|^2=|\alpha_j|^2
+\]
+where $\alpha_j$ is the amplitude of the state $\ket{j}$ in the state $\ket{\psi}$. Thus, the probability of the state $\ket{\psi}$ collapsing to the classical state $\ket{j}$ is the square of the amplitude of the state $\ket{j}$ in the state $\ket{\psi}$.
+Now, since its a probability distribution this implies that the sum of the probabilities of the state $\ket{\psi}$ collapsing to any of the classical states $\ket{j}$ is 1. Thus, we have:
+\[
+    \sum_{j}P(j)=\sum_{j}|\alpha_j|^2=1
+\]
+thus, $\alpha_j$ are called probability amplitudes. (\textbf{Note that since operations on a quantum state are unitary in nature and 
+a Unitary operator as shown in the appendix preserves norm, thus once the amplitudes are normalized to satisfy the Born's rule we can be sure that the probabilities will remain normalized no matter the number
+of times we perform any unitary operation on the quantum state}). Once we measure the state 
+$\ket{\psi}$ and it collapses to the classical state $\ket{j}$, the state of the system is now $\ket{j}$ and all the information that might have been contained in the amplitudes of $\alpha_i$ is gone.
+
+Note that the probabilities of various measurement outcomes are exactly the same when we measure $\ket{\psi}$ or when we measure 
+the state $e^{\iota \theta}\ket{\psi}$. The term $e^{\iota \theta}$ is called the \textbf{global phase} and thus has no physical significance.
+
+Note that when the experimentalist and their experimental apparatus observes the system, it is an external physical system in other words, and the interaction
+makes the quantum system no longer closed and thus not necessarily subject to the unitary evolution. Thus, more formally we can state the postulate as: \\
+\textbf{Quantum measurements are described by a collection $\{M_m\}$ of measurement operators.
+These are operators acting on the state space $\ket{\psi}$ being measured. The index m refers to the measurement outcomes 
+that may occur in the experiment. If the state of the quantum system is $\ket{\psi}$ immediately before the measurement then the probability that result m
+occurs is given by: 
+\[
+    p(m)=\bra{\psi}M_m^{\dagger}M_m\ket{\psi}
+\]
+and the state of the system after the measurement is:
+\[
+    \dfrac{M_m\ket{\psi}}{\sqrt{p(m)}}
+\]
+Now since the sum of the probabilities of all the measurement outcomes is 1, we have:
+\[
+    1 = \sum_m p(m) = \sum_m \bra{\psi}M_m^{\dagger}M_m\ket{\psi}
+\]
+Thus, the measurement operators satisfy the completeness equation:
+\[
+    \sum_m M_m^{\dagger}M_m=I
+\]
+}
+
+\begin{example}
+    Measurement of a qubit in the computational basis. Measurement of a qubit with two outcomes defined by the two measurement
+    operators $M_0=\ket{0}\bra{0}$ and $M_1=\ket{1}\bra{1}$ (note that both the measurement operators are Hermitian and $M_0^2=M_0,M_1^2=M_1$, thus follow Completeness relation).
+    Suppose the qubit is in the state $\ket{\psi}=\alpha\ket{0}+\beta\ket{1}$. The probability of the qubit collapsing to the state $\ket{0}$ is:
+    \[
+        p(0)=|\braket{0|\psi}|^2=|\alpha|^2
+    \]
+    and the probability of the qubit collapsing to the state $\ket{1}$ is:
+    \[
+        p(1)=|\braket{1|\psi}|^2=|\beta|^2
+    \]
+    Thus, the state of the qubit after the measurement is:
+    \[
+        \dfrac{M_0\ket{\psi}}{\sqrt{p(0)}}=\dfrac{\alpha\ket{0}}{|\alpha|}
+    \]
+    \[ 
+        \dfrac{M_1\ket{\psi}}{\sqrt{p(1)}}=\dfrac{\beta\ket{1}}{|\beta|}
+    \]
+\end{example}
+
+
+\begin{example}
+    Consider a state $\ket{\psi}=\left(\frac{1}{\sqrt{6}}-\frac{1}{\sqrt{3}}\right)\ket{+}+\left(\frac{1}{\sqrt{6}}+\frac{1}{\sqrt{3}}\right)\ket{-}$ (it can be given in any basis, say here it is given in hadamard basis).
+    Find the probabilities of measurement in Hadamard basis and Standard basis.\\
+    Probability of measuring the state $\ket{\psi}$ in Hadamard basis to be $\ket{+}$ is:
+    \[
+        p(+)=|\braket{+|\psi}|^2=|\left(\frac{1}{\sqrt{6}}-\frac{1}{\sqrt{3}}\right)|^2=\frac{1}{6}+\frac{1}{3}-\frac{2}{\sqrt{18}}=\frac{3-2\sqrt{2}}{6}
+    \]
+    Probability of measuring the state $\ket{\psi}$ in Hadamard basis to be $\ket{-}$ is:
+    \[
+        p(-)=|\braket{-|\psi}|^2=|\left(\frac{1}{\sqrt{6}}+\frac{1}{\sqrt{3}}\right)|^2=\frac{1}{6}+\frac{1}{3}+\frac{2}{\sqrt{18}}=\frac{3+2\sqrt{2}}{6}
+    \]
+    Probability of measuring the state $\ket{\psi}$ in Standard basis to be $\ket{0}$ is:
+    \[
+        p(0)=|\braket{0|\psi}|^2=|\frac{1}{\sqrt{2}}\left(\frac{2}{\sqrt{6}}\right)|^2=|\frac{1}{\sqrt{3}}|^2=\frac{1}{3}
+    \]
+    Probability of measuring the state $\ket{\psi}$ in Standard basis to be $\ket{1}$ is:
+    \[
+        p(1)=|\braket{1|\psi}|^2=|\frac{1}{\sqrt{2}}\left(\frac{2}{\sqrt{3}}\right)|^2=|\frac{\sqrt{2}}{\sqrt{3}}|^2=\frac{1}{3}
+    \]
+\end{example}
+
+\begin{importantnote}
+    \textbf{Distinguishing Non-Orthogonal States}
+    \begin{theorem}
+        Non-orthogonal states can't be reliably distinguished.
+    \end{theorem}
+    Consider two people Alice and Bob. Alice prepares a quantum state $\ket{\psi_i}$ ($1\leq i\leq n$) from some fixed set of states known to both parties and sends it to Bob . Bob has to determine which state Alice sent him.\\
+\textbf{Case I: }
+    Suppose the states $\ket{\psi_i}$ are orthonormal. Then Bob can measure the state $\ket{\psi_i}$ using the following procedure. Define Measurement operators, $M_i=\ket{\psi_i}\bra{\psi_i}$, one for each possible index i, and an additional 
+    measurement operator $M_0=I-\sum_{i=1}^{n}\ket{\psi_i}\bra{\psi_i}$. The measurement operators satisfy the completeness relation $\sum_{i=0}^{n}M_i^{\dagger}M_i=I$. Thus, for a state $\ket{\psi_i}$ then $p(i)=\bra{\psi_i}M_i\ket{\psi_i}=1$, so the result i occurs
+    with certainty. Thus, it is possible to reliably distinguish the orthonormal states $\ket{\psi_i}$.\\
+\textbf{Case II:}
+    Suppose the states $\ket{\psi_i}$ are not orthonormal. Then we can prove that there is no quantum measurement 
+    capable of distinguishing the quantum states. The idea is that Bob will do a measurement described by measurement operators $M_j$ with 
+    outcome j. Depending on the outcome of the measurement Bob tries to guess what the index i was using some rule,
+    $i=f(j)$ (where $f(\cdot)$ is the rule to make the guess). Bob can't distinguish between the states $\ket{\psi_1}$ and $\ket{\psi_2}$ 
+    is because $\ket{\psi_2}$ can be decomposed into (non-zero) component parallel to $\ket{\psi_1}$, and a component orthogonal to $\ket{\psi_1}$.
+    \begin{example}
+        Suppose such a measurement is possible that two non-orthogonal states $\ket{\psi_1}$ and $\ket{\psi_2}$ can be distinguished. Defining $E_i\equiv \sum_{j:f(j)=i} M_jM_j^{\dagger}$, these observations may be written as:
+        \[
+        \braket{\psi_1|E_1|\psi_1}=1; \quad \braket{\psi_2|E_2|\psi_2}=1
+        \]
+        Since $\sum_iE_i=I$ it follows that $\sum_i \braket{\psi_1|E_i|\psi_1}=1$, and since $\braket{\psi_1|E_1|\psi_1}=1$ we must have $\braket{\psi_1|E_2|\psi_1}=0$, and thus $\sqrt{E_2}\ket{\psi_1}=0$. Suppose we decompose $\ket{\psi_2}=\alpha\ket{\psi_1}+\beta\ket{\psi}$, where $\ket{\psi}$ is orthonormal to $\ket{\psi_1}$, $|\alpha|^2+|\beta|^2=1$, and $|\beta|<1$ since $\ket{\psi_1}$ and $\ket{\psi_2}$ are not orthogonal. Then $\sqrt{E_2}\ket{\psi_2}=\beta\sqrt{E_2}\ket{\psi}$, which implies a contradiction as
+        \[
+        \braket{\psi_2|E_2|\psi_2}=|\beta|^2\braket{\psi|E_2|\psi}\leq |\beta|^2 < 1
+        \]
+        where the second last inequality follows from the observation that
+        \[
+        \braket{\psi|E_2|\psi} \leq \sum_i \braket{\psi|E_i|\psi}=\braket{\psi|\psi} = 1
+        \]
+    \end{example}
+\end{importantnote}
+
+
+\subsection{Projective Measurements}
+A special case of the general measurement postulate. Consider a Quantum System with quantum state $\ket{\psi}$. A projective measurement on some space, with m possible outcomes, is a collection of projectors.
+$P_1,\ldots,P_m$ that all act on tha same space and sum to identity $\sum_{j=1}^m P_j=I$. These projectors are \textit{pairwise orthogonal},
+$P_iP_j=\delta_{ij}P_i$ where $\delta_{ij}$ is the Kronecker delta. The Projector $P_j$ projects onto some subspace $V_j$ of the total Hilbert Space $V$. 
+Now every state $\ket{\psi} \in V$ can be decomposed in a unique way as $\ket{\psi}=\sum_{j=1}^m P_j\ket{\psi}$. Note that since the projectors
+are orthogonal, the subspace $V_j$ are orthogonal and the projection of the states onto $V_j$. When we apply this measurement onto the pure
+state $\ket{\psi}$, then we will get outcome j with probability $p(j)=\bra{\psi}P_j\ket{\psi}$. If the outcome j occurs, then the state of the systems
+immediately after the measurement is $\dfrac{P_j\ket{\psi}}{\sqrt{p(j)}}$. Note that the probabilities sum to 1.
+\textbf{We cannot chose which $P_j$ will be applied to the state but can only give a probability distribution. However, if the state $\ket{\psi}$ fully lies within
+one of the subspace $V_j$ then the measurement of the outcome will be j with certainty}
+\textbf{Note that the m projectors together form one measurement, we don't use the word ``measurement" for individual $P_j$.}
+\begin{example}
+    A measurement in the computational basis in a N-dimensional state space is a specific projective measurement
+    with m=N and $P_j=\ket{j}\bra{j}$. $P_j$ projects onto the computation basis state $\ket{j}$ and the corresponding
+    subspace $V_j \subset V$  is the 1-dimensional subspace spanned by $\ket{j}$. 
+    Consider the state $\ket{\psi} = \sum_{j=0}^{N-1} \alpha_j \ket{j}$. $P_j\ket{\psi}=\alpha_j\ket{j}$, so applying our measurement
+    will give outcome j with probability $|\alpha_j|^2$ and the state of the system after the measurement will be $\ket{j}$.
+\end{example}
+
+
+\begin{example}
+    Note that we can choose any orthonormal basis for the projective measurement. For example, consider
+    a quantum state $\ket{\psi}$ expressed as superposition of standard orthonormal basis states $\ket{0},\ket{1},\ldots,\ket{N-1}$. 
+    We can choose any other orthonormal basis B of states say $\ket{\phi_0},\ket{\phi_1},\ldots,\ket{\phi_{N-1}}$
+    and consider the projective measurement defined by the projectors $P_j=\ket{\phi_j}\bra{\phi_j}$.
+    This is called measuring in B basis. Applying this measurement to the state $\ket{\psi}$ will give 
+    outcome j with probability $|\braket{\phi_j|\psi}|^2$ and the state of the system after the measurement will be $\ket{\phi_j}$.
+    Note that if $\ket{\psi}$ equals to one the basis vectors $\ket{\phi_j}$ then the measurement
+    gives outcome j with probability 1.
+\end{example}
+
+\begin{example}
+    Note that it is not at all necessary for projectors to be of rank 1. For example, we can consider only two projectors on a 
+    N (even) dimensional space such that $P_1=\sum_{j<N/2} \ket{j}\bra{j}$ and $P_2=\sum_{j\geq N/2} \ket{j}\bra{j}$. say the state
+    of a quantum system is $\ket{\psi}=\frac{1}{\sqrt{3}}\ket{1}+\sqrt{\frac{2}{3}}\ket{N}$. Then,
+    it gives outcome 1 with probability $p(1)=\bra{\psi}P_1\ket{\psi}=\frac{1}{3}$ and outcome 2 with probability $p(2)=\bra{\psi}P_2\ket{\psi} = \frac{2}{3}$.
+
+\end{example}
+
+\textbf{Observables: }We can write projective measurements with operators $P_1,\ldots,P_m$ and associated 
+distinct outcomes $\lambda_1,\lambda_2,\ldots,\lambda_m \in \mathbb{R}$, can be written as one Matrix $M=\sum_{i=1}^m \lambda_iP_i$ which
+is called an observable. It has an advantage that the expected (average) value of the outcome can be easily calculated as $\bra{\psi}M\ket{\psi}$.
+Note that M is Hermitian. Every observable is a Hermitian.
+
+\begin{definition}
+    Projective Measurement: A projective measurement is a measurement described by an observable M, a Hermitian operator on the state space of the system
+    being observed. Since, its a Hermitian operator hence has a spectral decomposition as:
+    \[M=\sum_m mP_m\]
+    where $P_m$ is the projection onto the eigen space of M with eigen value m. 
+    \textbf{The possible outcomes of the measurement correspond to the eigenvalues, m, of the observable}. Upon,
+    measuring the state $\ket{\psi}$, the probability of getting result m is given by:
+    \[p(m)=\bra{\psi}P_m\ket{\psi}\]
+    Given that the outcome m occurred, the state of the quantum system immediately after the measurement is:
+    \[\dfrac{P_m\ket{\psi}}{\sqrt{p(m)}}\]
+\end{definition}
+
+\textbf{Projective measurement as a special case of Postulate 3: Suppose measurement operators in Postulate 3 in addition to satisfying the 
+completeness relation $\sum_m M_m^{\dagger}M_m=I$ also satisfy the relation that $M_m$ are orthogonal projectors, that is $M_m^{\dagger}=M_m$
+hence are Hermitian. Then, the Postulate 3 reduces to a Projective measurement as defined.}
+Calculation of Average values for Projective measurements. By definition, the average value of the measurement is:
+%Mutliline equation
+\begin{align*}
+    \mathbf{E}(M) &= \sum_m m p(m) \\
+    &= \sum_m m \bra{\psi}P_m\ket{\psi} \\
+    &= \bra{\psi}\left(\sum_m mP_m\right)\ket{\psi} \\
+    &= \bra{\psi}M\ket{\psi}\\
+    \braket{M}&=\bra{\psi}M\ket{\psi}
+\end{align*}
+
+\subsection{Positive Operator Valued Measure (POVM) measurements}
+For some applications, the post-measurement of the state is of little interest. We only care about the final probability distribution 
+on the m-outcomes, then we can use the most general type of measurement called \textit{positive-operator-valued-measure (POVM)}. For example,
+when the system is measured only once, at the end. In such cases, the POVM measurement is more general than the projective measurement.
+
+We specify m positive semi-definite (Psd) matrices $E_1,\ldots,E_m$ such that $\sum_m E_m=I$. When measuring a state 
+$\ket{\psi}$, the probability of the outcome i is given by $Tr(E_i\ket{\psi}\bra{\psi}) = \bra{\psi}E_i\ket{\psi}$. A projective measurement is a special case of POVm where the 
+measurement elements $E_i$ are projectors. (That is $E_i^2=E_i$ and $E_i^{\dagger}=E_i$). The POVM elements $E_i$ are not necessarily orthogonal. 
+\textit{One can show that every POVM can be simulated by a projective measurement on a slightly larger space that yields the exact probability distribution over measurement outcomes (Neumark's theorem)}
+
+\begin{example}
+    Suppose in a 2-dimensional state space, we know that it is either in state $\ket{0}$ or $\ket{+}=\frac{1}{\sqrt{2}}(\ket{0}+\ket{1})$.
+    Clearly, this two states are not orthogonal, so there is no measurement that distinguishes them perfectly. However, there is a POVm measurement that never makes a mistake,
+    but sometimes gives another outcome 2, meaning "I don't know". That is, you would like to do a measurement with three possible outcomes: 0,1 and 2, such that:
+    \begin{itemize}
+        \item If the state is $\ket{0}$, then you get a correct outcome 0 with probability $1/4$ and outcome 2 with 
+        probability $3/4$ but never get incorrect outcome 1.
+        \item If the state is $\ket{+}$, then you get correct outcome 1 with probability $1/4$ and outcome 2 with probability $3/4$ but never get the incorrect outcome 0.
+    \end{itemize}
+    This cannot be achieved with projective measurement on the qubit, but can be achieved with following 3-outcome POVM:
+    \begin{itemize}
+        \item $E_0=\frac{1}{2}\ket{-}\bra{-}$, (where $\ket{-}=\frac{1}{\sqrt{2}}(\ket{0}-\ket{1})$ which is orthogonal to the $\ket{+}$ state.)
+        \item $E_1=\frac{1}{2}\ket{1}\bra{1}$ (note that this is orthogonal to the sate $\ket{0}$ state)
+        \item $E_I-E_0-E_1$
+    \end{itemize}
+    Here $E_0,E_1,E_2$ are all psd and add up to identity, so they form a valid POVM. None of the three matrices are projectors. (note the success probability can be improved further).
+\end{example}
+\begin{definition}
+    Positive Operator Valued Measure (POVM): Suppose a measurement is described by measurement operator $M_m$ is performed upon a quantum state $\ket{\psi}$. Then the probability of 
+    the outcome m is given by $p(m)=\bra{\psi}M_m^{\dagger}M_m\ket{\psi}$. Suppose we define $E_m=M_m^{\dagger}M_m$, then clearly $E_m$ is a positive operator. A POVM measurement is a measurement described by a set of measurement operators $\{E_m\}$ that satisfy the 
+    completeness relation $\sum_m E_m=I$ and $p(m)=\bra{\psi}E_m\ket{\psi}$. Thus set of operators $E_m$ are sufficient to determine the probabilities of the different measurement outcomes.
+    The operators $E_m$ are known as the POVM elements associated with the measurement. The complete set $\{E_m\}$ is known as POVM.
+\end{definition}
+\begin{example}
+    \textbf{(Cascaded measurements are single measurements)} Suppose $\{L_l\}$ and $\{M_m\}$ are two sets of measurement operators. Show that a measurement defined by the measurement operators $\{L_l\}$ followed by a measurement defined by the measurement operators $\{M_m\}$ is physically equivalent to a single measurement defined by measurement operators $\{N_{lm}\}$ with the representation $N_{lm}=M_mL_l$
+
+    Suppose we have (normalized) initial quantum state $\ket{\psi_0}$. Then, the state after measurement of $L_l$ is given by definition to be:
+    \[
+    \ket{\psi_0}\rightarrow \ket{\psi_1}=\frac{L_1\ket{\psi_0}}{\sqrt{\braket{\psi_0|L_l^{\dagger}L_l|\psi_0}}}
+    \]
+    The state after measurement of $M_m$ on $\ket{\psi_1}$is then given to be:
+    \[
+    \ket{\psi_1} \rightarrow \ket{\psi_2} = \frac{M_m\ket{\psi_1}}{\sqrt{\braket{\psi_1|M_m^{\dagger}M_m|\psi_1}}}
+    \]
+    \[
+    =\dfrac{M_m\left(\dfrac{L_l\ket{\psi_0}}{\sqrt{\braket{\psi_0|L_l^{\dagger}L_l|\psi_0}}}\right)}{\sqrt{\left(\dfrac{L_l^{\dagger}\bra{\psi_0}}{\sqrt{\braket{\psi_0|L_l^{\dagger}L_l|\psi_0}}}\right) M_m^{\dagger}M_m\left(\dfrac{L_l\ket{\psi_0}}{\sqrt{\braket{\psi_0|L_l^{\dagger}L_l|\psi_0}}}\right)}}
+    \]
+    \[
+    =\dfrac{M_mL_l\ket{\psi_0}}{\sqrt{\braket{\psi_0|L_l^{\dagger}L_l|\psi_0}}}\dfrac{\sqrt{\braket{\psi_0|L_l^{\dagger}L_l|\psi_0}}}{\sqrt{\braket{\psi_0|L_l^{\dagger}M_m^{\dagger}M_mL_l^{\dagger}|\psi_0}}}
+    \]
+    \[
+    =\dfrac{M_mL_l\ket{\psi_0}}{\sqrt{\braket{\psi_0|L_l^{\dagger}M_m^{\dagger}M_mL_l^{\dagger}|\psi_0}}}
+    \]
+    We see that $\ket{\psi_2}=\ket{\psi_3}$ (that is, the cascaded measurement produces the same result as the single measurement), proving the claim.
+\end{example}
+\begin{example}
+    Show that any measurement where the measurement operator and the POVM elements coincide is a projective measurement.
+
+    Suppose we have that the measurement operators are equal to the POVM elements $E_m$. In this case we have that:
+    \[
+    M_m=E_m=M_m^{\dagger}M_m
+    \]
+    Recall that $M_m^{\dagger}M_m$ is positive, so it follows that $M_m$ is positive and hence Hermitian. Hence $M_m^{\dagger}=M_m$ and therefore:
+    \[
+    M_m = M_m^{\dagger}M_m=M_m^2
+    \]
+    From which we conclude that $M_m$ are projective measurement operators.
+\end{example}
+\begin{example}
+    Suppose a measurement is described by measurement operators $M_m$. Show that there exist unitary operators $U_m$ such that $M_m=U_m\sqrt{E_m}$, where $E_m$ is the POVM associated to the measurement.
+
+    Since $M_m$ is a linear operator, y the left polar decomposition there exists unitary $U$ such that:
+    \[
+    M_m=U\sqrt{M_m^{\dagger}M_m} = U\sqrt{E_m}
+    \]
+    where in the last equality we use that $M_m^{\dagger}M_m=E_m$.
+\end{example}
+\begin{example}
+    Suppose Bob is given a quantum state chosen from a set $\ket{\psi_1},\ket{\psi_2},\ldots,\ket{\psi_m}$ of linearly independent states. Construct a POVM $\{E_1,E_2,\ldots,E_{m+1}\}$ such that if outcome $E_i$ occurs, $1\leq i\leq m$, then Bob knows with certainty that he was given the state $\ket{\psi_i}$. (The POVM must be such that $\braket{\psi_i|E_i|\psi_i} > 0$ for each $i$).
+
+Let $\mathcal{H}$ be the Hilbert space where the given states lie, and let $V$ be the m-dimensional subspace spanned by $\ket{\psi_1},\ldots,\ket{\psi_m}$. For each $i\in\{1,\ldots,m\}$, let $W_i$ be the subspace of $V$ spanned by $\{\ket{\psi_j}:j\neq i\}$. Let $W_i^{\perp}$ be the orthogonal complement of $W_i$ which consists of all states in $\mathcal{H}$ orthogonal to all states in $W_i$. We then have that any vector in $V$ can be written as the sum of a vector in $W_i$ and $W_i^{\perp} \cap V$. Therefore, for any $\ket{\psi_i}$ we can write:
+\[
+\ket{\psi_i}=\ket{w_i}+\ket{p_i}
+\]
+where $\ket{w_i}\in W_i$ and $\ket{p_i} \in W_i^{\perp} \cap V$. Define $E_i=\frac{\ket{p_i}\bra{p_i}}{m}$. By construction, we have that for any $\ket{\psi} \in \mathcal{H}$:
+\[
+\braket{\psi|E_i|\psi} =\frac{|\braket{\psi|p_i}|^2}{m} \geq 0
+\]
+so that $E_i$s are positive as required. Furthermore, defining $E_{i+1}=I-\sum_{i=1}^m E_i$, we again see that for any $\ket{\psi} \in \mathcal{H}$:
+\[
+\braket{\psi|E_{i+1}|\psi}=\braket{\psi|I|\psi}-\sum_{i=1}^m \braket{\psi|E_i|\psi}=1-\sum_{i=1}^m \braket{\psi|E_i|\psi}\geq 1-\sum_{i=1}^m \frac{1}{m}=0
+\]
+so $E_{i+1}$ is also positive as required. Finally, to see that $E_1,\ldots,E_m$ have the desired properties, observe by construction that since $\ket{p_i} \in W_i^{\perp} \cap V$, it follows that $\braket{\psi_j|p_i}=0$ for any $j\neq i$ (as the $\ket{p_i}$, we observe that:
+\[
+\braket{\psi_i|E_i|\psi_i}=(\bra{w_i}+\bra{p_i})\frac{\ket{p_i}\bra{p_i}}{m} (\ket{w_i}+\ket{p_i}) = \frac{|\braket{p_i|p_i}|^2}{m}=\frac{1}{m}\geq 0
+\]
+so if Bob measures $E_i$, he can be certain the he was given the state $\ket{\psi_i}$.
+\end{example}
+\begin{example}
+    Express the states $(\ket{0}+\ket{1})/\sqrt{2}$ and $(\ket{0}-\ket{1})/\sqrt{2}$ in a basis in which they are not the same up to a relative phase shift. 
+    
+    Let us define our basis to be $\ket{+}=(\ket{0}+\ket{1})/\sqrt{2}$ and $\ket{-}=(\ket{0}-\ket{1})/\sqrt{2}$. Our two states are then just the basis vectors of this basis $(\ket{+},\ket{-})$ and are not the same up to relative phase shift.
+\end{example}
+\begin{example}
+    Suppose we prepare a quantum system in an eigenstate $\ket{\psi}$ of some observable $M$ with corresponding eigenvalue $m$. What is the average observed value of $M$, and the standard deviation?
+
+    By definition of expectation, we have that:
+    \[
+    \braket{\psi|M|\psi}=\braket{\psi|m|\psi}=m\braket{\psi|\psi}=m
+    \]
+    Similarly, the standard deviation is given as:
+    \begin{align*}
+        \Delta(M)&=\sqrt{\braket{\psi|M^2|\psi}-(\braket{\psi|M|\psi})^2}\\
+        &=\sqrt{\braket{\psi|Mm|\psi}-(\braket{\psi|m|\psi})^2}\\
+        &=\sqrt{\braket{\psi|m^2|\psi}-(m\braket{\psi|\psi})^2}\\
+        &=\sqrt{m^2 - (m)^2}\\
+        &=0
+    \end{align*}
+\end{example}
+\begin{example}
+    Suppose we have qubit in the state $\ket{0}$, and we measure the observable $X$. What is the average value of $X$? What is the standard deviation of $X$?
+
+    By the definition of expectation we have:
+    \[
+    \braket{0|X|0}=\braket{0|1}=0
+    \]
+    Similarly, for standard deviation, we have:
+    \begin{align*}
+    \Delta(X)&=\sqrt{\braket{0|X^2|0}-(\braket{0|X|0})^2}\\
+    &=\sqrt{\braket{0|X|1}-0^2}\\
+    &=\sqrt{\braket{0|0}-0}\\
+    &=1
+    \end{align*}
+\end{example}
+
+\begin{importantnote}
+    Perhaps the best know result of quantum mechanics is the Heisenberg uncertainty principle. Suppose $A$ and $B$ are two Hermitian operators, and $\ket{\psi}$ is a quantum state. Suppose $\bra{\psi}AB\ket{\psi}=x+\iota y$, where $x$ and $y$ are real. Note that $\bra{\psi}[A,B]\ket{\psi}=2\iota y$ and $\bra{\psi}\{A,B\}\ket{\psi}=2x$. This implies that
+    \[
+    |\bra{\psi}[A,B]\ket{\psi}|^2 +|\bra{\psi}\{A,B\}\ket{\psi}|^2=4|\bra{\psi}AB\ket{\psi}|^2
+    \]
+    By the Cauchy-Schwarz inequality
+    \[
+    |\bra{\psi}AB\ket{\psi}|^2 \leq \bra{\psi}A^2\ket{\psi}\bra{\psi}B^2\ket{\psi}
+    \]
+    which combined with previous equation and dropping a non-negative term gives
+    \[
+    |\bra{\psi}[A,B]\ket{\psi}|^2 \leq 4\bra{\psi}A^2\ket{\psi}\bra{\psi}B^2\ket{\psi}
+    \]
+    Suppose $C$ and $D$ are two observables. Substituting $A=C-\braket{C}$ and $B=D-\braket{D}$ into the last equation, we obtain Heisenberg's uncertainty principle as it is usually state:
+    \[
+    \Delta(C)\Delta (D)\geq \frac{|\bra{\psi}[C,D]\ket{\psi}|}{2}
+    \]
+    You should be vary of common misconception about the uncertainty principle, that measuring an observable $C$ to some `accuracy' $\Delta(C)$ causes the value of $D$ to be `disturbed' by an amount $\Delta (D)$ in such a way that some sort of inequality similar to the equation is satisfied. While it is true that measurements in quantum mechanics cause disturbance to the system being measured, this is most emphatically not the content of the uncertainty principle.
+
+    The correct interpretation of the uncertainty principle is that if we prepare a large number of quantum systems in identical states, $\ket{\psi}$, and then perform measurements of $C$ on some of those systems, and of $D$ in others, then the standard deviation $\Delta(C)$ of the $C$ results times the standard deviation $\Delta (D)$ of the results for $D$ will satisfy the inequality.
+
+    As an example of the uncertainty principle, consider the observables $X$ and $Y$ when measured for the quantum state $\ket{0}$. We showed that $[X,Y]=2\iota Z$, so the uncertainty principle tells us that
+    \[
+    \Delta(X)\Delta(Y)\geq \bra{0}Z\ket{0}=1
+    \]
+    One elementary consequence of this is that $\Delta(X)$ and $\Delta(Y)$ must both be strictly greater than $0$, as can be verified by direct calculation.
+
+\end{importantnote}
+\section{Postulate 4: Composite Systems}
+Consider a composite system made up of two or more distinct quantum physical systems.
+What are the states of the composite system? How the state space of a composite system is built up from the state spaces of the component 
+systems.
+\begin{definition}
+    The state space of a composite physical system is the tensor product of the state spaces of the component physical systems. Say, 
+    if the systems are numbered through 1 to n and the system number i is prepared in the state $\ket{\psi_i}$ then the joint
+    state of the total system is $\ket{\psi_1}\otimes\ket{\psi_2}\otimes\ldots\otimes\ket{\psi_n}$. This is called the tensor product state of the component states.    
+\end{definition}
+
+\begin{example}
+    Consider the orthonormal basis vectors of a single qubit system $\ket{0}$ and $\ket{1}$. Then the orthonormal basis vectors of a two qubit system are:
+    \[ \ket{0} \otimes \ket{0} = \begin{pmatrix} 1 \\ 0 \end{pmatrix} \otimes \begin{pmatrix} 1 \\ 0 \end{pmatrix} = \begin{pmatrix} 1 \begin{pmatrix} 1 \\ 0 \end{pmatrix} \\ 0 \begin{pmatrix} 1 \\ 0 \end{pmatrix} \end{pmatrix} = \begin{pmatrix} 1 \\ 0 \\ 0 \\ 0 \end{pmatrix} \]
+    \[ \ket{0} \otimes \ket{1} = \begin{pmatrix} 1 \\ 0 \end{pmatrix} \otimes \begin{pmatrix} 0 \\ 1 \end{pmatrix} = \begin{pmatrix} 1 \begin{pmatrix} 0 \\ 1 \end{pmatrix} \\ 0 \begin{pmatrix} 0 \\ 1 \end{pmatrix} \end{pmatrix} = \begin{pmatrix} 0 \\ 1 \\ 0 \\ 0 \end{pmatrix} \]
+    \[ \ket{1} \otimes \ket{0} = \begin{pmatrix} 0 \\ 1 \end{pmatrix} \otimes \begin{pmatrix} 1 \\ 0 \end{pmatrix} = \begin{pmatrix} 0 \begin{pmatrix} 1 \\ 0 \end{pmatrix} \\ 1 \begin{pmatrix} 1 \\ 0 \end{pmatrix} \end{pmatrix} = \begin{pmatrix} 0 \\ 0 \\ 1 \\ 0 \end{pmatrix} \]
+    \[ \ket{1} \otimes \ket{1} = \begin{pmatrix} 0 \\ 1 \end{pmatrix} \otimes \begin{pmatrix} 0 \\ 1 \end{pmatrix} = \begin{pmatrix} 0 \begin{pmatrix} 0 \\ 1 \end{pmatrix} \\ 1 \begin{pmatrix} 0 \\ 1 \end{pmatrix} \end{pmatrix} = \begin{pmatrix} 0 \\ 0 \\ 0 \\ 1 \end{pmatrix} \]
+Thus, $\ket{00},\ket{01},\ket{10},\ket{11}$ are the orthonormal basis vectors of the two qubit Quantum System. Thus, the state of a particle for a two qubit quantum mechanical system can be written as 
+$\ket{\psi}=\alpha\ket{00}+\beta\ket{01}+\gamma\ket{10}+\delta\ket{11}$ where $\alpha,\beta,\gamma,\delta$ are complex numbers such that $|\alpha|^2+|\beta|^2+|\gamma|^2+|\delta|^2=1$ and in the matrix form it can be written in matrix form as:
+\[
+    \ket{\psi}=\begin{pmatrix} \alpha \\ \beta \\ \gamma \\ \delta \end{pmatrix}
+\]
+Thus, say if $\ket{\psi}=\begin{pmatrix} 7 \\ 0 \\ \iota +3 \\ 0 \end{pmatrix}$ then the state of the two qubit system is $\ket{\psi}=7\ket{00}+(\iota+3)\ket{10}$.
+\end{example}
+This, same concept of representing two-qubit quantum mechanical systems can also be extended to n-qubit quantum mechanical systems. It will be a vector in a $2^n$-dimensional complex vector space.
+For example, in three dimensional vector space there will be $2^3=8$ basis vectors $\ket{000},\ket{001},\ket{010},\ket{011},\ket{100},\ket{101},\ket{110},\ket{111}$.
+$\ket{101}$ will be represented in matrix form as:
+\[
+    \ket{101}=\begin{pmatrix} 0 \\ 1 \\ 0 \\ 0 \\ 0 \\ 1 \\ 0 \\ 0 \end{pmatrix}
+\]
+
+
+\subsection{Full and Partial Measurements of a multi-particle systems}
+A full measurement is a measurement that is performed on all the particles of a multi-particle system.
+A partial measurement is a measurement that is performed on some of the particles of a multi-particle system.
+Recall that when we measure a particle in the computational basis it collapses to one of the classical states.
+\begin{example}
+    Consider a two qubit system in the state $\ket{\psi}=\alpha\ket{00}+\beta\ket{01}+\gamma\ket{10}+\delta\ket{11}$.
+    A full measurement on the two qubit system will give the outcome 00 with probability $|\alpha|^2$, outcome 01 with probability $|\beta|^2$, outcome 10 with probability $|\gamma|^2$ and outcome 11 with probability $|\delta|^2$. Thus, also note that 
+    the sum of the probabilities of all the outcomes is 1, it is assumed the the state is initially normalized ($|\alpha|^2+|\beta|^2+|\gamma|^2+|\delta|^2=1$).
+    
+    A partial measurement on the two qubit system is a measurement performed on one of the qubits. Say, we perform a measurement on the first qubit, then the state of the second qubit will be the state of the system after the measurement on the first qubit.
+    
+    Suppose on measurement of the first qubit the probability that it collapsed to state 1 is given by $|\gamma|^2+|\delta|^2$ which is probability that the state collapses to $\ket{10}$ i.e. $|\gamma|^2$ plus the probability that the state collapses to the state
+    $\ket{11}$ i.e. $|\delta|^2$, thus probability of the first qubit collapsing to the state 1 is given as: $|\gamma|^2 + |\delta|^2$. Then the state of the second qubit after the the measurement of the first qubit collapsed to 1 will be:
+    \[
+        \dfrac{\gamma\ket{10}+\delta\ket{11}}{\sqrt{|\gamma|^2+|\delta|^2}}
+    \]
+    here we are normalizing the state in order to satisfy the normalized condition.
+    Similarly, the probability of the first qubit collapsing to the state 0 is $|\alpha|^2+|\beta|^2$ and the state of the second qubit after the measurement of the first qubit collapsed to 0 will be:
+    \[
+        \dfrac{\alpha\ket{00}+\beta\ket{01}}{\sqrt{|\alpha|^2+|\beta|^2}}
+    \]
+\end{example}
+
+\begin{example}
+    Consider a two qubit system $\ket{\psi}=\frac{1}{2}\ket{00}-\frac{\iota}{2}\ket{10}+\frac{1}{\sqrt{2}}\ket{11}$.
+    Then the probability of the first qubit collapsing to the state 0 is $|\frac{1}{2}|^2=\frac{1}{4}$ and the probability of the first qubit collapsing to the state 1 is $|-\frac{\iota}{2}|^2+|\frac{1}{\sqrt{2}}|^2=\frac{3}{4}$.
+    Thus, the state of the second qubit after the measurement of the first qubit collapsed to 0 will be:
+    \[
+        \dfrac{\frac{1}{2}\ket{00}}{\sqrt{|\frac{1}{2}|^2}}=\ket{00}
+    \]
+    and the state of the second qubit after the measurement of the first qubit collapsed to 1 will be:
+    \[
+        \dfrac{-\frac{\iota}{2}\ket{10}+\frac{1}{\sqrt{2}}\ket{11}}{\sqrt{|\frac{\iota}{2}|^2+|\frac{1}{\sqrt{2}}|^2}}=\frac{-\iota}{\sqrt{3}}\ket{10}+\sqrt{\frac{2}{3}}\ket{11}
+    \]
+    We can also, ask the question in reverse, that is if we measure the second qubit, then what is the state of the first qubit. 
+    The probability of the second qubit collapsing to the state 0 is $|\frac{1}{2}|^2+|-\frac{\iota}{2}|^2=\frac{1}{2}$ and the probability of the second qubit collapsing to the state 1 is $|\frac{1}{\sqrt{2}}|^2=\frac{1}{2}$.
+    Thus, the state of the first qubit after the measurement of the second qubit collapsed to 0 will be:
+    \[
+        \dfrac{\frac{1}{2}\ket{00}-\frac{\iota}{2}\ket{10}}{\sqrt{|\frac{1}{2}|^2+|-\frac{\iota}{2}|^2}}=\frac{1}{\sqrt{2}}\ket{00}-\frac{\iota}{\sqrt{2}}\ket{10}
+    \]
+    and the state of the first qubit after the measurement of the second qubit collapsed to 1 will be:
+    \[
+        \dfrac{\frac{1}{\sqrt{2}}\ket{11}}{\sqrt{|\frac{1}{\sqrt{2}}|^2}}=\ket{11}
+    \]
+\end{example}
+
+\begin{example}
+    Consider a state $\ket{\psi}=\frac{1}{\sqrt{5}}\ket{0000}-\sqrt{\frac{2}{5}}\ket{0100} +\sqrt{\frac{1}{5}}\ket{1111}+\sqrt{\frac{1}{5}}\ket{0110}$.
+    We wish to find the probability and resultant state is the 1st and 4th qubits are 0.
+    The probability of the 1st qubit and 4th qubit both collapsing to 0 is $|\frac{1}{\sqrt{5}}|^2+|-\sqrt{\frac{2}{5}}|^2+|\sqrt{\frac{1}{5}}|^2=\frac{4}{5}$.
+    Thus, the resultant state of the 2nd and 3rd qubits after the measurement of the 1st and 4th qubits collapsed to 0 will be:
+    \[
+        \dfrac{\frac{1}{\sqrt{5}}\ket{0000}-\sqrt{\frac{2}{5}}\ket{0100}+\sqrt{\frac{1}{5}}\ket{0110}}{\sqrt{\frac{4}{5}}}=\frac{1}{2}\ket{0000}-\frac{1}{\sqrt{2}}\ket{0100}+\frac{1}{2}\ket{0110}
+    \] 
+\end{example}
+
+\begin{example}
+    Show that the average value of the observable $X_1Z_2$ for a two qubit system measured in the state $(\ket{00}+\ket{11})/\sqrt{2}$ is zero.
+
+    \begin{align*}
+        \braket{X_1Z_2}&=\left(\frac{\bra{00}+\bra{11}}{\sqrt{2}}\right)X_1Z_2\left(\frac{\ket{00}+\ket{11}}{\sqrt{2}}\right)\\
+        &=\left(\frac{\bra{00}+\bra{11}}{\sqrt{2}}\right)\left(\frac{X_1Z_2\ket{00}+X_1Z_2\ket{11}}{\sqrt{2}}\right)\\
+        &=\left(\frac{\bra{00}+\bra{11}}{\sqrt{2}}\right)\left(\frac{\ket{10}-\ket{01}}{\sqrt{2}}\right)\\
+        &=\frac{1}{2}(\braket{00|10}-\braket{00|01}+\braket{11|10}-\braket{11|01})\\
+        &=\frac{1}{2}(0+0+0+0)\\
+        &=0
+    \end{align*}
+\end{example}
+\begin{example}
+    Suppose $V$ is a Hilbert space with a subspace $W$. Suppose $U:W\rightarrow V$ is a linear operator which preserves inner products, that is, for any $\ket{w_1}$ and $\ket{w_2}$ in $W$,
+    \[
+    \braket{w_1|U^{\dagger}U|w_2}=\braket{w_1|w_2}
+    \]
+    Prove that there exists a unitary operator $U':V\rightarrow V$ which extends $U$. That is, $U'\ket{w}=U\ket{w}$ for all $\ket{w} \in W$, but $U'$ is defined on the entire space $V$. Usually we omit the prime symbol ' and just write $U$ to denote the extension.
+
+    By assumption we have that $U$ is unitary on $W$ as $\braket{w_1|U^{\dagger}U|w_2}=\braket{w_1|w_2}$ and hence $U^{\dagger}U=I_W$. Hence, it has spectral decomposition:
+    \[
+    U=\sum_j \lambda_j \ket{j}\bra{j}
+    \]
+    where $\{\ket{j}\}$ is an orthonormal basis of the subspace $W$. Then, let $\{\ket{j}\} \cup \{\ket{i}\}$ be an orthonormal basis of the full space $V$. We then define:
+    \[
+    U^{\dagger}=\sum_j\lambda_j\ket{j}\bra{j}+\sum_i\ket{i}\bra{i}=U+\sum_i\ket{i}\bra{i}
+    \]
+    We an then see that for any $\ket{w}\in W$ that:
+    \[
+    U'\ket{w}=\left(U + \sum_i\ket{i}\bra{i}\right)=U\ket{w}+\sum_j\ket{i}\braket{i|w}=U\ket{w}
+    \]
+    where in the last line we use that $\braket{i|w}=0$ as $\ket{i}$ are not in the subspace $W$. Finally, verifying the unitarity of $U'$ we have that:
+    \begin{align*}
+        U'^{\dagger}U'&=\left(\sum_j \lambda_j^* \ket{j}\bra{j}+\sum_i\ket{i}\bra{i}\right)\left(\sum_{j'}\lambda_j \ket{j}\bra{j} + \sum_{i'} \ket{i}\bra{i}\right)\\
+        &=\sum_j\sum_{j'} \ket{j}\braket{j|j'}\bra{j'}+\sum_j\sum_{i'}\ket{j}\braket{j|i'}\bra{i'} + \sum_i\sum_{j'}\ket{i}\braket{i|j'}\bra{j'}+\sum_i\sum_{i'} \ket{i}\braket{i|i'}\bra{i'}\\
+        &=\sum_j\sum_{j'}\braket{j|j'}\delta_{jj'} + \sum_i\sum_{i'} \braket{i|i'}\delta_{ii'}\\
+        &=\sum_j \ket{j}\bra{j} + \sum_i \ket{i}\bra{i}\\
+        &=I
+    \end{align*}
+\end{example}
+
+

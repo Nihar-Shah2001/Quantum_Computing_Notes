@@ -1,0 +1,42 @@
+\documentclass[12pt, oneside]{book}
+\input{preamble}
+\begin{document}
+
+\frontmatter
+
+\input{frontmatter/titlepage}
+
+\input{frontmatter/acknowledgements}
+\input{frontmatter/preface}
+\tableofcontents
+
+% Start of the main content
+\mainmatter
+
+\include{chapters/01_introduction}
+\include{chapters/02_axioms_of_quantum_mechanics}
+\include{chapters/03_qubits_and_quantum_gates}
+\include{chapters/04_quantum_circuits}
+\include{chapters/05_entanglement}
+\include{chapters/06_elitzur_vaidman_bomb_detection}
+\include{chapters/07_deutsch_algorithm}
+\include{chapters/08_deutsch_jozsa_algorithm}
+\include{chapters/09_bernstein_vazirani_algorithm}
+\include{chapters/10_simon_algorithm}
+\include{chapters/11_discrete_log_problem}
+\include{chapters/12_quantum_fourier_transform}
+\include{chapters/13_phase_estimation}
+\include{chapters/14_order_finding}
+\include{chapters/15_shor_algorithm}
+\include{chapters/16_grover_search_algorithm}
+\input{drafts/part2_advanced}
+\appendix  % Start the appendices
+
+\include{appendices/A_linear_algebra_and_calculus}
+\include{appendices/B_classical_computations}
+\include{appendices/C_qiskit}
+\backmatter  % Use letter page numbering style (A, B, C, D...) for the post-content pages
+  % The references (bibliography) information are stored in the file named "references.bib"
+    \bibliographystyle{plain}
+    \bibliography{references}
+\end{document}

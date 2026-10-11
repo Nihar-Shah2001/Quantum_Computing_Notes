@@ -1,0 +1,10 @@
+Copyright (c) 2024-2026 Nihar Shah
+
+This repository is dual-licensed:
+
+  * The book (everything under book/, including its figures) is licensed under
+    the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International
+    License (CC BY-NC-SA 4.0). See LICENSE-TEXT.
+
+  * The code (everything under notebooks/ and research/) is licensed under the
+    MIT License. See LICENSE-CODE.

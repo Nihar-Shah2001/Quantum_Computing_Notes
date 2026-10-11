@@ -1,0 +1,41 @@
+name: Build book PDF
+
+on:
+  push:
+    branches: [main]
+    paths: ["book/**", ".github/workflows/build-pdf.yml"]
+    tags: ["v*"]
+  pull_request:
+    paths: ["book/**"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Compile LaTeX
+        uses: xu-cheng/latex-action@v3
+        with:
+          working_directory: book
+          root_file: main.tex
+
+      - name: Name the PDF
+        run: cp book/main.pdf introduction-to-quantum-computing.pdf
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: book-pdf
+          path: introduction-to-quantum-computing.pdf
+
+      - name: Attach PDF to release
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: introduction-to-quantum-computing.pdf
+          generate_release_notes: true
