@@ -329,13 +329,13 @@ In case of Classical Computation, the ``NAND" gate is a universal gate set. The 
  
 In case of Quantum Computations as shown in previous chapter, any Unitary operator on n qubits can be implemented using 1- and 2- qubit gates. Up till now, we've assumed that any 1- and 2-qubit gates are available but it turns out that assumption isn't actually necessary.
 
-In classical computing, you're probably familiar with logic gates like AND< OR, NOT, NAND, etc.. A (classical) gate set sis called universal if, by stringing together enough gates from the set, you can express any Boolean function on any number of bits. For example, the NAND gate by itself is universal. The diagram in figure \ref{} shows how you'd construct an OP gate out of NANDs. You can also work out how to construct an AND gate and a NOT gate, and from there you can get anything else. By contrast, the set $\{AND,OR\}$ is not universal, because it can only express monotone Boolean functions, that is, changing an input bit from 0 to 1 can never change an output bit from 1 to 0. Likewise, the set $\{NOT,XOR\}$ is not universal, because it can only express Boolean functions that are linear or affine mod 2. So, while ``most" gate sets are universal, being universal isn't completely automatic.
+In classical computing, you're probably familiar with logic gates like AND< OR, NOT, NAND, etc.. A (classical) gate set sis called universal if, by stringing together enough gates from the set, you can express any Boolean function on any number of bits. For example, the NAND gate by itself is universal. For instance, an OR gate can be built from three NAND gates: first NAND each input with itself to obtain $\lnot a$ and $\lnot b$, then NAND the results together, giving $\mathrm{NAND}(\lnot a, \lnot b) = a \lor b$. You can also work out how to construct an AND gate and a NOT gate, and from there you can get anything else. By contrast, the set $\{AND,OR\}$ is not universal, because it can only express monotone Boolean functions, that is, changing an input bit from 0 to 1 can never change an output bit from 1 to 0. Likewise, the set $\{NOT,XOR\}$ is not universal, because it can only express Boolean functions that are linear or affine mod 2. So, while ``most" gate sets are universal, being universal isn't completely automatic.
 
 Next, let's discuss classical reversible gates, reversible mappings from $n$-bit strings to $n$-bit strings. We call a set of reversible gates universal, if by composing enough of them you can express any reversible transformation on any number of bits. Here we allow the use of ``ancilla bits" (extra bits used as a resource to implement a particular gate), as long as the ancilla bits are returned to their initial states by the end of the computation. The use of ancilla bits is provably necessary for universality in this setting.
 
 The most famous example of a universal reversible gate - the reversible analogue of the NAND gate is called the Toffoli gate. The Toffoligate is also known as controlled-controlled-NOT, is a 3-bit gate that flips the third bit iff the first two bits are both set to 1.
 
-To show that Toffoli is capable of universal computation, we construct a NAND gate out of a Toffoli gate in the diagram in figure \ref{}. Because Toffoli can simulate NAND, it can also simulate any ordinary (non-reversible) Boolean circuit (given a sufficient number of ancillary bits).
+To show that Toffoli is capable of universal computation, we construct a NAND gate out of a Toffoli gate in the diagram in Figure~\ref{fig:NANDToff}. Because Toffoli can simulate NAND, it can also simulate any ordinary (non-reversible) Boolean circuit (given a sufficient number of ancillary bits).
 
 Note that this argument does not yet establish that Toffoli is a universal reversible gate in the sense we defined above, because for that we need to implement all possible reversible transformations, not just compute all Boolean functions. However, a more careful argument, part of which we'll give later, shows that Toffoli is universal in that stronger sense as well.
 
@@ -1367,3 +1367,5 @@ Note that because of technical difficult quantum gates, and measurements involve
 \end{theorem}
 
 
+
+\chapterreferences

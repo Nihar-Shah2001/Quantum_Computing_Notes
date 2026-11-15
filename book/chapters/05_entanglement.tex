@@ -548,7 +548,7 @@ Let's treat Alice;s output bit $a$ as a function of her input bits $x$ and Bob's
 \[
 a(x)+b(y)=xy \quad \text{(mod 2)}
 \]
-You can easily check by enumerating cases (as we do in Table \ref{}) that this equation can't possibly hold for al $4$ values of $x$ and $y$! At best it can hold for $3$ of the $4$ values of $x$ and $y$!, which is exactly what the trivial strategy above (always send back $0$) achieves.
+You can easily check by enumerating cases (using the winning conditions in Table~\ref{tab:chsh_win_lose}) that this equation can't possibly hold for al $4$ values of $x$ and $y$! At best it can hold for $3$ of the $4$ values of $x$ and $y$!, which is exactly what the trivial strategy above (always send back $0$) achieves.
 
 The Bell inequality, in this framework, is just slightly boring statement we proved above. Namely, tha the maximum classical win probability in the CHSH game is $75\%$. bell noticed an additional fact, though. If Alice and Bob have access to a pre-shared Bell pair, $\frac{\ket{00}+\ket{11}}{\sqrt{2}}$, then there's a better strategy. In that case, in fact their maximum probability is 
 \[
@@ -700,6 +700,8 @@ Here is the precise description of the CHSH game, where (as above) $x$ is Alice'
              $(1,1)$ & $a\neq b$ & $a=b$ \\
              \hline
         \end{tabular}
+        \caption{Winning and losing answers $(a,b)$ for each pair of questions $(x,y)$ in the CHSH game}
+        \label{tab:chsh_win_lose}
     \end{table}
 \end{enumerate}
 
@@ -980,3 +982,5 @@ plot_histogram(dist_00)
 \end{enumerate}
 
 
+
+\chapterreferences

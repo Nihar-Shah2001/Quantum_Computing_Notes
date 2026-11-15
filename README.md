@@ -1,4 +1,4 @@
-# Introduction to Quantum Computing
+# Foundations of Quantum Computing: Theory and Implementation
 
 A book that builds quantum computing up from first principles, from qubits and gates through
 Deutsch–Jozsa, Simon, the Quantum Fourier Transform, phase estimation, Shor's algorithm and
@@ -76,12 +76,12 @@ book/
   references.bib
 notebooks/            companion Qiskit notebooks, numbered by chapter
   extras/             alternate versions and helper notebooks
-research/             research notebooks (block encoding, QSP, variational methods)
 ```
 
 ## License
 
-- **Book text and figures** (`book/`): [CC BY-NC-SA 4.0](LICENSE-TEXT)
-- **Code** (`notebooks/`, `research/`): [MIT](LICENSE-CODE)
+- **Book text and figures** (`book/`): [CC BY-NC-SA 4.0](LICENSE-TEXT). Commercial use requires the author's
+  prior permission; please get in touch to request it.
+- **Code** (`notebooks/`): [MIT](LICENSE-CODE)
 
 © 2024–2026 Nihar Shah

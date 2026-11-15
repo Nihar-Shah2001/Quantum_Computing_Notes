@@ -12,6 +12,9 @@ build/
 *.synctex.gz
 *.toc
 *-NMS.log
+*-blx.bib
+*.bcf
+*.run.xml
 book/*.pdf
 
 # Python / Jupyter
@@ -19,6 +22,9 @@ book/*.pdf
 __pycache__/
 .venv/
 .conda/
+
+# Explainer videos: kept local until they are ready to publish
+videos/
 
 # OS / editor
 .DS_Store

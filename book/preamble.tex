@@ -1,6 +1,17 @@
 
 % Include necessary packages
-\usepackage[nottoc]{tocbibind}
+\usepackage[nottoc,notbib]{tocbibind}  % biblatex adds the bibliography to the ToC itself
+
+% References: biblatex keeps one reference segment per chapter, so each chapter
+% can print its own reference list while the end of the book prints all of them.
+% Numbering is global, so a source has the same number everywhere.
+% backend=bibtex: biber's macOS binary fails on this machine; BibTeX works the same here.
+\usepackage[backend=bibtex, style=numeric, sorting=none, refsegment=chapter, defernumbers=true]{biblatex}
+\addbibresource{references.bib}
+% Put \chapterreferences at the end of a chapter to list the sources cited in it.
+% A chapter with no citations prints nothing.
+\newcommand{\chapterreferences}{%
+  \printbibliography[segment=\therefsegment, heading=subbibliography, title={References}]}
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{amssymb}

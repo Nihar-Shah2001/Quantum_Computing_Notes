@@ -6,5 +6,11 @@ This repository is dual-licensed:
     the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International
     License (CC BY-NC-SA 4.0). See LICENSE-TEXT.
 
-  * The code (everything under notebooks/ and research/) is licensed under the
-    MIT License. See LICENSE-CODE.
+    Commercial use of the book is not permitted under this license. Permission
+    for a specific commercial use may be granted by the author on request;
+    please contact the author via
+    https://github.com/Nihar-Shah2001/Quantum_Computing_Notes before any
+    commercial use.
+
+  * The code (everything under notebooks/) is licensed under the MIT License.
+    See LICENSE-CODE.
